@@ -1,0 +1,1 @@
+cmd='/home/felipe/code/notes-up/vala/deps/discount/configure.sh;--src=/home/felipe/code/notes-up/vala/deps/discount;--prefix=/home/felipe/code/notes-up/vala/build;--libdir=/home/felipe/code/notes-up/vala/build;--with-fenced-code'
