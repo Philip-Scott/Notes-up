@@ -1,0 +1,36 @@
+Tast                Priority
+-------------------------------------
+UI                  1
+File Manager        1
+Editor              1
+Viewer              1
+
+Edit Notebooks      2
+Export to PDF       2
+Export to HTML      2
+
+Bookmarks           3
+Search              3
+
+
+Backend ----------------------------
+- Load Notebooks
+- Load Files
+- Save Notebooks
+- Save Files
+- Settings
+- Last State
+
+UI ----------------------------------
+- Main Window
+- Pages List
+- Pages Item
+- Notebook List
+- Notebook Item
+
+- New Notebook Dialog
+- Edit Notebook Dialog
+- Preferences Dialog
+
+
+

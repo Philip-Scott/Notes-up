@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Notes
+Comment=Lights On/Lights Off
+Exec=/home/felipe/code/notes-up/vala/Main
+Icon=/home/felipe/code/notes-up/vala/data/enotes.svg
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=Office
