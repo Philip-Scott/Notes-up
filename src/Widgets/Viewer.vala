@@ -3,6 +3,7 @@ public class ENotes.Viewer : WebKit.WebView {
     private const string postCSS = "</style> </head>";
     private const string post = "</body></html>";
 
+    private bool list_state = true;
     private bool bold_state = true;
     private bool italics_state = true;
     private bool code_state = true;
@@ -23,9 +24,6 @@ public class ENotes.Viewer : WebKit.WebView {
 
         string final = "";
         foreach (string line in lines) {
-            while (line.contains ("  ")) { //Line cleanup
-                line = line.replace ("  ", " ");
-            }
 
             while (line.contains ("----")) { //Line cleanup
                 line = line.replace ("----", "---");
@@ -34,17 +32,13 @@ public class ENotes.Viewer : WebKit.WebView {
             if (line.contains ("	")) {
                 line = line.replace ("	", "&nbsp;&nbsp;&nbsp;&nbsp;");
             }
-            
-            if (line.contains ("```")) {
-                line = apply_code (line);
-                if (code_state) {
 
-                    line = line + "<br>";
-                }
+            if (line.contains ("```")) {
+                line = replace (line, "```", "<code>", "</code>", ref code_state);//apply_code (line);
             }
 
             if (line == "") {
-                line = line + "<br><br>\n";
+                line = line + "<br>\n";
 
             } else if (line[0:6] == ("######")) {
                 builder.assign (line);
@@ -77,51 +71,62 @@ public class ENotes.Viewer : WebKit.WebView {
                 line = "<h1>" + builder.str + "</h1\n>";
 
             } else if (line[0:3] == ("---")) {
-                builder.assign (line);
-                builder.erase (0,3);
-                line = "<hr>";
-
+                bool hrline = true; 
+                line = replace (line, "---", "<hr>", "<hr>", ref hrline);
+                
+/*            } else if (line.contains("- ")) {
+                line = "<li>" + line.replace ("- ", "") + "</li>";
+                
+                if (list_state) {
+                    line = "<ul>" + line;
+                    list_state = false;
+                }
+                
+            } else if (!list_state) {            
+                line = "</ul>" + line;
+*/
             } else {
-                //line = "<p>" + line + "</p>";
-            }
-
-            if (line.contains ("**")) {
-                line = apply_bold (line);  //word <b> word </b> word
-            }
-
-            if (line.contains ("_")) {
-                line = apply_italics (line); //word <i> word </i> word
-            }
-
-            if (!code_state) {
                 line = line + "<br>";
             }
 
+            if (line.contains ("**")) {
+                line = replace (line, "**", "<b>", "</b>", ref bold_state);
+            }
 
+            if (line.contains ("_")) {
+                line = replace (line, "_", "<i>", "</i>", ref italics_state);
+            }
 
-            final = final + line + "\n";
+            if (!code_state) {
+                //line = line + "<br>";
+            }
+
+            final = final + line;
         }
 
         bold_state = true;
         italics_state = true;
         code_state = true;
-        return final;
+        return final;// + "<br>";
     }
 
-    private string apply_code (string line_) {
+    private string replace (string line_, string looking_for, string opening, string closing, ref bool type_state) {
         int chars = line_.length;
-        string line = line_ + "    ";
+        int replace_size = looking_for.length;
+        string line = line_ + "     ";
+        
         StringBuilder final = new StringBuilder ();
         for (int i = 0; i < chars; i++) {
-            if (line[i:i + 3] == "```") {
-                if (code_state) {
-                    code_state = false;
-                    final.append ("<code>");
+            if (line[i:i + replace_size] == looking_for) {
+                if (type_state) {
+                    type_state = false;
+                    final.append (opening);
                 } else {
-                    code_state = true;
-                    final.append ("</code>");
+                    type_state = true;
+                    final.append (closing);
                 }
-                i = i + 3;
+                i = i + replace_size - 1;
+                
             }  else {
                 final.append (line[i:i+1]);
             }
@@ -130,50 +135,6 @@ public class ENotes.Viewer : WebKit.WebView {
         return final.str;
     }
 
-    private string apply_italics (string line_) {
-        int chars = line_.length;
-        string line = line_ + "   ";
-        StringBuilder final = new StringBuilder ();
-        for (int i = 0; i < chars; i++) {
-            if (line[i:i + 1] == "_") {  // rrr ** ffffa ** fdfd
-                if (italics_state) {
-                    italics_state = false;
-                    final.append ("<i>");
-                } else {
-                    italics_state = true;
-                    final.append ("</i>");
-                }
-
-            }  else {
-                final.append (line[i:i+1]);
-            }
-        }
-
-        return final.str;
-    }
-
-    private string apply_bold (string line_) {
-        int chars = line_.length;
-        string line = line_ + "   ";
-        StringBuilder final = new StringBuilder ();
-        for (int i = 0; i < chars; i++) {
-            if (line[i:i + 2] == "**") {  // rrr ** ffffa ** fdfd
-                if (bold_state) {
-                    bold_state = false;
-                    final.append ("<b>");
-                } else {
-                    bold_state = true;
-                    final.append ("</b>");
-                }
-                i++;
-            }  else {
-                final.append (line[i:i+1]);
-            }
-        }
-
-
-        return final.str;
-    }
 
 private const string CSS = """
 html,
@@ -329,7 +290,4 @@ hr{
     background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.5), rgba(0,0,0,0));
 
     border: 0;
-}""";
-
-
-}
+}""";}

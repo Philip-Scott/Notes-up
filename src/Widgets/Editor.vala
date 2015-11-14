@@ -5,31 +5,31 @@ public class ENotes.Editor : Gtk.ScrolledWindow {
     private bool edited = false;
 
     public Editor () {
-        set_size_request (250,50);
-        expand = true;
-        setup_code_view ();
+        build_ui ();
         reset ();
         set_scheme ("tango");
-        
+
+		
         //editor.code_view.activate.connect (() => {});
     }
 
-    public void load_file (string file_path, string file_name) {
+    public void load_file (string file_path, string file_name, bool save_state = false) {
+		stderr.printf ("LOADINF FILE: %s %s\n",file_path, file_name);
         save_file ();
         if (file_name == "New Page") {
             headerbar.set_mode ("edit");
-            
-        } 
-        code_buffer.text = file_manager.load_file (file_path, file_name);     
+        }
+                
         edited = false;
+        code_buffer.text = file_manager.load_file (file_path, file_name);
         viewer.load_string (this.get_text ());
     }
 
     public void save_file () {
-        if (edited == false) return;
-        file_manager.save_file ();
+        if (edited) {
+            file_manager.save_file ();
+        }
     }
-
     public void set_text (string text, bool new_file = false) {
         if (new_file) {
             code_buffer.changed.disconnect (trigger_changed);
@@ -43,7 +43,10 @@ public class ENotes.Editor : Gtk.ScrolledWindow {
     }
 
     public void reset (bool disable_save = false) {
-        if (disable_save) edited = false;
+        if (disable_save) {
+            edited = false;
+        }
+        
         code_buffer.text = "";
     }
 
@@ -79,13 +82,16 @@ public class ENotes.Editor : Gtk.ScrolledWindow {
         edited = true;
     }
 
-    private void setup_code_view () {
+    private void build_ui () {
         var manager = Gtk.SourceLanguageManager.get_default ();
         var language = manager.guess_language (null, "text/x-markdown");
         code_buffer = new Gtk.SourceBuffer.with_language (language);
         code_buffer.set_max_undo_levels (100);
 
         code_view = new Gtk.SourceView.with_buffer (code_buffer);
+
+        set_size_request (250,50);
+        expand = true;
 
         code_buffer.changed.connect (trigger_changed);
 
@@ -98,4 +104,4 @@ public class ENotes.Editor : Gtk.ScrolledWindow {
 
         add (code_view);
     }
-} 
+}

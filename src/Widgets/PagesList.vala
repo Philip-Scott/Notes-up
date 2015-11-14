@@ -2,6 +2,7 @@ public class ENotes.PagesList : Gtk.Box {
     private Gtk.ListBox listbox;
     private Gtk.Box toolbar;
 
+    private Gtk.Separator separator;
     private Gtk.Button minus_button;
     private Gtk.Button plus_button;
     private Gtk.Label notebook_name;
@@ -37,11 +38,15 @@ public class ENotes.PagesList : Gtk.Box {
         minus_button = new Gtk.Button.with_label ("-");
         notebook_name = new Gtk.Label ("");
         page_total = new Gtk.Label ("");
+        separator = new Gtk.Separator (Gtk.Orientation.VERTICAL);
+
+        minus_button.get_style_context ().add_class ("flat");
 
         notebook_name.halign = Gtk.Align.START;
         page_total.halign = Gtk.Align.END;
         minus_button.halign = Gtk.Align.END;
         minus_button.visible = false;
+        separator.visible = false;
         page_total.hexpand = true;
         minus_button.can_focus = false;
         plus_button.can_focus = false;
@@ -49,9 +54,9 @@ public class ENotes.PagesList : Gtk.Box {
         notebook_name.margin = 4;
         page_total.margin = 4;
 
-        //box.add (plus_button);
         box.add (notebook_name);
         box.add (page_total);
+        box.add (separator);
         box.add (minus_button);
         box.set_sensitive (false);
         return box;
@@ -71,6 +76,7 @@ public class ENotes.PagesList : Gtk.Box {
 
     public void load_pages (string notebook_name) {
         stderr.printf ("Notebook %s requested\n", notebook_name);
+        settings.last_folder = notebook_name;
         clear_pages ();
         current_notebook = file_manager.load_notebook (notebook_name);
 
@@ -79,7 +85,7 @@ public class ENotes.PagesList : Gtk.Box {
         }
 
         new_page ("New Page", current_notebook.path);
-        
+
         toolbar.set_sensitive (true);
         page_total.label = @"$(current_notebook.page.length ()) Pages";
         this.notebook_name.label = current_notebook.name.split ("§")[0] + ":";
@@ -100,13 +106,14 @@ public class ENotes.PagesList : Gtk.Box {
         return page;
     }
 
+	public void request_page (string file_path, string file_name) {
+        editor.load_file (file_path, file_name);
+	}
+
     private void connect_signals () {
         headerbar.mode_changed.connect ((edit) => {
-            if (edit) {
-                minus_button.visible = true;
-            } else {
-                minus_button.visible = false;
-            }
+            minus_button.visible = edit;
+            separator.visible = edit;
         });
 
         plus_button.clicked.connect (() => {
@@ -123,8 +130,8 @@ public class ENotes.PagesList : Gtk.Box {
             refresh ();
         });
 
-        listbox.row_selected.connect ((row) => {
-            ((ENotes.PageItem) row).request_page ();
+        listbox.row_selected.connect ((row) => {  
+            request_page (((ENotes.PageItem) row).file_path, ((ENotes.PageItem) row).file_name);
         });
     }
 }

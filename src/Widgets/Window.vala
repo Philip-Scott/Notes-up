@@ -1,21 +1,51 @@
 public class ENotes.Window : Gtk.ApplicationWindow {
-
+    
     private Gtk.Paned pane1;
     private Gtk.Paned pane2;
 
     protected override bool delete_event (Gdk.EventAny event) {
-	    editor.save_file ();
-
+	    int width;
+	    int height;
+	    int x;
+		int y;
+		
+		editor.save_file ();
+		get_size (out width, out height);
+		get_position (out x, out y);
+		
+		settings.pos_x = x;
+		settings.pos_y = y;
+		settings.panel_size = pane1.position;
+		settings.window_width = width;
+		settings.window_height = height;
+		settings.mode = headerbar.get_mode ();
+		
 		this.destroy ();
 		return true;
+	}
+
+	private void load_settings () {
+		string notebook = settings.last_folder;
+		
+		resize (settings.window_width, settings.window_height);		
+		
+		pane1.position = settings.panel_size;
+		pages_list.load_pages (notebook);
+		headerbar.set_app_mode (settings.mode);
+		
+		string path = settings.page_path;
+		string name = settings.page_name;
+		
+		if (path != "" && name != "")
+			editor.load_file (path, name, true);
 	}
 
     public Window (Gtk.Application app) {
 		Object (application: app);
 
 	    build_ui ();
-        connect_signals ();
-        load_state ();
+        connect_signals ();       
+        load_settings ();
     }
 
     private void build_ui () {
@@ -41,9 +71,10 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         pane1.pack1 (pages_list, false, false);
         pane1.pack2 (view_edit_stack, true, false);
 
-        this.add (main_box);
-        this.show_all ();
-        this.resize (1000,700);
+
+		this.move (settings.pos_x, settings.pos_y);
+        this.add (main_box); 
+		this.show_all ();       
     }
 
     private void connect_signals () {
@@ -56,8 +87,6 @@ public class ENotes.Window : Gtk.ApplicationWindow {
                 view_edit_stack.set_visible_child_name ("viewer");
                 sidebar.set_reveal_child (true);
                 viewer.load_string (editor.get_text ());
-
-                //sidebar.visible = true;
             }
         });
     }
@@ -69,8 +98,4 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 
     	set_focus (editor);
 	}
-
-    private void load_state () {
-        headerbar.set_mode ("edit");
-    }
 }

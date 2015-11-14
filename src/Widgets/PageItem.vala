@@ -1,6 +1,6 @@
 public class ENotes.PageItem : Gtk.ListBoxRow {
-    private string file_path;
-    private string file_name;
+    public string file_path { public get; private set; }
+    public string file_name { public get; private set; }
     private Gtk.Grid grid;
     private Gtk.Label name;
     private Gtk.Label line2;
@@ -40,10 +40,7 @@ public class ENotes.PageItem : Gtk.ListBoxRow {
         return to_cut;
     }
 
-    public void request_page () {
-        stderr.printf ("Page_Requested\n");//
-        editor.load_file (this.file_path, file_name);
-    }
+    
 
     public void trash_page () {
         try {
@@ -58,7 +55,6 @@ public class ENotes.PageItem : Gtk.ListBoxRow {
     private void connect_signals () {
         this.activate.connect (() => {
             stderr.printf ("Activate\n");//
-
         });
     }
 

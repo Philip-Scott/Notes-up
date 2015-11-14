@@ -2,7 +2,7 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
 	private Gtk.Entry name_entry;
 	private Gtk.ColorButton color_button;
 	private Gtk.Button create;
-	
+
     public NotebookDialog () {
         build_ui ();
         connect_signals ();
@@ -24,29 +24,28 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
 		title.halign 		= Gtk.Align.START;
 		name_label.halign 	= Gtk.Align.START;
 		color_label.halign 	= Gtk.Align.START;
-		
+
 		name_entry = new Gtk.Entry ();
 		color_button = new Gtk.ColorButton ();
-					
+
 		this.add_button ("Cancel", 2);
 		create = (Gtk.Button) this.add_button ("Create", 1);
 		create.sensitive = false;
-		
+
 		var grid = new Gtk.Grid ();
 		grid.attach (title,			0,  0,  1,  1);
 		grid.attach (name_label, 	0,	1, 	1,	1);
 		grid.attach (name_entry,  	1,	1, 	1,	1);
 		grid.attach (color_label, 	0,	2, 	1,	1);
 		grid.attach (color_button, 	1,	2, 	1,	1);
-		
+
 		grid.set_column_homogeneous (false);
 		grid.set_row_homogeneous (true);
 		grid.row_spacing = 12;
 
 		main_box.add (grid);
-        
     }
-    
+
     private void connect_signals () {
     	response.connect ((ID) => {
     		switch (ID) {
@@ -60,22 +59,17 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
     				this.close ();
     				break;
     			case 2: // Cancel
-    			
-    			
-    				break;	
+					this.close ();
+    				break;
     		}
     	});
-    	
+
     	name_entry.notify["text"].connect (() => {
     		if (name_entry.text == "") {
     			create.sensitive = false;
     		} else {
     			create.sensitive = true;
     		}
-	    	
     	});
-    
     }
-    
-    
 }

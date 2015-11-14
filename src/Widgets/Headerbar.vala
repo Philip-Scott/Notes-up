@@ -5,6 +5,7 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
     private Granite.Widgets.AppMenu menu_button;
     private Gtk.MenuItem item_new;
     private Gtk.MenuItem item_preff;
+    private Gtk.MenuItem item_export;
     private Gtk.MenuItem item_about;
 
     public Headerbar () {
@@ -21,8 +22,10 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         var menu = new Gtk.Menu ();
  		item_new   = new Gtk.MenuItem.with_label ("New Notebook");
  		item_preff = new Gtk.MenuItem.with_label ("Preferences");
+ 		item_export = new Gtk.MenuItem.with_label ("Export Page");
  		item_about = new Gtk.MenuItem.with_label ("About");
  		menu.add (item_new);
+ 		menu.add (item_export);
         menu.add (item_preff);
         menu.add (item_about);
          		
@@ -36,7 +39,11 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
     public int get_mode () {
         return mode_button.selected;
     }
-    
+        
+    public void set_app_mode (int mode) {
+    	mode_button.set_active (mode);
+    }    
+        
     public void set_mode (string mode) {
         switch (mode) {
             case "edit": 
@@ -47,6 +54,10 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
     }
     
     private void connect_signals () {
+    	item_export.activate.connect (() => {
+            file_manager.export_pdf_action ();
+        });    
+    
         item_new.activate.connect (() => {
             var dialog = new NotebookDialog ();
             dialog.run ();

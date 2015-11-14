@@ -1,4 +1,6 @@
 
+
+
 public class ENotes.Notebook : Object {
     public string name;
     public string path;             // /home/..../notes/Notebook_Name/
@@ -47,6 +49,11 @@ public class ENotes.FileManager : Object {
     }
 
     public string load_file (string file_path, string file_name) {
+    	//if (save_state) {
+        if (file_path != "") settings.page_path = file_path;
+	    if (file_name != "") settings.page_name = file_name;
+	    //}
+    
         stderr.printf ("Requesting file: %s%s", file_path, file_name);
         current_page = file_name;
         this.file_path = file_path;
@@ -97,7 +104,7 @@ public class ENotes.FileManager : Object {
     }
 
   
-  /*  private void export_pdf_action () {
+    public void export_pdf_action () {
         var file = get_file_from_user ();
 
         try { // TODO: we have to write an empty file so we can get file path
@@ -109,14 +116,15 @@ public class ENotes.FileManager : Object {
 
         var op = new WebKit.PrintOperation (viewer);
         var settings = new Gtk.PrintSettings ();
-        settings.set_printer (dgettext ("gtk30", "Print to File"));
+        settings.set_printer ("Print to File");
+        
         settings[Gtk.PRINT_SETTINGS_OUTPUT_URI] = "file://" + file.get_path ();
         op.set_print_settings (settings);
 
         op.print ();
-    }*/
+    }
 
-   /* public static void write_file (File file, string contents) throws Error {
+    public void write_file (File file, string contents) throws Error {
         create_file_if_not_exists (file);
 
         file.open_readwrite_async.begin (Priority.DEFAULT, null, (obj, res) => {
@@ -129,7 +137,7 @@ public class ENotes.FileManager : Object {
             }
         });
     }
-    public static void create_file_if_not_exists (File file) throws Error{
+    public void create_file_if_not_exists (File file) throws Error{
         if (!file.query_exists ()) {
             try {
                 file.create (FileCreateFlags.REPLACE_DESTINATION);
@@ -137,65 +145,60 @@ public class ENotes.FileManager : Object {
                 throw new Error (Quark.from_string (""), -1, "Could not write file: %s", e.message);
             }
         }
-    }*/
+    }
     
-    /*private File? get_file_from_user () {
-            File? result = null;
+    private File? get_file_from_user () {
+        File? result = null;
     
-            string title = "";
-            Gtk.FileChooserAction chooser_action = Gtk.FileChooserAction.SAVE;
-            string accept_button_label = "";
-            List<Gtk.FileFilter> filters = new List<Gtk.FileFilter> ();
+        string title = "";
+        Gtk.FileChooserAction chooser_action = Gtk.FileChooserAction.SAVE;
+        string accept_button_label = "";
+        List<Gtk.FileFilter> filters = new List<Gtk.FileFilter> ();
     
             
-                title =  _("Select destination PDF file");
-                chooser_action = Gtk.FileChooserAction.SAVE;
-                accept_button_label = _("Save");
+        title =  ("Select destination PDF file");
+        chooser_action = Gtk.FileChooserAction.SAVE;
+        accept_button_label = ("Save");
     
-                var pdf_filter = new Gtk.FileFilter ();
-                pdf_filter.set_filter_name ("PDF File");
+        var pdf_filter = new Gtk.FileFilter ();
+        pdf_filter.set_filter_name ("PDF File");
     
-                pdf_filter.add_mime_type ("application/pdf");
-                pdf_filter.add_pattern ("*.pdf");
+        pdf_filter.add_mime_type ("application/pdf");
+        pdf_filter.add_pattern ("*.pdf");
     
-                filters.append (pdf_filter);
+        filters.append (pdf_filter);
                 
+    	var all_filter = new Gtk.FileFilter ();
+        all_filter.set_filter_name ("All Files");
+        all_filter.add_pattern ("*");
     
-            
+        filters.append (all_filter);
     
-            var all_filter = new Gtk.FileFilter ();
-            all_filter.set_filter_name ("All Files");
-            all_filter.add_pattern ("*");
-    
-            filters.append (all_filter);
-    
-            var dialog = new Gtk.FileChooserDialog (
-                title,
-                window,
-                chooser_action,
-                ("Cancel"), Gtk.ResponseType.CANCEL,
-                accept_button_label, Gtk.ResponseType.ACCEPT);
+        var dialog = new Gtk.FileChooserDialog (
+            title,
+            window,
+            chooser_action,
+            ("Cancel"), Gtk.ResponseType.CANCEL,
+            accept_button_label, Gtk.ResponseType.ACCEPT);
     
     
-            filters.@foreach ((filter) => {
-                dialog.add_filter (filter);
-            });
+        filters.@foreach ((filter) => {
+            dialog.add_filter (filter);
+        });
     
-            if (dialog.run () == Gtk.ResponseType.ACCEPT) {
-                result = dialog.get_file ();
-            }
+        if (dialog.run () == Gtk.ResponseType.ACCEPT) {
+            result = dialog.get_file ();
+        }
     
-            dialog.close ();
+        dialog.close ();
     
-            return result;
-        } */
+        return result;
+    }
     
     private string make_filename () {
         string file_name = editor.get_text ().split ("\n", 2)[0];
         file_name = file_name.replace ("#", "").replace ("\n", "");
 
-
         return file_name;
     }
-
 }

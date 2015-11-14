@@ -35,8 +35,6 @@ public class ENotes.Sidebar : Gtk.Revealer {
         grid.add (separator);
         this.add (grid);
     }
-
-    //NotebookName§Color
     
     private void clear_pages () {
         var childerns = notebook_grid.get_children ();
@@ -45,7 +43,7 @@ public class ENotes.Sidebar : Gtk.Revealer {
             notebook_grid.remove (child);
         }
     }
-    
+    //NotebookName§Color
     public void load_notebooks () {
         clear_pages ();
         try {

@@ -26,6 +26,7 @@ public class ENotes.NotebookItem : Gtk.Button {
         r = double.parse (split[1]);
         g = double.parse (split[2]);
         b = double.parse (split[3]);
+        
         if (color == null) color = "cccccc";
     }
 
@@ -56,17 +57,13 @@ public class ENotes.NotebookItem : Gtk.Button {
         cr.set_line_width (1);
         cr.set_source_rgb (r, g, b);
         cr.stroke ();
+        
         return surface.load_to_pixbuf ();
-    }
-
-    public void load () {
-        stdout.printf ("Loading pages of %s\n", notebook_name);
-        pages_list.load_pages (this.notebook_dir);
     }
 
     private void connect_signals () {
         this.clicked.connect (() => {
-            this.load ();
+            pages_list.load_pages (this.notebook_dir);
         });
     }
 }
