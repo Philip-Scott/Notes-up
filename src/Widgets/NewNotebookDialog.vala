@@ -2,10 +2,17 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
 	private Gtk.Entry name_entry;
 	private Gtk.ColorButton color_button;
 	private Gtk.Button create;
+    private Notebook? notebook;
 
-    public NotebookDialog () {
+    public NotebookDialog (Notebook? notebook = null) {
+        this.notebook = notebook;
         build_ui ();
         connect_signals ();
+
+        if (notebook != null) {
+            load_data ();
+        }
+
         this.show_all ();
     }
 
@@ -17,7 +24,7 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
         modal = true;
 
         var main_box 		= this.get_content_area();
-		var title 			= new Gtk.Label ("<b>New Notebook</b>");
+		var title 			= new Gtk.Label ("<b>%s</b>".printf (_("New Notebook")));
 		var name_label 		= new Gtk.Label ("Name:");
 		var color_label	    = new Gtk.Label ("Color:");
 		title.set_use_markup (true);
@@ -26,11 +33,26 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
 		color_label.halign 	= Gtk.Align.START;
 
 		name_entry = new Gtk.Entry ();
-		color_button = new Gtk.ColorButton ();
+		add_button ("Cancel", 2);
 
-		this.add_button ("Cancel", 2);
-		create = (Gtk.Button) this.add_button ("Create", 1);
-		create.sensitive = false;
+		if (notebook != null) {
+            title.set_label ("<b>%s</b>".printf (_("Edit Notebook")));
+
+		    Gdk.RGBA color = Gdk.RGBA ();
+		    color.red = notebook.r;
+		    color.green = notebook.g;
+		    color.blue = notebook.b;
+            color.alpha = 1;
+
+		    color_button = new Gtk.ColorButton.with_rgba (color);
+		    create = (Gtk.Button) this.add_button ("Edit", 1);
+		} else {
+		    color_button = new Gtk.ColorButton ();
+		    create = (Gtk.Button) this.add_button ("Create", 1);
+		    create.sensitive = false;
+		}
+
+
 
 		var grid = new Gtk.Grid ();
 		grid.attach (title,			0,  0,  1,  1);
@@ -46,15 +68,24 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
 		main_box.add (grid);
     }
 
+    private void load_data () {
+        name_entry.text = notebook.name;
+    }
+
     private void connect_signals () {
     	response.connect ((ID) => {
     		switch (ID) {
     			case 1: // Create Notebook
-    			    //stderr.printf ("%f %f %f", color_button.rgba.red, color_button.rgba.green, color_button.rgba.blue );
-    			    var r = color_button.rgba.red; var g = color_button.rgba.green; var b = color_button.rgba.blue;
-    				var command = new Granite.Services.SimpleCommand ("/bin", @"mkdir $(NOTES_DIR)/$(name_entry.text)§%.4f§%.4f§%.4f".printf (r,g,b));
-    				stderr.printf(@"mkdir $(NOTES_DIR)/$(name_entry.text)§%.4f§%.4f§%.4f".printf (r,g,b));
-    				command.run ();
+                    if (notebook == null) {
+                        var r = color_button.rgba.red; var g = color_button.rgba.green; var b = color_button.rgba.blue;
+                        FileManager.create_notebook (name_entry.text, r, g, b);
+                    } else {
+                        notebook.r = color_button.rgba.red;
+                        notebook.g = color_button.rgba.green;
+                        notebook.b = color_button.rgba.blue;
+
+                        notebook.rename (name_entry.text);
+                    }
     				sidebar.load_notebooks ();
     				this.close ();
     				break;

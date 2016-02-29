@@ -1,0 +1,82 @@
+<schemalist>
+  <schema id="org.notes" path="/org/notes/" gettext-domain="notes">
+
+    <key name="pos-x" type="i">
+		<default>920</default>
+		<summary>The saved width of the window.</summary>
+		<description>The saved width of the window. Must be greater than 700, or it will not take effect.</description>
+	</key>
+
+	<key name="pos-y" type="i">
+		<default>920</default>
+		<summary>The saved width of the window.</summary>
+		<description>The saved width of the window. Must be greater than 700, or it will not take effect.</description>
+	</key>
+
+    <key name="window-width" type="i">
+		<default>1100</default>
+		<summary>The saved width of the window.</summary>
+		<description>The saved width of the window. Must be greater than 700, or it will not take effect.</description>
+	</key>
+
+	<key name="window-height" type="i">
+		<default>640</default>
+		<summary>The saved height of the window.</summary>
+		<description>The saved height of the window. Must be greater than 400, or it will not take effect.</description>
+	</key>
+
+    <key name="panel-size" type="i">
+		<default>80</default>
+		<summary>The saved width of the pages panel.</summary>
+		<description>The saved height of the window. Must be greater than 400, or it will not take effect.</description>
+	</key>
+
+    <key name="mode" type="i">
+		<default>0</default>
+		<summary>The last used mode</summary>
+		<description></description>
+	</key>
+
+    <key name="last-folder" type="s">
+		<default>""</default>
+		<summary>The last folder used</summary>
+		<description>The saved height of the window. Must be greater than 400, or it will not take effect.</description>
+	</key>
+
+    <key name="page-path" type="s">
+		<default>""</default>
+		<summary></summary>
+		<description></description>
+	</key>
+
+    <key name="page-name" type="s">
+		<default>""</default>
+		<summary>last page opened</summary>
+		<description></description>
+	</key>
+
+    <key name="notes-location" type="s">
+		<default>""</default>
+		<summary>full location of your notes folder</summary>
+		<description></description>
+	</key>
+
+    <key name="editor-font" type="s">
+    	<default>"Open Sans 10"</default>
+    	<summary>Editor font</summary>
+      	<description>The editor's font family and size</description>
+    </key>
+
+    <key name="editor-scheme" type="s">
+      	<default>"tango"</default>
+      	<summary>Editor scheme</summary>
+      	<description>The editor's color scheme</description>
+    </key>
+
+    <key name="render-stylesheet" type="s">
+      	<default>""</default>
+      	<summary>Stylesheet data for renderer to use</summary>
+      	<description>This data is the actuall CSS the renderer will use</description>
+    </key>
+  </schema>
+</schemalist>

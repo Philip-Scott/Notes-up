@@ -1,142 +1,95 @@
 public class ENotes.Viewer : WebKit.WebView {
-    private const string pre = "<!DOCTYPE html><html> <head> <style>";
-    private const string postCSS = "</style> </head>";
-    private const string post = "</body></html>";
-
-    private bool list_state = true;
-    private bool bold_state = true;
-    private bool italics_state = true;
-    private bool code_state = true;
+    public string CSS;
 
     public Viewer () {
+        load_css ();
+        can_focus = false;
+    }
 
+    public void load_css () {
+        CSS = ENotes.settings.render_stylesheet;
+        if (CSS == "") {
+            CSS = DEFAULT_CSS;
+        }
     }
 
     public void load_string (string page_content) {
         if (headerbar.get_mode () == 1) return;
 
-        load_html (pre + CSS + postCSS + convert(page_content) + post, null);
+        string html;
+        process_frontmatter (page_content, out html);
+        load_html (process (html), null);
     }
 
-    private string convert (string raw_content) {
-        var lines = raw_content.split ("\n", -1);
-        StringBuilder builder = new StringBuilder ();
+    private string[] process_frontmatter (string raw_mk, out string processed_mk) {
+        string[] map = {};
 
-        string final = "";
-        foreach (string line in lines) {
+        processed_mk = null;
 
-            while (line.contains ("----")) { //Line cleanup
-                line = line.replace ("----", "---");
-            }
-
-            if (line.contains ("	")) {
-                line = line.replace ("	", "&nbsp;&nbsp;&nbsp;&nbsp;");
-            }
-
-            if (line.contains ("```")) {
-                line = replace (line, "```", "<code>", "</code>", ref code_state);//apply_code (line);
-            }
-
-            if (line == "") {
-                line = line + "<br>\n";
-
-            } else if (line[0:6] == ("######")) {
-                builder.assign (line);
-                builder.erase (0,6);
-                line = "<h6>" + builder.str + "</h6\n>";
-
-            } else if (line[0:5] == ("#####")) {
-                builder.assign (line);
-                builder.erase (0,5);
-                line = "<h5>" + builder.str + "</h5\n>";
-
-            } else if (line[0:4] == ("####")) {
-                builder.assign (line);
-                builder.erase (0,4);
-                line = "<h4>" + builder.str + "</h4\n>";
-
-            } else if (line[0:3] == ("###")) {
-                builder.assign (line);
-                builder.erase (0,3);
-                line = "<h3>" + builder.str + "</h3\n>";
-
-            } else if (line[0:2] == ("##")) {
-                builder.assign (line);
-                builder.erase (0,2);
-                line = "<h2>" + builder.str + "</h2\n>";
-
-            } else if (line[0:1] == ("#")) {
-                builder.assign (line);
-                builder.erase (0,1);
-                line = "<h1>" + builder.str + "</h1\n>";
-
-            } else if (line[0:3] == ("---")) {
-                bool hrline = true; 
-                line = replace (line, "---", "<hr>", "<hr>", ref hrline);
-                
-/*            } else if (line.contains("- ")) {
-                line = "<li>" + line.replace ("- ", "") + "</li>";
-                
-                if (list_state) {
-                    line = "<ul>" + line;
-                    list_state = false;
+        // Parse frontmatter
+        if (raw_mk.length > 4 && raw_mk[0:4] == "---\n") {
+            int i = 0;
+            bool valid_frontmatter = true;
+            int last_newline = 3;
+            int next_newline;
+            string line = "";
+            while (true) {
+                next_newline = raw_mk.index_of_char('\n', last_newline + 1);
+                if (next_newline == -1) { // End of file
+                    valid_frontmatter = false;
+                    break;
                 }
-                
-            } else if (!list_state) {            
-                line = "</ul>" + line;
-*/
-            } else {
-                line = line + "<br>";
-            }
+                line = raw_mk[last_newline+1:next_newline];
+                last_newline = next_newline;
 
-            if (line.contains ("**")) {
-                line = replace (line, "**", "<b>", "</b>", ref bold_state);
-            }
-
-            if (line.contains ("_")) {
-                line = replace (line, "_", "<i>", "</i>", ref italics_state);
-            }
-
-            if (!code_state) {
-                //line = line + "<br>";
-            }
-
-            final = final + line;
-        }
-
-        bold_state = true;
-        italics_state = true;
-        code_state = true;
-        return final;// + "<br>";
-    }
-
-    private string replace (string line_, string looking_for, string opening, string closing, ref bool type_state) {
-        int chars = line_.length;
-        int replace_size = looking_for.length;
-        string line = line_ + "     ";
-        
-        StringBuilder final = new StringBuilder ();
-        for (int i = 0; i < chars; i++) {
-            if (line[i:i + replace_size] == looking_for) {
-                if (type_state) {
-                    type_state = false;
-                    final.append (opening);
-                } else {
-                    type_state = true;
-                    final.append (closing);
+                if (line == "---") { // End of frontmatter
+                    break;
                 }
-                i = i + replace_size - 1;
-                
-            }  else {
-                final.append (line[i:i+1]);
+
+                var sep_index = line.index_of_char(':');
+                if (sep_index != -1) {
+                    map += line[0:sep_index-1];
+                    map += line[sep_index+1:line.length];
+                } else { // No colon, invalid frontmatter
+                    valid_frontmatter = false;
+                    break;
+                }
+
+                i++;
+            }
+
+            if (valid_frontmatter) { // Strip frontmatter if it's a valid one
+                processed_mk = raw_mk[last_newline:raw_mk.length];
             }
         }
 
-        return final.str;
+        if (processed_mk == null) {
+            processed_mk = raw_mk;
+        }
+
+        return map;
     }
 
+    private string process (string raw_mk) {
+        string processed_mk;
+        process_frontmatter (raw_mk, out processed_mk);
 
-private const string CSS = """
+        var mkd = new Markdown.Document (processed_mk.data);
+        mkd.compile ();
+
+        string result;
+        mkd.get_document (out result);
+
+        string html = "<html><head>";
+        html += "<style>"+ CSS +"</style>";
+        html += "</head><body><div class=\"markdown-body\">";
+        html += result;
+        html += "</div></body></html>";
+
+        return html;
+    }
+
+private const string DEFAULT_CSS = """
 html,
 body {
     margin: 1em;
@@ -175,7 +128,7 @@ h3,
 h4,
 h5,
 h6{
-    margin: 1.5em 1em 0.25em;
+    margin: 1.5em 0 0.25em;
     padding: 0;
     text-align: left;
 }
@@ -189,6 +142,7 @@ h6{
 
 h1{
     margin-top: 0;
+
     font-family: "Raleway", "Open Sans", "Droid Sans", Helvetica, sans-serif;
     font-size: 3rem;
     font-weight: 200;
@@ -290,4 +244,35 @@ hr{
     background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.5), rgba(0,0,0,0));
 
     border: 0;
-}""";}
+}
+
+
+/********
+* Table *
+********/
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #fafafa}
+
+
+blockquote {
+    border-left: 4px solid #dddddd;
+    padding: 0 15px;
+    color: #777777;
+}
+
+blockquote > :first-child {
+    margin-top: 0;
+}
+
+blockquote > :last-child {
+    margin-bottom: 0;
+}
+""";}

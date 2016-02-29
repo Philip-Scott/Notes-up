@@ -8,7 +8,7 @@ public class ENotes.PagesList : Gtk.Box {
     private Gtk.Label notebook_name;
     private Gtk.Label page_total;
 
-    private ENotes.Notebook current_notebook;
+    public ENotes.Notebook current_notebook;
 
     public PagesList () {
         build_ui ();
@@ -41,13 +41,14 @@ public class ENotes.PagesList : Gtk.Box {
         separator = new Gtk.Separator (Gtk.Orientation.VERTICAL);
 
         minus_button.get_style_context ().add_class ("flat");
+        plus_button.get_style_context ().add_class ("flat");
 
         notebook_name.halign = Gtk.Align.START;
         page_total.halign = Gtk.Align.END;
         minus_button.halign = Gtk.Align.END;
         minus_button.visible = false;
         separator.visible = false;
-        page_total.hexpand = true;
+        notebook_name.hexpand = true;
         minus_button.can_focus = false;
         plus_button.can_focus = false;
 
@@ -56,82 +57,93 @@ public class ENotes.PagesList : Gtk.Box {
 
         box.add (notebook_name);
         box.add (page_total);
-        box.add (separator);
+        box.add (new Gtk.Separator (Gtk.Orientation.VERTICAL));
         box.add (minus_button);
+        box.add (separator);
+        box.add (plus_button);
         box.set_sensitive (false);
+        box.show_all ();
         return box;
     }
 
     public void clear_pages () {
+    	listbox.unselect_all ();
         var childerns = listbox.get_children ();
 
         foreach (Gtk.Widget child in childerns) {
-            listbox.remove (child);
+        	if (child is Gtk.ListBoxRow)
+            	listbox.remove (child);
         }
     }
 
-    public void refresh () {
-        load_pages (current_notebook.name);
+    private void refresh () {
+    	current_notebook.refresh ();
+        load_pages (current_notebook);
     }
 
-    public void load_pages (string notebook_name) {
-        stderr.printf ("Notebook %s requested\n", notebook_name);
-        settings.last_folder = notebook_name;
+    public void load_pages (ENotes.Notebook notebook) {
         clear_pages ();
-        current_notebook = file_manager.load_notebook (notebook_name);
+        this.current_notebook = notebook;
+        notebook.refresh ();
 
-        foreach (string page in current_notebook.page) {
-            new_page (page, current_notebook.path);
+        foreach (ENotes.Page page in notebook.pages) {
+            new_page (page);
         }
 
-        new_page ("New Page", current_notebook.path);
+        bool has_pages = notebook.pages.length () > 0;
+
+        if (!has_pages) {
+            new_blank_page ();
+        }
 
         toolbar.set_sensitive (true);
-        page_total.label = @"$(current_notebook.page.length ()) Pages";
-        this.notebook_name.label = current_notebook.name.split ("§")[0] + ":";
+        page_total.label = @"$(notebook.pages.length ()) Pages";
+        this.notebook_name.label = notebook.name.split ("§")[0] + ":";
         listbox.show_all ();
     }
 
-    private Gtk.ListBoxRow new_page (string file_name, string file_path) {
-        var page = new ENotes.PageItem (file_name, file_path);
+    private ENotes.PageItem new_page (ENotes.Page page) {
+        var page_box = new ENotes.PageItem (page);
+        listbox.add (page_box);
 
-        var separator = new Gtk.ListBoxRow ();
-        separator.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
-        separator.selectable = false;
-        separator.activatable = false;
-
-        listbox.add (page);
-        listbox.add (separator);
-
-        return page;
+        return page_box;
     }
 
-	public void request_page (string file_path, string file_name) {
-        editor.load_file (file_path, file_name);
-	}
+    public void new_blank_page () {
+        editor.save_file ();
+        var page = current_notebook.add_page_from_name (_("New Page"));
+        page.new_page = true;
+
+        var page_item = new ENotes.PageItem (page);
+
+        editor.load_file (page);
+        listbox.prepend (page_item);
+        listbox.show_all ();
+    }
 
     private void connect_signals () {
         headerbar.mode_changed.connect ((edit) => {
             minus_button.visible = edit;
             separator.visible = edit;
+            page_total.visible = !edit;
         });
 
         plus_button.clicked.connect (() => {
-            editor.save_file ();
-            refresh ();
-            var page = new_page ("New Page", current_notebook.path);
-            listbox.row_selected (page);
+            new_blank_page ();
         });
 
         minus_button.clicked.connect (() => {
+            editor.set_sensitive (false);
             editor.reset (false);
+            headerbar.set_title (null);
             var row = listbox.get_selected_row ();
             ((ENotes.PageItem) row).trash_page ();
             refresh ();
         });
 
-        listbox.row_selected.connect ((row) => {  
-            request_page (((ENotes.PageItem) row).file_path, ((ENotes.PageItem) row).file_name);
+        listbox.row_selected.connect ((row) => {
+            if (row == null) return;
+            editor.load_file (((ENotes.PageItem) row).page);
         });
     }
 }

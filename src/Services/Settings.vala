@@ -7,9 +7,13 @@ public class ENotes.Services.Settings : Granite.Services.Settings {
     public int mode { get; set; }
     public string last_folder { get; set; }
     public string page_path { get; set; }
-	public string page_name { get; set; }
+    public string page_name { get; set; }
+    public string notes_location { get; set; }
+    public string editor_font { get; set; }
+    public string editor_scheme { get; set; }
+    public string render_stylesheet { get; set; }
 
     public Settings () {
-        base ("org.felipe.enotes");
+        base ("org.notes");
     }
 }

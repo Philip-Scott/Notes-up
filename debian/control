@@ -1,0 +1,20 @@
+Source: notes-up
+Section: editors
+Priority: optional
+Maintainer: Felipe Escoto <felescoto95@hotmail.com>
+Build-Depends: cmake,
+               debhelper (>= 9),
+               libwebkit2gtk-3.0-dev,
+               libgtk-3-dev,
+               valac (>= 0.26),
+               libgranite-dev,
+               libgtksourceview-3.0-dev (>= 3.10),
+Standards-Version: 3.9.6
+Homepage: https://github.com/Philip-Scott/Notes-up
+
+Package: notes-up
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Pre-Depends: dpkg (>= 1.15.6)
+Description: markdown notes manager
+ Markdown notes manager for elementary os.

@@ -14,8 +14,8 @@
     with this program. If not, see <http://www.gnu.org/licenses/>.
 ***/
 
-public static const string APP_NAME = "eNotes";
-public static const string TERMINAL_NAME = "enotes";
+public static const string APP_NAME = "Notes";
+public static const string TERMINAL_NAME = "Notes";
 
 public static int main (string[] args) {
     /* Initiliaze gettext support */

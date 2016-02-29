@@ -1,64 +1,104 @@
-public class ENotes.Sidebar : Gtk.Revealer {
-    private Gtk.Grid main_grid;
-    private Gtk.Grid notebook_grid;
+
+
+public class ENotes.Sidebar : Granite.Widgets.SourceList {
+
+    private Granite.Widgets.SourceList.ExpandableItem notebooks = new Granite.Widgets.SourceList.ExpandableItem (_("Notebooks"));
+    private Granite.Widgets.SourceList.ExpandableItem bookmarks = new Granite.Widgets.SourceList.ExpandableItem (_("Bookmarks"));
 
     public Sidebar () {
-        build_ui ();
+        build_new_ui ();
         load_notebooks ();
+        load_bookmarks ();
+        connect_signals ();
+        notebooks.collapse_all (true, true);
+     	root.expand_all (false, false);
     }
 
-    private void build_ui () {
-        set_transition_type (Gtk.RevealerTransitionType.SLIDE_RIGHT);
+	private void build_new_ui () {
+		root.add (notebooks);
+		root.add (bookmarks);
 
-        main_grid = new Gtk.Grid ();
-        var grid = new Gtk.Grid ();
-        main_grid.orientation = Gtk.Orientation.VERTICAL;
-        grid.orientation = Gtk.Orientation.HORIZONTAL;
+        can_focus = false;
+		this.width_request = 150;
+	}
 
-        notebook_grid = new Gtk.Grid ();
-        notebook_grid.valign = Gtk.Align.START;
-        notebook_grid.orientation = Gtk.Orientation.VERTICAL;
-        
-        var notebook_label = new Gtk.Label ("Notebooks");
-        notebook_label.get_style_context ().add_class ("h4");
-        notebook_label.halign = Gtk.Align.START;
-        notebook_label.valign = Gtk.Align.START;
-        notebook_label.margin_start = 8;
-        
-        var separator = new Gtk.Separator (Gtk.Orientation.VERTICAL);
-        separator.vexpand = true;
-        
-        main_grid.add (notebook_label);
-        main_grid.add (notebook_grid);
-        
-        grid.add (main_grid);
-        grid.add (separator);
-        this.add (grid);
-    }
-    
-    private void clear_pages () {
-        var childerns = notebook_grid.get_children ();
-
-        foreach (Gtk.Widget child in childerns) {
-            notebook_grid.remove (child);
-        }
-    }
-    //NotebookName§Color
     public void load_notebooks () {
-        clear_pages ();
-        try {
-            var directory = File.new_for_path (ENotes.NOTES_DIR);
-            var enumerator = directory.enumerate_children (FileAttribute.STANDARD_NAME, 0);
+        this.notebooks.clear ();
 
-            FileInfo file_info;
-            while ((file_info = enumerator.next_file ()) != null) {
-                var notebook = new NotebookItem (file_info.get_name ());
+        var notebook_list = FileManager.load_notebooks ();
 
-                notebook_grid.add (notebook);
-            }
+       	foreach (ENotes.Notebook nb in notebook_list) {
+			var notebook = new NotebookItem (nb);
+			this.notebooks.add (notebook);
 
-        } catch (Error e) {
-            stderr.printf ("Error: %s\n", e.message);
+			load_sub_notebooks (notebook);
+		}
+    }
+
+    public void load_sub_notebooks (NotebookItem item) {
+        if (item.notebook.sub_notebooks.length () > 0) {
+            foreach (ENotes.Notebook nb in item.notebook.sub_notebooks) {
+			    var new_item = new NotebookItem (nb);
+			    item.add (new_item);
+
+			    load_sub_notebooks (new_item);
+			    item.collapse_all ();
+		    }
         }
+    }
+
+    public void load_bookmarks () {
+        this.bookmarks.clear ();
+
+        var bookmark_list = FileManager.load_bookmarks ();
+
+       	foreach (string bm in bookmark_list) {
+			var bookmark = new BookmarkItem (bm);
+			this.bookmarks.add (bookmark);
+		}
+
+		bookmarks.expand_all ();
+    }
+
+    public void select_notebook (string name) {
+		foreach (var notebook in notebooks.children ) {
+			if (notebook.name == name) {
+		        selected = notebook;
+		        return;
+			}
+		}
+    }
+
+    public void first_start () {
+        if (notebooks.children.is_empty) {
+		    first_notebook ();
+		}
+    }
+
+    private void first_notebook () {
+        var dir = FileManager.create_notebook ("Unamed Notebook", 1, 0, 0);
+        var notebook = new ENotes.Notebook (ENotes.NOTES_DIR + dir);
+
+        var notebook_item = new NotebookItem (notebook);
+		this.notebooks.add (notebook_item);
+
+		select_notebook (notebook.name);
+    }
+
+    private void connect_signals () {
+		 this.item_selected.connect ((item) => {
+		 	if (item == null) return;
+
+		 	if (item is BookmarkItem) {
+		 	    editor.load_file (((ENotes.BookmarkItem) item).page);
+		 	    select_notebook (((ENotes.BookmarkItem) item).parent_notebook.name);
+		 	    return;
+		 	} else {
+		 	    ((NotebookItem) item).expand_all (true, true);
+		 	}
+
+            editor.save_file ();
+     	    pages_list.load_pages (((ENotes.NotebookItem) item).notebook);
+     	});
     }
 }
