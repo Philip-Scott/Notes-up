@@ -1,0 +1,2 @@
+HAVE_FIND = 1
+HAVE_SED = 1

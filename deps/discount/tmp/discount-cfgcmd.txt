@@ -1,1 +1,1 @@
-cmd='/home/felipe/code/notes-up/vala/deps/discount/configure.sh;--src=/home/felipe/code/notes-up/vala/deps/discount;--prefix=/home/felipe/code/notes-up/vala/build;--libdir=/home/felipe/code/notes-up/vala/build;--with-fenced-code'
+cmd='/home/felipe/Code/notes-up/deps/discount/configure.sh;--src=/home/felipe/Code/notes-up/deps/discount;--prefix=/home/felipe/Code/notes-up/obj-x86_64-linux-gnu;--libdir=/home/felipe/Code/notes-up/obj-x86_64-linux-gnu;--with-fenced-code'

@@ -1,9 +1,9 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Notes
-Comment=Lights On/Lights Off
-Exec=/home/felipe/code/notes-up/vala/Main
-Icon=/home/felipe/code/notes-up/vala/data/enotes.svg
+Comment=Your markdown notebook
+Exec=/usr/bin/notes-up
+Icon=notes
 Terminal=false
 Type=Application
 StartupNotify=true

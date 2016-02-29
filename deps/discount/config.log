@@ -1,0 +1,72 @@
+[echo -n] works
+Configuring for [markdown]
+Looking for cpp
+CPP=[/lib/cpp], CPPFLAGS=[]
+looking for install
+ (/usr/bin/install)
+/home/felipe/Code/notes-up/deps/discount/configure.sh: 1426: /home/felipe/Code/notes-up/deps/discount/configure.sh: cannot create /home/felipe/Code/notes-up/deps/discount/config.md: Permission denied
+/home/felipe/Code/notes-up/deps/discount/configure.sh: 1427: /home/felipe/Code/notes-up/deps/discount/configure.sh: cannot create /home/felipe/Code/notes-up/deps/discount/config.md: Permission denied
+/home/felipe/Code/notes-up/deps/discount/configure.sh: 1428: /home/felipe/Code/notes-up/deps/discount/configure.sh: cannot create /home/felipe/Code/notes-up/deps/discount/config.md: Permission denied
+/home/felipe/Code/notes-up/deps/discount/configure.sh: 1430: /home/felipe/Code/notes-up/deps/discount/configure.sh: cannot create /home/felipe/Code/notes-up/deps/discount/config.md: Permission denied
+/home/felipe/Code/notes-up/deps/discount/configure.sh: 1431: /home/felipe/Code/notes-up/deps/discount/configure.sh: cannot create /home/felipe/Code/notes-up/deps/discount/config.md: Permission denied
+checking out the C compiler
+ngc11789.c:2:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ main()
+ ^
+checking for "volatile" keyword
+checking for "const" keyword
+Checking for "inline" keyword
+defining WORD & DWORD scalar types
+looking for header WinDef.h
+test failed:  command was cc -Wno-return-type -Wno-implicit-int -c -o ngc11789.o ngc11789.c
+output:
+ngc11789.c:2:20: fatal error: WinDef.h: No such file or directory
+compilation terminated.
+offending sources:
+ngc11789.c:
+/* AC_CHECK_HEADERS */
+#include <WinDef.h>
+main() { }
+ngc11789.c: In function ‘main’:
+ngc11789.c:28:2: warning: implicit declaration of function ‘exit’ [-Wimplicit-function-declaration]
+  exit(1);
+  ^
+ngc11789.c:28:2: warning: incompatible implicit declaration of built-in function ‘exit’
+ngc11789.c:28:2: note: include ‘<stdlib.h>’ or provide a declaration of ‘exit’
+ngc11789.c:35:2: warning: incompatible implicit declaration of built-in function ‘exit’
+  exit(2);
+  ^
+ngc11789.c:35:2: note: include ‘<stdlib.h>’ or provide a declaration of ‘exit’
+ngc11789.c:37:5: warning: incompatible implicit declaration of built-in function ‘exit’
+     exit(0);
+     ^
+ngc11789.c:37:5: note: include ‘<stdlib.h>’ or provide a declaration of ‘exit’
+looking for header libgen.h
+looking for header pwd.h
+looking for the getpwuid function
+looking for the srandom function
+looking for the bzero function
+ngc11789.c: In function ‘main’:
+ngc11789.c:4:5: warning: implicit declaration of function ‘bzero’ [-Wimplicit-function-declaration]
+     bzero((char*)0,0);
+     ^
+ngc11789.c:4:5: warning: incompatible implicit declaration of built-in function ‘bzero’
+looking for the random function
+looking for the strcasecmp function
+ngc11789.c:1:6: warning: conflicting types for built-in function ‘strcasecmp’
+ void strcasecmp();
+      ^
+looking for the strncasecmp function
+ngc11789.c:1:6: warning: conflicting types for built-in function ‘strncasecmp’
+ void strncasecmp();
+      ^
+looking for the fchdir function
+looking for header malloc.h
+find is /usr/bin/find
+/bin/ln exists, and ln -s works
+/home/felipe/Code/notes-up/deps/discount/configure.sh: 984: /home/felipe/Code/notes-up/deps/discount/configure.sh: AC: not found
+/home/felipe/Code/notes-up/deps/discount/configure.sh: 986: /home/felipe/Code/notes-up/deps/discount/configure.sh: cannot create librarian.sh: Permission denied
+sed is /bin/sed
+generating Makefile
+generating version.c
+generating mkdio.h
