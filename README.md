@@ -13,8 +13,6 @@ As a computer engineer, I've been writing my school notes using just a text edit
 ![screenshot](https://github.com/Philip-Scott/Notes-up/blob/master/Screenshot.png?raw=true)
 
 ##Installation:
-[ppa:philip.scott/projects](https://launchpad.net/~philip.scott/+archive/ubuntu/projects/)
-
 	sudo add-apt-repository ppa:philip.scott/projects
 	sudo apt-get update
 	sudo apt-get install notes-up
