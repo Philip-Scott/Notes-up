@@ -1,5 +1,6 @@
 public class ENotes.Notebook : Object {
-	private FileMonitor monitor;
+    private FileMonitor monitor;
+    public signal void destroy ();
 
     public string name { public get; private set; }
     public string path { public get; private set; }
@@ -10,7 +11,7 @@ public class ENotes.Notebook : Object {
 
     public double r { public get; public set; default = -1; }
     public double g { public get; public set; default = -1; }
-	public double b { public get; public set; default = -1; }
+    public double b { public get; public set; default = -1; }
 
     public int top_id = 0;
 
@@ -27,16 +28,15 @@ public class ENotes.Notebook : Object {
     }
 
     public void refresh () {
-    	this.pages = new List<ENotes.Page> ();
-    	load_pages ();
+        this.pages = new List<ENotes.Page> ();
+        load_pages ();
     }
 
     public ENotes.Page add_page_from_name (string path) {
         var page = new ENotes.Page (this.path + path);
-    	add_page (page);
+        add_page (page);
 
-
-    	return page;
+        return page;
     }
 
     public void load_pages () {
@@ -73,21 +73,30 @@ public class ENotes.Notebook : Object {
 
     public void add_page (Page page) {
         CompareDataFunc<Page> page_comp = (a, b) => {
-		    int d = (int) (a.ID < b.ID) - (int) (a.ID > b.ID);
-		    return d;
-	    };
+            int d = (int) (a.ID < b.ID) - (int) (a.ID > b.ID);
+            return d;
+        };
 
-    	this.pages.insert_sorted_with_data (page, page_comp);
+        this.pages.insert_sorted_with_data (page, page_comp);
 
         if (top_id < page.ID) {
             top_id = page.ID;
         }
 
-    	if (page.new_page) {
+        if (page.new_page) {
             page.ID = ++top_id;
         }
 
 
+    }
+
+    public void trash () {
+        try {
+            directory.trash ();
+            this.destroy ();
+        } catch (Error e) {
+            stderr.printf ("Error trashing file: %s", e.message);
+        }
     }
 
     private void split_string () {
@@ -101,10 +110,10 @@ public class ENotes.Notebook : Object {
     }
 
     private void connect_monitor () {
-	    try {
-	        monitor = directory.monitor_directory (FileMonitorFlags.SEND_MOVED);
-	        monitor.changed.connect (refresh);
-	    } catch (Error e) {
+        try {
+            monitor = directory.monitor_directory (FileMonitorFlags.SEND_MOVED);
+            monitor.changed.connect (refresh);
+        } catch (Error e) {
             error ("Error monitoring directory: %s", e.message);
         }
     }
