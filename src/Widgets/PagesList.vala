@@ -1,6 +1,6 @@
 public class ENotes.PagesList : Gtk.Box {
     private Gtk.ListBox listbox;
-    private Gtk.Box toolbar;
+    private Gtk.Frame toolbar;
 
     private Gtk.Separator separator;
     private Gtk.Button minus_button;
@@ -27,15 +27,15 @@ public class ENotes.PagesList : Gtk.Box {
 
         scroll_box.add (listbox);
         this.add (scroll_box);
-        this.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         this.add (toolbar);
     }
 
-    private Gtk.Box build_toolbar () {
+    private Gtk.Frame build_toolbar () {
+        var frame = new Gtk.Frame (null);
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
 
-        plus_button = new Gtk.Button.with_label ("+");
-        minus_button = new Gtk.Button.with_label ("-");
+        plus_button = new Gtk.Button.from_icon_name ("document-new-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+        minus_button = new Gtk.Button.from_icon_name ("edit-delete-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         notebook_name = new Gtk.Label ("");
         page_total = new Gtk.Label ("");
         separator = new Gtk.Separator (Gtk.Orientation.VERTICAL);
@@ -52,8 +52,11 @@ public class ENotes.PagesList : Gtk.Box {
         minus_button.can_focus = false;
         plus_button.can_focus = false;
 
-        notebook_name.margin = 4;
-        page_total.margin = 4;
+        notebook_name.ellipsize = Pango.EllipsizeMode.END;
+        notebook_name.get_style_context ().add_class ("h4");
+        notebook_name.margin_left = 6;
+        notebook_name.margin_right = 6;
+        page_total.margin_right = 6;
 
         box.add (notebook_name);
         box.add (page_total);
@@ -61,9 +64,16 @@ public class ENotes.PagesList : Gtk.Box {
         box.add (minus_button);
         box.add (separator);
         box.add (plus_button);
-        box.set_sensitive (false);
-        box.show_all ();
-        return box;
+
+        frame.set_sensitive (false);
+        frame.get_style_context ().add_class ("toolbar");
+        frame.get_style_context ().add_class ("inline-toolbar");
+
+        frame.add (box);
+        frame.show_all ();
+
+
+        return frame;
     }
 
     public void clear_pages () {
