@@ -1,9 +1,12 @@
 public class ENotes.Viewer : WebKit.WebView {
     public string CSS;
+    private File temp_file;
 
     public Viewer () {
         load_css ();
-        can_focus = false;
+
+        string file = "/tmp/notes-up-render-" + GLib.Environment.get_user_name ();
+        temp_file = File.new_for_path (file);
     }
 
     public void load_css () {
@@ -18,7 +21,13 @@ public class ENotes.Viewer : WebKit.WebView {
 
         string html;
         process_frontmatter (page_content, out html);
-        load_html (process (html), null);
+
+        try {
+            FileManager.write_file(temp_file, process (html), true);
+            load_uri (temp_file.get_uri ());
+        } catch (Error e) {
+            load_html ("<h1>Sorry....</h1> <h2>Loading your file failed :(</h2> <br>", null);
+        }
     }
 
     private string[] process_frontmatter (string raw_mk, out string processed_mk) {
@@ -39,6 +48,7 @@ public class ENotes.Viewer : WebKit.WebView {
                     valid_frontmatter = false;
                     break;
                 }
+
                 line = raw_mk[last_newline+1:next_newline];
                 last_newline = next_newline;
 
@@ -80,7 +90,7 @@ public class ENotes.Viewer : WebKit.WebView {
         string result;
         mkd.get_document (out result);
 
-        string html = "<html><head>";
+        string html = "<!doctype html><meta charset=utf-8><head>";
         html += "<style>"+ CSS +"</style>";
         html += "</head><body><div class=\"markdown-body\">";
         html += result;
