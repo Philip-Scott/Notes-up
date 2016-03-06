@@ -67,12 +67,12 @@ public class ENotes.PagesList : Gtk.Box {
     }
 
     public void clear_pages () {
-    	listbox.unselect_all ();
+        listbox.unselect_all ();
         var childerns = listbox.get_children ();
 
         foreach (Gtk.Widget child in childerns) {
-        	if (child is Gtk.ListBoxRow)
-            	listbox.remove (child);
+            if (child is Gtk.ListBoxRow)
+                listbox.remove (child);
         }
     }
 
@@ -93,7 +93,11 @@ public class ENotes.PagesList : Gtk.Box {
         bool has_pages = notebook.pages.length () > 0;
 
         if (!has_pages) {
-            new_blank_page ();
+            var page = current_notebook.add_page_from_name (_("New Page"));
+            var page_item = new ENotes.PageItem (page);
+
+            listbox.prepend (page_item);
+            listbox.show_all ();
         }
 
         toolbar.set_sensitive (true);

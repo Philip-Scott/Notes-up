@@ -3,6 +3,7 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
 	private Gtk.ColorButton color_button;
 	private Gtk.Button create;
     private Notebook? notebook;
+    private Notebook? parent_nb;
 
     public NotebookDialog (Notebook? notebook = null) {
         this.notebook = notebook;
@@ -14,6 +15,11 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
         }
 
         this.show_all ();
+    }
+
+    public NotebookDialog.new_subnotebook (Notebook parent) {
+        this ();
+        parent_nb = parent;
     }
 
     public void build_ui () {
@@ -78,7 +84,11 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
     			case 1: // Create Notebook
                     if (notebook == null) {
                         var r = color_button.rgba.red; var g = color_button.rgba.green; var b = color_button.rgba.blue;
-                        FileManager.create_notebook (name_entry.text, r, g, b);
+                        if (parent_nb == null) {
+                            FileManager.create_notebook (name_entry.text, r, g, b);
+                        } else {
+                            FileManager.create_notebook (name_entry.text, r, g, b, parent_nb.path);
+                        }
                     } else {
                         notebook.r = color_button.rgba.red;
                         notebook.g = color_button.rgba.green;
@@ -86,6 +96,7 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
 
                         notebook.rename (name_entry.text);
                     }
+
     				sidebar.load_notebooks ();
     				this.close ();
     				break;

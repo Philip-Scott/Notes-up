@@ -11,39 +11,39 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
         load_bookmarks ();
         connect_signals ();
         notebooks.collapse_all (true, true);
-     	root.expand_all (false, false);
+         root.expand_all (false, false);
     }
 
-	private void build_new_ui () {
-		root.add (notebooks);
-		root.add (bookmarks);
+    private void build_new_ui () {
+        root.add (notebooks);
+        root.add (bookmarks);
 
         can_focus = false;
-		this.width_request = 150;
-	}
+        this.width_request = 150;
+    }
 
     public void load_notebooks () {
         this.notebooks.clear ();
 
         var notebook_list = FileManager.load_notebooks ();
 
-       	foreach (ENotes.Notebook nb in notebook_list) {
-			var notebook = new NotebookItem (nb);
-			this.notebooks.add (notebook);
+           foreach (ENotes.Notebook nb in notebook_list) {
+            var notebook = new NotebookItem (nb);
+            this.notebooks.add (notebook);
 
-			load_sub_notebooks (notebook);
-		}
+            load_sub_notebooks (notebook);
+        }
     }
 
     public void load_sub_notebooks (NotebookItem item) {
         if (item.notebook.sub_notebooks.length () > 0) {
-            foreach (ENotes.Notebook nb in item.notebook.sub_notebooks) {
-			    var new_item = new NotebookItem (nb);
-			    item.add (new_item);
+                foreach (ENotes.Notebook nb in item.notebook.sub_notebooks) {
+                var new_item = new NotebookItem (nb);
+                item.add (new_item);
 
-			    load_sub_notebooks (new_item);
-			    item.collapse_all ();
-		    }
+                load_sub_notebooks (new_item);
+                item.collapse_all ();
+            }
         }
     }
 
@@ -52,27 +52,38 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
 
         var bookmark_list = FileManager.load_bookmarks ();
 
-       	foreach (string bm in bookmark_list) {
-			var bookmark = new BookmarkItem (bm);
-			this.bookmarks.add (bookmark);
-		}
+        foreach (string bm in bookmark_list) {
+            var bookmark = new BookmarkItem (bm);
+            this.bookmarks.add (bookmark);
+        }
 
-		bookmarks.expand_all ();
+        bookmarks.expand_all ();
     }
 
     public void select_notebook (string name) {
-		foreach (var notebook in notebooks.children ) {
-			if (notebook.name == name) {
-		        selected = notebook;
-		        return;
-			}
-		}
+        select_sub_notebook (notebooks, name);
+    }
+
+    private bool select_sub_notebook (Granite.Widgets.SourceList.ExpandableItem parent, string name) {
+        foreach (var child in parent.children) {
+            if (child.name == name) {
+                selected = child;
+                return true;
+            }
+
+            if (child is NotebookItem && ((NotebookItem) child).n_children > 0) {
+                bool found = select_sub_notebook ((NotebookItem) child, name);
+                if (found) return true;
+            }
+        }
+
+        return false;
     }
 
     public void first_start () {
         if (notebooks.children.is_empty) {
-		    first_notebook ();
-		}
+            first_notebook ();
+        }
     }
 
     private void first_notebook () {
@@ -80,25 +91,25 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
         var notebook = new ENotes.Notebook (ENotes.NOTES_DIR + dir);
 
         var notebook_item = new NotebookItem (notebook);
-		this.notebooks.add (notebook_item);
+        this.notebooks.add (notebook_item);
 
-		select_notebook (notebook.name);
+        select_notebook (notebook.name);
     }
 
     private void connect_signals () {
-		 this.item_selected.connect ((item) => {
-		 	if (item == null) return;
+        this.item_selected.connect ((item) => {
+            if (item == null) return;
 
-		 	if (item is BookmarkItem) {
-		 	    editor.load_file (((ENotes.BookmarkItem) item).page);
-		 	    select_notebook (((ENotes.BookmarkItem) item).parent_notebook.name);
-		 	    return;
-		 	} else {
-		 	    ((NotebookItem) item).expand_all (true, true);
-		 	}
+            if (item is BookmarkItem) {
+                editor.load_file (((ENotes.BookmarkItem) item).page);
+                select_notebook (((ENotes.BookmarkItem) item).parent_notebook.name);
+                return;
+            } else {
+                ((NotebookItem) item).expand_all (true, true);
+            }
 
             editor.save_file ();
-     	    pages_list.load_pages (((ENotes.NotebookItem) item).notebook);
-     	});
+            pages_list.load_pages (((ENotes.NotebookItem) item).notebook);
+        });
     }
 }
