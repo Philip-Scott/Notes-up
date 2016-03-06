@@ -72,7 +72,6 @@ public class ENotes.PagesList : Gtk.Box {
         frame.add (box);
         frame.show_all ();
 
-
         return frame;
     }
 
