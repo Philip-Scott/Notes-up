@@ -77,6 +77,7 @@ public class ENotes.Editor : Gtk.Box {
     public void load_settings () {
         set_scheme (settings.editor_scheme);
         set_font (settings.editor_font);
+        code_view.auto_indent = settings.auto_indent;
     }
 
     public void set_font (string name) {
