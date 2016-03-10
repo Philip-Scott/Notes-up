@@ -10,10 +10,7 @@ public class ENotes.Viewer : WebKit.WebView {
     }
 
     public void load_css () {
-        CSS = ENotes.settings.render_stylesheet;
-        if (CSS == "") {
-            CSS = DEFAULT_CSS;
-        }
+        CSS = DEFAULT_CSS + ENotes.settings.render_stylesheet;
     }
 
     public void load_string (string page_content) {
@@ -285,4 +282,5 @@ blockquote > :first-child {
 blockquote > :last-child {
     margin-bottom: 0;
 }
-""";}
+""";
+}
