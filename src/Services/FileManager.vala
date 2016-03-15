@@ -73,6 +73,8 @@ public class ENotes.FileManager : Object {
     }
 
     public static void export_pdf_action () {
+        viewer.load_string (editor.get_text (), true);
+
         var file = get_file_from_user ();
 
         try { // TODO: we have to write an empty file so we can get file path

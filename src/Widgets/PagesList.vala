@@ -132,6 +132,7 @@ public class ENotes.PagesList : Gtk.Box {
         editor.load_file (page);
         listbox.prepend (page_item);
         listbox.show_all ();
+        listbox.select_row (page_item);
     }
 
     private void connect_signals () {
