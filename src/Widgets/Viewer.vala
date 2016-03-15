@@ -13,8 +13,8 @@ public class ENotes.Viewer : WebKit.WebView {
         CSS = DEFAULT_CSS + ENotes.settings.render_stylesheet;
     }
 
-    public void load_string (string page_content) {
-        if (headerbar.get_mode () == 1) return;
+    public void load_string (string page_content, bool force_load = false) {
+        if (headerbar.get_mode () == 1 && !force_load) return;
 
         string html;
         process_frontmatter (page_content, out html);
