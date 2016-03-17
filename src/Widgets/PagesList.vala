@@ -163,6 +163,11 @@ public class ENotes.PagesList : Gtk.Box {
             listbox.invalidate_filter ();
         });
 
+        headerbar.search_selected.connect (() => {
+            listbox.select_row (listbox.get_row_at_y (0));
+            listbox.get_row_at_y (0).grab_focus ();
+        });
+
         plus_button.clicked.connect (() => {
             new_blank_page ();
         });

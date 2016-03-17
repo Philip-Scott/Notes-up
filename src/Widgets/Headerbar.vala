@@ -1,6 +1,7 @@
 public class ENotes.Headerbar : Gtk.HeaderBar { 
     public signal void mode_changed (bool editor);
     public signal void search_changed ();
+    public signal void search_selected ();
 
     private Granite.Widgets.ModeButton mode_button;
     private Granite.Widgets.AppMenu menu_button;
@@ -108,6 +109,10 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
             } else {
                 mode_changed (true);
             }
+        });
+
+        search_entry.activate.connect (() => {
+            search_selected ();
         });
 
         search_entry.icon_release.connect ((p0, p1) => {
