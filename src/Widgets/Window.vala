@@ -66,7 +66,7 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         viewer = new ENotes.Viewer ();
         editor = new ENotes.Editor ();
         sidebar = new ENotes.Sidebar ();
-        pages_list = new ENotes.PagesList ();
+        pages_list = new ENotes.PagesList (headerbar);
 
         view_edit_stack = new Gtk.Stack ();
         view_edit_stack.add_named (editor, "editor");
@@ -103,6 +103,11 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         new_action.activate.connect (new_page);
         add_action (new_action);
         app.set_accels_for_action ("win.new-action", {"<Ctrl>N"});
+
+        var find_action = new SimpleAction ("find-action", null);
+        find_action.activate.connect (headerbar.show_search);
+        add_action (find_action);
+        app.set_accels_for_action ("win.find-action", {"<Ctrl>F"});
 
         headerbar.mode_changed.connect ((edit) => {
             if (edit) {
