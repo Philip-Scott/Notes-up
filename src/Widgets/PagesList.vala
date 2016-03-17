@@ -1,4 +1,6 @@
 public class ENotes.PagesList : Gtk.Box {
+    private ENotes.Headerbar headerbar;
+
     private Gtk.ListBox listbox;
     private Gtk.Frame toolbar;
 
@@ -10,7 +12,11 @@ public class ENotes.PagesList : Gtk.Box {
 
     public ENotes.Notebook current_notebook;
 
-    public PagesList () {
+    private string search_for = "";
+
+    public PagesList (ENotes.Headerbar headerbar) {
+        this.headerbar = headerbar;
+
         build_ui ();
         connect_signals ();
     }
@@ -21,6 +27,16 @@ public class ENotes.PagesList : Gtk.Box {
         var scroll_box = new Gtk.ScrolledWindow (null, null);
         listbox = new Gtk.ListBox ();
         listbox.set_size_request (200,250);
+        listbox.set_filter_func ((row) => {
+            bool found;
+            if (this.search_for == "") {
+                found = true;
+            } else {
+                found = ((PageItem) row).page.get_text ().down ().contains (this.search_for.down ());
+            }
+            return found;
+        });
+
         scroll_box.set_size_request (200,250);
         listbox.vexpand = true;
         toolbar = build_toolbar ();
@@ -140,6 +156,11 @@ public class ENotes.PagesList : Gtk.Box {
             minus_button.visible = edit;
             separator.visible = edit;
             page_total.visible = !edit;
+        });
+
+        headerbar.search_changed.connect (() => {
+            this.search_for = headerbar.search_entry.get_text ();
+            listbox.invalidate_filter ();
         });
 
         plus_button.clicked.connect (() => {

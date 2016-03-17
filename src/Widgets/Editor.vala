@@ -21,7 +21,7 @@ public class ENotes.Editor : Gtk.Box {
         }
 
 	    current_page = page;
-        code_buffer.text = page.load_text ();
+        code_buffer.text = page.get_text ();
         viewer.load_string (this.get_text ());
         edited = false;
         headerbar.set_title (page.name);
