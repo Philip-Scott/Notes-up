@@ -12,6 +12,15 @@ As a computer engineer, I've been writing my school notes using just a text edit
 
 ![screenshot](https://github.com/Philip-Scott/Notes-up/blob/master/Screenshot.png?raw=true)
 
+###1.1 Release Changelog:
+
+- You can now search for content in the current notebook! Be gone the days where you had to manually search through your notes!
+- Deletetion & creatation of sub-notebooks or "Sections" is now possible!
+- The pages list has been taken to the stylist. It is now 89% better looking!
+- Local images are now being loaded properly. Actually, they are just being loaded now.... they didn't before.
+- CSS experts should be happy to know that you can now edit the notebook's stylesheet right from the preferences dialog! For non-CSS experts wanting a new look, I recommend [googling some stylesheets](http://www.google.com.mx/search?rls=x86_64&q=markdown+stylesheets)
+- Fixed: Ugly bug were you sometimes couldn't export to pdf. That should be squashed now!
+
 ##Installation:
 	sudo add-apt-repository ppa:philip.scott/projects
 	sudo apt-get update
