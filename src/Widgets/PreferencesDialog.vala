@@ -6,6 +6,7 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
     private Gtk.TextView style_box;
     private Gtk.Stack stack;
     private Gtk.Switch indent_switch;
+    private Gtk.Switch line_numbers_switch;
 
     public PreferencesDialog () {
         build_ui ();
@@ -17,7 +18,7 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
         this.title = _("Preferences");
         this.window_position = Gtk.WindowPosition.CENTER;
 
-        set_size_request (510, 410);
+        set_size_request (590, 530);
         resizable = false;
         modal = true;
 
@@ -79,7 +80,7 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
             i++;
         }
 
-        var indent_label = new Gtk.Label (_("Auto Indentation"));
+        var indent_label = new Gtk.Label (_("Automatic indentation:"));
         indent_label.set_halign (Gtk.Align.END);
         indent_switch = new Gtk.Switch ();
         indent_switch.state = settings.auto_indent;
@@ -87,12 +88,22 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
         var switch_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         switch_box.add (indent_switch);
 
+        var line_numbers_label = new Gtk.Label (_("Show line Numbers:"));
+        line_numbers_label.set_halign (Gtk.Align.END);
+        line_numbers_switch = new Gtk.Switch ();
+        line_numbers_switch.state = settings.line_numbers;
+
+        var switch_box_ln = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        switch_box_ln.add (line_numbers_switch);
+
         grid.attach (font_label,        0, 1, 1, 1);
         grid.attach (font_button,       1, 1, 2, 1);
         grid.attach (scheme_label,      0, 2, 1, 1);
         grid.attach (scheme_box,        1, 2, 2, 1);
         grid.attach (indent_label,      0, 3, 1, 1);
         grid.attach (switch_box,        1, 3, 1, 1);
+        grid.attach (line_numbers_label,0, 4, 1, 1);
+        grid.attach (switch_box_ln,     1, 4, 1, 1);
 
         grid.set_column_homogeneous (false);
         grid.set_row_homogeneous (false);
@@ -130,6 +141,13 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
     private void connect_signals () {
         indent_switch.state_set.connect ((state) => {
             settings.auto_indent = state;
+            return false;
+        });
+
+        line_numbers_switch.state_set.connect ((state) => {
+            settings.line_numbers = state;
+
+            editor.show_line_numbers (state);
             return false;
         });
 

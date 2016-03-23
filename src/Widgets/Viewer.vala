@@ -81,8 +81,8 @@ public class ENotes.Viewer : WebKit.WebView {
         string processed_mk;
         process_frontmatter (raw_mk, out processed_mk);
 
-        var mkd = new Markdown.Document (processed_mk.data);
-        mkd.compile ();
+        var mkd = new Markdown.Document (processed_mk.data, 0x00200000);
+        mkd.compile (0x00200000);
 
         string result;
         mkd.get_document (out result);
@@ -156,9 +156,20 @@ h1{
     text-align: center;
 }
 
+h1 + h1 {
+    color: #666;
+    margin: 0em 0 0em;
+    font-size: 2.5rem;
+}
+
 h2 {
     font-size: 2rem;
     font-weight: 600;
+}
+
+h2 + h2 {
+    font-size: 1.50rem;
+    margin: 0em 0 0.25em;
 }
 
 h3{
