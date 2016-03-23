@@ -66,6 +66,12 @@
       	<description>toggles the editor's automatic indentation</description>
     </key>
 
+    <key name="line-numbers" type="b">
+    	<default>false</default>
+    	<summary>Automatic Indentation</summary>
+      	<description>toggles the editor's automatic indentation</description>
+    </key>
+
     <key name="editor-font" type="s">
     	<default>"Open Sans 10"</default>
     	<summary>Editor font</summary>

@@ -77,7 +77,18 @@ public class ENotes.Editor : Gtk.Box {
     public void load_settings () {
         set_scheme (settings.editor_scheme);
         set_font (settings.editor_font);
+        show_line_numbers (settings.line_numbers);
         code_view.auto_indent = settings.auto_indent;
+    }
+
+    public void show_line_numbers (bool show) {
+        code_view.set_show_line_numbers (show);
+
+        if (show) {
+            code_view.left_margin = 6;
+        } else {
+            code_view.left_margin = 12;
+        }
     }
 
     public void set_font (string name) {
@@ -108,7 +119,6 @@ public class ENotes.Editor : Gtk.Box {
 
         code_buffer.changed.connect (trigger_changed);
 
-        code_view.left_margin = 5;
         code_view.pixels_above_lines = 5;
         code_view.wrap_mode = Gtk.WrapMode.WORD;
         code_view.show_line_numbers = true;
@@ -136,13 +146,13 @@ public class ENotes.Editor : Gtk.Box {
 
 	    var quote_button = ToolbarButton ("format-indent-less-rtl", "> ", "", _("Insert a quote"));
 	    var code_button = ToolbarButton ("system-run", "`", "`", _("Insert code"));
-	    var link_button = ToolbarButton ("insert-link", "[", "](url)", _("Insert a link"));
+	    var link_button = ToolbarButton ("insert-link", "[Link Text](", ")", _("Insert a link"));
 
 	    var bulleted_button = ToolbarButton ("zoom-out","\n- ", "", _("Add a bulleted list"));
 	    var numbered_button = ToolbarButton ("zoom-original","\n1. ", "", _("Add a Numbered list"));
 
 	    //var button_iframe = ToolbarButton ("system-run","", "", "Insert a website");
-	    var webimage_button = ToolbarButton ("insert-image","![](", ")", _("Insert a web image"));
+	    var webimage_button = ToolbarButton ("insert-image","![](", ")", _("Insert an image"));
 
         var separator1 = new Gtk.Separator (Gtk.Orientation.VERTICAL);
         var separator2 = new Gtk.Separator (Gtk.Orientation.VERTICAL);

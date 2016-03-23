@@ -39,7 +39,6 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
 
         search_entry = new Gtk.SearchEntry();
         search_entry.editable = true;
-        search_entry.placeholder_text = _("Search your notebook");
         search_entry.visibility = true;
         search_entry.expand = true;
         search_entry.max_width_chars = 30;
