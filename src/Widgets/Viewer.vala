@@ -1,24 +1,30 @@
 public class ENotes.Viewer : WebKit.WebView {
     public string CSS;
+    private File temp_file;
 
     public Viewer () {
         load_css ();
-        can_focus = false;
+
+        string file = "/tmp/notes-up-render-" + GLib.Environment.get_user_name ();
+        temp_file = File.new_for_path (file);
     }
 
     public void load_css () {
-        CSS = ENotes.settings.render_stylesheet;
-        if (CSS == "") {
-            CSS = DEFAULT_CSS;
-        }
+        CSS = DEFAULT_CSS + ENotes.settings.render_stylesheet;
     }
 
-    public void load_string (string page_content) {
-        if (headerbar.get_mode () == 1) return;
+    public void load_string (string page_content, bool force_load = false) {
+        if (headerbar.get_mode () == 1 && !force_load) return;
 
         string html;
         process_frontmatter (page_content, out html);
-        load_html (process (html), null);
+
+        try {
+            FileManager.write_file(temp_file, process (html), true);
+            load_uri (temp_file.get_uri ());
+        } catch (Error e) {
+            load_html ("<h1>Sorry....</h1> <h2>Loading your file failed :(</h2> <br>", null);
+        }
     }
 
     private string[] process_frontmatter (string raw_mk, out string processed_mk) {
@@ -39,6 +45,7 @@ public class ENotes.Viewer : WebKit.WebView {
                     valid_frontmatter = false;
                     break;
                 }
+
                 line = raw_mk[last_newline+1:next_newline];
                 last_newline = next_newline;
 
@@ -74,13 +81,13 @@ public class ENotes.Viewer : WebKit.WebView {
         string processed_mk;
         process_frontmatter (raw_mk, out processed_mk);
 
-        var mkd = new Markdown.Document (processed_mk.data);
-        mkd.compile ();
+        var mkd = new Markdown.Document (processed_mk.data, 0x00200000);
+        mkd.compile (0x00200000);
 
         string result;
         mkd.get_document (out result);
 
-        string html = "<html><head>";
+        string html = "<!doctype html><meta charset=utf-8><head>";
         html += "<style>"+ CSS +"</style>";
         html += "</head><body><div class=\"markdown-body\">";
         html += result;
@@ -149,9 +156,20 @@ h1{
     text-align: center;
 }
 
+h1 + h1 {
+    color: #666;
+    margin: 0em 0 0em;
+    font-size: 2.5rem;
+}
+
 h2 {
     font-size: 2rem;
     font-weight: 600;
+}
+
+h2 + h2 {
+    font-size: 1.50rem;
+    margin: 0em 0 0.25em;
 }
 
 h3{
@@ -275,4 +293,5 @@ blockquote > :first-child {
 blockquote > :last-child {
     margin-bottom: 0;
 }
-""";}
+""";
+}

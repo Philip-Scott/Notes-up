@@ -11,6 +11,9 @@ public class ENotes.Page : Object {//, Gee.Comparable<G> {
 	public int ID = -1;
 	public bool new_page = false;
 
+	private string page_data;
+	private bool changed = true;
+
 	private File file { public get; private set; }
 
 	public Page (string path) {
@@ -25,7 +28,7 @@ public class ENotes.Page : Object {//, Gee.Comparable<G> {
 		var ln = l - file.get_basename ().length;
 
 		this.path = full_path.slice(0, ln);
-		load_subtitle (load_text ());
+		load_subtitle (get_text ());
 	}
 
 	private void load_subtitle (string data) {
@@ -48,22 +51,24 @@ public class ENotes.Page : Object {//, Gee.Comparable<G> {
 
 	}
 
-    public string load_text (int to_load = -1) {
+    public string get_text (int to_load = -1) {
         if (new_page) {
         	return "";
         }
 
-        string data = "";
+        if (!changed) {
+            return page_data;
+        }
 
         try {
             var dis = new DataInputStream (this.file.read ());
             size_t size;
-            data = dis.read_upto ("\0", to_load, out size);
+            page_data = dis.read_upto ("\0", to_load, out size);
         } catch (Error e) {
             error ("Error loading file: %s", e.message);
         }
 
-        return data;
+        return page_data;
     }
 
     public void save_file (string data) {
@@ -87,6 +92,7 @@ public class ENotes.Page : Object {//, Gee.Comparable<G> {
             stderr.printf ("Error Saving file: %s", e.message);
         }
 
+        changed = true;
         load_subtitle (data);
 		this.saved_file ();
     }

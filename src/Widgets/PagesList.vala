@@ -1,6 +1,8 @@
 public class ENotes.PagesList : Gtk.Box {
+    private ENotes.Headerbar headerbar;
+
     private Gtk.ListBox listbox;
-    private Gtk.Box toolbar;
+    private Gtk.Frame toolbar;
 
     private Gtk.Separator separator;
     private Gtk.Button minus_button;
@@ -10,7 +12,11 @@ public class ENotes.PagesList : Gtk.Box {
 
     public ENotes.Notebook current_notebook;
 
-    public PagesList () {
+    private string search_for = "";
+
+    public PagesList (ENotes.Headerbar headerbar) {
+        this.headerbar = headerbar;
+
         build_ui ();
         connect_signals ();
     }
@@ -21,21 +27,31 @@ public class ENotes.PagesList : Gtk.Box {
         var scroll_box = new Gtk.ScrolledWindow (null, null);
         listbox = new Gtk.ListBox ();
         listbox.set_size_request (200,250);
+        listbox.set_filter_func ((row) => {
+            bool found;
+            if (this.search_for == "") {
+                found = true;
+            } else {
+                found = ((PageItem) row).page.get_text ().down ().contains (this.search_for.down ());
+            }
+            return found;
+        });
+
         scroll_box.set_size_request (200,250);
         listbox.vexpand = true;
         toolbar = build_toolbar ();
 
         scroll_box.add (listbox);
         this.add (scroll_box);
-        this.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         this.add (toolbar);
     }
 
-    private Gtk.Box build_toolbar () {
+    private Gtk.Frame build_toolbar () {
+        var frame = new Gtk.Frame (null);
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
 
-        plus_button = new Gtk.Button.with_label ("+");
-        minus_button = new Gtk.Button.with_label ("-");
+        plus_button = new Gtk.Button.from_icon_name ("document-new-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+        minus_button = new Gtk.Button.from_icon_name ("edit-delete-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         notebook_name = new Gtk.Label ("");
         page_total = new Gtk.Label ("");
         separator = new Gtk.Separator (Gtk.Orientation.VERTICAL);
@@ -52,8 +68,11 @@ public class ENotes.PagesList : Gtk.Box {
         minus_button.can_focus = false;
         plus_button.can_focus = false;
 
-        notebook_name.margin = 4;
-        page_total.margin = 4;
+        notebook_name.ellipsize = Pango.EllipsizeMode.END;
+        notebook_name.get_style_context ().add_class ("h4");
+        notebook_name.margin_left = 6;
+        notebook_name.margin_right = 6;
+        page_total.margin_right = 6;
 
         box.add (notebook_name);
         box.add (page_total);
@@ -61,18 +80,24 @@ public class ENotes.PagesList : Gtk.Box {
         box.add (minus_button);
         box.add (separator);
         box.add (plus_button);
-        box.set_sensitive (false);
-        box.show_all ();
-        return box;
+
+        frame.set_sensitive (false);
+        frame.get_style_context ().add_class ("toolbar");
+        frame.get_style_context ().add_class ("inline-toolbar");
+
+        frame.add (box);
+        frame.show_all ();
+
+        return frame;
     }
 
     public void clear_pages () {
-    	listbox.unselect_all ();
+        listbox.unselect_all ();
         var childerns = listbox.get_children ();
 
         foreach (Gtk.Widget child in childerns) {
-        	if (child is Gtk.ListBoxRow)
-            	listbox.remove (child);
+            if (child is Gtk.ListBoxRow)
+                listbox.remove (child);
         }
     }
 
@@ -93,7 +118,11 @@ public class ENotes.PagesList : Gtk.Box {
         bool has_pages = notebook.pages.length () > 0;
 
         if (!has_pages) {
-            new_blank_page ();
+            var page = current_notebook.add_page_from_name (_("New Page"));
+            var page_item = new ENotes.PageItem (page);
+
+            listbox.prepend (page_item);
+            listbox.show_all ();
         }
 
         toolbar.set_sensitive (true);
@@ -119,6 +148,7 @@ public class ENotes.PagesList : Gtk.Box {
         editor.load_file (page);
         listbox.prepend (page_item);
         listbox.show_all ();
+        listbox.select_row (page_item);
     }
 
     private void connect_signals () {
@@ -126,6 +156,16 @@ public class ENotes.PagesList : Gtk.Box {
             minus_button.visible = edit;
             separator.visible = edit;
             page_total.visible = !edit;
+        });
+
+        headerbar.search_changed.connect (() => {
+            this.search_for = headerbar.search_entry.get_text ();
+            listbox.invalidate_filter ();
+        });
+
+        headerbar.search_selected.connect (() => {
+            listbox.select_row (listbox.get_row_at_y (0));
+            listbox.get_row_at_y (0).grab_focus ();
         });
 
         plus_button.clicked.connect (() => {

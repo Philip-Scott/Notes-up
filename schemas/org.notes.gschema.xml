@@ -60,6 +60,17 @@
 		<summary>full location of your notes folder</summary>
 		<description></description>
 	</key>
+    <key name="auto-indent" type="b">
+    	<default>true</default>
+    	<summary>Automatic Indentation</summary>
+      	<description>toggles the editor's automatic indentation</description>
+    </key>
+
+    <key name="line-numbers" type="b">
+    	<default>false</default>
+    	<summary>Automatic Indentation</summary>
+      	<description>toggles the editor's automatic indentation</description>
+    </key>
 
     <key name="editor-font" type="s">
     	<default>"Open Sans 10"</default>

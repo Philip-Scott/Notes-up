@@ -5,9 +5,9 @@ public class ENotes.FileManager : Object {
 
     private FileManager () {}
 
-	public static List<ENotes.Notebook> load_notebooks () {
-		var notebooks = new List<ENotes.Notebook>();
-		try {
+    public static List<ENotes.Notebook> load_notebooks () {
+        var notebooks = new List<ENotes.Notebook>();
+        try {
             var directory = File.new_for_path (ENotes.NOTES_DIR);
             if (!directory.query_exists ())
                 directory.make_directory_with_parents ();
@@ -26,11 +26,11 @@ public class ENotes.FileManager : Object {
             stderr.printf ("Error: %s\n", e.message);
         }
 
-		return notebooks;
-	}
+        return notebooks;
+    }
 
-	public static void search_for_subnotebooks (Notebook notebook) {
-	    try {
+    public static void search_for_subnotebooks (Notebook notebook) {
+        try {
             var directory = notebook.directory;
 
             var enumerator = directory.enumerate_children (FileAttribute.STANDARD_NAME, 0);
@@ -48,12 +48,12 @@ public class ENotes.FileManager : Object {
             stderr.printf ("Error: %s\n", e.message);
         }
 
-	}
+    }
 
-	public static List<string> load_bookmarks () {
-		var bookmarks = new List<string>();
+    public static List<string> load_bookmarks () {
+        var bookmarks = new List<string>();
 
-		try {
+        try {
             var directory = File.new_for_path (ENotes.NOTES_DIR);
             var enumerator = directory.enumerate_children (FileAttribute.STANDARD_NAME + "," + FileAttribute.STANDARD_SYMLINK_TARGET, 0);
 
@@ -69,10 +69,12 @@ public class ENotes.FileManager : Object {
             stderr.printf ("Error: %s\n", e.message);
         }
 
-		return bookmarks;
-	}
+        return bookmarks;
+    }
 
     public static void export_pdf_action () {
+        viewer.load_string (editor.get_text (), true);
+
         var file = get_file_from_user ();
 
         try { // TODO: we have to write an empty file so we can get file path
@@ -92,7 +94,11 @@ public class ENotes.FileManager : Object {
         op.print ();
     }
 
-    public static void write_file (File file, string contents) throws Error {
+    public static void write_file (File file, string contents, bool overrite = false) throws Error {
+        if (file.query_exists () && overrite) {
+            file.delete ();
+        }
+
         create_file_if_not_exists (file);
 
         file.open_readwrite_async.begin (Priority.DEFAULT, null, (obj, res) => {
@@ -116,9 +122,9 @@ public class ENotes.FileManager : Object {
         }
     }
 
-    public static string create_notebook (string name, double r, double g, double b) {
+    public static string create_notebook (string name, double r, double g, double b, string source = NOTES_DIR) {
         string notebook_name = "%s§%.3f§%.3f§%.3f".printf (name,r,g,b);
-        var directory = File.new_for_path (NOTES_DIR + notebook_name);
+        var directory = File.new_for_path (source + notebook_name);
         try {
             directory.make_directory_with_parents ();
         } catch (Error e) {
@@ -148,7 +154,7 @@ public class ENotes.FileManager : Object {
 
         filters.append (pdf_filter);
 
-    	var all_filter = new Gtk.FileFilter ();
+        var all_filter = new Gtk.FileFilter ();
         all_filter.set_filter_name ("All Files");
         all_filter.add_pattern ("*");
 
