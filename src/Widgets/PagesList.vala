@@ -171,6 +171,10 @@ public class ENotes.PagesList : Gtk.Box {
         listbox.select_row (page_item);
     }
 
+    public new void grab_focus () {
+        listbox.grab_focus ();
+    }
+
     private void connect_signals () {
         headerbar.mode_changed.connect ((edit) => {
             minus_button.visible = edit;
@@ -204,6 +208,11 @@ public class ENotes.PagesList : Gtk.Box {
         listbox.row_selected.connect ((row) => {
             if (row == null) return;
             editor.load_file (((ENotes.PageItem) row).page);
+        });
+
+        listbox.row_activated.connect ((row) => {
+            if (headerbar.get_mode () == 1)
+                editor.give_focus ();
         });
     }
 }

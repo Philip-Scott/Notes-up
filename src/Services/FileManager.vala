@@ -152,7 +152,7 @@ public class ENotes.FileManager : Object {
         return notebook_name;
     }
 
-    private static File? get_file_from_user () {
+    public static File? get_file_from_user (bool save_as_pdf = true) {
         File? result = null;
 
         string title = "";
@@ -160,18 +160,30 @@ public class ENotes.FileManager : Object {
         string accept_button_label = "";
         List<Gtk.FileFilter> filters = new List<Gtk.FileFilter> ();
 
+        if (save_as_pdf) {
+            title =  ("Select destination PDF file");
+            chooser_action = Gtk.FileChooserAction.SAVE;
+            accept_button_label = ("Save");
 
-        title =  ("Select destination PDF file");
-        chooser_action = Gtk.FileChooserAction.SAVE;
-        accept_button_label = ("Save");
+            var pdf_filter = new Gtk.FileFilter ();
+            pdf_filter.set_filter_name ("PDF File");
 
-        var pdf_filter = new Gtk.FileFilter ();
-        pdf_filter.set_filter_name ("PDF File");
+            pdf_filter.add_mime_type ("application/pdf");
+            pdf_filter.add_pattern ("*.pdf");
 
-        pdf_filter.add_mime_type ("application/pdf");
-        pdf_filter.add_pattern ("*.pdf");
+            filters.append (pdf_filter);
+        } else {
+            title =  ("Open file");
+            chooser_action = Gtk.FileChooserAction.OPEN;
+            accept_button_label = ("Open");
 
-        filters.append (pdf_filter);
+            var filter = new Gtk.FileFilter ();
+            filter.set_filter_name ("Images");
+
+            filter.add_mime_type ("image/*");
+
+            filters.append (filter);
+        }
 
         var all_filter = new Gtk.FileFilter ();
         all_filter.set_filter_name ("All Files");

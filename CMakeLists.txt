@@ -107,6 +107,7 @@ vala_precompile(VALA_C
   src/Widgets/PreferencesDialog.vala
   src/Widgets/NotebookItem.vala
   src/Widgets/BookmarkItem.vala
+  src/Widgets/BookmarkButton.vala
   src/Widgets/PageItem.vala
   src/Widgets/PagesList.vala
   src/Widgets/Sidebar.vala

@@ -125,8 +125,10 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
             if (mode_button.selected == 0) {
                 mode_changed (false);
                 editor.save_file ();
+                pages_list.grab_focus ();
             } else {
                 mode_changed (true);
+                editor.give_focus ();
             }
         });
 
