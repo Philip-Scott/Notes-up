@@ -152,7 +152,7 @@ public class ENotes.Editor : Gtk.Box {
 	    var numbered_button = ToolbarButton ("zoom-original","\n1. ", "", _("Add a Numbered list"));
 
 	    //var button_iframe = ToolbarButton ("system-run","", "", "Insert a website");
-	    var webimage_button = ToolbarButton ("insert-image","![](", ")", _("Insert an image"));
+	    var webimage_button = get_image_button ("insert-image","![](", ")", _("Insert an image"));
 
         var separator1 = new Gtk.Separator (Gtk.Orientation.VERTICAL);
         var separator2 = new Gtk.Separator (Gtk.Orientation.VERTICAL);
@@ -203,6 +203,35 @@ public class ENotes.Editor : Gtk.Box {
 		    	code_buffer.insert (ref end, second_half , -1);
 
 		    	code_buffer.place_cursor (start);
+		    }
+	    });
+
+	    return button;
+    }
+
+    private Gtk.Button get_image_button (string icon, string first_half, string second_half, string description = "") {
+        var button = new Gtk.Button.from_icon_name(icon, Gtk.IconSize.SMALL_TOOLBAR);
+	    button.can_focus = false;
+    	button.get_style_context ().add_class ("flat");
+	    button.set_tooltip_text (description);
+
+	    button.clicked.connect (() => {
+	        Gtk.TextIter start, end;
+            code_buffer.get_selection_bounds (out start, out end);
+
+	    	if (code_buffer.has_selection) {
+
+		    	var text = start.get_text (end);
+		    	code_buffer.@delete (ref start, ref end);
+		    	code_buffer.insert_at_cursor (first_half + text + second_half, -1);
+		    } else {
+
+		    	var file = FileManager.get_file_from_user (false);
+
+		        if (file != null) {
+		    	    code_buffer.insert (ref end, first_half + file.get_path () + second_half , -1);
+		    	    code_buffer.place_cursor (end);
+		    	}
 		    }
 	    });
 
