@@ -51,7 +51,7 @@ public class ENotes.BookmarkButton : Gtk.Button {
         } else {
             pic.set_from_icon_name ("non-starred", Gtk.IconSize.DIALOG);
         }
-    }c
+    }
 
     public void main_action () {
         this.bookmark = new ENotes.Bookmark.from_page (current_page);

@@ -165,6 +165,7 @@ public class ENotes.FileManager : Object {
             title =  ("Select destination PDF file");
             chooser_action = Gtk.FileChooserAction.SAVE;
             accept_button_label = ("Save");
+<<<<<<< HEAD
 
             var pdf_filter = new Gtk.FileFilter ();
             pdf_filter.set_filter_name ("PDF File");
@@ -181,6 +182,24 @@ public class ENotes.FileManager : Object {
             var filter = new Gtk.FileFilter ();
             filter.set_filter_name ("Images");
 
+=======
+
+            var pdf_filter = new Gtk.FileFilter ();
+            pdf_filter.set_filter_name ("PDF File");
+
+            pdf_filter.add_mime_type ("application/pdf");
+            pdf_filter.add_pattern ("*.pdf");
+
+            filters.append (pdf_filter);
+        } else {
+            title =  ("Open file");
+            chooser_action = Gtk.FileChooserAction.OPEN;
+            accept_button_label = ("Open");
+
+            var filter = new Gtk.FileFilter ();
+            filter.set_filter_name ("Images");
+
+>>>>>>> origin/master
             filter.add_mime_type ("image/*");
 
             filters.append (filter);

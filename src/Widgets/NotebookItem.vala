@@ -18,7 +18,10 @@
 *
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 public class ENotes.NotebookItem : ENotes.SidebarItem {
     public ENotes.Notebook notebook { public get; private set; }
 

@@ -18,7 +18,10 @@
 *
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 public class ENotes.NotebookDialog : Gtk.Dialog {
 	private Gtk.Entry name_entry;
 	private Gtk.ColorButton color_button;

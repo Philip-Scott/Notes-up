@@ -18,7 +18,10 @@
 *
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 public class ENotes.PageItem : Gtk.ListBoxRow {
     public ENotes.Page page;
 

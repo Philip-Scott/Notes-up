@@ -18,7 +18,10 @@
 *
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 public class ENotes.PreferencesDialog : Gtk.Dialog {
     private Gtk.FontButton font_button;
     private Gtk.ListStore schemes_store;

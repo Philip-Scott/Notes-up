@@ -18,8 +18,12 @@
 *
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
+<<<<<<< HEAD
 
 public class ENotes.Headerbar : Gtk.HeaderBar {
+=======
+public class ENotes.Headerbar : Gtk.HeaderBar { 
+>>>>>>> origin/master
     public signal void mode_changed (bool editor);
     public signal void search_changed ();
     public signal void search_selected ();

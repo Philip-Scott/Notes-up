@@ -18,7 +18,10 @@
 *
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 public class ENotes.Window : Gtk.ApplicationWindow {
     private Gtk.Paned pane1;
     private Gtk.Paned pane2;

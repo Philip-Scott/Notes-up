@@ -18,7 +18,10 @@
 *
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 public class ENotes.PagesList : Gtk.Box {
     private ENotes.Headerbar headerbar;
 
@@ -228,6 +231,11 @@ public class ENotes.PagesList : Gtk.Box {
         listbox.row_activated.connect ((row) => {
             window.toggle_edit ();
 
+            if (headerbar.get_mode () == 1)
+                editor.give_focus ();
+        });
+
+        listbox.row_activated.connect ((row) => {
             if (headerbar.get_mode () == 1)
                 editor.give_focus ();
         });
