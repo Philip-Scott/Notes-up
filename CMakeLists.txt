@@ -103,6 +103,7 @@ vala_precompile(VALA_C
   src/Application.vala
   src/Widgets/Editor.vala
   src/Widgets/Headerbar.vala
+  src/Widgets/ViewEditStack.vala
   src/Widgets/NewNotebookDialog.vala
   src/Widgets/PreferencesDialog.vala
   src/Widgets/NotebookItem.vala
@@ -114,6 +115,7 @@ vala_precompile(VALA_C
   src/Widgets/SidebarItem.vala
   src/Widgets/Viewer.vala
   src/Widgets/Window.vala
+  src/Services/Bookmark.vala
   src/Services/FileManager.vala
   src/Services/Notebook.vala
   src/Services/Page.vala

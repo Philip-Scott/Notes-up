@@ -101,8 +101,8 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
             if (item == null) return;
 
             if (item is BookmarkItem) {
-                editor.load_file (((ENotes.BookmarkItem) item).page);
                 select_notebook (((ENotes.BookmarkItem) item).parent_notebook.name);
+                pages_list.select_page (((ENotes.BookmarkItem) item).get_page ());
                 return;
             } else {
                 ((NotebookItem) item).expand_all (true, true);

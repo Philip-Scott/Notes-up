@@ -12,11 +12,11 @@ public class ENotes.Editor : Gtk.Box {
         load_settings ();
     }
 
-    public void load_file (ENotes.Page page) {
+    public void set_page (ENotes.Page page) {
         code_buffer.begin_not_undoable_action ();
 
         save_file ();
-        if (page.name == _("New Page")) {
+        if (page.new_page) {
             headerbar.set_mode (1);
         }
 
@@ -54,7 +54,7 @@ public class ENotes.Editor : Gtk.Box {
     public void restore () {
     	if (current_page != null) {
     	    edited = false;
-    	    load_file (current_page);
+    	    set_page (current_page);
     	}
     }
 

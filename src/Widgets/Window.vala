@@ -44,7 +44,7 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 		    var page = new ENotes.Page (path);
 
 		    if (!page.new_page)
-			    editor.load_file (page);
+			    view_edit_stack.set_page (page);
 		}
 	}
 
@@ -61,16 +61,14 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         headerbar = new ENotes.Headerbar ();
         set_titlebar (headerbar);
 
+        set_events (Gdk.EventMask.BUTTON_PRESS_MASK);
+
         pane1 = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
         pane2 = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
-        viewer = new ENotes.Viewer ();
-        editor = new ENotes.Editor ();
         sidebar = new ENotes.Sidebar ();
         pages_list = new ENotes.PagesList (headerbar);
 
-        view_edit_stack = new Gtk.Stack ();
-        view_edit_stack.add_named (editor, "editor");
-        view_edit_stack.add_named (viewer, "viewer");
+        view_edit_stack = new ENotes.ViewEditStack ();
 
         pane1.pack1 (sidebar, false, false);
         pane1.pack2 (pane2, true, false);
@@ -109,14 +107,19 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         add_action (find_action);
         app.set_accels_for_action ("win.find-action", {"<Ctrl>F"});
 
+        var bookmark_action = new SimpleAction ("bookmark-action", null);
+        bookmark_action.activate.connect (bookmark_button.main_action);
+        add_action (bookmark_action);
+        app.set_accels_for_action ("win.bookmark-action", {"<Ctrl>B"});
+
         headerbar.mode_changed.connect ((edit) => {
             if (edit) {
-                view_edit_stack.set_visible_child_name ("editor");
+                view_edit_stack.show_edit ();
                 sidebar.visible = (false);
                 pane2.set_position (0);
             } else {
                 sidebar.visible = (true);
-                view_edit_stack.set_visible_child_name ("viewer");
+                view_edit_stack.show_view ();
                 viewer.load_string (editor.get_text ());
             }
         });
@@ -134,7 +137,7 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         editor.save_file ();
     }
 
-    private void toggle_edit () {
+    public void toggle_edit () {
         int mode = headerbar.get_mode ();
 
         if (mode == 1) {

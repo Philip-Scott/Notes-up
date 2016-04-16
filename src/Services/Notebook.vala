@@ -86,8 +86,6 @@ public class ENotes.Notebook : Object {
         if (page.new_page) {
             page.ID = ++top_id;
         }
-
-
     }
 
     public void trash () {

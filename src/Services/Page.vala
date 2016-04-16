@@ -1,5 +1,5 @@
 
-public class ENotes.Page : Object {//, Gee.Comparable<G> {
+public class ENotes.Page : Object {
     public signal void saved_file ();
     public signal void destroy ();
 
@@ -28,15 +28,30 @@ public class ENotes.Page : Object {//, Gee.Comparable<G> {
 		var ln = l - file.get_basename ().length;
 
 		this.path = full_path.slice(0, ln);
-		load_subtitle (get_text ());
+
+        get_text ();
+
+        load_data (null);
 	}
 
-	private void load_subtitle (string data) {
-        setup ();
+    private void load_data (string? data) {
         string line[2];
-	    var lines = data.split ("\n");
+        string[] lines;
 
-	    if (lines.length > 1) {
+        if (data == null) lines = page_data.split ("\n");
+        else lines = data.split ("\n");
+
+
+        string t_name = file.get_basename ();
+        if (t_name.contains ("§")) {
+            var split = t_name.split ("§", 2);
+
+            ID = int.parse (split[0]);
+        }
+
+        if (lines.length > 0) {
+            name = cleanup(lines[0]);
+
 	        int n = 0;
 
 	        for(int i = 1; i < lines.length && n < 1; i++) {
@@ -45,10 +60,12 @@ public class ENotes.Page : Object {//, Gee.Comparable<G> {
                     n++;
                 }
 	        }
+	    } else {
+	        name = "New Page";
+	        new_page = true;
 	    }
 
         this.subtitle = line[0];
-
 	}
 
     public string get_text (int to_load = -1) {
@@ -68,6 +85,7 @@ public class ENotes.Page : Object {//, Gee.Comparable<G> {
             error ("Error loading file: %s", e.message);
         }
 
+        changed = false;
         return page_data;
     }
 
@@ -80,10 +98,6 @@ public class ENotes.Page : Object {//, Gee.Comparable<G> {
         string file_name = make_filename ();
 
         try {
-		    if (file.query_exists ()) {
-                file.delete ();
-            }
-
 		    file = File.new_for_path (path + file_name);
 		    FileManager.write_file (file, data);
 
@@ -93,8 +107,9 @@ public class ENotes.Page : Object {//, Gee.Comparable<G> {
         }
 
         changed = true;
-        load_subtitle (data);
-		this.saved_file ();
+
+        load_data (data);
+        this.saved_file ();
     }
 
     public void trash_page () {
@@ -110,34 +125,32 @@ public class ENotes.Page : Object {//, Gee.Comparable<G> {
         string output = "";
 
         if (line.contains ("---")) return "";
-        output = line.replace ("#", "").replace ("```", "").replace ("\t", "").replace ("  ", "").replace ("**", "");
+        output = line.replace ("#", "").replace ("```", "").replace ("\t", "").replace ("  ", "").replace ("**", "").replace ("\n", "").replace ("/", "");
 
-        if (output.length < 5) {
-            output = "";
-        }
     	return output;
     }
 
     private string make_filename () {
-        string file_name = editor.get_text ().split ("\n", 2)[0];
-        file_name = file_name.replace ("#", "").replace ("\n", "");
+        string file_name;
 
-        return ID.to_string () + "§" + file_name;
+        if (new_page) {
+            file_name = editor.get_text ().split ("\n", 2)[0];
+            file_name = cleanup (file_name);
+
+            return ID.to_string () + "§" + file_name;
+        } else {
+            return file.get_basename ();;
+        }
     }
 
-    private void setup () {
-        string t_name = file.get_basename ();
-        if (t_name.contains ("§")) {
-            var split = t_name.split ("§", 2);
-            name = split[1].replace (ENotes.NOTES_DIR, "");
-            ID = int.parse (split[0]);
-        } else {
-            name = t_name;
-            ID = -1;
-        }
+    public bool equals (ENotes.Page comp) {
+        return this.full_path == comp.full_path;
+    }
 
-        while (name[0:1] == " ") {
-            name = name[1:name.length];
-        }
+    public bool is_bookmarked () {
+        var link = ENotes.NOTES_DIR + full_path.replace (ENotes.NOTES_DIR, "").replace ("/", ".");
+        var file = File.new_for_path (link);
+
+        return file.query_exists ();
     }
 }
