@@ -18,10 +18,7 @@
 *
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
 public class ENotes.SidebarItem :  Granite.Widgets.SourceList.ExpandableItem {
     private static const int RADIUS = 16;
 

@@ -18,10 +18,7 @@
 *
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
 namespace ENotes {
     public ENotes.Headerbar headerbar;
     public ENotes.BookmarkButton bookmark_button;

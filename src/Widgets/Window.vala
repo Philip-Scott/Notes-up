@@ -18,10 +18,7 @@
 *
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
 public class ENotes.Window : Gtk.ApplicationWindow {
     private Gtk.Paned pane1;
     private Gtk.Paned pane2;
@@ -31,11 +28,11 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 	    int height;
 	    int x;
 		int y;
-		
+
 		editor.save_file ();
 		get_size (out width, out height);
 		get_position (out x, out y);
-		
+
 		settings.pos_x = x;
 		settings.pos_y = y;
 		settings.panel_size = pane2.position;
@@ -63,7 +60,7 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 		}
 
 		string path = settings.page_path;
-		
+
 		if (path != "") {
 		    var page = new ENotes.Page (path);
 

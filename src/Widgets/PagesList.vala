@@ -18,10 +18,7 @@
 *
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
 public class ENotes.PagesList : Gtk.Box {
     private ENotes.Headerbar headerbar;
 
