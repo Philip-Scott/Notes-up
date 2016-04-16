@@ -13,9 +13,9 @@ ExternalProject_Add(discount
   SOURCE_DIR ${DISCOUNT_DEP_PATH}
   CONFIGURE_COMMAND
       ${DISCOUNT_DEP_PATH}/configure.sh --src=${DISCOUNT_DEP_PATH}
+                                        --with-fenced-code
                                         --prefix=${CMAKE_BINARY_DIR}
                                         --libdir=${CMAKE_BINARY_DIR}
-                                        --with-fenced-code
   BUILD_COMMAND make install
   BUILD_IN_SOURCE 1
 )

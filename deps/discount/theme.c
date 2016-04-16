@@ -18,6 +18,9 @@
 #if defined(HAVE_BASENAME) && defined(HAVE_LIBGEN_H)
 #  include <libgen.h>
 #endif
+#if defined(HAVE_ALLOCA_H)
+#  include <alloca.h>
+#endif
 #include <unistd.h>
 #include <stdarg.h>
 #include <sys/types.h>
@@ -507,7 +510,7 @@ char **argv;
     char *source = "stdin";
     FILE *tmplfile;
     int opt;
-    mkd_flag_t flags = MKD_TOC;
+    mkd_flag_t flags = THEME_CF|MKD_TOC;
     int force = 0;
     MMIOT *doc;
     struct stat sourceinfo;

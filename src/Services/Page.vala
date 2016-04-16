@@ -119,7 +119,7 @@ public class ENotes.Page : Object {
 
         try {
 		    file = File.new_for_path (path + file_name);
-		    FileManager.write_file (file, data);
+		    FileManager.write_file (file, data, true);
 
             new_page = false;
         } catch (Error e) {

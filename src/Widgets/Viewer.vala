@@ -101,9 +101,9 @@ public class ENotes.Viewer : WebKit.WebView {
     private string process (string raw_mk) {
         string processed_mk;
         process_frontmatter (raw_mk, out processed_mk);
-
-        var mkd = new Markdown.Document (processed_mk.data, 0x00200000);
-        mkd.compile (0x00200000);
+                                                        //Extra Footnote + Autolink + ``` code + Extra def lists + keep style + Table of conentes
+        var mkd = new Markdown.Document (processed_mk.data, 0x00200000 + 0x00004000 + 0x02000000 + 0x01000000 + 0x00400000);
+        mkd.compile (0x00200000 + 0x00004000 + 0x02000000 + 0x01000000 + 0x00400000);
 
         string result;
         mkd.get_document (out result);

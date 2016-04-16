@@ -169,7 +169,7 @@ AC_CHECK_HEADERS () {
     for hdr in $*; do
 	echo "#include <$hdr>" >> ngc$$.c
     done
-    echo "main() { }" >> ngc$$.c
+    echo "int main() { }" >> ngc$$.c
 
     LOGN "looking for header $hdr"
 
@@ -210,7 +210,7 @@ AC_CHECK_FUNCS () {
     fi
 
     cat >> ngc$$.c << EOF
-main()
+int main()
 {
 
     $F;
@@ -251,7 +251,7 @@ AC_CHECK_STRUCT () {
     done
 
     cat >> ngc$$.c << EOF
-main()
+int main()
 {
     struct $struct foo;
 }
@@ -286,7 +286,7 @@ AC_CHECK_TYPE () {
     done
 
     cat >> ngc$$.c << EOF
-main()
+int main()
 {
     $type foo;
 }
@@ -323,7 +323,7 @@ AC_CHECK_FIELD () {
     done
 
     cat >> ngc$$.c << EOF
-main()
+int main()
 {
     struct $struct foo;
 
@@ -352,7 +352,7 @@ AC_PROG_CC () {
 
     cat > ngc$$.c << \EOF
 #include <stdio.h>
-main()
+int main()
 {
     puts("hello, sailor");
 }
@@ -360,7 +360,7 @@ EOF
 
     TLOGN "checking the C compiler"
 
-    unset AC_CFLAGS AC_LDFLAGS
+    unset AC_CFLAGS AC_LDFLAGS __MACOS_DSYM
 
     if [ "$CC" ] ; then
 	AC_CC="$CC"
@@ -381,10 +381,8 @@ EOF
     fi
     echo "checking out the C compiler"
 
-    unset __MACOS_DSYM
     $AC_CC -o ngc$$ ngc$$.c
     status=$?
-    test -d ngc$$.dSYM && __MACOS_DSYM=1
 
     TLOGN " ($AC_CC)"
 
@@ -427,6 +425,12 @@ EOF
 	else
 	    AC_LDFLAGS=${CFLAGS:-"-g"}
 	fi
+	
+	# macos-specific(?) test for .dSYM resource directories
+	$AC_CC $AC_CFLAGS $AC_LDFLAGS -o ngc$$ ngc$$.c
+	ls -dl ngc$$*
+	test -d ngc$$.dSYM && __MACOS_DSYM=1
+	
     else
 	AC_FAIL " does not compile code properly"
     fi
@@ -509,7 +513,7 @@ AC_INIT () {
     __config_files="config.cmd config.sub config.h config.mak config.log"
     rm -f $__config_files
     __cwd=`pwd`
-    exec 5>&1 1>$__cwd/config.log 2>&1
+    exec 5>&1 1>"$__cwd"/config.log 2>&1
     AC_CONFIGURE_FOR=__AC_`echo $1 | sed -e 's/\..$//' | $AC_UPPERCASE  | tr ' ' '_'`_D
 
     # check to see whether to use echo -n or echo ...\c
@@ -532,7 +536,7 @@ AC_INIT () {
 
     LOG "Configuring for [$1]"
 
-    cat > $__cwd/config.h << EOF
+    cat > "$__cwd"/config.h << EOF
 /*
  * configuration for $1${2:+" ($2)"}, generated `date`
  * by ${LOGNAME:-`whoami`}@`hostname`
@@ -875,7 +879,7 @@ AC_SCALAR_TYPES () {
     if AC_QUIET AC_CHECK_HEADERS WinDef.h; then
 	# windows machine; BYTE, WORD, DWORD already
 	# defined
-	echo "#include <WinDef.h>" >> $__cwd/config.h
+	echo "#include <WinDef.h>" >> "$__cwd"/config.h
 	TLOG " (defined in WinDef.h)"
 	return 0
     fi
@@ -923,17 +927,17 @@ EOF
     if $AC_CC ngc$$.c -o ngc$$; then
 	while [ "$1" ]; do
 	    case "$1" in
-	    sub)if ./ngc$$ sub >> $__cwd/config.sub; then
+	    sub)if ./ngc$$ sub >> "$__cwd"/config.sub; then
 		    rc=0
 		fi;;
-	    *)  if ./ngc$$ >> $__cwd/config.h; then
+	    *)  if ./ngc$$ >> "$__cwd"/config.h; then
 		    rc=0
 		fi ;;
 	    esac
 	    shift
 	done
 	if [ "$rc" != 0 ]; then
-	    if ./ngc$$ >> $__cwd/config.h; then
+	    if ./ngc$$ >> "$__cwd"/config.h; then
 		rc=1
 	    fi
 	fi
@@ -951,10 +955,18 @@ EOF
 # AC_OUTPUT generates makefiles from makefile.in's
 #
 AC_OUTPUT () {
-    cd $__cwd
+    
+    cd "$__cwd"
     AC_SUB 'LIBS'    "$AC_LIBS"
     AC_SUB 'CONFIGURE_FILES' "$__config_files"
-    AC_SUB 'GENERATED_FILES' "$*"
+    
+    if test "$__MACOS_DSYM"; then
+	# deal with extra OSX droppings, if they exist
+	AC_SUB 'GENERATED_FILES' "-r *.dSYM $*"
+    else
+	AC_SUB 'GENERATED_FILES' "$*"
+    fi
+    
     AC_SUB 'CC'      "$AC_CC"
     AC_SUB 'CFLAGS'  "$AC_CFLAGS"
     AC_SUB 'LDFLAGS' "$AC_LDFLAGS"
@@ -981,7 +993,7 @@ AC_OUTPUT () {
 	AC_PROG ar
 	AC_PROG ranlib
 	AC_SUB LD_LIBRARY_PATH HERE
-	AC
+
 	__config_files="$__config_files librarian.sh"
 	cat > librarian.sh << EOF
 #! /bin/sh
@@ -1024,10 +1036,10 @@ EOF
 
 	__d=$AC_SRCDIR
 	for makefile in $*;do
-	    if test -r $__d/${makefile}.in; then
+	    if test -r "$__d/${makefile}.in"; then
 		LOG "generating $makefile"
 		./config.md `__ac_dirname ./$makefile` 2>/dev/null
-		$AC_SED_PROG -f config.sub < $__d/${makefile}.in > $makefile
+		$AC_SED_PROG -f config.sub < "$__d/${makefile}.in" > $makefile
 		__config_files="$__config_files $makefile"
 	    else
 		LOG "WARNING: ${makefile}.in does not exist!"
@@ -1054,7 +1066,7 @@ AC_CHECK_FLOCK() {
 #include <sys/types.h>
 #include <fcntl.h>
 
-main()
+int main()
 {
     int x = open("$$.c", O_RDWR, 0666);
     int y = open("$$.c", O_RDWR, 0666);
@@ -1107,7 +1119,7 @@ AC_CHECK_RESOLVER () {
 #include <arpa/nameser.h>
 #include <resolv.h>
 
-main()
+int main()
 {
     char bfr[256];
 
@@ -1119,14 +1131,15 @@ EOF
     if $AC_CC -o ngc$$ ngc$$.c; then
 	TLOG " (found)"
     elif $AC_CC -o ngc$$ ngc$$.c -lresolv; then
-	TLOG " (found, needs -lresolv)"
+	TLOG " (yes, needs -lresolv)"
 	AC_LIBS="$AC_LIBS -lresolv"
     elif $AC_CC -DBIND_8_COMPAT -o ngc$$ ngc$$.c; then
-	TLOG " (found, needs BIND_8_COMPAT)"
+	TLOG " (fyes, needs BIND_8_COMPAT)"
 	AC_DEFINE BIND_8_COMPAT 1
     elif $AC_CC -DBIND_8_COMPAT -o ngc$$ ngc$$.c -lresolv; then
-	TLOG " (found, needs BIND_8_COMPAT & -lresolv)"
+	TLOG " (yes, needs BIND_8_COMPAT & -lresolv)"
 	AC_DEFINE BIND_8_COMPAT 1
+	AC_LIBS="$AC_LIBS -lresolv"
     else
 	TLOG " (not found)"
 	__ACR_rc=1
@@ -1150,7 +1163,7 @@ AC_CHECK_ALLOCA () {
 #else
 # include <stdlib.h>
 #endif
-main()
+int main()
 {
 	alloca(10);
 }
@@ -1186,10 +1199,13 @@ AC_CHECK_BASENAME() {
 
 extern char *basename(char*);
 
-main()
+int main()
 {
     char *a = basename("/a/test");
     char *b = basename("/a/nother");
+
+    if ( a == 0 || b == 0 || a == b )
+	return 0;
 
     return (strcmp(a,b) != 0) ? 0 : 1;
 
@@ -1315,7 +1331,9 @@ files)  echo "\$FULLNAME" "\$LIBNAME" "\$LIBNAME.\$MAJOR"
 install)$PROG_INSTALL -c \$FULLNAME "\$1"
 	$PROG_LN_S -f \$FULLNAME \$1/\$LIBNAME.\$MAJOR
 	$PROG_LN_S -f \$FULLNAME \$1/\$LIBNAME
-	test "$LDCONFIG" && $LDCONFIG "\$1"
+EOF
+    test "$LDCONFIG" && echo '	'$LDCONFIG '"$1"' >> librarian.sh
+    cat >> librarian.sh << EOF
 	;;
 esac
 EOF
@@ -1422,15 +1440,15 @@ AC_PROG_INSTALL () {
     fi
 
     __config_files="$__config_files config.md"
-    AC_SUB 'INSTALL_DIR' "$__cwd/config.md"
-    echo "#! /bin/sh"                                   > $__cwd/config.md
-    echo "# script generated" `date` "by configure.sh" >> $__cwd/config.md
-    echo                                               >> $__cwd/config.md
+    AC_SUB 'INSTALL_DIR' "./config.md"
+    echo "#! /bin/sh"                                   > ""$__cwd"/config.md"
+    echo "# script generated" `date` "by configure.sh" >> ""$__cwd"/config.md"
+    echo                                               >> ""$__cwd"/config.md"
     if [ "$__mkdir" ]; then
-	echo "test -d \"\$1\" || $__mkdir \"\$1\""     >> $__cwd/config.md
-	echo "exit $?"                                 >> $__cwd/config.md
+	echo "test -d \"\$1\" || $__mkdir \"\$1\""     >> ""$__cwd"/config.md"
+	echo "exit $?"                                 >> ""$__cwd"/config.md"
     else
-	cat - >> $__cwd/config.md << \EOD
+	cat - >> ""$__cwd"/config.md" << \EOD
 pieces=`IFS=/; for x in $1; do echo $x; done`
 dir=
 for x in $pieces; do
@@ -1441,7 +1459,7 @@ done
 exit 0
 EOD
     fi
-    chmod +x $__cwd/config.md
+    chmod +x "$__cwd"/config.md
 }
 
 #
@@ -1513,26 +1531,28 @@ AC_FAIL() {
 #
 # AC_SUB writes a substitution into config.sub
 AC_SUB() {
-    (   _subst=`echo $2 | sed -e 's/;/\\;/g'`
-	echo "s;@$1@;$_subst;g" ) >> $__cwd/config.sub
+    (   _target="$1"
+	shift
+	_subst=`echo "$*" | sed -e 's/;/\\;/g'`
+	echo "s;@$_target@;$_subst;g" ) >> "$__cwd"/config.sub
 }
 
 #
 # AC_MAK writes a define into config.mak
 AC_MAK() {
-    echo "HAVE_$1 = 1" >> $__cwd/config.mak
+    echo "HAVE_$1 = 1" >> "$__cwd"/config.mak
 }
 
 #
 # AC_DEFINE adds a #define to config.h
 AC_DEFINE() {
-    echo "#define $1 ${2:-1}" >> $__cwd/config.h
+    echo "#define $1 ${2:-1}" >> "$__cwd"/config.h
 }
 
 #
 # AC_INCLUDE adds a #include to config.h
 AC_INCLUDE() {
-    echo "#include \"$1\"" >> $__cwd/config.h
+    echo "#include \"$1\"" >> "$__cwd"/config.h
 }
 
 #
