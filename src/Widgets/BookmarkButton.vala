@@ -24,8 +24,6 @@ public class ENotes.BookmarkButton : Gtk.Button {
     private Bookmark bookmark;
     private  Gtk.Image pic;
 
-    private int size = 42;
-
     public BookmarkButton () {
         pic = new Gtk.Image.from_icon_name ("non-starred",  Gtk.IconSize.LARGE_TOOLBAR);
 

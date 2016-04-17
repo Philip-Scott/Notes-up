@@ -29,10 +29,9 @@ public class ENotes.BookmarkItem : ENotes.SidebarItem {
 
     public BookmarkItem (string bookmark_file) {
         this.bookmark = new Bookmark.from_link (ENotes.NOTES_DIR + bookmark_file);
-
         this.name = bookmark.page.name;
-
         this.parent_notebook = new ENotes.Notebook (bookmark.page.path);
+
         set_color (parent_notebook);
 
         setup_menu ();
