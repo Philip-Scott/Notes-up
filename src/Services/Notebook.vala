@@ -18,6 +18,7 @@
 *
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
+
 public class ENotes.Notebook : Object {
     private FileMonitor monitor;
     public signal void destroy ();
@@ -106,8 +107,6 @@ public class ENotes.Notebook : Object {
         if (page.new_page) {
             page.ID = ++top_id;
         }
-
-
     }
 
     public void trash () {

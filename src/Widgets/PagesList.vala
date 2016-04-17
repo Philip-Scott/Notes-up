@@ -18,6 +18,7 @@
 *
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
+
 public class ENotes.PagesList : Gtk.Box {
     private ENotes.Headerbar headerbar;
 
@@ -46,6 +47,9 @@ public class ENotes.PagesList : Gtk.Box {
 
         var scroll_box = new Gtk.ScrolledWindow (null, null);
         listbox = new Gtk.ListBox ();
+        listbox.vexpand = true;
+        listbox.set_selection_mode (Gtk.SelectionMode.MULTIPLE);
+        listbox.activate_on_single_click = false;
         listbox.set_size_request (200,250);
         listbox.set_filter_func ((row) => {
             bool found;
@@ -58,7 +62,6 @@ public class ENotes.PagesList : Gtk.Box {
         });
 
         scroll_box.set_size_request (200,250);
-        listbox.vexpand = true;
         toolbar = build_toolbar ();
 
         scroll_box.add (listbox);
@@ -126,6 +129,19 @@ public class ENotes.PagesList : Gtk.Box {
         load_pages (current_notebook);
     }
 
+    public void select_page (ENotes.Page page) {
+        var childerns = listbox.get_children ();
+
+        foreach (Gtk.Widget child in childerns) {
+            if (child is ENotes.PageItem) {
+                var item = child as ENotes.PageItem;
+
+                if (page.equals (item.page))
+                    listbox.select_row (item);
+            }
+        }
+    }
+
     public void load_pages (ENotes.Notebook notebook) {
         clear_pages ();
         this.current_notebook = notebook;
@@ -146,6 +162,7 @@ public class ENotes.PagesList : Gtk.Box {
         }
 
         toolbar.set_sensitive (true);
+        minus_button.set_sensitive (false);
         page_total.label = @"$(notebook.pages.length ()) Pages";
         this.notebook_name.label = notebook.name.split ("§")[0] + ":";
         listbox.show_all ();
@@ -165,7 +182,7 @@ public class ENotes.PagesList : Gtk.Box {
 
         var page_item = new ENotes.PageItem (page);
 
-        editor.load_file (page);
+        view_edit_stack.set_page (page);
         listbox.prepend (page_item);
         listbox.show_all ();
         listbox.select_row (page_item);
@@ -200,17 +217,26 @@ public class ENotes.PagesList : Gtk.Box {
             editor.set_sensitive (false);
             editor.reset (false);
             headerbar.set_title (null);
-            var row = listbox.get_selected_row ();
-            ((ENotes.PageItem) row).trash_page ();
+
+            var rows = listbox.get_selected_rows ();
+
+            foreach (var row in rows) {
+                ((ENotes.PageItem) row).trash_page ();
+            }
+
             refresh ();
         });
 
         listbox.row_selected.connect ((row) => {
             if (row == null) return;
-            editor.load_file (((ENotes.PageItem) row).page);
+
+            minus_button.set_sensitive (true);
+            view_edit_stack.set_page (((ENotes.PageItem) row).page);
         });
 
         listbox.row_activated.connect ((row) => {
+            window.toggle_edit ();
+
             if (headerbar.get_mode () == 1)
                 editor.give_focus ();
         });

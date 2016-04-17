@@ -9,11 +9,7 @@
 #
 ac_help='--enable-amalloc	Enable memory allocation debugging
 --with-tabstops=N	Set tabstops to N characters (default is 4)
---with-dl=X		Use Discount, Extra, or Both types of definition list
---with-id-anchor	Use id= anchors for table-of-contents links
---with-github-tags	Allow `_` and `-` in <> tags
---with-fenced-code	Allow fenced code blocks
---with-urlencoded-anchor	Use url-encoded chars to multibyte chars in toc links
+--with-latex		Enable latex passthrough
 --enable-all-features	Turn on all stable optional features
 --shared		Build shared libraries (default is static)'
 
@@ -48,20 +44,24 @@ TARGET=markdown
 
 AC_INIT $TARGET
 
-__DL=`echo "$WITH_DL" | $AC_UPPERCASE`
+for banned_with in dl fenced-code id-anchor github-tags urlencoded-anchor; do
+    banned_with_variable_ref=\$WITH_`echo "$banned_with" | $AC_UPPERCASE | tr - _`
+    if [ "`eval echo "$banned_with_variable_ref"`" ]; then
+	LOG "Setting theme default --with-$banned_with."
+    fi
+done
 
-case "$__DL" in
-EXTRA)         AC_DEFINE 'USE_EXTRA_DL' 1 ;;
-DISCOUNT|1|"") AC_DEFINE 'USE_DISCOUNT_DL' 1 ;;
-BOTH)          AC_DEFINE 'USE_EXTRA_DL' 1
-	       AC_DEFINE 'USE_DISCOUNT_DL' 1 ;;
-*)             AC_FAIL "Unknown value <$WITH_DL> for --with-dl (want 'discount', 'extra', or 'both')" ;;
+# theme wants the old behavior of --with-(foo)
+#
+case "`echo "$WITH_DL" | $AC_UPPERCASE`" in
+    EXTRA)         THEME_CF="MKD_DLEXTRA|MKD_NODLDISCOUNT";;
+    BOTH)          THEME_CF="MKD_DLEXTRA";;
 esac
+test "$WITH_FENCED_CODE" && THEME_CF="${THEME_CF:+$THEME_CF|}MKD_FENCEDCODE"
 
-test "$WITH_FENCED_CODE" && AC_DEFINE "WITH_FENCED_CODE" 1
-test "$WITH_ID_ANCHOR" && AC_DEFINE 'WITH_ID_ANCHOR' 1
-test "$WITH_GITHUB_TAGS" && AC_DEFINE 'WITH_GITHUB_TAGS' 1
-test "$WITH_URLENCODED_ANCHOR" && AC_DEFINE 'WITH_URLENCODED_ANCHOR' 1
+AC_DEFINE THEME_CF "$THEME_CF"
+
+
 test "$DEBIAN_GLITCH" && AC_DEFINE 'DEBIAN_GLITCH' 1
 
 AC_PROG_CC
@@ -92,6 +92,7 @@ AC_C_CONST
 AC_C_INLINE
 AC_SCALAR_TYPES sub hdr
 AC_CHECK_BASENAME
+AC_CHECK_ALLOCA
 
 AC_CHECK_HEADERS sys/types.h pwd.h && AC_CHECK_FUNCS getpwuid
 
@@ -162,5 +163,6 @@ fi
 [ "$OS_FREEBSD" -o "$OS_DRAGONFLY" ] || AC_CHECK_HEADERS malloc.h
 
 [ "$WITH_PANDOC_HEADER" ] && AC_DEFINE 'PANDOC_HEADER' '1'
+[ "$WITH_LATEX" ] && AC_DEFINE 'WITH_LATEX' '1'
 
 AC_OUTPUT Makefile version.c mkdio.h

@@ -18,7 +18,8 @@
 *
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
-public class ENotes.Headerbar : Gtk.HeaderBar { 
+
+public class ENotes.Headerbar : Gtk.HeaderBar {
     public signal void mode_changed (bool editor);
     public signal void search_changed ();
     public signal void search_selected ();
@@ -57,6 +58,7 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
 
  		menu_button = new Granite.Widgets.AppMenu (menu);
 
+        var search_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         search_entry = new Gtk.SearchEntry();
         search_entry.editable = true;
         search_entry.visibility = true;
@@ -69,7 +71,7 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         search_entry_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
         search_button_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
 
-        search_button = new Gtk.Button.from_icon_name("edit-find-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
+        search_button = new Gtk.Button.from_icon_name ("edit-find-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
         search_button.has_tooltip = true;
         search_button.tooltip_text = _("Search your current notebook");
         search_button.clicked.connect(show_search);
@@ -79,13 +81,17 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         search_entry_revealer.reveal_child = false;
         search_button_revealer.reveal_child = true;
 
+        bookmark_button = new BookmarkButton ();
+
         set_title (null);
         set_show_close_button (true);
 
         pack_start (mode_button);
         pack_end (menu_button);
-        pack_end (search_entry_revealer);
-        pack_end (search_button_revealer);
+        pack_end (bookmark_button);
+        search_box.add (search_button_revealer);
+        search_box.add (search_entry_revealer);
+        pack_end (search_box);
 
         this.show_all ();
     }

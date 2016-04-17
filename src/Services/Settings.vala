@@ -18,6 +18,7 @@
 *
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
+
 public class ENotes.Services.Settings : Granite.Services.Settings {
     public int pos_x { get; set; }
     public int pos_y { get; set; }

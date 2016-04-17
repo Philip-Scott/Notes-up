@@ -18,6 +18,7 @@
 *
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
+
 public class ENotes.PageItem : Gtk.ListBoxRow {
     public ENotes.Page page;
 
@@ -28,7 +29,7 @@ public class ENotes.PageItem : Gtk.ListBoxRow {
     public PageItem (ENotes.Page page) {
         this.page = page;
         build_ui ();
-        connect_page (page);
+        connect_page ();
     }
 
     private void build_ui () {
@@ -73,7 +74,7 @@ public class ENotes.PageItem : Gtk.ListBoxRow {
         page.trash_page ();
     }
 
-    private void connect_page (ENotes.Page page) {
+    private void connect_page () {
         page.saved_file.connect (() => {
 	        load_data ();
         });

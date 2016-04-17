@@ -18,6 +18,7 @@
 *
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
+
 public class ENotes.FileManager : Object {
     public static ENotes.Notebook current_notebook;
     public static ENotes.Page current_page { get; private set; }
@@ -179,7 +180,6 @@ public class ENotes.FileManager : Object {
 
             var filter = new Gtk.FileFilter ();
             filter.set_filter_name ("Images");
-
             filter.add_mime_type ("image/*");
 
             filters.append (filter);
@@ -197,18 +197,18 @@ public class ENotes.FileManager : Object {
             chooser_action,
             ("Cancel"), Gtk.ResponseType.CANCEL,
             accept_button_label, Gtk.ResponseType.ACCEPT);
-    
-    
+
+
         filters.@foreach ((filter) => {
             dialog.add_filter (filter);
         });
-    
+
         if (dialog.run () == Gtk.ResponseType.ACCEPT) {
             result = dialog.get_file ();
         }
-    
+
         dialog.close ();
-    
+
         return result;
     }
 }

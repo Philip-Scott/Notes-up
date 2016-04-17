@@ -13,9 +13,9 @@ ExternalProject_Add(discount
   SOURCE_DIR ${DISCOUNT_DEP_PATH}
   CONFIGURE_COMMAND
       ${DISCOUNT_DEP_PATH}/configure.sh --src=${DISCOUNT_DEP_PATH}
+                                        --with-fenced-code
                                         --prefix=${CMAKE_BINARY_DIR}
                                         --libdir=${CMAKE_BINARY_DIR}
-                                        --with-fenced-code
   BUILD_COMMAND make install
   BUILD_IN_SOURCE 1
 )
@@ -103,6 +103,7 @@ vala_precompile(VALA_C
   src/Application.vala
   src/Widgets/Editor.vala
   src/Widgets/Headerbar.vala
+  src/Widgets/ViewEditStack.vala
   src/Widgets/NewNotebookDialog.vala
   src/Widgets/PreferencesDialog.vala
   src/Widgets/NotebookItem.vala
@@ -114,6 +115,7 @@ vala_precompile(VALA_C
   src/Widgets/SidebarItem.vala
   src/Widgets/Viewer.vala
   src/Widgets/Window.vala
+  src/Services/Bookmark.vala
   src/Services/FileManager.vala
   src/Services/Notebook.vala
   src/Services/Page.vala

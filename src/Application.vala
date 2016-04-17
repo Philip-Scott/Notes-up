@@ -18,9 +18,11 @@
 *
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
+
 namespace ENotes {
     public ENotes.Headerbar headerbar;
-    public Gtk.Stack view_edit_stack;
+    public ENotes.BookmarkButton bookmark_button;
+    public ENotes.ViewEditStack view_edit_stack;
     public ENotes.Sidebar sidebar;
     public ENotes.PagesList pages_list;
     public ENotes.Viewer viewer;
