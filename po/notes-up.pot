@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-14 18:07-0600\n"
+"POT-Creation-Date: 2016-05-14 23:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,93 +17,138 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /home/felipe/Code/enotes/po/../src/Services/Notebook.vala:37
-#: /home/felipe/Code/enotes/po/../src/Widgets/Editor.vala:17
-#: /home/felipe/Code/enotes/po/../src/Widgets/PagesList.vala:128
-msgid "New Page"
-msgstr ""
-
-#: /home/felipe/Code/enotes/po/../src/Widgets/Sidebar.vala:5
-msgid "Notebooks"
-msgstr ""
-
-#: /home/felipe/Code/enotes/po/../src/Widgets/Sidebar.vala:6
-msgid "Bookmarks"
-msgstr ""
-
-#: /home/felipe/Code/enotes/po/../src/Widgets/Headerbar.vala:18
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/Headerbar.vala:47
 msgid "View"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Headerbar.vala:19
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/Headerbar.vala:48
 msgid "Edit"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Headerbar.vala:23
-#: /home/felipe/Code/enotes/po/../src/Widgets/NewNotebookDialog.vala:20
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/Headerbar.vala:52
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:54
 msgid "New Notebook"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Headerbar.vala:24
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/Headerbar.vala:53
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/PreferencesDialog.vala:39
 msgid "Preferences"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Headerbar.vala:25
-msgid "Export Page"
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/Headerbar.vala:54
+msgid "Export to PDF"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Headerbar.vala:26
-msgid "About"
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/Headerbar.vala:76
+msgid "Search your current notebook"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Editor.vala:131
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:66
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/NotebookItem.vala:46
+msgid "Edit Notebook"
+msgstr ""
+
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/BookmarkButton.vala:38
+msgid "Bookmark page"
+msgstr ""
+
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/PagesList.vala:157
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/PagesList.vala:180
+msgid "New Page"
+msgstr ""
+
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/NotebookItem.vala:47
+msgid "New Section"
+msgstr ""
+
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/NotebookItem.vala:48
+msgid "Delete Notebook"
+msgstr ""
+
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/PreferencesDialog.vala:47
+msgid "Editor"
+msgstr ""
+
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/PreferencesDialog.vala:48
+msgid "Viewer"
+msgstr ""
+
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/PreferencesDialog.vala:69
+msgid "Font:"
+msgstr ""
+
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/PreferencesDialog.vala:79
+msgid "Theme:"
+msgstr ""
+
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/PreferencesDialog.vala:104
+msgid "Automatic indentation:"
+msgstr ""
+
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/PreferencesDialog.vala:112
+msgid "Show line Numbers:"
+msgstr ""
+
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/PreferencesDialog.vala:138
+msgid "Global Stylesheet"
+msgstr ""
+
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/Sidebar.vala:24
+msgid "Notebooks"
+msgstr ""
+
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/Sidebar.vala:25
+msgid "Bookmarks"
+msgstr ""
+
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/Editor.vala:164
 msgid "Add bold to text"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Editor.vala:132
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/Editor.vala:165
 msgid "Add italic to text"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Editor.vala:133
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/Editor.vala:166
 msgid "Strikethrough text"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Editor.vala:135
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/Editor.vala:168
 msgid "Insert a quote"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Editor.vala:136
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/Editor.vala:169
 msgid "Insert code"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Editor.vala:137
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/Editor.vala:170
 msgid "Insert a link"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Editor.vala:139
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/Editor.vala:172
 msgid "Add a bulleted list"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Editor.vala:140
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/Editor.vala:173
 msgid "Add a Numbered list"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Editor.vala:143
-msgid "Insert a web image"
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/Editor.vala:176
+msgid "Insert an image"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/BookmarkItem.vala:25
+#: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/BookmarkItem.vala:54
 msgid "Remove"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Application.vala:15
-msgid "Notes"
+#: /home/dabou/Projets/github/Notes-up/po/../src/Application.vala:36
+msgid "Notes-up"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Application.vala:16
+#: /home/dabou/Projets/github/Notes-up/po/../src/Application.vala:37
 msgid "Your Markdown Notebook."
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Application.vala:17
+#: /home/dabou/Projets/github/Notes-up/po/../src/Application.vala:38
 msgid "About Notes"
 msgstr ""
