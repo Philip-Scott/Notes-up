@@ -41,13 +41,13 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         build_ui ();
         connect_signals ();
     }
-    
+
     private void build_ui () {
         mode_button = new Granite.Widgets.ModeButton ();
-        mode_button.append_text (("View"));
-        mode_button.append_text (("Edit"));
+        mode_button.append_text (_("View"));
+        mode_button.append_text (_("Edit"));
         mode_button.valign = Gtk.Align.CENTER;
-        
+
         var menu = new Gtk.Menu ();
  		item_new   = new Gtk.MenuItem.with_label (_("New Notebook"));
  		item_preff = new Gtk.MenuItem.with_label (_("Preferences"));
@@ -95,11 +95,11 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
 
         this.show_all ();
     }
-    
+
     public int get_mode () {
         return mode_button.selected;
     }
-        
+
     public void set_mode (int mode) {
     	mode_button.set_active (mode);
     }
