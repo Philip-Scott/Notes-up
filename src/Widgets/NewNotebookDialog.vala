@@ -52,15 +52,15 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
 
         var main_box 		= this.get_content_area();
 		var title 			= new Gtk.Label ("<b>%s</b>".printf (_("New Notebook")));
-		var name_label 		= new Gtk.Label ("Name:");
-		var color_label	    = new Gtk.Label ("Color:");
+		var name_label 		= new Gtk.Label (_("Name:"));
+		var color_label	    = new Gtk.Label (_("Color:"));
 		title.set_use_markup (true);
 		title.halign 		= Gtk.Align.START;
 		name_label.halign 	= Gtk.Align.START;
 		color_label.halign 	= Gtk.Align.START;
 
 		name_entry = new Gtk.Entry ();
-		add_button ("Cancel", 2);
+		add_button (_("Cancel"), 2);
 
 		if (notebook != null) {
             title.set_label ("<b>%s</b>".printf (_("Edit Notebook")));
@@ -72,10 +72,10 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
             color.alpha = 1;
 
 		    color_button = new Gtk.ColorButton.with_rgba (color);
-		    create = (Gtk.Button) this.add_button ("Edit", 1);
+		    create = (Gtk.Button) this.add_button (_("Edit"), 1);
 		} else {
 		    color_button = new Gtk.ColorButton ();
-		    create = (Gtk.Button) this.add_button ("Create", 1);
+		    create = (Gtk.Button) this.add_button (_("Create"), 1);
 		    create.sensitive = false;
 		}
 

@@ -58,7 +58,7 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
         box.add (stack);
         this.get_content_area().add (box);
 
-        add_button ("_Close", Gtk.ResponseType.CLOSE);
+        add_button (_("_Close"), Gtk.ResponseType.CLOSE);
 
         this.show_all ();
     }
