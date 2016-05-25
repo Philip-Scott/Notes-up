@@ -73,6 +73,11 @@ public class ENotes.FileManager : Object {
     public static List<string> load_bookmarks () {
         var bookmarks = new List<string>();
 
+        CompareDataFunc<string> bookmark_comp = (a, b) => {
+            int d = (int) (a.ascii_casecmp  (b));
+            return d;
+        };
+
         try {
             var directory = File.new_for_path (ENotes.NOTES_DIR);
             var enumerator = directory.enumerate_children (FileAttribute.STANDARD_NAME + "," + FileAttribute.STANDARD_SYMLINK_TARGET, 0);
@@ -81,7 +86,7 @@ public class ENotes.FileManager : Object {
             while ((file_info = enumerator.next_file ()) != null) {
                 if (file_info.get_file_type () != FileType.DIRECTORY) {
                     string temp = file_info.get_name ();
-                    bookmarks.append (temp);
+                    bookmarks.insert_sorted_with_data (temp, bookmark_comp);
                 }
             }
 

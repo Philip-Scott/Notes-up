@@ -20,7 +20,7 @@
 */
 
 public class ENotes.Headerbar : Gtk.HeaderBar {
-    public signal void mode_changed (bool editor);
+    public signal void mode_changed (ENotes.Mode mode);
     public signal void search_changed ();
     public signal void search_selected ();
 
@@ -41,22 +41,22 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         build_ui ();
         connect_signals ();
     }
-    
+
     private void build_ui () {
         mode_button = new Granite.Widgets.ModeButton ();
         mode_button.append_text (("View"));
         mode_button.append_text (("Edit"));
         mode_button.valign = Gtk.Align.CENTER;
-        
+
         var menu = new Gtk.Menu ();
- 		item_new   = new Gtk.MenuItem.with_label (_("New Notebook"));
- 		item_preff = new Gtk.MenuItem.with_label (_("Preferences"));
- 		item_export = new Gtk.MenuItem.with_label (_("Export to PDF"));
- 		menu.add (item_new);
- 		menu.add (item_export);
+        item_new   = new Gtk.MenuItem.with_label (_("New Notebook"));
+        item_preff = new Gtk.MenuItem.with_label (_("Preferences"));
+        item_export = new Gtk.MenuItem.with_label (_("Export to PDF"));
+        menu.add (item_new);
+        menu.add (item_export);
         menu.add (item_preff);
 
- 		menu_button = new Granite.Widgets.AppMenu (menu);
+        menu_button = new Granite.Widgets.AppMenu (menu);
 
         var search_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         search_entry = new Gtk.SearchEntry();
@@ -95,13 +95,13 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
 
         this.show_all ();
     }
-    
-    public int get_mode () {
-        return mode_button.selected;
+
+    public ENotes.Mode get_mode () {
+        return ENotes.Mode.get_mode (mode_button.selected);
     }
-        
-    public void set_mode (int mode) {
-    	mode_button.set_active (mode);
+
+    public void set_mode (ENotes.Mode mode) {
+        mode_button.set_active (mode);
     }
 
     public new void set_title (string? title) {
@@ -113,7 +113,7 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
     }
 
     private void connect_signals () {
-    	item_export.activate.connect (() => {
+        item_export.activate.connect (() => {
             ENotes.FileManager.export_pdf_action ();
         });
 
@@ -129,12 +129,9 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
 
         mode_button.mode_changed.connect ((widget) => {
             if (mode_button.selected == 0) {
-                mode_changed (false);
-                editor.save_file ();
-                pages_list.grab_focus ();
+                mode_changed (ENotes.Mode.VIEW);
             } else {
-                mode_changed (true);
-                editor.give_focus ();
+                mode_changed (ENotes.Mode.EDIT);
             }
         });
 

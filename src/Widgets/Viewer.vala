@@ -28,6 +28,8 @@ public class ENotes.Viewer : WebKit.WebView {
 
         string file = "/tmp/notes-up-render-" + GLib.Environment.get_user_name ();
         temp_file = File.new_for_path (file);
+
+        connect_signals ();
     }
 
     public void load_css () {
@@ -46,6 +48,16 @@ public class ENotes.Viewer : WebKit.WebView {
         } catch (Error e) {
             load_html ("<h1>Sorry....</h1> <h2>Loading your file failed :(</h2> <br>", null);
         }
+    }
+
+    private void connect_signals () {
+        load_changed.connect ((event) => {
+            if (event == WebKit.LoadEvent.FINISHED) {
+                var rectangle = get_window_properties ().get_geometry ();
+                set_size_request (rectangle.width, rectangle.height);
+            }
+
+        });
     }
 
     private string[] process_frontmatter (string raw_mk, out string processed_mk) {

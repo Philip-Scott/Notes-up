@@ -19,7 +19,21 @@
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
 
+public enum ENotes.Mode {
+    VIEW = 0,
+    EDIT = 1;
+
+    public static ENotes.Mode get_mode (int value) {
+        return (value == 1) ? EDIT : VIEW;
+    }
+
+    public static int get_value (ENotes.Mode value) {
+        return (value == VIEW) ? 0 : 1;
+    }
+}
+
 public class ENotes.ViewEditStack : Gtk.Overlay {
+
     public signal void page_set (ENotes.Page page);
 
     private ENotes.Page current_page;
@@ -30,6 +44,7 @@ public class ENotes.ViewEditStack : Gtk.Overlay {
 
         viewer = new ENotes.Viewer ();
         editor = new ENotes.Editor ();
+
         stack.add_named (editor, "editor");
         stack.add_named (viewer, "viewer");
 
@@ -51,11 +66,8 @@ public class ENotes.ViewEditStack : Gtk.Overlay {
 
     public void show_edit () {
         stack.set_visible_child_name ("editor");
-        //bookmark_button.set_toolbar_mode (true);
     }
     public void show_view () {
         stack.set_visible_child_name ("viewer");
-        //bookmark_button.set_toolbar_mode (false);
     }
-
 }

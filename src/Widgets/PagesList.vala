@@ -193,10 +193,10 @@ public class ENotes.PagesList : Gtk.Box {
     }
 
     private void connect_signals () {
-        headerbar.mode_changed.connect ((edit) => {
-            minus_button.visible = edit;
-            separator.visible = edit;
-            page_total.visible = !edit;
+        headerbar.mode_changed.connect ((mode) => {
+            minus_button.visible = (mode == 1);
+            separator.visible = (mode == 1);
+            page_total.visible = !(mode == 1);
         });
 
         headerbar.search_changed.connect (() => {

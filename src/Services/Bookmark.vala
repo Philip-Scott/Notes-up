@@ -50,8 +50,7 @@ public class ENotes.Bookmark : Object {
 
             if (page.new_page) return;
         } catch (Error e) {
-
-
+            stderr.printf ("Symlink has no target: %s", e.message);
             return;
         }
 

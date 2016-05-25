@@ -30,7 +30,7 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
         load_bookmarks ();
         connect_signals ();
         notebooks.collapse_all (true, true);
-         root.expand_all (false, false);
+        root.expand_all (false, false);
     }
 
     private void build_new_ui () {

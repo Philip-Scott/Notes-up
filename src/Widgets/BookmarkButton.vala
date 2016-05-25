@@ -31,7 +31,6 @@ public class ENotes.BookmarkButton : Gtk.Button {
 
         expand = false;
         can_focus = false;
-
         has_tooltip = true;
         tooltip_text = _("Bookmark page");
 

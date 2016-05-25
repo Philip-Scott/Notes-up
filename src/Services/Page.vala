@@ -91,21 +91,17 @@ public class ENotes.Page : Object {
     public string get_text (int to_load = -1) {
         if (new_page) {
         	return "";
+        } else if (changed) {
+            changed = false;
+            try {
+                var dis = new DataInputStream (this.file.read ());
+                size_t size;
+                page_data = dis.read_upto ("\0", to_load, out size);
+            } catch (Error e) {
+                error ("Error loading file: %s", e.message);
+            }
         }
 
-        if (!changed) {
-            return page_data;
-        }
-
-        try {
-            var dis = new DataInputStream (this.file.read ());
-            size_t size;
-            page_data = dis.read_upto ("\0", to_load, out size);
-        } catch (Error e) {
-            error ("Error loading file: %s", e.message);
-        }
-
-        changed = false;
         return page_data;
     }
 
