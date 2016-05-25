@@ -44,8 +44,8 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
 
     private void build_ui () {
         mode_button = new Granite.Widgets.ModeButton ();
-        mode_button.append_text (("View"));
-        mode_button.append_text (("Edit"));
+        mode_button.append_text (_("View"));
+        mode_button.append_text (_("Edit"));
         mode_button.valign = Gtk.Align.CENTER;
 
         var menu = new Gtk.Menu ();
@@ -95,6 +95,7 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
 
         this.show_all ();
     }
+
 
     public ENotes.Mode get_mode () {
         return ENotes.Mode.get_mode (mode_button.selected);

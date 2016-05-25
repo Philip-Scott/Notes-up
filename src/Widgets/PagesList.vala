@@ -163,7 +163,7 @@ public class ENotes.PagesList : Gtk.Box {
 
         toolbar.set_sensitive (true);
         minus_button.set_sensitive (false);
-        page_total.label = @"$(notebook.pages.length ()) Pages";
+        page_total.label = _("%i Pages").printf(notebook.pages.length ());
         this.notebook_name.label = notebook.name.split ("§")[0] + ":";
         listbox.show_all ();
     }

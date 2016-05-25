@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-14 18:07-0600\n"
+"POT-Creation-Date: 2016-05-24 19:31-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,93 +17,164 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /home/felipe/Code/enotes/po/../src/Services/Notebook.vala:37
-#: /home/felipe/Code/enotes/po/../src/Widgets/Editor.vala:17
-#: /home/felipe/Code/enotes/po/../src/Widgets/PagesList.vala:128
-msgid "New Page"
-msgstr ""
-
-#: /home/felipe/Code/enotes/po/../src/Widgets/Sidebar.vala:5
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar.vala:24
 msgid "Notebooks"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Sidebar.vala:6
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar.vala:25
 msgid "Bookmarks"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Headerbar.vala:18
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NotebookItem.vala:46
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:66
+msgid "Edit Notebook"
+msgstr ""
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NotebookItem.vala:47
+msgid "New Section"
+msgstr ""
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NotebookItem.vala:48
+msgid "Delete Notebook"
+msgstr ""
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:47
 msgid "View"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Headerbar.vala:19
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:48
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:75
 msgid "Edit"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Headerbar.vala:23
-#: /home/felipe/Code/enotes/po/../src/Widgets/NewNotebookDialog.vala:20
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:52
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:54
 msgid "New Notebook"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Headerbar.vala:24
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:53
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:39
 msgid "Preferences"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Headerbar.vala:25
-msgid "Export Page"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:54
+msgid "Export to PDF"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Headerbar.vala:26
-msgid "About"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:76
+msgid "Search your current notebook"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Editor.vala:131
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/BookmarkButton.vala:35
+msgid "Bookmark page"
+msgstr ""
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:68
 msgid "Add bold to text"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Editor.vala:132
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:69
 msgid "Add italic to text"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Editor.vala:133
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:70
 msgid "Strikethrough text"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Editor.vala:135
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:72
 msgid "Insert a quote"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Editor.vala:136
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:73
 msgid "Insert code"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Editor.vala:137
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:74
 msgid "Insert a link"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Editor.vala:139
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:76
 msgid "Add a bulleted list"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Editor.vala:140
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:77
 msgid "Add a Numbered list"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/Editor.vala:143
-msgid "Insert a web image"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:79
+msgid "Insert an image"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Widgets/BookmarkItem.vala:25
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:47
+msgid "Editor"
+msgstr ""
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:48
+msgid "Viewer"
+msgstr ""
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:61
+msgid "_Close"
+msgstr ""
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:69
+msgid "Font:"
+msgstr ""
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:79
+msgid "Theme:"
+msgstr ""
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:104
+msgid "Automatic indentation:"
+msgstr ""
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:112
+msgid "Show line Numbers:"
+msgstr ""
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:138
+msgid "Global Stylesheet"
+msgstr ""
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:55
+msgid "Name:"
+msgstr ""
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:56
+msgid "Color:"
+msgstr ""
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:63
+msgid "Cancel"
+msgstr ""
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:78
+msgid "Create"
+msgstr ""
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PagesList.vala:157
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PagesList.vala:180
+msgid "New Page"
+msgstr ""
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PagesList.vala:166
+#, c-format
+msgid "%i Pages"
+msgstr ""
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/BookmarkItem.vala:53
 msgid "Remove"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Application.vala:15
-msgid "Notes"
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:36
+msgid "Notes-up"
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Application.vala:16
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:37
 msgid "Your Markdown Notebook."
 msgstr ""
 
-#: /home/felipe/Code/enotes/po/../src/Application.vala:17
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:38
 msgid "About Notes"
 msgstr ""
