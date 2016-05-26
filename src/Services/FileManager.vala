@@ -148,7 +148,8 @@ public class ENotes.FileManager : Object {
     }
 
     public static string create_notebook (string name, double r, double g, double b, string source = NOTES_DIR) {
-        string notebook_name = "%s§%.3f§%.3f§%.3f".printf (name,r,g,b);
+        string notebook_name = "%s§%s§%s§%s".printf(name, r.to_string(),g.to_string(),b.to_string());
+
         var directory = File.new_for_path (source + notebook_name);
         try {
             directory.make_directory_with_parents ();
