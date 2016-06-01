@@ -168,7 +168,7 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
         line_numbers_switch.state_set.connect ((state) => {
             settings.line_numbers = state;
 
-            editor.show_line_numbers (state);
+            ENotes.Editor.get_instance ().show_line_numbers (state);
             return false;
         });
 
@@ -176,7 +176,7 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
             unowned string name = font_button.get_font_name ();
             settings.editor_font = name;
 
-            editor.set_font (name);
+            ENotes.Editor.get_instance ().set_font (name);
         });
 
         scheme_box.changed.connect(() => {
@@ -187,7 +187,7 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
             var scheme_id = (string) box_val;
             settings.editor_scheme = scheme_id;
 
-            editor.set_scheme (scheme_id);
+            ENotes.Editor.get_instance ().set_scheme (scheme_id);
         });
 
         this.response.connect (on_response);
@@ -197,9 +197,9 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
         switch (response_id) {
             case Gtk.ResponseType.CLOSE:
                 settings.render_stylesheet = style_box.buffer.text;
-                viewer.load_css ();
-                viewer.load_string (editor.get_text ());
-                editor.load_settings ();
+                ENotes.Viewer.get_instance ().load_css ();
+                ENotes.Viewer.get_instance ().load_string (ENotes.Editor.get_instance ().get_text ());
+                ENotes.Editor.get_instance ().load_settings ();
                 destroy ();
             break;
         }

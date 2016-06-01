@@ -76,7 +76,7 @@ public class ENotes.PageItem : Gtk.ListBoxRow {
 
     private void connect_page () {
         page.saved_file.connect (() => {
-	        load_data ();
+            load_data ();
         });
 
         page.destroy.connect (() => {

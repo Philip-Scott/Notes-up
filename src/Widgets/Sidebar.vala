@@ -20,11 +20,20 @@
 */
 
 public class ENotes.Sidebar : Granite.Widgets.SourceList {
+    private static Sidebar? instance = null;
 
     private Granite.Widgets.SourceList.ExpandableItem notebooks = new Granite.Widgets.SourceList.ExpandableItem (_("Notebooks"));
     private Granite.Widgets.SourceList.ExpandableItem bookmarks = new Granite.Widgets.SourceList.ExpandableItem (_("Bookmarks"));
 
-    public Sidebar () {
+    public static Sidebar get_instance () {
+        if (instance == null) {
+            instance = new Sidebar ();
+        }
+
+        return instance;
+    }
+
+    private Sidebar () {
         build_new_ui ();
         load_notebooks ();
         load_bookmarks ();
@@ -46,7 +55,7 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
 
         var notebook_list = FileManager.load_notebooks ();
 
-           foreach (ENotes.Notebook nb in notebook_list) {
+        foreach (ENotes.Notebook nb in notebook_list) {
             var notebook = new NotebookItem (nb);
             this.notebooks.add (notebook);
 
@@ -119,16 +128,16 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
         this.item_selected.connect ((item) => {
             if (item == null) return;
 
-            if (item is BookmarkItem) {
+            if (item is ENotes.BookmarkItem) {
                 select_notebook (((ENotes.BookmarkItem) item).parent_notebook.name);
-                pages_list.select_page (((ENotes.BookmarkItem) item).get_page ());
+                ENotes.PagesList.get_instance ().select_page (((ENotes.BookmarkItem) item).get_page ());
                 return;
             } else {
                 ((NotebookItem) item).expand_all (true, true);
             }
 
-            editor.save_file ();
-            pages_list.load_pages (((ENotes.NotebookItem) item).notebook);
+            ENotes.Editor.get_instance ().save_file ();
+            ENotes.PagesList.get_instance ().load_pages (((ENotes.NotebookItem) item).notebook);
         });
     }
 }

@@ -20,6 +20,8 @@
 */
 
 public class ENotes.Editor : Gtk.Box {
+    private static Editor? instance = null;
+
     private Gtk.SourceView code_view;
     private Gtk.SourceBuffer code_buffer;
 
@@ -27,7 +29,15 @@ public class ENotes.Editor : Gtk.Box {
 
     public ENotes.Page current_page = null;
 
-    public Editor () {
+    public static Editor get_instance () {
+        if (instance == null) {
+            instance = new Editor ();
+        }
+
+        return instance;
+    }
+
+    private Editor () {
         build_ui ();
         reset ();
         load_settings ();
@@ -167,16 +177,16 @@ public class ENotes.Editor : Gtk.Box {
 
         save_file ();
         if (page.new_page) {
-            headerbar.set_mode (ENotes.Mode.EDIT);
+            ENotes.Headerbar.get_instance ().set_mode (ENotes.Mode.EDIT);
         }
 
         current_page = page;
         code_buffer.text = page.get_text ();
-        viewer.load_string (this.get_text ());
+        ENotes.Viewer.get_instance ().load_string (this.get_text ());
         edited = false;
-        headerbar.set_title (page.name);
-
+        ENotes.Headerbar.get_instance ().set_title (page.name);
         code_buffer.end_not_undoable_action ();
+
         this.set_sensitive (true);
     }
 

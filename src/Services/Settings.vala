@@ -20,6 +20,8 @@
 */
 
 public class ENotes.Services.Settings : Granite.Services.Settings {
+    private static Settings? instance = null;
+
     public int pos_x { get; set; }
     public int pos_y { get; set; }
     public int window_width { get; set; }
@@ -36,7 +38,15 @@ public class ENotes.Services.Settings : Granite.Services.Settings {
     public string editor_scheme { get; set; }
     public string render_stylesheet { get; set; }
 
-    public Settings () {
+    public static Settings get_instance () {
+        if (instance == null) {
+            instance = new Settings ();
+        }
+
+        return instance;
+    }
+
+    private Settings () {
         base ("org.notes");
     }
 }

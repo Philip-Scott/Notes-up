@@ -53,7 +53,7 @@ public class ENotes.BookmarkItem : ENotes.SidebarItem {
         remove_item = new Gtk.MenuItem.with_label (_("Remove"));
         remove_item.activate.connect (() => {
             this.bookmark.unbookmark ();
-            bookmark_button.setup ();
+            ENotes.BookmarkButton.get_instance ().setup ();
         });
 
         menu.add (remove_item);

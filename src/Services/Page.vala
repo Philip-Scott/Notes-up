@@ -150,12 +150,12 @@ public class ENotes.Page : Object {
         string file_name;
 
         if (new_page) {
-            file_name = editor.get_text ().split ("\n", 2)[0];
+            file_name = ENotes.Editor.get_instance ().get_text ().split ("\n", 2)[0];
             file_name = cleanup (file_name);
 
             return ID.to_string () + "§" + file_name;
         } else {
-            return file.get_basename ();;
+            return file.get_basename ();
         }
     }
 

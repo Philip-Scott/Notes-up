@@ -20,54 +20,16 @@
 */
 
 public class ENotes.Window : Gtk.ApplicationWindow {
+    private ENotes.BookmarkButton bookmark_button;
+    private ENotes.Editor editor;
+    private ENotes.Headerbar headerbar;
+    private ENotes.PagesList pages_list;
+    private ENotes.Sidebar sidebar;
+    private ENotes.ViewEditStack view_edit_stack;
+    private ENotes.Viewer viewer;
+
     private Gtk.Paned pane1;
     private Gtk.Paned pane2;
-
-    protected override bool delete_event (Gdk.EventAny event) {
-        int width;
-        int height;
-        int x;
-        int y;
-
-        editor.save_file ();
-        get_size (out width, out height);
-        get_position (out x, out y);
-
-        settings.pos_x = x;
-        settings.pos_y = y;
-        settings.panel_size = pane2.position;
-        settings.window_width = width;
-        settings.window_height = height;
-        settings.mode = headerbar.get_mode ();
-        settings.last_folder = pages_list.current_notebook.path;
-        settings.page_path = editor.current_page.full_path;
-
-        return false;
-    }
-
-    private void load_settings () {
-        resize (settings.window_width, settings.window_height);
-        pane2.position = settings.panel_size;
-
-        headerbar.set_mode (ENotes.Mode.get_mode (settings.mode));
-
-        if (settings.last_folder != "") {
-            var notebook = new ENotes.Notebook (settings.last_folder);
-            notebook.refresh ();
-
-            pages_list.load_pages (notebook);
-            sidebar.select_notebook (notebook.name);
-        }
-
-        string path = settings.page_path;
-
-        if (path != "") {
-            var page = new ENotes.Page (path);
-
-            if (!page.new_page)
-                view_edit_stack.set_page (page);
-        }
-    }
 
     public Window (Gtk.Application app) {
         Object (application: app);
@@ -75,21 +37,23 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         build_ui ();
         connect_signals (app);
         load_settings ();
-        sidebar.first_start ();
+        Sidebar.get_instance ().first_start ();
     }
 
     private void build_ui () {
-        headerbar = new ENotes.Headerbar ();
+        headerbar = ENotes.Headerbar.get_instance ();
         set_titlebar (headerbar);
 
         set_events (Gdk.EventMask.BUTTON_PRESS_MASK);
 
         pane1 = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
         pane2 = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
-        sidebar = new ENotes.Sidebar ();
-        pages_list = new ENotes.PagesList (headerbar);
+        sidebar = ENotes.Sidebar.get_instance ();
+        pages_list = ENotes.PagesList.get_instance ();
 
-        view_edit_stack = new ENotes.ViewEditStack ();
+        view_edit_stack = ENotes.ViewEditStack.get_instance ();
+        editor = ENotes.Editor.get_instance ();
+        viewer = ENotes.Viewer.get_instance ();
 
         pane1.pack1 (sidebar, false, false);
         pane1.pack2 (pane2, true, false);
@@ -136,6 +100,52 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         headerbar.mode_changed.connect ((mode) => {
             set_mode (mode);
         });
+    }
+
+    protected override bool delete_event (Gdk.EventAny event) {
+        int width;
+        int height;
+        int x;
+        int y;
+
+        editor.save_file ();
+        get_size (out width, out height);
+        get_position (out x, out y);
+
+        settings.pos_x = x;
+        settings.pos_y = y;
+        settings.panel_size = pane2.position;
+        settings.window_width = width;
+        settings.window_height = height;
+        settings.mode = headerbar.get_mode ();
+        settings.last_folder = pages_list.current_notebook.path;
+        settings.page_path = editor.current_page.full_path;
+
+        return false;
+    }
+
+    private void load_settings () {
+        resize (settings.window_width, settings.window_height);
+        pane2.position = settings.panel_size;
+
+        headerbar.set_mode (ENotes.Mode.get_mode (settings.mode));
+
+        if (settings.last_folder != "") {
+            var notebook = new ENotes.Notebook (settings.last_folder);
+            notebook.refresh ();
+
+            pages_list.load_pages (notebook);
+            sidebar.select_notebook (notebook.name);
+        }
+
+        string path = settings.page_path;
+
+        if (path != "") {
+            var page = new ENotes.Page (path);
+
+            if (!page.new_page)
+                view_edit_stack.set_page (page);
+        }
     }
 
     private void new_page () {

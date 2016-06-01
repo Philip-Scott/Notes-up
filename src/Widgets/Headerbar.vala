@@ -20,10 +20,13 @@
 */
 
 public class ENotes.Headerbar : Gtk.HeaderBar {
+    private static Headerbar? instance = null;
+
     public signal void mode_changed (ENotes.Mode mode);
     public signal void search_changed ();
     public signal void search_selected ();
 
+    private ENotes.BookmarkButton bookmark_button;
     private Granite.Widgets.ModeButton mode_button;
     private Granite.Widgets.AppMenu menu_button;
     private Gtk.MenuItem item_new;
@@ -37,7 +40,15 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
 
     private bool search_visible = false;
 
-    public Headerbar () {
+    public static Headerbar get_instance () {
+        if (instance == null) {
+            instance = new Headerbar ();
+        }
+
+        return instance;
+    }
+
+    private Headerbar () {
         build_ui ();
         connect_signals ();
     }
@@ -81,7 +92,7 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         search_entry_revealer.reveal_child = false;
         search_button_revealer.reveal_child = true;
 
-        bookmark_button = new BookmarkButton ();
+        bookmark_button = BookmarkButton.get_instance ();
 
         set_title (null);
         set_show_close_button (true);

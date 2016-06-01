@@ -20,10 +20,20 @@
 */
 
 public class ENotes.Viewer : WebKit.WebView {
+    private static Viewer? instance = null;
+
     public string CSS;
     private File temp_file;
 
-    public Viewer () {
+    public static Viewer get_instance () {
+        if (instance == null) {
+            instance = new Viewer ();
+        }
+
+        return instance;
+    }
+
+    private Viewer () {
         load_css ();
 
         string file = "/tmp/notes-up-render-" + GLib.Environment.get_user_name ();
@@ -37,7 +47,7 @@ public class ENotes.Viewer : WebKit.WebView {
     }
 
     public void load_string (string page_content, bool force_load = false) {
-        if (headerbar.get_mode () == 1 && !force_load) return;
+        if (Headerbar.get_instance ().get_mode () == 1 && !force_load) return;
 
         string html;
         process_frontmatter (page_content, out html);

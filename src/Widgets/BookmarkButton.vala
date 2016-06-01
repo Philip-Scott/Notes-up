@@ -20,11 +20,21 @@
 */
 
 public class ENotes.BookmarkButton : Gtk.Button {
+    private static BookmarkButton? instance = null;
+
     private ENotes.Page current_page;
     private Bookmark bookmark;
     private  Gtk.Image pic;
 
-    public BookmarkButton () {
+    public static BookmarkButton get_instance () {
+        if (instance == null) {
+            instance = new BookmarkButton ();
+        }
+
+        return instance;
+    }
+
+    private BookmarkButton () {
         pic = new Gtk.Image.from_icon_name ("non-starred",  Gtk.IconSize.LARGE_TOOLBAR);
 
         this.image = pic;
@@ -59,7 +69,7 @@ public class ENotes.BookmarkButton : Gtk.Button {
             this.bookmark.unbookmark ();
         }
 
-        sidebar.load_bookmarks ();
+        ENotes.Sidebar.get_instance ().load_bookmarks ();
         setup ();
     }
 

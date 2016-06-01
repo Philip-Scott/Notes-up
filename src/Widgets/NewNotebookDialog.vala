@@ -118,7 +118,7 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
                         notebook.rename (name_entry.text);
                     }
 
-    				sidebar.load_notebooks ();
+    				ENotes.Sidebar.get_instance ().load_notebooks ();
     				this.close ();
     				break;
     			case 2: // Cancel

@@ -98,7 +98,7 @@ public class ENotes.FileManager : Object {
     }
 
     public static void export_pdf_action () {
-        viewer.load_string (editor.get_text (), true);
+        ENotes.Viewer.get_instance ().load_string (ENotes.Editor.get_instance ().get_text (), true);
 
         var file = get_file_from_user ();
 
@@ -109,7 +109,7 @@ public class ENotes.FileManager : Object {
             return;
         }
 
-        var op = new WebKit.PrintOperation (viewer);
+        var op = new WebKit.PrintOperation (ENotes.Viewer.get_instance ());
         var settings = new Gtk.PrintSettings ();
         settings.set_printer ("Print to File");
 

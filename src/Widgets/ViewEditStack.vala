@@ -33,18 +33,31 @@ public enum ENotes.Mode {
 }
 
 public class ENotes.ViewEditStack : Gtk.Overlay {
+    private static ViewEditStack? instance = null;
 
     public signal void page_set (ENotes.Page page);
 
-    private ENotes.Page current_page;
+    private ENotes.BookmarkButton bookmark_button;
+    private ENotes.Viewer viewer;
+    private ENotes.Editor editor;
     private Gtk.Stack stack;
 
-    public ViewEditStack () {
+    private ENotes.Page current_page;
+
+    public static ViewEditStack get_instance () {
+        if (instance == null) {
+            instance = new ViewEditStack ();
+        }
+
+        return instance;
+    }
+
+    private ViewEditStack () {
         stack = new Gtk.Stack ();
 
-        viewer = new ENotes.Viewer ();
-        editor = new ENotes.Editor ();
-
+        viewer = ENotes.Viewer.get_instance ();
+        editor = ENotes.Editor.get_instance ();
+        bookmark_button = BookmarkButton.get_instance ();
         stack.add_named (editor, "editor");
         stack.add_named (viewer, "viewer");
 

@@ -20,7 +20,7 @@
 */
 
 public class ENotes.PagesList : Gtk.Box {
-    private ENotes.Headerbar headerbar;
+    private static PagesList? instance = null;
 
     private Gtk.ListBox listbox;
     private Gtk.Frame toolbar;
@@ -35,9 +35,15 @@ public class ENotes.PagesList : Gtk.Box {
 
     private string search_for = "";
 
-    public PagesList (ENotes.Headerbar headerbar) {
-        this.headerbar = headerbar;
+    public static PagesList get_instance () {
+        if (instance == null) {
+            instance = new PagesList ();
+        }
 
+        return instance;
+    }
+
+    private PagesList () {
         build_ui ();
         connect_signals ();
     }
@@ -125,7 +131,7 @@ public class ENotes.PagesList : Gtk.Box {
     }
 
     private void refresh () {
-    	current_notebook.refresh ();
+        current_notebook.refresh ();
         load_pages (current_notebook);
     }
 
@@ -171,18 +177,17 @@ public class ENotes.PagesList : Gtk.Box {
     private ENotes.PageItem new_page (ENotes.Page page) {
         var page_box = new ENotes.PageItem (page);
         listbox.add (page_box);
-
         return page_box;
     }
 
     public void new_blank_page () {
-        editor.save_file ();
+        ENotes.Editor.get_instance ().save_file ();
         var page = current_notebook.add_page_from_name (_("New Page"));
         page.new_page = true;
 
         var page_item = new ENotes.PageItem (page);
 
-        view_edit_stack.set_page (page);
+        ENotes.ViewEditStack.get_instance ().set_page (page);
         listbox.prepend (page_item);
         listbox.show_all ();
         listbox.select_row (page_item);
@@ -192,19 +197,20 @@ public class ENotes.PagesList : Gtk.Box {
         listbox.grab_focus ();
     }
 
+
     private void connect_signals () {
-        headerbar.mode_changed.connect ((mode) => {
+        Headerbar.get_instance().mode_changed.connect ((mode) => {
             minus_button.visible = (mode == 1);
             separator.visible = (mode == 1);
             page_total.visible = !(mode == 1);
         });
 
-        headerbar.search_changed.connect (() => {
-            this.search_for = headerbar.search_entry.get_text ();
+        Headerbar.get_instance().search_changed.connect (() => {
+            this.search_for = Headerbar.get_instance().search_entry.get_text ();
             listbox.invalidate_filter ();
         });
 
-        headerbar.search_selected.connect (() => {
+        Headerbar.get_instance().search_selected.connect (() => {
             listbox.select_row (listbox.get_row_at_y (0));
             listbox.get_row_at_y (0).grab_focus ();
         });
@@ -214,9 +220,9 @@ public class ENotes.PagesList : Gtk.Box {
         });
 
         minus_button.clicked.connect (() => {
-            editor.set_sensitive (false);
-            editor.reset (false);
-            headerbar.set_title (null);
+            ENotes.Editor.get_instance ().set_sensitive (false);
+            ENotes.Editor.get_instance ().reset (false);
+            Headerbar.get_instance().set_title (null);
 
             var rows = listbox.get_selected_rows ();
 
@@ -231,14 +237,14 @@ public class ENotes.PagesList : Gtk.Box {
             if (row == null) return;
 
             minus_button.set_sensitive (true);
-            view_edit_stack.set_page (((ENotes.PageItem) row).page);
+            ENotes.ViewEditStack.get_instance ().set_page (((ENotes.PageItem) row).page);
         });
 
         listbox.row_activated.connect ((row) => {
             window.toggle_edit ();
 
-            if (headerbar.get_mode () == 1)
-                editor.give_focus ();
+            if (Headerbar.get_instance().get_mode () == 1)
+                ENotes.Editor.get_instance ().give_focus ();
         });
     }
 }
