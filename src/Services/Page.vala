@@ -72,16 +72,14 @@ public class ENotes.Page : Object {
         if (lines.length > 0) {
             name = cleanup(lines[0]);
 
-	        int n = 0;
-
-	        for(int i = 1; i < lines.length && n < 1; i++) {
+	        for(int n = 0, i = 1; i < lines.length && n < 1; i++) {
 	            line[n] = cleanup (lines[i]);
                 if (line[n] != "") {
                     n++;
                 }
 	        }
 	    } else {
-	        name = "New Page";
+	        name = _("New Page");
 	        new_page = true;
 	    }
 
@@ -138,10 +136,22 @@ public class ENotes.Page : Object {
     }
 
     private string cleanup (string line) {
-        string output = "";
+        string output = line;
 
         if (line.contains ("---")) return "";
-        output = line.replace ("#", "").replace ("```", "").replace ("\t", "").replace ("  ", "").replace ("**", "").replace ("\n", "").replace ("/", "");
+
+        string[] blacklist = {"#", "```", "\t", ">", "<", "\n"};
+        foreach (string item in blacklist) {
+            if (output.contains (item)) {
+                output = output.replace (item, "");
+            }
+        }
+
+        if (output.contains ("&")) output = output.replace ("&","&amp;");
+
+        if (output.length > 0 && output[0] == ' ') {
+            output = output[1:output.length];
+        }
 
     	return output;
     }
@@ -151,12 +161,23 @@ public class ENotes.Page : Object {
 
         if (new_page) {
             file_name = ENotes.Editor.get_instance ().get_text ().split ("\n", 2)[0];
-            file_name = cleanup (file_name);
-
+            file_name = clean_filename (file_name);
             return ID.to_string () + "§" + file_name;
         } else {
             return file.get_basename ();
         }
+    }
+
+    private string clean_filename (string file) {
+        string file_name = file;
+
+        string[] blacklist = {"\\", "/", "%", "|", ":", "<",">", "§", "*", "&", "?", "#"};
+        foreach (string item in blacklist) {
+            if (file_name.contains (item))
+                file_name = file_name.replace (item, "");
+        }
+
+        return file_name;
     }
 
     public bool equals (ENotes.Page comp) {
