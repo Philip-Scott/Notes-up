@@ -1,0 +1,179 @@
+/* Reset */
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,600);
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0px;
+  padding: 0px;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+body {
+  -webkit-text-size-adjust: none; }
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+.button a, .contact-button a {
+  border: none;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  text-decoration: none;
+  border-radius: 3px; }
+
+.button {
+  z-index: 1;
+  font-size: 1.4em; }
+  .button :hover {
+    background-color: lightgray;
+    /* Green */ }
+  .button a {
+    color: black;
+    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    background-color: whitesmoke;
+    text-decoration: none;
+    padding: .4em 1em .4em .4em; }
+
+.contact-button {
+  margin-top: 1em; }
+  .contact-button a {
+    font-size: .7em;
+    margin: 1em;
+    padding: .5em 1em;
+    display: inline;
+    background-color: orange;
+    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.35); }
+  .contact-button :hover {
+    background-color: #ffbb6b; }
+
+h1, h2, h3 {
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+  font-family: "Raleway";
+  color: white; }
+
+h1 {
+  font-size: 4.5em;
+  display: block; }
+  h1 b {
+    font-weight: 600; }
+  @media screen and (max-width: 1640px) {
+    h1 {
+      font-size: 3.5em; } }
+  @media screen and (max-width: 700px) {
+    h1 {
+      display: none; } }
+
+h2 {
+  font-size: 3em; }
+  h2 b {
+    font-weight: 600; }
+    h2 b:after {
+      display: inline-block;
+      content: " - ";
+      margin-left: 12px; }
+      @media screen and (max-width: 700px) {
+        h2 b:after {
+          display: none; } }
+    @media screen and (max-width: 700px) {
+      h2 b {
+        display: block;
+        margin-bottom: .2em; } }
+  @media screen and (max-width: 1640px) {
+    h2 {
+      font-size: 2em; } }
+
+h3 {
+  font-size: 1.8em; }
+  @media screen and (max-width: 1640px) {
+    h3 {
+      font-size: 1.6em; } }
+
+a {
+  font-family: 'Open Sans'; }
+
+html {
+  height: 100%; }
+
+body {
+  min-height: 100%; }
+
+body {
+  display: flex;
+  background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url(background.jpg);
+  background-size: cover;
+  background-repeat: no-repeat; }
+
+div {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: -moz-flex;
+  display: flex; }
+
+.main {
+  display: block;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100% !important; }
+
+.title {
+  display: block;
+  margin: 5% 0em 0em 5%;
+  flex-direction: column;
+  width: 100%; }
+
+.showcase {
+  flex-direction: row;
+  justify-content: space-between;
+  min-width: 100%;
+  position: fixed;
+  bottom: 0; }
+  .showcase .avalible {
+    width: 40%;
+    align-self: flex-end;
+    background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35));
+    padding: 1em 1em 1em 1em; }
+    @media screen and (max-width: 700px) {
+      .showcase .avalible {
+        width: 100%; } }
+  .showcase img {
+    width: 60%;
+    height: auto;
+    align-self: flex-end;
+    -webkit-box-shadow: 0px 0px 38px 3px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 38px 3px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 38px 3px rgba(0, 0, 0, 0.75); }
+    @media screen and (max-width: 700px) {
+      .showcase img {
+        width: 100%; } }
+  @media screen and (max-width: 700px) {
+    .showcase {
+      flex-direction: column-reverse; } }
+
+.buttons {
+  margin-top: 1em;
+  margin-bottom: 1em; }
+
+/*# sourceMappingURL=main.css.map */

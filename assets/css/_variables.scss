@@ -1,0 +1,22 @@
+$primary-font: 'Raleway';
+$secondary-font: 'Fredoka One', cursive;
+
+//Colors
+$primary-color: #4CAF50;
+$secondary-color: #386339;
+
+//Screen Sizes
+$mobile: "screen and (max-width: 700px)";
+$tablet: "screen and (max-width: 1240px)";
+$lores: "screen and (max-width: 1640px)";
+
+@mixin display-flexed () {
+    display: -webkit-flex;    
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: flex;
+}
+
+@mixin text-shadow($x: 2px, $y: 2px, $blur: 5px, $color: rgba(0,0,0,.4)) {
+    text-shadow: $x $y $blur $color;
+}

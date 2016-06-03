@@ -1,0 +1,148 @@
+@import 'reset';
+@import 'variables';
+@import 'buttons';
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,600);
+
+h1, h2, h3 {
+    @include text-shadow ();
+    font-family: $primary-font;
+    color: white;
+}
+
+h1 {
+    font-size: 4.5em;
+    display: block;
+    
+    b {
+        font-weight: 600;
+    }
+    
+    @media #{$lores} {
+        font-size: 3.5em;
+    } @media #{$mobile} {
+        display: none;
+    }
+}
+
+h2 {
+    font-size: 3em;
+    
+    b {
+        font-weight: 600;
+        
+        &:after {
+            display: inline-block;
+            content: " - ";
+            margin-left: 12px;
+            
+            @media #{$mobile} {
+                display: none;
+            }
+        }
+        
+        @media #{$mobile} {
+            display: block;
+            margin-bottom: .2em;
+        }
+    }
+
+    @media #{$lores} {
+        font-size: 2em;
+    }
+}
+
+
+
+h3 {
+    font-size: 1.8em;
+    
+    @media #{$lores} {
+        font-size: 1.6em;
+    }
+}
+
+a {
+    font-family: 'Open Sans';
+}
+
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
+}
+
+body {
+    display: flex;
+    background:linear-gradient(
+      rgba(0, 0, 0, 0.35), 
+      rgba(0, 0, 0, 0.35)
+    ), url(background.jpg);
+    
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+div {
+    @include display-flexed (); 
+}
+
+.main {
+    display: block; 
+    flex-direction: column;
+    justify-content: space-between;
+    
+    min-height: 100% !important;
+}
+
+.title {
+    display:block;
+    margin: 5% 0em 0em 5%;
+    flex-direction: column;
+    width: 100%;
+    
+}
+
+.showcase {
+    flex-direction: row;
+    justify-content: space-between;
+    min-width: 100%;
+    position: fixed;
+    bottom: 0;
+    
+    .avalible {
+        width: 40%;
+        align-self:flex-end;
+        background:linear-gradient(
+            rgba(0, 0, 0, 0.35), 
+            rgba(0, 0, 0, 0.35)
+        );
+        padding: 1em 1em 1em 1em;
+        
+        @media #{$mobile} {
+            width: 100%;
+        }
+    }
+    
+    img {
+        width: 60%;
+        height: auto;
+        align-self:flex-end;
+        -webkit-box-shadow: 0px 0px 38px 3px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 0px 38px 3px rgba(0,0,0,0.75);
+        box-shadow: 0px 0px 38px 3px rgba(0,0,0,0.75);
+        
+        @media #{$mobile} {
+            width: 100%;
+        }
+    }
+    
+    @media #{$mobile} {
+        flex-direction: column-reverse;
+    }
+}
+
+.buttons {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}

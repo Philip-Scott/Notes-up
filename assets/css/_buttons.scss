@@ -1,0 +1,50 @@
+@import 'variables';
+
+%button-main {
+    border: none;
+	color: white;
+	text-align: center;
+    display: inline-block;
+	text-decoration: none;
+   
+    border-radius: 3px;
+}
+
+.button {
+    
+    z-index: 1;
+    font-size: 1.4em;  
+    :hover {
+	    background-color: lightgray; /* Green */
+	    
+    }
+    
+    a {
+        @extend %button-main;
+        color: black;
+        box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.35);
+        background-color: whitesmoke;
+        text-decoration: none;
+        padding: .4em 1em .4em .4em;
+    }
+}
+
+
+.contact-button {
+    
+    margin-top: 1em;
+    
+    a {
+        @extend %button-main;
+        font-size: .7em;
+        margin: 1em;
+        padding: .5em 1em;
+        display: inline;
+        background-color: orange;
+        box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    }
+    
+    :hover {
+	     background-color: #ffbb6b;  
+    }
+}
