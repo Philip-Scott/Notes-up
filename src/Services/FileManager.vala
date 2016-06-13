@@ -98,7 +98,7 @@ public class ENotes.FileManager : Object {
     }
 
     public static void export_pdf_action () {
-        ENotes.Viewer.get_instance ().load_string (ENotes.Editor.get_instance ().get_text (), true);
+        ENotes.Viewer.get_instance ().load_page (ENotes.Editor.get_instance ().current_page, true);
 
         var file = get_file_from_user ();
 
@@ -148,7 +148,7 @@ public class ENotes.FileManager : Object {
     }
 
     public static string create_notebook (string name, double r, double g, double b, string source = NOTES_DIR) {
-        string notebook_name = "%s§%s§%s§%s".printf(name, r.to_string(),g.to_string(),b.to_string());
+        string notebook_name = "%s§%s§%s§%s".printf(name, r.to_string(), g.to_string(), b.to_string());
 
         var directory = File.new_for_path (source + notebook_name);
         try {

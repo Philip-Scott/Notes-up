@@ -162,10 +162,10 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 
     public void set_mode (ENotes.Mode mode) {
         if (mode == ENotes.Mode.VIEW) {
+            editor.save_file ();
             view_edit_stack.show_view ();
             sidebar.visible = (true);
-            viewer.load_string (editor.get_text ());
-            editor.save_file ();
+            viewer.load_page (editor.current_page);
             pages_list.grab_focus ();
         } else {
             view_edit_stack.show_edit ();

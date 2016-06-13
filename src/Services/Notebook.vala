@@ -20,6 +20,10 @@
 */
 
 public class ENotes.Notebook : Object {
+    private static const string CHILD_SCHEMA_ID = "org.notes.notebook_data.notebook";
+    private static const string CHILD_PATH = "/org/notes/notebook_data/notebook/%s";
+    private static Gee.HashMap<string, Settings> notebook_settings_cache = new Gee.HashMap<string, Settings> ();
+
     private FileMonitor monitor;
     public signal void destroy ();
 
@@ -78,8 +82,15 @@ public class ENotes.Notebook : Object {
         } catch (Error e) {}
     }
 
-    public ENotes.Notebook rename (string new_name) {
-        string nname = "%s§%s§%s§%s".printf(new_name, r.to_string(),g.to_string(),b.to_string());
+    public ENotes.Notebook? rename (string new_name, Gdk.RGBA rgba) {
+        var new_r = double.parse (rgba.red.to_string());
+        var new_g = double.parse (rgba.green.to_string());
+        var new_b = double.parse (rgba.blue.to_string());
+
+        if (this.name == new_name && new_r == r && new_b == b && new_g == g)
+            return null;
+
+        string nname = "%s§%s§%s§%s".printf(new_name, new_r.to_string(), new_g.to_string(), b.to_string());
 
         try {
             directory = directory.set_display_name (nname);
@@ -135,5 +146,31 @@ public class ENotes.Notebook : Object {
         } catch (Error e) {
             error ("Error monitoring directory: %s", e.message);
         }
+    }
+
+    private static Settings get_settings (string notebook_path) {
+        var notebook_id = notebook_path.replace (NOTES_DIR, "").replace ("/", "") + "/";
+        Settings? notebook_settings = notebook_settings_cache.get (notebook_id);
+
+        if (notebook_settings == null) {
+            var schema = SettingsSchemaSource.get_default ().lookup (CHILD_SCHEMA_ID, false);
+		    if (schema != null) {
+			    notebook_settings = new Settings.full (schema, null, CHILD_PATH.printf (notebook_id));
+			    notebook_settings_cache.set (notebook_id, notebook_settings);
+                notebook_settings = new Settings.full (SettingsSchemaSource.get_default ().lookup (CHILD_SCHEMA_ID, true), null, CHILD_PATH.printf (notebook_id));
+            }
+        }
+
+        return notebook_settings;
+    }
+
+    public static string get_styleshet (string notebook_path) {
+        var notebook_settings = get_settings (notebook_path);
+        return notebook_settings.get_string ("stylesheet");
+    }
+
+    public static void set_styleshet (string notebook_path, string style) {
+        var notebook_settings = get_settings (notebook_path);
+        notebook_settings.set_string ("stylesheet", style);
     }
 }

@@ -45,6 +45,7 @@ pkg_check_modules(DEPS REQUIRED
 
 set (PKG_DEPS
  granite>=0.3
+ gee-0.8
  gtksourceview-3.0
  gtk+-3.0
  webkit2gtk-4.0
@@ -53,6 +54,7 @@ set (PKG_DEPS
 
 set (VALA_DEPS
  granite
+ gee-0.8
  gtksourceview-3.0
  gtk+-3.0
  webkit2gtk-4.0

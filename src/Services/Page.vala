@@ -86,7 +86,7 @@ public class ENotes.Page : Object {
         this.subtitle = line[0];
 	}
 
-    public string get_text (int to_load = -1) {
+    public string get_text () {
         if (new_page) {
         	return "";
         } else if (changed) {
@@ -94,7 +94,7 @@ public class ENotes.Page : Object {
             try {
                 var dis = new DataInputStream (this.file.read ());
                 size_t size;
-                page_data = dis.read_upto ("\0", to_load, out size);
+                page_data = dis.read_upto ("\0", -1, out size);
             } catch (Error e) {
                 error ("Error loading file: %s", e.message);
             }
@@ -120,9 +120,8 @@ public class ENotes.Page : Object {
             stderr.printf ("Error Saving file: %s", e.message);
         }
 
-        changed = true;
-
         load_data (data);
+        page_data = data;
         this.saved_file ();
     }
 

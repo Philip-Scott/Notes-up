@@ -20,10 +20,12 @@
 */
 
 public class ENotes.PreferencesDialog : Gtk.Dialog {
+
     private Gtk.FontButton font_button;
     private Gtk.ListStore schemes_store;
     private Gtk.TreeIter schemes_iter;
     private Gtk.ComboBox scheme_box;
+    private Gtk.ComboBox stylesheet_box;
     private Gtk.TextView style_box;
     private Gtk.Stack stack;
     private Gtk.Switch indent_switch;
@@ -135,7 +137,7 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
     }
 
     private Gtk.Grid viewer_grid () {
-        var title = new Gtk.Label ("<b>%s</b>".printf(_("Global Stylesheet")));
+        var title = new Gtk.Label ("<b>%s</b>".printf(_("Global style modifications")));
         title.set_use_markup (true);
         title.set_halign (Gtk.Align.START);
 
@@ -148,14 +150,20 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
         var scrolled = new Gtk.ScrolledWindow (null, null);
         scrolled.add (style_box);
 
+        var styles_label = new Gtk.Label ("Stylesheet: ");
+        styles_label.set_halign (Gtk.Align.END);
+        make_store ();
+
         var grid = new Gtk.Grid ();
         grid.set_column_homogeneous (false);
         grid.set_row_homogeneous (false);
         grid.row_spacing = 8;
         grid.column_spacing = 8;
 
-        grid.attach (title, 0, 0, 1, 1);
-        grid.attach (scrolled, 0, 1 ,1, 1);
+        grid.attach (styles_label, 0, 2, 1, 1);
+        grid.attach (stylesheet_box, 1, 2, 1, 1);
+        grid.attach (title, 0, 0, 2, 1);
+        grid.attach (scrolled, 0, 1 ,2, 1);
         return grid;
     }
 
@@ -190,6 +198,10 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
             ENotes.Editor.get_instance ().set_scheme (scheme_id);
         });
 
+        stylesheet_box.changed.connect (() => {
+            save_notebook_style (stylesheet_box.active);
+        });
+
         this.response.connect (on_response);
     }
 
@@ -197,8 +209,8 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
         switch (response_id) {
             case Gtk.ResponseType.CLOSE:
                 settings.render_stylesheet = style_box.buffer.text;
-                ENotes.Viewer.get_instance ().load_css ();
-                ENotes.Viewer.get_instance ().load_string (ENotes.Editor.get_instance ().get_text ());
+                ENotes.Viewer.get_instance ().load_css (null, true);
+                ENotes.Viewer.get_instance ().reload ();
                 ENotes.Editor.get_instance ().load_settings ();
                 destroy ();
             break;
@@ -215,5 +227,41 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
         }
 
         return schemes;
+    }
+
+    private void make_store () {
+        Gtk.ListStore list_store = new Gtk.ListStore (2, typeof (string), typeof (int));
+        Gtk.TreeIter iter;
+
+        foreach (string style in Viewer.STYLES) {
+            if (style == Viewer.STYLES[0]) continue;
+            list_store.append (out iter);
+            list_store.set (iter, 0, style);
+        }
+
+        // The Box:
+        stylesheet_box = new Gtk.ComboBox.with_model (list_store);
+        Gtk.CellRendererText renderer = new Gtk.CellRendererText ();
+        stylesheet_box.pack_start (renderer, true);
+        stylesheet_box.add_attribute (renderer, "text", 0);
+
+        stylesheet_box.active = get_notebook_style ();
+    }
+
+    private int get_notebook_style () {
+        int active = -1;
+        string value = settings.stylesheet;
+        foreach (string style in Viewer.STYLES) {
+            if (value == style) return active;
+            active++;
+        }
+
+        return 0;
+    }
+
+    private void save_notebook_style (int selected) {
+        settings.stylesheet = Viewer.STYLES[selected + 1];
+        ENotes.Viewer.get_instance ().load_css (null, true);
+        ENotes.Viewer.get_instance ().reload ();
     }
 }

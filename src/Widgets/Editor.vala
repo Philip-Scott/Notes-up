@@ -182,7 +182,7 @@ public class ENotes.Editor : Gtk.Box {
 
         current_page = page;
         code_buffer.text = page.get_text ();
-        ENotes.Viewer.get_instance ().load_string (this.get_text ());
+        ENotes.Viewer.get_instance ().load_page (current_page);
         edited = false;
         ENotes.Headerbar.get_instance ().set_title (page.name);
         code_buffer.end_not_undoable_action ();

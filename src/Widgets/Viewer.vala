@@ -20,9 +20,13 @@
 */
 
 public class ENotes.Viewer : WebKit.WebView {
+    public static string[] STYLES = {_("Default"), ("elementary"), ("Splendor"), "Modest"};
+
     private static Viewer? instance = null;
 
     public string CSS;
+    private string previous_path = "";
+    private Page previous_page;
     private File temp_file;
 
     public static Viewer get_instance () {
@@ -34,23 +38,48 @@ public class ENotes.Viewer : WebKit.WebView {
     }
 
     private Viewer () {
-        load_css ();
-
         string file = "/tmp/notes-up-render-" + GLib.Environment.get_user_name ();
         temp_file = File.new_for_path (file);
 
         connect_signals ();
     }
 
-    public void load_css () {
-        CSS = DEFAULT_CSS + ENotes.settings.render_stylesheet;
+    public void load_css (ENotes.Page? page, bool overrride = false) {
+        if (overrride || previous_path != page.path) {
+            if (page != null) previous_path = page.path;
+
+            var stylesheet = Notebook.get_styleshet (previous_path);
+            set_styleshet (stylesheet);
+        }
     }
 
-    public void load_string (string page_content, bool force_load = false) {
+    private void set_styleshet (string stylesheet, bool trying_global = false) {
+        switch (stylesheet) {
+            case "Splendor": CSS = SPLENDOR + ENotes.settings.render_stylesheet; break;
+            case "elementary": CSS = DEFAULT_CSS + ENotes.settings.render_stylesheet; break;
+            case "Modest": CSS = MODEST + ENotes.settings.render_stylesheet; break;
+            default:
+                if (trying_global == false) {
+                    set_styleshet (ENotes.settings.stylesheet, true);
+                } else {
+                    CSS = DEFAULT_CSS + ENotes.settings.render_stylesheet;
+                }
+                break;
+        }
+    }
+
+    public new void reload () {
+        load_css (previous_page, true);
+        load_page (previous_page);
+    }
+
+    public void load_page (Page page, bool force_load = false) {
         if (Headerbar.get_instance ().get_mode () == 1 && !force_load) return;
+        previous_page = page;
 
         string html;
-        process_frontmatter (page_content, out html);
+        process_frontmatter (page.get_text (), out html);
+        load_css (page);
 
         try {
             FileManager.write_file(temp_file, process (html), true);
@@ -66,7 +95,6 @@ public class ENotes.Viewer : WebKit.WebView {
                 var rectangle = get_window_properties ().get_geometry ();
                 set_size_request (rectangle.width, rectangle.height);
             }
-
         });
     }
 
@@ -337,4 +365,302 @@ blockquote > :last-child {
     margin-bottom: 0;
 }
 """;
+//-------------------------------------------------------------------------------------------------------------------------------------
+private const string SPLENDOR = """
+body {
+  line-height: 1.85;
+}
+
+p,
+.splendor-p {
+  font-size: 1rem;
+  margin-bottom: 1.3rem;
+}
+
+h1,
+.splendor-h1,
+h2,
+.splendor-h2,
+h3,
+.splendor-h3,
+h4,
+.splendor-h4 {
+  margin: 1.414rem 0 .5rem;
+  font-weight: inherit;
+  line-height: 1.42;
+}
+
+h1,
+.splendor-h1 {
+  margin-top: 0;
+  font-size: 3rem;
+}
+
+h2,
+.splendor-h2 {
+  font-size: 2.827rem;
+}
+
+h3,
+.splendor-h3 {
+  font-size: 1.999rem;
+}
+
+h4,
+.splendor-h4 {
+  font-size: 1.414rem;
+}
+
+h5,
+.splendor-h5 {
+  font-size: 1.121rem;
+}
+
+h6,
+.splendor-h6 {
+  font-size: .88rem;
+}
+
+small,
+.splendor-small {
+  font-size: .707em;
+}
+
+/* https://github.com/mrmrs/fluidity */
+
+img,
+canvas,
+iframe,
+video,
+svg,
+select,
+textarea {
+  max-width: 100%;
+}
+
+@import url(http://fonts.googleapis.com/css?family=Merriweather:300italic,300);
+
+html {
+  font-size: 18px;
+  max-width: 100%;
+}
+
+body {
+  color: #444;
+  font-family: 'Merriweather', Georgia, serif;
+  margin: 0;
+  max-width: 100%;
+}
+
+/* === A bit of a gross hack so we can have bleeding divs/blockquotes. */
+
+p,
+*:not(div):not(img):not(body):not(html):not(li):not(blockquote):not(p) {
+  margin: 1rem auto 1rem;
+  max-width: 36rem;
+  padding: .25rem;
+}
+
+div {
+  width: 100%;
+}
+
+div img {
+  width: 100%;
+}
+
+blockquote p {
+  font-size: 1.5rem;
+  font-style: italic;
+  margin: 1rem auto 1rem;
+  max-width: 48rem;
+}
+
+li {
+  margin-left: 2rem;
+}
+
+/* Counteract the specificity of the gross *:not() chain. */
+
+h1 {
+  padding: 1rem 0 !important;
+}
+
+/*  === End gross hack */
+
+p {
+  color: #555;
+  height: auto;
+  line-height: 1.45;
+}
+
+pre,
+code {
+  font-family: Menlo, Monaco, "Courier New", monospace;
+}
+
+pre {
+  background-color: #fafafa;
+  font-size: .8rem;
+  overflow-x: scroll;
+  padding: 1.125em;
+}
+
+a,
+a:visited {
+  color: #3498db;
+}
+
+a:hover,
+a:focus,
+a:active {
+  color: #2980b9;
+}
+
+""";
+
+private const string MODEST = """
+pre,
+code {
+  font-family: Menlo, Monaco, "Courier New", monospace;
+}
+
+pre {
+  padding: .5rem;
+  line-height: 1.25;
+  overflow-x: scroll;
+}
+
+a,
+a:visited {
+  color: #3498db;
+}
+
+a:hover,
+a:focus,
+a:active {
+  color: #2980b9;
+}
+
+.modest-no-decoration {
+  text-decoration: none;
+}
+
+html {
+  font-size: 12px;
+}
+
+body {
+  line-height: 1.85;
+}
+
+p,
+.modest-p {
+  font-size: 1rem;
+  margin-bottom: 1.3rem;
+}
+
+h1,
+.modest-h1,
+h2,
+.modest-h2,
+h3,
+.modest-h3,
+h4,
+.modest-h4 {
+  margin: 1.414rem 0 .5rem;
+  font-weight: inherit;
+  line-height: 1.42;
+}
+
+h1,
+.modest-h1 {
+  margin-top: 0;
+  font-size: 3rem;
+}
+
+h2,
+.modest-h2 {
+  font-size: 2rem;
+}
+
+h3,
+.modest-h3 {
+  font-size: 2rem;
+}
+
+h4,
+.modest-h4 {
+  font-size: 1.4rem;
+}
+
+h5,
+.modest-h5 {
+  font-size: 1.121rem;
+}
+
+h6,
+.modest-h6 {
+  font-size: .88rem;
+}
+
+small,
+.modest-small {
+  font-size: .707em;
+}
+
+/* https://github.com/mrmrs/fluidity */
+
+img,
+canvas,
+iframe,
+video,
+svg,
+select,
+textarea {
+  max-width: 100%;
+}
+
+@import url(http://fonts.googleapis.com/css?family=Arimo:700,700italic);
+
+html {
+  font-size: 18px;
+  max-width: 100%;
+}
+
+body {
+  color: #222;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  margin: 0 auto;
+  max-width: 48rem;
+  line-height: 1.45;
+  padding: .25rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Arimo, Helvetica, sans-serif;
+}
+
+h1 {
+  border-bottom: 2px solid #fafafa;
+  margin-bottom: 1.15rem;
+  padding-bottom: .5rem;
+  text-align: center;
+}
+
+blockquote {
+  border-left: 8px solid #fafafa;
+  padding: 1rem;
+}
+
+pre,
+code {
+  background-color: #fafafa;
+} """;
 }
