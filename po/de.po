@@ -1,0 +1,190 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-06-20 20:01+0200\n"
+"PO-Revision-Date: 2016-06-20 20:37+0200\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.4\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: de\n"
+
+#: /home/felipe/Code/Notes-up/po/../src/Services/Page.vala:82
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PagesList.vala:163
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PagesList.vala:185
+msgid "New Page"
+msgstr "Neue Seite"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar.vala:25
+msgid "Notebooks"
+msgstr "Notizbücher"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar.vala:26
+msgid "Bookmarks"
+msgstr "Lesezeichen"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NotebookItem.vala:46
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:76
+msgid "Edit Notebook"
+msgstr "Notizbuch bearbeiten"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NotebookItem.vala:47
+msgid "New Section"
+msgstr "Neuer Abschnitt"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NotebookItem.vala:48
+msgid "Delete Notebook"
+msgstr "Notizbuch löschen"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Viewer.vala:23
+msgid "Default"
+msgstr "Standart"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:58
+msgid "View"
+msgstr "Ansicht"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:59
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:85
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:63
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:59
+msgid "New Notebook"
+msgstr "Neues Notitzbuch"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:64
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:41
+msgid "Preferences"
+msgstr "Einstellungen"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:65
+msgid "Export to PDF"
+msgstr "PDF exportieren"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:87
+msgid "Search your current notebook"
+msgstr "Aktuelles Notizbuch durchsuchen"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/BookmarkButton.vala:45
+msgid "Bookmark page"
+msgstr "Lesezeichen hinzufügen"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:78
+msgid "Add bold to text"
+msgstr "Text fett formatieren"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:79
+msgid "Add italic to text"
+msgstr "Text kursiv formatieren"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:80
+msgid "Strikethrough text"
+msgstr "Text durchstreichen"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:82
+msgid "Insert a quote"
+msgstr "Zitat einfügen"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:83
+msgid "Insert code"
+msgstr "Code einfügen"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:84
+msgid "Insert a link"
+msgstr "Link einfügen"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:86
+msgid "Add a bulleted list"
+msgstr "Aufzählungsliste einfügen"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:87
+msgid "Add a Numbered list"
+msgstr "Nummerierte Liste einfügen"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:89
+msgid "Insert an image"
+msgstr "Bild einfügen"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:49
+msgid "Editor"
+msgstr "Editor"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:50
+msgid "Viewer"
+msgstr "Ansicht"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:63
+msgid "_Close"
+msgstr "S_chließen"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:71
+msgid "Font:"
+msgstr "Schriftart:"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:81
+msgid "Theme:"
+msgstr "Farbstil:"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:106
+msgid "Automatic indentation:"
+msgstr "Automatische Einrückung:"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:114
+msgid "Show line Numbers:"
+msgstr "Zeilennummern anzeigen:"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:140
+msgid "Global style modifications"
+msgstr "Globale Stil-Änderungen"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:60
+msgid "Name:"
+msgstr "Name:"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:61
+msgid "Color:"
+msgstr "Farbe:"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:62
+msgid "Style:"
+msgstr "Stil:"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:73
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:88
+msgid "Create"
+msgstr "Erstellen"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PagesList.vala:172
+#, c-format
+msgid "%i Pages"
+msgstr "%i Seiten"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/BookmarkItem.vala:53
+msgid "Remove"
+msgstr "Entfernen"
+
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:29
+msgid "Notes-up"
+msgstr "Notes-up"
+
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:30
+msgid "Your Markdown Notebook."
+msgstr "Dein Markdown-Notizbuch"
+
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:31
+msgid "About Notes"
+msgstr "Über Notes-up"
