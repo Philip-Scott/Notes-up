@@ -28,7 +28,7 @@ As a computer engineer, I've been writing my school notes using just a text edit
 
 ##How To Build
 	git clone https://github.com/Philip-Scott/Notes-up
-	sudo apt-get install libwebkit2gtk-3.0-25-dev libgtk-3-dev libgtksourceview-3.0-dev
+	sudo apt-get install libwebkit2gtk-3.0-dev libgtk-3-dev libgtksourceview-3.0-dev libgranite-dev valac
 	cd Notes-up
 	mkdir build && cd build 
 	cmake -DCMAKE_INSTALL_PREFIX=/usr ../
