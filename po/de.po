@@ -47,7 +47,7 @@ msgstr "Notizbuch löschen"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Viewer.vala:23
 msgid "Default"
-msgstr "Standart"
+msgstr "Standard"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:58
 msgid "View"
@@ -61,7 +61,7 @@ msgstr "Bearbeiten"
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:63
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:59
 msgid "New Notebook"
-msgstr "Neues Notitzbuch"
+msgstr "Neues Notizbuch"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:64
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:41
@@ -126,7 +126,7 @@ msgstr "Ansicht"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:63
 msgid "_Close"
-msgstr "S_chließen"
+msgstr "_Schließen"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:71
 msgid "Font:"
