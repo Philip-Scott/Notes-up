@@ -24,6 +24,7 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
 
     private Granite.Widgets.SourceList.ExpandableItem notebooks = new Granite.Widgets.SourceList.ExpandableItem (_("Notebooks"));
     private Granite.Widgets.SourceList.ExpandableItem bookmarks = new Granite.Widgets.SourceList.ExpandableItem (_("Bookmarks"));
+    private Granite.Widgets.SourceList.Item? previous_selection = null;
 
     public static Sidebar get_instance () {
         if (instance == null) {
@@ -129,15 +130,19 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
             if (item == null) return;
 
             if (item is ENotes.BookmarkItem) {
-                select_notebook (((ENotes.BookmarkItem) item).parent_notebook.name);
-                ENotes.PagesList.get_instance ().select_page (((ENotes.BookmarkItem) item).get_page ());
-                return;
+                // If viewing page == the bookmark, select the notebook. if not just open the page
+                if (ENotes.ViewEditStack.get_instance ().get_page ().equals (((ENotes.BookmarkItem) item).get_page ())) {
+                    select_notebook (((ENotes.BookmarkItem) item).parent_notebook.name);
+                    ENotes.PagesList.get_instance ().select_page (((ENotes.BookmarkItem) item).get_page ());
+                } else {
+                    ENotes.ViewEditStack.get_instance ().set_page (((ENotes.BookmarkItem) item).get_page ());
+                    this.selected = previous_selection;
+                }
             } else {
-                ((NotebookItem) item).expand_all (true, true);
+                previous_selection = item;
+                ENotes.Editor.get_instance ().save_file ();
+                ENotes.PagesList.get_instance ().load_pages (((ENotes.NotebookItem) item).notebook);
             }
-
-            ENotes.Editor.get_instance ().save_file ();
-            ENotes.PagesList.get_instance ().load_pages (((ENotes.NotebookItem) item).notebook);
         });
     }
 }
