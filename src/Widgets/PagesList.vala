@@ -22,7 +22,7 @@
 public class ENotes.PagesList : Gtk.Box {
     private static PagesList? instance = null;
 
-    private Gtk.ListBox listbox;
+    public Gtk.ListBox listbox;
     private Gtk.Frame toolbar;
 
     private Gtk.Separator separator;
@@ -64,6 +64,7 @@ public class ENotes.PagesList : Gtk.Box {
             } else {
                 found = ((PageItem) row).page.get_text ().down ().contains (this.search_for.down ());
             }
+
             return found;
         });
 
@@ -73,6 +74,8 @@ public class ENotes.PagesList : Gtk.Box {
         scroll_box.add (listbox);
         this.add (scroll_box);
         this.add (toolbar);
+
+        toolbar_mode (ENotes.ViewEditStack.current_mode);
     }
 
     private Gtk.Frame build_toolbar () {
@@ -96,6 +99,8 @@ public class ENotes.PagesList : Gtk.Box {
         notebook_name.hexpand = true;
         minus_button.can_focus = false;
         plus_button.can_focus = false;
+        minus_button.no_show_all = true;
+        separator.no_show_all = true;
 
         notebook_name.ellipsize = Pango.EllipsizeMode.END;
         notebook_name.get_style_context ().add_class ("h4");
@@ -183,13 +188,12 @@ public class ENotes.PagesList : Gtk.Box {
     public void new_blank_page () {
         ENotes.Editor.get_instance ().save_file ();
         var page = current_notebook.add_page_from_name (_("New Page"));
-        page.new_page = true;
 
         var page_item = new ENotes.PageItem (page);
 
-        ENotes.ViewEditStack.get_instance ().set_page (page);
         listbox.prepend (page_item);
         listbox.show_all ();
+        listbox.unselect_all ();
         listbox.select_row (page_item);
     }
 
@@ -197,12 +201,15 @@ public class ENotes.PagesList : Gtk.Box {
         listbox.grab_focus ();
     }
 
+    private void toolbar_mode (Mode? mode) {
+        separator.visible = (mode == Mode.EDIT);
+        minus_button.visible = (mode == Mode.EDIT);
+        page_total.visible = !(mode == Mode.EDIT);
+    }
 
     private void connect_signals () {
         Headerbar.get_instance().mode_changed.connect ((mode) => {
-            minus_button.visible = (mode == 1);
-            separator.visible = (mode == 1);
-            page_total.visible = !(mode == 1);
+            toolbar_mode (mode);
         });
 
         Headerbar.get_instance().search_changed.connect (() => {
@@ -243,7 +250,7 @@ public class ENotes.PagesList : Gtk.Box {
         listbox.row_activated.connect ((row) => {
             window.toggle_edit ();
 
-            if (Headerbar.get_instance().get_mode () == 1)
+            if (ENotes.ViewEditStack.current_mode == Mode.EDIT)
                 ENotes.Editor.get_instance ().give_focus ();
         });
     }

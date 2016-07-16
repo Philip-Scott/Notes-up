@@ -117,6 +117,9 @@ vala_precompile(VALA_C
   src/Widgets/SidebarItem.vala
   src/Widgets/Viewer.vala
   src/Widgets/Window.vala
+  src/Styles/air.vala
+  src/Styles/elementary.vala
+  src/Styles/modest.vala
   src/Services/Bookmark.vala
   src/Services/FileManager.vala
   src/Services/Notebook.vala

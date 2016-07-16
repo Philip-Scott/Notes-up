@@ -20,6 +20,13 @@
 */
 
 public class ENotes.Sidebar : Granite.Widgets.SourceList {
+    enum DropTargets {
+        STRING,
+        TEXT
+    }
+
+    private static Gtk.TargetEntry[] targets = get_target_entries ();
+
     private static Sidebar? instance = null;
 
     private Granite.Widgets.SourceList.ExpandableItem notebooks = new Granite.Widgets.SourceList.ExpandableItem (_("Notebooks"));
@@ -116,7 +123,7 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
     }
 
     private void first_notebook () {
-        var dir = FileManager.create_notebook ("Unamed Notebook", 1, 0, 0);
+        var dir = FileManager.create_notebook (_("Unamed Notebook"), 1, 0, 0);
         var notebook = new ENotes.Notebook (ENotes.NOTES_DIR + dir);
 
         var notebook_item = new NotebookItem (notebook);
@@ -125,11 +132,25 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
         select_notebook (notebook.name);
     }
 
-    private void connect_signals () {
-        this.item_selected.connect ((item) => {
-            if (item == null) return;
+    private static Gtk.TargetEntry[] get_target_entries () {
+        if (targets == null) {
+            Gtk.TargetEntry string_entry = { "STRING", 0, DropTargets.STRING };
+            Gtk.TargetEntry text_entry = { "text/plain", 0, DropTargets.TEXT };
 
-            if (item is ENotes.BookmarkItem) {
+            targets = { };
+            targets += string_entry;
+            targets += text_entry;
+         }
+
+         return targets;
+    }
+
+    private void connect_signals () {
+        enable_drag_source (get_target_entries ());
+        enable_drag_dest (get_target_entries (), Gdk.DragAction.MOVE);
+
+        this.item_selected.connect ((item) => {
+            if (item != null && item is ENotes.BookmarkItem) {
                 // If viewing page == the bookmark, select the notebook. if not just open the page
                 if (ENotes.ViewEditStack.get_instance ().get_page ().equals (((ENotes.BookmarkItem) item).get_page ())) {
                     select_notebook (((ENotes.BookmarkItem) item).parent_notebook.name);

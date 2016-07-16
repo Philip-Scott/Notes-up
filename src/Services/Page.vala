@@ -1,4 +1,4 @@
-/*
+    /*
 * Copyright (c) 2011-2016 Felipe Escoto (https://github.com/Philip-Scott/Notes-up)
 *
 * This program is free software; you can redistribute it and/or
@@ -31,8 +31,7 @@ public class ENotes.Page : Object {
 	public int ID = -1;
 	public bool new_page = false;
 
-	private string page_data;
-	private bool changed = true;
+	private string? page_data = null;
 
 	private File file { public get; private set; }
 
@@ -50,17 +49,14 @@ public class ENotes.Page : Object {
 		this.path = full_path.slice(0, ln);
 
         get_text ();
-
-        load_data (null);
+        load_page_info ();
 	}
 
-    private void load_data (string? data) {
+    private void load_page_info () {
         string line[2];
         string[] lines;
 
-        if (data == null) lines = page_data.split ("\n");
-        else lines = data.split ("\n");
-
+        lines = page_data.split ("\n");
 
         string t_name = file.get_basename ();
         if (t_name.contains ("§")) {
@@ -87,14 +83,15 @@ public class ENotes.Page : Object {
 	}
 
     public string get_text () {
+        debug ("Getting text");
         if (new_page) {
-        	return "";
-        } else if (changed) {
-            changed = false;
+        	return " ";
+        } if (page_data == null) {
+            debug ("Loading from file");
             try {
                 var dis = new DataInputStream (this.file.read ());
                 size_t size;
-                page_data = dis.read_upto ("\0", -1, out size);
+                this.page_data = dis.read_upto ("\0", -1, out size);
             } catch (Error e) {
                 error ("Error loading file: %s", e.message);
             }
@@ -112,16 +109,16 @@ public class ENotes.Page : Object {
         string file_name = make_filename ();
 
         try {
-		    file = File.new_for_path (path + file_name);
+		    this.file = File.new_for_path (path + file_name);
 		    FileManager.write_file (file, data, true);
-
+            this.full_path = file.get_path ();
             new_page = false;
         } catch (Error e) {
             stderr.printf ("Error Saving file: %s", e.message);
         }
 
-        load_data (data);
-        page_data = data;
+        this.page_data = data;
+        load_page_info ();
         this.saved_file ();
     }
 
@@ -131,6 +128,14 @@ public class ENotes.Page : Object {
             this.destroy ();
         } catch (Error e) {
             stderr.printf ("Error trashing file: %s", e.message);
+        }
+    }
+
+    public void move_page (Notebook destination) {
+        try {
+            file.move (destination.directory, FileCopyFlags.NONE);
+        } catch (Error e) {
+            error ("Moving page failed: %s", e.message);
         }
     }
 

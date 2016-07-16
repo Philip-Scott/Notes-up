@@ -19,7 +19,8 @@
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
 
-public class ENotes.NotebookItem : ENotes.SidebarItem {
+public class ENotes.NotebookItem : ENotes.SidebarItem , Granite.Widgets.SourceListDragDest, Granite.Widgets.SourceListDragSource {
+
     public ENotes.Notebook notebook { public get; private set; }
 
     private Gtk.Menu menu;
@@ -70,6 +71,23 @@ public class ENotes.NotebookItem : ENotes.SidebarItem {
 
     public override Gtk.Menu? get_context_menu () {
         return menu;
+    }
+
+    public bool data_drop_possible (Gdk.DragContext context, Gtk.SelectionData data) {
+        return data.get_text () != notebook.path;
+    }
+
+    public Gdk.DragAction data_received (Gdk.DragContext context, Gtk.SelectionData data) {
+        stderr.printf ("Got %s in %s", data.get_text (), notebook.path);
+        return Gdk.DragAction.COPY;
+    }
+
+    public bool draggable () {
+        return true;
+    }
+
+    public void prepare_selection_data (Gtk.SelectionData data) {
+        data.set_text (notebook.path, -1);
     }
 }
 

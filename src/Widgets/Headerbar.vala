@@ -107,11 +107,6 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         this.show_all ();
     }
 
-
-    public ENotes.Mode get_mode () {
-        return ENotes.Mode.get_mode (mode_button.selected);
-    }
-
     public void set_mode (ENotes.Mode mode) {
         mode_button.set_active (mode);
     }

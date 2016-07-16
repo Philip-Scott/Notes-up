@@ -46,13 +46,14 @@ public class ENotes.Notebook : Object {
         directory = File.new_for_path (path);
 
         split_string ();
+        debug ("Making notebook for %s", name);
         pages = new List<ENotes.Page> ();
         sub_notebooks = new List<ENotes.Notebook> ();
-
-        connect_monitor ();
     }
 
     public void refresh () {
+        debug ("Refreshing notebook: %s", name);
+
         this.pages = new List<ENotes.Page> ();
         load_pages ();
     }
@@ -65,6 +66,8 @@ public class ENotes.Notebook : Object {
     }
 
     public void load_pages () {
+        debug ("Loading pages for notebook: %s", name);
+
         try {
             var directory = File.new_for_path (path);
             var enumerator = directory.enumerate_children (FileAttribute.STANDARD_NAME, 0);
@@ -78,8 +81,9 @@ public class ENotes.Notebook : Object {
                     add_page_from_name (file_info.get_name ());
                 }
             }
-
-        } catch (Error e) {}
+        } catch (Error e) {
+            error ("Could not load pages: %s",e.message);
+        }
     }
 
     public ENotes.Notebook? rename (string new_name, Gdk.RGBA rgba) {
@@ -103,12 +107,12 @@ public class ENotes.Notebook : Object {
         return notebook;
     }
 
-    public void add_page (Page page) {
-        CompareDataFunc<Page> page_comp = (a, b) => {
-            int d = (int) (a.ID < b.ID) - (int) (a.ID > b.ID);
-            return d;
-        };
+    CompareDataFunc<Page> page_comp = (a, b) => {
+        int d = (int) (a.ID < b.ID) - (int) (a.ID > b.ID);
+        return d;
+    };
 
+    public void add_page (Page page) {
         this.pages.insert_sorted_with_data (page, page_comp);
 
         if (top_id < page.ID) {
@@ -118,6 +122,24 @@ public class ENotes.Notebook : Object {
         if (page.new_page) {
             page.ID = ++top_id;
         }
+    }
+
+    // Null == ROOT
+    public void move_notebook (Notebook? parent) {
+        try {
+            File destination;
+            if (parent == null) {
+                destination = File.new_for_path (ENotes.NOTES_DIR);
+            } else {
+                destination = parent.directory;
+            }
+
+            directory.move (destination, FileCopyFlags.NONE);
+        } catch (Error e) {
+            warning ("Could not move directory: %s", e.message);
+        }
+
+        this.destroy ();
     }
 
     public void trash () {
@@ -139,15 +161,6 @@ public class ENotes.Notebook : Object {
         }
     }
 
-    private void connect_monitor () {
-        try {
-            monitor = directory.monitor_directory (FileMonitorFlags.SEND_MOVED);
-            monitor.changed.connect (refresh);
-        } catch (Error e) {
-            error ("Error monitoring directory: %s", e.message);
-        }
-    }
-
     private static Settings get_settings (string notebook_path) {
         var notebook_id = notebook_path.replace (NOTES_DIR, "").replace ("/", "") + "/";
         Settings? notebook_settings = notebook_settings_cache.get (notebook_id);
@@ -158,6 +171,8 @@ public class ENotes.Notebook : Object {
 			    notebook_settings = new Settings.full (schema, null, CHILD_PATH.printf (notebook_id));
 			    notebook_settings_cache.set (notebook_id, notebook_settings);
                 notebook_settings = new Settings.full (SettingsSchemaSource.get_default ().lookup (CHILD_SCHEMA_ID, true), null, CHILD_PATH.printf (notebook_id));
+            } else {
+                error ("Getting notebook schema failed");
             }
         }
 

@@ -154,12 +154,10 @@ public class ENotes.Editor : Gtk.Box {
             code_buffer.get_selection_bounds (out start, out end);
 
             if (code_buffer.has_selection) {
-
                 var text = start.get_text (end);
                 code_buffer.@delete (ref start, ref end);
                 code_buffer.insert_at_cursor (first_half + text + second_half, -1);
             } else {
-
                 var file = FileManager.get_file_from_user (false);
 
                 if (file != null) {
@@ -177,12 +175,11 @@ public class ENotes.Editor : Gtk.Box {
 
         save_file ();
         if (page.new_page) {
-            ENotes.Headerbar.get_instance ().set_mode (ENotes.Mode.EDIT);
+            ViewEditStack.get_instance ().show_edit ();
         }
 
         current_page = page;
         code_buffer.text = page.get_text ();
-        ENotes.Viewer.get_instance ().load_page (current_page);
         edited = false;
         ENotes.Headerbar.get_instance ().set_title (page.name);
         code_buffer.end_not_undoable_action ();

@@ -34,6 +34,7 @@ public enum ENotes.Mode {
 
 public class ENotes.ViewEditStack : Gtk.Overlay {
     private static ViewEditStack? instance = null;
+    public static ENotes.Mode? current_mode = null;
 
     public signal void page_set (ENotes.Page page);
 
@@ -58,29 +59,50 @@ public class ENotes.ViewEditStack : Gtk.Overlay {
         viewer = ENotes.Viewer.get_instance ();
         editor = ENotes.Editor.get_instance ();
         bookmark_button = BookmarkButton.get_instance ();
-        stack.add_named (editor, "editor");
         stack.add_named (viewer, "viewer");
+        stack.add_named (editor, "editor");
 
         this.add (stack);
         this.show_all ();
+
+        show_view ();
     }
 
     public void set_page (ENotes.Page page) {
         current_page = page;
         editor.set_page (page);
+        viewer.load_page (page);
 
         bookmark_button.set_page (page);
 
         page_set (page);
     }
+
     public ENotes.Page get_page () {
         return current_page;
     }
 
     public void show_edit () {
+        if (current_mode == ENotes.Mode.EDIT) return;
+        current_mode = ENotes.Mode.EDIT;
+        Headerbar.get_instance ().set_mode (ENotes.Mode.EDIT);
         stack.set_visible_child_name ("editor");
+        Sidebar.get_instance().visible = false;
+        editor.give_focus ();
     }
+
     public void show_view () {
+        if (current_mode == ENotes.Mode.VIEW) return;
+        editor.save_file ();
+        current_mode = ENotes.Mode.VIEW;
+        viewer.load_page (current_page, true);
+        viewer.reload ();
+
+        Headerbar.get_instance ().set_mode (ENotes.Mode.VIEW);
+
         stack.set_visible_child_name ("viewer");
+        Sidebar.get_instance().visible = true;
+
+        PagesList.get_instance ().grab_focus ();
     }
 }

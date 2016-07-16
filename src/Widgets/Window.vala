@@ -117,7 +117,7 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         settings.panel_size = pane2.position;
         settings.window_width = width;
         settings.window_height = height;
-        settings.mode = headerbar.get_mode ();
+        settings.mode = ENotes.ViewEditStack.current_mode;
         settings.last_folder = pages_list.current_notebook.path;
         settings.page_path = editor.current_page.full_path;
 
@@ -128,13 +128,8 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         resize (settings.window_width, settings.window_height);
         pane2.position = settings.panel_size;
 
-        headerbar.set_mode (ENotes.Mode.get_mode (settings.mode));
-
         if (settings.last_folder != "") {
             var notebook = new ENotes.Notebook (settings.last_folder);
-            notebook.refresh ();
-
-            pages_list.load_pages (notebook);
             sidebar.select_notebook (notebook.name);
         }
 
@@ -145,6 +140,12 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 
             if (!page.new_page)
                 view_edit_stack.set_page (page);
+        }
+
+        if (ENotes.Mode.get_mode (settings.mode) == Mode.EDIT) {
+            ENotes.ViewEditStack.get_instance ().show_edit ();
+        } else {
+            ENotes.ViewEditStack.get_instance ().show_view ();
         }
     }
 
@@ -162,29 +163,21 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 
     public void set_mode (ENotes.Mode mode) {
         if (mode == ENotes.Mode.VIEW) {
-            editor.save_file ();
             view_edit_stack.show_view ();
-            sidebar.visible = (true);
-            viewer.load_page (editor.current_page);
-            pages_list.grab_focus ();
         } else {
             view_edit_stack.show_edit ();
-            sidebar.visible = (false);
-            editor.give_focus ();
             pane2.set_position (0);
         }
     }
 
     public void toggle_edit () {
-        ENotes.Mode mode = headerbar.get_mode ();
+        ENotes.Mode mode = ENotes.ViewEditStack.current_mode;
 
         if (mode == ENotes.Mode.EDIT) {
-            mode = ENotes.Mode.VIEW;
+            ENotes.ViewEditStack.get_instance ().show_view ();
         } else {
-            mode = ENotes.Mode.EDIT;
+            ENotes.ViewEditStack.get_instance ().show_edit ();
         }
-
-        headerbar.set_mode (mode);
     }
 
     public void show_app () {
