@@ -43,7 +43,7 @@ public class ENotes.ViewEditStack : Gtk.Overlay {
     private ENotes.Editor editor;
     private Gtk.Stack stack;
 
-    private ENotes.Page current_page;
+    public ENotes.Page current_page {get; private set;}
 
     public static ViewEditStack get_instance () {
         if (instance == null) {

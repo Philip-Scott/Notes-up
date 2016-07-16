@@ -59,15 +59,7 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         mode_button.append_text (_("Edit"));
         mode_button.valign = Gtk.Align.CENTER;
 
-        var menu = new Gtk.Menu ();
-        item_new   = new Gtk.MenuItem.with_label (_("New Notebook"));
-        item_preff = new Gtk.MenuItem.with_label (_("Preferences"));
-        item_export = new Gtk.MenuItem.with_label (_("Export to PDF"));
-        menu.add (item_new);
-        menu.add (item_export);
-        menu.add (item_preff);
-
-        menu_button = new Granite.Widgets.AppMenu (menu);
+        create_menu ();
 
         var search_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         search_entry = new Gtk.SearchEntry();
@@ -105,6 +97,39 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         pack_end (search_box);
 
         this.show_all ();
+    }
+
+    private void create_menu () {
+        var menu = new Gtk.Menu ();
+        item_new   = new Gtk.MenuItem.with_label (_("New Notebook"));
+        item_preff = new Gtk.MenuItem.with_label (_("Preferences"));
+        item_export = new Gtk.MenuItem.with_label (_("Export to PDF"));
+        menu.add (item_new);
+        menu.add (item_export);
+        menu.add (item_preff);
+
+        var separator = new Gtk.SeparatorMenuItem ();
+        menu.add (separator);
+
+        var contracts = Granite.Services.ContractorProxy.get_contracts_by_mime ("application/pdf");
+        foreach (var contract in contracts) {
+            var contract_item = new Gtk.MenuItem.with_label (contract.get_display_name ());
+            menu.add (contract_item);
+
+            contract_item.activate.connect (() => {
+                if (ViewEditStack.get_instance ().current_page != null) {
+                    string name = ViewEditStack.get_instance ().current_page.name;
+                    var file = FileManager.export_pdf_action ("/tmp/%s.pdf".printf(name));
+
+                    Idle.add (() => {
+                        contract.execute_with_file (file);
+                        return false;
+                    });
+                }
+            });
+        }
+
+        menu_button = new Granite.Widgets.AppMenu (menu);
     }
 
     public void set_mode (ENotes.Mode mode) {

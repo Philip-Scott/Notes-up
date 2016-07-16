@@ -97,16 +97,20 @@ public class ENotes.FileManager : Object {
         return bookmarks;
     }
 
-    public static void export_pdf_action () {
+    public static File? export_pdf_action (string? file_path = null) {
         ENotes.Viewer.get_instance ().load_page (ENotes.Editor.get_instance ().current_page, true);
 
-        var file = get_file_from_user ();
+        File file;
+        if (file_path == null)
+            file = get_file_from_user ();
+        else
+            file = File.new_for_path (file_path);
 
         try { // TODO: we have to write an empty file so we can get file path
             write_file (file, "");
         } catch (Error e) {
             warning ("Could not write initial PDF file: %s", e.message);
-            return;
+            return null;
         }
 
         var op = new WebKit.PrintOperation (ENotes.Viewer.get_instance ());
@@ -117,6 +121,8 @@ public class ENotes.FileManager : Object {
         op.set_print_settings (settings);
 
         op.print ();
+
+        return file;
     }
 
     public static void write_file (File file, string contents, bool overrite = false) throws Error {
