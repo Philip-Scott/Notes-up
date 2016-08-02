@@ -174,7 +174,10 @@ public class ENotes.PagesList : Gtk.Box {
 
         toolbar.set_sensitive (true);
         minus_button.set_sensitive (false);
-        page_total.label = _("%i Pages").printf(notebook.pages.length ());
+
+        var page_label = dngettext ("notes-up", "%i Page", "%i Pages", notebook.pages.length ());
+        page_total.label = page_label.printf(notebook.pages.length ());
+
         this.notebook_name.label = notebook.name.split ("§")[0] + ":";
         listbox.show_all ();
     }
@@ -253,5 +256,10 @@ public class ENotes.PagesList : Gtk.Box {
             if (ENotes.ViewEditStack.current_mode == Mode.EDIT)
                 ENotes.Editor.get_instance ().give_focus ();
         });
+    }
+
+    // TODO: Replace this and above with P_ when https://bugzilla.gnome.org/show_bug.cgi?id=758000 is fixed.
+    private void translations () {
+        ngettext ("%i Page", "%i Pages", 0);
     }
 }
