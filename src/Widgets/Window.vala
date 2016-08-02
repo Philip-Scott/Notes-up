@@ -103,6 +103,8 @@ public class ENotes.Window : Gtk.ApplicationWindow {
     }
 
     protected override bool delete_event (Gdk.EventAny event) {
+        Trash.get_instance ().clear_files ();
+
         int width;
         int height;
         int x;

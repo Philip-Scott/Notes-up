@@ -145,7 +145,7 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
     }
 
     private void save_notebook_style (string path, int selected) {
-        stderr.printf ("Saving style %s %d\n", path, selected);
+        debug ("Saving style %s %d", path, selected);
         if (selected == 0) {
             Notebook.set_styleshet (path, "default");
         } else {
@@ -196,7 +196,5 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
                 create.sensitive = true;
             }
         });
-
-
     }
 }

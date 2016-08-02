@@ -76,6 +76,7 @@ public class ENotes.PageItem : Gtk.ListBoxRow {
 
     public void trash_page () {
         page.trash_page ();
+        this.destroy ();
     }
 
     private void connect_page () {
@@ -94,11 +95,12 @@ public class ENotes.PageItem : Gtk.ListBoxRow {
     }
 
     private string convert (string raw_content) {
+        if (raw_content == null || raw_content == "") return "";
+
         var lines = raw_content.split ("\n", -1);
 
         string final = "";
         foreach (string line in lines) {
-
             while (line.contains ("----")) { //Line cleanup
                 line = line.replace ("----", "---");
             }

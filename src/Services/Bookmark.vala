@@ -65,7 +65,7 @@ public class ENotes.Bookmark : Object {
         try {
             bookmark_file.@delete ();
         } catch (Error e) {
-            stderr.printf ("Could not dellete bookmark: %s", e.message);
+            stderr.printf ("Could not delete bookmark: %s", e.message);
         }
 
         destroy ();

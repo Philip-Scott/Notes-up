@@ -110,6 +110,7 @@ vala_precompile(VALA_C
   src/Widgets/PreferencesDialog.vala
   src/Widgets/NotebookItem.vala
   src/Widgets/BookmarkItem.vala
+  src/Widgets/TrashItem.vala
   src/Widgets/BookmarkButton.vala
   src/Widgets/PageItem.vala
   src/Widgets/PagesList.vala
@@ -125,6 +126,7 @@ vala_precompile(VALA_C
   src/Services/Notebook.vala
   src/Services/Page.vala
   src/Services/Settings.vala
+  src/Services/Trash.vala
   src/config.vala
 PACKAGES
   ${VALA_DEPS}

@@ -31,6 +31,7 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
 
     private Granite.Widgets.SourceList.ExpandableItem notebooks = new Granite.Widgets.SourceList.ExpandableItem (_("Notebooks"));
     private Granite.Widgets.SourceList.ExpandableItem bookmarks = new Granite.Widgets.SourceList.ExpandableItem (_("Bookmarks"));
+    private Granite.Widgets.SourceList.ExpandableItem trash = new Granite.Widgets.SourceList.ExpandableItem (_("Trash"));
     private Granite.Widgets.SourceList.Item? previous_selection = null;
 
     public static Sidebar get_instance () {
@@ -53,6 +54,7 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
     private void build_new_ui () {
         root.add (notebooks);
         root.add (bookmarks);
+        root.add (trash);
 
         can_focus = false;
         this.width_request = 150;
@@ -64,21 +66,27 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
         var notebook_list = FileManager.load_notebooks ();
 
         foreach (ENotes.Notebook nb in notebook_list) {
-            var notebook = new NotebookItem (nb);
-            this.notebooks.add (notebook);
+            if (Trash.get_instance ().is_notebook_trashed (nb) == false) {
+                var notebook = new NotebookItem (nb);
+                this.notebooks.add (notebook);
 
-            load_sub_notebooks (notebook);
+                load_sub_notebooks (notebook);
+            } else {
+                stderr.printf ("something is trashed\n");
+            }
         }
     }
 
     public void load_sub_notebooks (NotebookItem item) {
         if (item.notebook.sub_notebooks.length () > 0) {
-                foreach (ENotes.Notebook nb in item.notebook.sub_notebooks) {
-                var new_item = new NotebookItem (nb);
-                item.add (new_item);
+            foreach (ENotes.Notebook nb in item.notebook.sub_notebooks) {
+                if (Trash.get_instance ().is_notebook_trashed (nb) == false) {
+                    var new_item = new NotebookItem (nb);
+                    item.add (new_item);
 
-                load_sub_notebooks (new_item);
-                item.collapse_all ();
+                    load_sub_notebooks (new_item);
+                    item.collapse_all ();
+                }
             }
         }
     }
@@ -159,11 +167,30 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
                     ENotes.ViewEditStack.get_instance ().set_page (((ENotes.BookmarkItem) item).get_page ());
                     this.selected = previous_selection;
                 }
-            } else {
+            } else if (item is ENotes.NotebookItem) {
                 previous_selection = item;
                 ENotes.Editor.get_instance ().save_file ();
                 ENotes.PagesList.get_instance ().load_pages (((ENotes.NotebookItem) item).notebook);
             }
+        });
+
+        Trash.get_instance ().page_added.connect ((page) => {
+            var trash_item = new TrashItem.page (page);
+            trash.add (trash_item);
+        });
+
+        Trash.get_instance ().page_removed.connect ((page) => {
+            ViewEditStack.get_instance ().set_page (page);
+        });
+
+        Trash.get_instance ().notebook_added.connect ((notebook) => {
+            var trash_item = new TrashItem.notebook (notebook);
+            trash.add (trash_item);
+        });
+
+        Trash.get_instance ().notebook_removed.connect ((notebook) => {
+            load_notebooks ();
+            select_notebook (notebook.name);
         });
     }
 }

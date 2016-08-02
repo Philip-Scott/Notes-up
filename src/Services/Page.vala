@@ -122,13 +122,17 @@ public class ENotes.Page : Object {
         this.saved_file ();
     }
 
-    public void trash_page () {
+    public void delete () {
         try {
             file.trash ();
-            this.destroy ();
         } catch (Error e) {
             stderr.printf ("Error trashing file: %s", e.message);
         }
+    }
+
+    public void trash_page () {
+        Trash.get_instance ().trash_page (this);
+        this.destroy ();
     }
 
     public void move_page (Notebook destination) {

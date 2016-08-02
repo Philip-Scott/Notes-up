@@ -94,7 +94,7 @@ public class ENotes.Notebook : Object {
         if (this.name == new_name && new_r == r && new_b == b && new_g == g)
             return null;
 
-        string nname = "%s§%s§%s§%s".printf(new_name, new_r.to_string(), new_g.to_string(), b.to_string());
+        string nname = "%s§%s§%s§%s".printf(new_name, new_r.to_string(), new_g.to_string(), new_b.to_string());
 
         try {
             directory = directory.set_display_name (nname);
@@ -113,6 +113,8 @@ public class ENotes.Notebook : Object {
     };
 
     public void add_page (Page page) {
+        if (Trash.get_instance ().is_page_trashed (page)) return;
+
         this.pages.insert_sorted_with_data (page, page_comp);
 
         if (top_id < page.ID) {
@@ -143,9 +145,13 @@ public class ENotes.Notebook : Object {
     }
 
     public void trash () {
+        Trash.get_instance ().trash_notebook (this);
+        this.destroy ();
+    }
+
+    public void delete () {
         try {
             directory.trash ();
-            this.destroy ();
         } catch (Error e) {
             stderr.printf ("Error trashing file: %s", e.message);
         }

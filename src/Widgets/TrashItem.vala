@@ -4,52 +4,50 @@ public class ENotes.TrashItem : ENotes.SidebarItem {
     public ENotes.Page? trashed_page = null;
     public ENotes.Notebook? trashed_notebook = null;
 
-    private ENotes.Bookmark bookmark;
-
     private Gtk.Menu menu;
-    private Gtk.MenuItem recover_item;
+    private Gtk.MenuItem restore_item;
+
+    construct {
+        selectable = false;
+        setup_menu ();
+    }
 
     public TrashItem.page (Page page) {
-        this.bookmark = new Bookmark.from_link (ENotes.NOTES_DIR + bookmark_file);
-        this.name = bookmark.page.name;
-        this.parent_notebook = new ENotes.Notebook (bookmark.page.path);
+        this.trashed_page = page;
+        this.name = page.name;
+        this.parent_notebook = new ENotes.Notebook (page.path);
 
         set_color (parent_notebook);
 
-        setup_menu ();
         connect_signals ();
     }
 
-    public TrashItem.notebook (string bookmark_file) {
-        this.bookmark = new Bookmark.from_link (ENotes.NOTES_DIR + bookmark_file);
-        this.name = bookmark.page.name;
-        this.parent_notebook = new ENotes.Notebook (bookmark.page.path);
+    public TrashItem.notebook (Notebook notebook) {
+        this.trashed_notebook = notebook;
+        this.name = notebook.name;
+        set_color (notebook);
 
-        set_color (parent_notebook);
-
-        setup_menu ();
         connect_signals ();
-    }
-
-    public ENotes.Page get_page () {
-        return bookmark.page;
     }
 
     private void connect_signals () {
-        bookmark.destroy.connect (() => {
-            this.visible = false;
-        });
+
     }
 
     private void setup_menu () {
         menu = new Gtk.Menu ();
-        remove_item = new Gtk.MenuItem.with_label (_("Restore"));
-        remove_item.activate.connect (() => {
-            this.bookmark.unbookmark ();
-            ENotes.BookmarkButton.get_instance ().setup ();
+        restore_item = new Gtk.MenuItem.with_label (_("Restore"));
+        restore_item.activate.connect (() => {
+            if (trashed_page != null) {
+                Trash.get_instance ().restore_page (trashed_page);
+            } else if (trashed_notebook != null){
+                Trash.get_instance ().restore_notebook (trashed_notebook);
+            }
+
+            visible = false;
         });
 
-        menu.add (remove_item);
+        menu.add (restore_item);
         menu.show_all ();
     }
 
