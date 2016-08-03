@@ -70,36 +70,67 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         var change_mode = new SimpleAction ("change-mode", null);
         change_mode.activate.connect (toggle_edit);
         add_action (change_mode);
-        app.set_accels_for_action ("win.change-mode", {"<Ctrl>M"});
+        app.set_accels_for_action ("win.change-mode", {ENotes.Key.CHANGE_MODE.to_key()});
 
         var save_action = new SimpleAction ("save", null);
         save_action.activate.connect (save);
         add_action (save_action);
-        app.set_accels_for_action ("win.save", {"<Ctrl>S"});
+        app.set_accels_for_action ("win.save", {ENotes.Key.SAVE.to_key()});
 
         var close_action = new SimpleAction ("close-action", null);
         close_action.activate.connect (request_close);
         add_action (close_action);
-        app.set_accels_for_action ("win.close-action", {"<Ctrl>Q"});
+        app.set_accels_for_action ("win.close-action", {ENotes.Key.QUIT.to_key()});
 
         var new_action = new SimpleAction ("new-action", null);
         new_action.activate.connect (new_page);
         add_action (new_action);
-        app.set_accels_for_action ("win.new-action", {"<Ctrl>N"});
+        app.set_accels_for_action ("win.new-action", {ENotes.Key.NEW_PAGE.to_key()});
 
         var find_action = new SimpleAction ("find-action", null);
         find_action.activate.connect (headerbar.show_search);
         add_action (find_action);
-        app.set_accels_for_action ("win.find-action", {"<Ctrl>F"});
+        app.set_accels_for_action ("win.find-action", {ENotes.Key.FIND.to_key()});
 
         var bookmark_action = new SimpleAction ("bookmark-action", null);
-        bookmark_action.activate.connect (bookmark_button.main_action);
+        bookmark_action.activate.connect (BookmarkButton.get_instance ().main_action);
         add_action (bookmark_action);
-        app.set_accels_for_action ("win.bookmark-action", {"<Ctrl>B"});
+        app.set_accels_for_action ("win.bookmark-action", {ENotes.Key.BOOKMARK.to_key()});
+
+        var bold_action = new SimpleAction ("bold-action", null);
+        bold_action.activate.connect (bold_act);
+        add_action (bold_action);
+        app.set_accels_for_action ("win.bold-action", {ENotes.Key.BOLD.to_key()});
+
+        var italics_action = new SimpleAction ("italics-action", null);
+        italics_action.activate.connect (italics_act);
+        add_action (italics_action);
+        app.set_accels_for_action ("win.italics-action", {ENotes.Key.ITALICS.to_key()});
+
+        var strike_action = new SimpleAction ("strike-action", null);
+        strike_action.activate.connect (strike_act);
+        add_action (strike_action);
+        app.set_accels_for_action ("win.strike-action", {ENotes.Key.STRIKE.to_key()});
 
         headerbar.mode_changed.connect ((mode) => {
             set_mode (mode);
         });
+    }
+
+    private void bold_act () {
+        if (editor_open ()) Editor.get_instance ().bold_button.clicked ();
+    }
+
+    private void italics_act () {
+        if (editor_open ()) Editor.get_instance ().italics_button.clicked ();
+    }
+
+    private void strike_act () {
+        if (editor_open ()) Editor.get_instance ().strike_button.clicked ();
+    }
+
+    private bool editor_open () {
+        return ViewEditStack.current_mode == ENotes.Mode.EDIT && ViewEditStack.get_instance ().get_page () != null;
     }
 
     protected override bool delete_event (Gdk.EventAny event) {

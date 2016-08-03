@@ -19,6 +19,37 @@
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
 
+public enum ENotes.Key {
+    CHANGE_MODE,
+    SAVE,
+    QUIT,
+    NEW_PAGE,
+    FIND,
+    BOOKMARK,
+    BOLD,
+    ITALICS,
+    STRIKE;
+
+    public string to_key () {
+        switch (this) {
+            case CHANGE_MODE:   return _("<Ctrl>M");
+            case SAVE:          return _("<Ctrl>S");
+            case QUIT:          return _("<Ctrl>Q");
+            case NEW_PAGE:      return _("<Ctrl>N");
+            case FIND:          return _("<Ctrl>F");
+            case BOOKMARK:      return _("<Ctrl>K");
+            case BOLD:          return _("<Ctrl>B");
+            case ITALICS:       return _("<Ctrl>I");
+            case STRIKE:        return _("<Ctrl>T");
+            default:            assert_not_reached();
+        }
+    }
+
+    public string to_string () {
+        return " (" + this.to_key ().replace (">", "+").replace ("<","") + ")";
+    }
+}
+
 namespace ENotes {
     public ENotes.Services.Settings settings;
     public ENotes.Window window;

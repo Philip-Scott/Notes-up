@@ -28,6 +28,9 @@ public class ENotes.Editor : Gtk.Box {
     private bool edited = false;
 
     public ENotes.Page current_page = null;
+    public Gtk.Button bold_button;
+    public Gtk.Button italics_button;
+    public Gtk.Button strike_button;
 
     public static Editor get_instance () {
         if (instance == null) {
@@ -75,9 +78,9 @@ public class ENotes.Editor : Gtk.Box {
     private Gtk.Box build_toolbar () {
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
 
-        var bold_button = ToolbarButton ("format-text-bold", "**", "**", _("Add bold to text"));
-        var italics_button = ToolbarButton ("format-text-italic", "_", "_", _("Add italic to text"));
-        var srike_button = ToolbarButton ("format-text-strikethrough", "~~~", "~~~", _("Strikethrough text"));
+        bold_button = ToolbarButton ("format-text-bold", "**", "**", _("Add bold to text") + Key.BOLD.to_string ());
+        italics_button = ToolbarButton ("format-text-italic", "_", "_", _("Add italic to text") + Key.ITALICS.to_string ());
+        strike_button = ToolbarButton ("format-text-strikethrough", "~~~", "~~~", _("Strikethrough text") + Key.STRIKE.to_string ());
 
         var quote_button = ToolbarButton ("format-indent-less-rtl", "> ", "", _("Insert a quote"));
         var code_button = ToolbarButton ("system-run", "`", "`", _("Insert code"));
@@ -100,7 +103,7 @@ public class ENotes.Editor : Gtk.Box {
 
         box.add (bold_button);
         box.add (italics_button);
-        box.add (srike_button);
+        box.add (strike_button);
         box.add (separator1);
         box.add (quote_button);
         box.add (code_button);
