@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-02 16:27-0500\n"
+"POT-Creation-Date: 2016-08-02 21:40-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,8 +19,9 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: /home/felipe/Code/Notes-up/po/../src/Services/Page.vala:78
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/PagesList.vala:168
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/PagesList.vala:193
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PagesList.vala:104
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PagesList.vala:169
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PagesList.vala:194
 msgid "New Page"
 msgstr ""
 
@@ -74,21 +75,25 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:79
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:62
+msgid "Change mode"
+msgstr ""
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:80
 msgid "Search your current notebook"
 msgstr ""
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:104
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:105
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:59
 msgid "New Notebook"
 msgstr ""
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:105
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:106
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:41
 msgid "Preferences"
 msgstr ""
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:106
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:107
 msgid "Export to PDF"
 msgstr ""
 
@@ -96,39 +101,39 @@ msgstr ""
 msgid "Bookmark page"
 msgstr ""
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:78
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:81
 msgid "Add bold to text"
 msgstr ""
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:79
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:82
 msgid "Add italic to text"
 msgstr ""
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:80
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:83
 msgid "Strikethrough text"
 msgstr ""
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:82
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:85
 msgid "Insert a quote"
 msgstr ""
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:83
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:86
 msgid "Insert code"
 msgstr ""
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:84
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:87
 msgid "Insert a link"
 msgstr ""
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:86
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:89
 msgid "Add a bulleted list"
 msgstr ""
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:87
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:90
 msgid "Add a Numbered list"
 msgstr ""
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:89
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:92
 msgid "Insert an image"
 msgstr ""
 
@@ -189,8 +194,8 @@ msgid "Restore"
 msgstr ""
 
 #. //bugzilla.gnome.org/show_bug.cgi?id=758000 is fixed.
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/PagesList.vala:178
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/PagesList.vala:263
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PagesList.vala:179
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PagesList.vala:264
 #, c-format
 msgid "%i Page"
 msgid_plural "%i Pages"
@@ -201,14 +206,50 @@ msgstr[1] ""
 msgid "Remove"
 msgstr ""
 
-#: /home/felipe/Code/Notes-up/po/../src/Application.vala:29
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:35
+msgid "<Ctrl>M"
+msgstr ""
+
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:36
+msgid "<Ctrl>S"
+msgstr ""
+
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:37
+msgid "<Ctrl>Q"
+msgstr ""
+
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:38
+msgid "<Ctrl>N"
+msgstr ""
+
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:39
+msgid "<Ctrl>F"
+msgstr ""
+
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:40
+msgid "<Ctrl>K"
+msgstr ""
+
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:41
+msgid "<Ctrl>B"
+msgstr ""
+
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:42
+msgid "<Ctrl>I"
+msgstr ""
+
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:43
+msgid "<Ctrl>T"
+msgstr ""
+
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:60
 msgid "Notes-up"
 msgstr ""
 
-#: /home/felipe/Code/Notes-up/po/../src/Application.vala:30
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:61
 msgid "Your Markdown Notebook."
 msgstr ""
 
-#: /home/felipe/Code/Notes-up/po/../src/Application.vala:31
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:62
 msgid "About Notes"
 msgstr ""
