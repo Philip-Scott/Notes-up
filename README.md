@@ -28,6 +28,10 @@ As a computer engineer, I've been writing my school notes using just a text edit
 [Previous changes](changelog.md)
 
 ##Installation:
+If you are using elementary OS **Loki**, in order to add a PPA you might need to first run
+
+	sudo apt-get install software-properties-common
+
 PPA: _ppa:philip.scott/projects_
 
 	sudo add-apt-repository ppa:philip.scott/projects
