@@ -25,6 +25,8 @@ As a computer engineer, I've been writing my school notes using just a text edit
 - Fixed: The app was crashing if your notebook name or the first line of a note contained `/`. Don't know why you would want to have slashes in your folder names, but now you cannot! 
 - Fixed: Sometimes notes would not save if it was newly created. Sorry about that...
 
+[Previous changes](changelog.md)
+
 ##Installation:
 PPA: _ppa:philip.scott/projects_
 
