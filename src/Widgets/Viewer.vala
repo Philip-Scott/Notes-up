@@ -55,16 +55,21 @@ public class ENotes.Viewer : WebKit.WebView {
 
     private void set_styleshet (string stylesheet, bool trying_global = false) {
         switch (stylesheet) {
-            case "elementary": CSS = Styles.elementary.css + ENotes.settings.render_stylesheet; break;
-            case "Modest": CSS = Styles.modest.css + ENotes.settings.render_stylesheet; break;
-            case "Air": CSS = Styles.air.css + ENotes.settings.render_stylesheet; break;
+            case "elementary": CSS = Styles.elementary.css; break;
+            case "Modest": CSS = Styles.modest.css; break;
+            case "Air": CSS = Styles.air.css; break;
             default:
                 if (trying_global == false) {
                     set_styleshet (ENotes.settings.stylesheet, true);
                 } else {
-                    CSS = Styles.elementary.css + ENotes.settings.render_stylesheet;
+                    CSS = Styles.elementary.css;
                 }
                 break;
+        }
+
+
+        if (!trying_global) {
+            CSS = CSS + ENotes.settings.render_stylesheet + Notebook.get_styleshet_changes (previous_path);
         }
     }
 

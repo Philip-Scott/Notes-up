@@ -194,4 +194,14 @@ public class ENotes.Notebook : Object {
         var notebook_settings = get_settings (notebook_path);
         notebook_settings.set_string ("stylesheet", style);
     }
+
+    public static string get_styleshet_changes (string notebook_path) {
+        var notebook_settings = get_settings (notebook_path);
+        return notebook_settings.get_string ("stylesheet-changes");
+    }
+
+    public static void set_styleshet_changes (string notebook_path, string style) {
+        var notebook_settings = get_settings (notebook_path);
+        notebook_settings.set_string ("stylesheet-changes", style);
+    }
 }

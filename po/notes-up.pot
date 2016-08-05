@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-02 21:40-0500\n"
+"POT-Creation-Date: 2016-08-04 13:30-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -206,50 +206,51 @@ msgstr[1] ""
 msgid "Remove"
 msgstr ""
 
-#: /home/felipe/Code/Notes-up/po/../src/Application.vala:35
+#. / These keys must be valid since they will be used across the app
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:37
 msgid "<Ctrl>M"
 msgstr ""
 
-#: /home/felipe/Code/Notes-up/po/../src/Application.vala:36
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:38
 msgid "<Ctrl>S"
 msgstr ""
 
-#: /home/felipe/Code/Notes-up/po/../src/Application.vala:37
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:39
 msgid "<Ctrl>Q"
 msgstr ""
 
-#: /home/felipe/Code/Notes-up/po/../src/Application.vala:38
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:40
 msgid "<Ctrl>N"
 msgstr ""
 
-#: /home/felipe/Code/Notes-up/po/../src/Application.vala:39
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:41
 msgid "<Ctrl>F"
 msgstr ""
 
-#: /home/felipe/Code/Notes-up/po/../src/Application.vala:40
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:42
 msgid "<Ctrl>K"
 msgstr ""
 
-#: /home/felipe/Code/Notes-up/po/../src/Application.vala:41
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:43
 msgid "<Ctrl>B"
 msgstr ""
 
-#: /home/felipe/Code/Notes-up/po/../src/Application.vala:42
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:44
 msgid "<Ctrl>I"
 msgstr ""
 
-#: /home/felipe/Code/Notes-up/po/../src/Application.vala:43
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:45
 msgid "<Ctrl>T"
 msgstr ""
 
-#: /home/felipe/Code/Notes-up/po/../src/Application.vala:60
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:62
 msgid "Notes-up"
 msgstr ""
 
-#: /home/felipe/Code/Notes-up/po/../src/Application.vala:61
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:63
 msgid "Your Markdown Notebook."
 msgstr ""
 
-#: /home/felipe/Code/Notes-up/po/../src/Application.vala:62
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:64
 msgid "About Notes"
 msgstr ""

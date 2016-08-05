@@ -20,9 +20,12 @@
 */
 
 public class ENotes.NotebookDialog : Gtk.Dialog {
+    private Gtk.Stack stack;
+
     private Gtk.Entry name_entry;
     private Gtk.ColorButton color_button;
     private Gtk.ComboBox style_box;
+    private Gtk.TextView style_changes;
     private Gtk.Button create;
     private Notebook? notebook;
     private Notebook? parent_nb;
@@ -46,6 +49,9 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
     public NotebookDialog.new_subnotebook (Notebook parent) {
         this ();
         parent_nb = parent;
+
+        style_changes.buffer.text = Notebook.get_styleshet_changes (parent.path);
+        style_box.active = get_notebook_style (parent_nb);
     }
 
     public void build_ui () {
@@ -55,17 +61,11 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
         resizable = false;
         modal = true;
 
-        var main_box        = this.get_content_area();
-        var title           = new Gtk.Label ("<b>%s</b>".printf (_("New Notebook")));
         var name_label      = new Gtk.Label (_("Name:"));
         var color_label     = new Gtk.Label (_("Color:"));
-        var style_label     = new Gtk.Label (_("Style:"));
 
-        title.set_use_markup (true);
-        title.halign        = Gtk.Align.END;
         name_label.halign   = Gtk.Align.END;
         color_label.halign  = Gtk.Align.END;
-        style_label.halign  = Gtk.Align.END;
 
         make_store ();
 
@@ -73,8 +73,6 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
         add_button (_("Cancel"), 2);
 
         if (notebook != null) {
-            title.set_label ("<b>%s</b>".printf (_("Edit Notebook")));
-
             Gdk.RGBA color = Gdk.RGBA ();
             color.red = notebook.r;
             color.green = notebook.g;
@@ -90,21 +88,67 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
         }
 
         var grid = new Gtk.Grid ();
-        grid.attach (title,			0,  0,  1,  1);
         grid.attach (name_label, 	0,	1, 	1,	1);
         grid.attach (name_entry,  	1,	1, 	1,	1);
         grid.attach (color_label, 	0,	2, 	1,	1);
         grid.attach (color_button, 	1,	2, 	1,	1);
-        grid.attach (style_label, 	0,	3, 	1,	1);
-        grid.attach (style_box, 	1,	3, 	1,	1);
 
         grid.set_column_homogeneous (false);
         grid.set_row_homogeneous (true);
         grid.margin_bottom = 12;
         grid.column_spacing = 12;
         grid.row_spacing = 6;
+        grid.valign = Gtk.Align.START;
 
-        main_box.add (grid);
+        stack = new Gtk.Stack ();
+        stack.add_titled (grid, "properties", _("Properties"));
+        stack.add_titled (viewer_grid (), "style", _("Style"));
+        stack.set_margin_top (12);
+        stack.set_margin_bottom (12);
+
+        var switcher = new Gtk.StackSwitcher ();
+        switcher.set_stack (stack);
+        switcher.halign = Gtk.Align.CENTER;
+
+        var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+
+        box.add (switcher);
+        box.add (stack);
+        this.get_content_area().add (box);
+
+        this.show_all ();
+    }
+
+    private Gtk.Grid viewer_grid () {
+        var title = new Gtk.Label ("<b>%s</b>".printf(_("Style modifications")));
+        title.set_use_markup (true);
+        title.set_halign (Gtk.Align.START);
+
+        style_changes = new Gtk.TextView ();
+        style_changes.set_wrap_mode (Gtk.WrapMode.WORD);
+        style_changes.set_hexpand (true);
+        style_changes.set_vexpand (true);
+        style_changes.buffer.text = get_notebook_style_changes (notebook);
+
+        var scrolled = new Gtk.ScrolledWindow (null, null);
+        scrolled.height_request = 90;
+        scrolled.add (style_changes);
+
+        var styles_label = new Gtk.Label (_("Stylesheet:"));
+        styles_label.set_halign (Gtk.Align.END);
+        make_store ();
+
+        var grid = new Gtk.Grid ();
+        grid.set_column_homogeneous (false);
+        grid.set_row_homogeneous (false);
+        grid.row_spacing = 8;
+        grid.column_spacing = 8;
+
+        grid.attach (styles_label, 0, 2, 1, 1);
+        grid.attach (style_box, 1, 2, 1, 1);
+        grid.attach (title, 0, 0, 2, 1);
+        grid.attach (scrolled, 0, 1 ,2, 1);
+        return grid;
     }
 
     private void make_store () {
@@ -125,8 +169,6 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
 
 		if (notebook != null) {
 		    style_box.active = get_notebook_style (notebook);
-		} else if (parent_nb != null) {
-		    style_box.active = get_notebook_style (parent_nb);
 		} else {
 		    style_box.active = 0;
 		}
@@ -153,6 +195,15 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
         }
     }
 
+    private string get_notebook_style_changes (Notebook? notebook) {
+        if (notebook == null) return "";
+        return Notebook.get_styleshet_changes (notebook.path);
+    }
+
+    private void set_notebook_style_changes (string path, string style) {
+        Notebook.set_styleshet_changes (notebook.path, style);
+    }
+
     private void load_data () {
         name_entry.text = notebook.name;
     }
@@ -166,21 +217,26 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
                         if (parent_nb == null) {
                             string dir = FileManager.create_notebook (name_entry.text, r, g, b);
                             save_notebook_style (dir, style_box.active);
+                            set_notebook_style_changes (dir, style_changes.buffer.text);
                         } else {
                             string dir = parent_nb.path + FileManager.create_notebook (name_entry.text, r, g, b, parent_nb.path);
                             save_notebook_style (dir, style_box.active);
+                            set_notebook_style_changes (dir, style_changes.buffer.text);
                         }
                     } else {
                         Notebook? new_notebook = notebook.rename (name_entry.text, color_button.rgba);
                         if (new_notebook != null) {
                             save_notebook_style (new_notebook.path, style_box.active);
+                            set_notebook_style_changes (new_notebook.path, style_changes.buffer.text);
                         } else {
                             save_notebook_style (notebook.path, style_box.active);
+                            set_notebook_style_changes (notebook.path, style_changes.buffer.text);
                         }
                     }
 
                     ENotes.Sidebar.get_instance ().load_notebooks ();
                     ENotes.Sidebar.get_instance ().select_notebook (name_entry.text);
+                    ENotes.Viewer.get_instance ().reload ();
                     this.close ();
                     break;
                 case 2: // Cancel

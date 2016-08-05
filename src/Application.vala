@@ -32,6 +32,7 @@ public enum ENotes.Key {
 
     public string to_key () {
         switch (this) {
+            /// These keys must be valid since they will be used across the app
             case CHANGE_MODE:   return _("<Ctrl>M");
             case SAVE:          return _("<Ctrl>S");
             case QUIT:          return _("<Ctrl>Q");

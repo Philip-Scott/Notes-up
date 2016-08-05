@@ -150,7 +150,7 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
         var scrolled = new Gtk.ScrolledWindow (null, null);
         scrolled.add (style_box);
 
-        var styles_label = new Gtk.Label ("Stylesheet: ");
+        var styles_label = new Gtk.Label (_("Stylesheet:"));
         styles_label.set_halign (Gtk.Align.END);
         make_store ();
 

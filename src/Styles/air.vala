@@ -104,7 +104,8 @@ body {
   color: #222;
   font-family: 'Open Sans', Helvetica, sans-serif;
   font-weight: 300;
-  margin: 4rem 1rem 1rem;
+  margin-left: auto;
+  margin-right: auto;
   max-width: 48rem;
   text-align: center;
 }
