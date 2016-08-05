@@ -19,7 +19,7 @@
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
 
-public class ENotes.NotebookItem : ENotes.SidebarItem , Granite.Widgets.SourceListDragDest, Granite.Widgets.SourceListDragSource {
+public class ENotes.NotebookItem : ENotes.SidebarItem {//, Granite.Widgets.SourceListDragDest, Granite.Widgets.SourceListDragSource {
 
     public ENotes.Notebook notebook { public get; private set; }
 
