@@ -44,6 +44,11 @@ public class ENotes.Editor : Gtk.Box {
         build_ui ();
         reset ();
         load_settings ();
+
+        Timeout.add_full (Priority.DEFAULT, 60000, () => {
+            save_file ();
+            return true;
+        });
     }
 
     private void build_ui () {
