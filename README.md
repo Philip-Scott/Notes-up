@@ -12,20 +12,14 @@ As a computer engineer, I've been writing my school notes using just a text edit
 
 ![screenshot](https://github.com/Philip-Scott/Notes-up/blob/master/Screenshot.png?raw=true)
 
-## Changes in 1.2:
+## Mayor changes in 1.2:
 - In-app trash for deleted pages: Pages or notebooks you delete will first be sent to a trash on the sidebar. Files here will be deleted when the app closes, but it should give you an extra chance to save them!
 - 2 new Stylesheets: Air and Modest by [John Otander](https://github.com/markdowncss), you can also now select and modify the stylesheet per-notebook!
 - Contractor integration: You can now email and send via bluetooth directly from the app, as well as any other action apps give via the Contractor API. 
-- Double clicking Pages on the Page list will swap between view and edit mode.
 - For you Keyboard lovers or mouse haters, the edit view now has keyboard shortcuts for bold, italics and strikethrough. Don't know the keyboard shortcuts? Well you can now see them by hovering over the buttons.
-- You can now (finally!) add bookmarks from the UI.
-- You can now select multiple pages and delete them with one click! 
-- The preview of the pages on the pages list now supports simple markdown such as Bold and Italics. 
-- Single clicking on a bookmark will not change notebooks, so you can swap back and forward between your current open notebook and your marks. Double clicking it will bring out the notebook where the page lives, just like before!
-- Fixed: The app was crashing if your notebook name or the first line of a note contained `/`. Don't know why you would want to have slashes in your folder names, but now you cannot! 
-- Fixed: Sometimes notes would not save if it was newly created. Sorry about that...
+- You can now add bookmarks from the UI.
 
-[Previous changes](changelog.md)
+You can also view the full [changelog here](changelog.md)
 
 ##Installation:
 If you are using elementary OS **Loki**, in order to add a PPA you might need to first run
