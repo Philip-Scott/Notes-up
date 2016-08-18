@@ -34,6 +34,7 @@ public class ENotes.PagesList : Gtk.Box {
     public ENotes.Notebook current_notebook;
 
     private string search_for = "";
+    private bool loading_pages = false;
 
     public static PagesList get_instance () {
         if (instance == null) {
@@ -141,20 +142,26 @@ public class ENotes.PagesList : Gtk.Box {
         load_pages (current_notebook);
     }
 
-    public void select_page (ENotes.Page page) {
+    public bool select_page (ENotes.Page? page) {
+        if (page == null) return false;
         var childerns = listbox.get_children ();
 
         foreach (Gtk.Widget child in childerns) {
             if (child is ENotes.PageItem) {
                 var item = child as ENotes.PageItem;
 
-                if (page.equals (item.page))
+                if (page.equals (item.page)) {
                     listbox.select_row (item);
+                    return true;
+                }
             }
         }
+
+        return false;
     }
 
     public void load_pages (ENotes.Notebook notebook) {
+        loading_pages = true;
         clear_pages ();
         this.current_notebook = notebook;
         notebook.refresh ();
@@ -181,6 +188,9 @@ public class ENotes.PagesList : Gtk.Box {
 
         this.notebook_name.label = notebook.name.split ("§")[0] + ":";
         listbox.show_all ();
+
+        select_page (ENotes.ViewEditStack.get_instance ().current_page);
+        loading_pages = false;
     }
 
     private ENotes.PageItem new_page (ENotes.Page page) {
@@ -245,17 +255,17 @@ public class ENotes.PagesList : Gtk.Box {
         });
 
         listbox.row_selected.connect ((row) => {
-            if (row == null) return;
-
+            if (row == null || loading_pages) return;
             minus_button.set_sensitive (true);
-            ENotes.ViewEditStack.get_instance ().set_page (((ENotes.PageItem) row).page);
+            ENotes.ViewEditStack.get_instance ().set_page (((ENotes.PageItem) row).page, false);
         });
 
         listbox.row_activated.connect ((row) => {
             window.toggle_edit ();
 
-            if (ENotes.ViewEditStack.current_mode == Mode.EDIT)
+            if (ENotes.ViewEditStack.current_mode == Mode.EDIT) {
                 ENotes.Editor.get_instance ().give_focus ();
+            }
         });
     }
 

@@ -68,13 +68,18 @@ public class ENotes.ViewEditStack : Gtk.Overlay {
         show_view ();
     }
 
-    public void set_page (ENotes.Page page) {
+    public void set_page (ENotes.Page page, bool dummy_page = true) {
+        if (dummy_page) {
+            if (PagesList.get_instance ().select_page (page)) {
+                return;
+            }
+        }
+
         current_page = page;
         editor.set_page (page);
         viewer.load_page (page);
 
         bookmark_button.set_page (page);
-
         page_set (page);
     }
 
