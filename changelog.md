@@ -1,4 +1,12 @@
 #Changelog: 
+## 1.2.1
+
+- Your notes now autosave every minute if there was a change. No more excuses for lost work +Manuel del Valle ;) 
+- Fixed: Notes were sometimes not correctly selected, and re-selecting would override your work... sorry :/ 
+- Fixed: New pages started with an empty space because _SOMEONE_ forgot to remove the space used to debug. That's space is no longer there
+
+And that's all! Just three things (They just happened to be some very annoying things)
+
 ## 1.2:
 
 - In-app trash for deleted pages: Pages or notebooks you delete will first be sent to a trash on the sidebar. Files here will be deleted when the app closes, but it should give you an extra chance to save them!

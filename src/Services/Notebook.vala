@@ -24,7 +24,6 @@ public class ENotes.Notebook : Object {
     private static const string CHILD_PATH = "/org/notes/notebook_data/notebook/%s";
     private static Gee.HashMap<string, Settings> notebook_settings_cache = new Gee.HashMap<string, Settings> ();
 
-    private FileMonitor monitor;
     public signal void destroy ();
 
     public string name { public get; private set; }
@@ -82,7 +81,7 @@ public class ENotes.Notebook : Object {
                 }
             }
         } catch (Error e) {
-            error ("Could not load pages: %s",e.message);
+            warning ("Could not load pages: %s",e.message);
         }
     }
 
@@ -99,7 +98,7 @@ public class ENotes.Notebook : Object {
         try {
             directory = directory.set_display_name (nname);
         } catch (Error e) {
-            error ("Error renaming directory: %s", e.message);
+            warning ("Error renaming directory: %s", e.message);
         }
 
         var notebook = new ENotes.Notebook (this.path + nname);
@@ -153,7 +152,7 @@ public class ENotes.Notebook : Object {
         try {
             directory.trash ();
         } catch (Error e) {
-            stderr.printf ("Error trashing file: %s", e.message);
+            warning ("Error trashing file: %s", e.message);
         }
     }
 
@@ -178,7 +177,7 @@ public class ENotes.Notebook : Object {
 			    notebook_settings_cache.set (notebook_id, notebook_settings);
                 notebook_settings = new Settings.full (SettingsSchemaSource.get_default ().lookup (CHILD_SCHEMA_ID, true), null, CHILD_PATH.printf (notebook_id));
             } else {
-                error ("Getting notebook schema failed");
+                warning ("Getting notebook schema failed");
             }
         }
 

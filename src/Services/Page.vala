@@ -82,18 +82,18 @@ public class ENotes.Page : Object {
         this.subtitle = line[0];
 	}
 
-    public string get_text () {
+    public string get_text (bool force_load = false) {
         debug ("Getting text");
         if (new_page) {
-        	return " ";
-        } if (page_data == null) {
+            return "";
+        } if (page_data == null || force_load) {
             debug ("Loading from file");
             try {
                 var dis = new DataInputStream (this.file.read ());
                 size_t size;
                 this.page_data = dis.read_upto ("\0", -1, out size);
             } catch (Error e) {
-                error ("Error loading file: %s", e.message);
+                warning ("Error loading file: %s", e.message);
             }
         }
 
@@ -135,12 +135,15 @@ public class ENotes.Page : Object {
         this.destroy ();
     }
 
-    public void move_page (Notebook destination) {
+    public bool move_page (Notebook destination) {
         try {
             file.move (destination.directory, FileCopyFlags.NONE);
         } catch (Error e) {
-            error ("Moving page failed: %s", e.message);
+            warning ("Moving page failed: %s", e.message);
+            return false;
         }
+
+        return true;
     }
 
     private string cleanup (string line) {

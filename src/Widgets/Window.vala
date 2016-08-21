@@ -20,7 +20,6 @@
 */
 
 public class ENotes.Window : Gtk.ApplicationWindow {
-    private ENotes.BookmarkButton bookmark_button;
     private ENotes.Editor editor;
     private ENotes.Headerbar headerbar;
     private ENotes.PagesList pages_list;

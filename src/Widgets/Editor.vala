@@ -44,6 +44,11 @@ public class ENotes.Editor : Gtk.Box {
         build_ui ();
         reset ();
         load_settings ();
+
+        Timeout.add_full (Priority.DEFAULT, 60000, () => {
+            save_file ();
+            return true;
+        });
     }
 
     private void build_ui () {
@@ -182,7 +187,7 @@ public class ENotes.Editor : Gtk.Box {
         }
 
         current_page = page;
-        code_buffer.text = page.get_text ();
+        code_buffer.text = page.get_text (true);
         edited = false;
         ENotes.Headerbar.get_instance ().set_title (page.name);
         code_buffer.end_not_undoable_action ();
