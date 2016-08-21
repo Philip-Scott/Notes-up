@@ -82,11 +82,11 @@ public class ENotes.Page : Object {
         this.subtitle = line[0];
 	}
 
-    public string get_text () {
+    public string get_text (bool force_load = false) {
         debug ("Getting text");
         if (new_page) {
             return "";
-        } if (page_data == null) {
+        } if (page_data == null || force_load) {
             debug ("Loading from file");
             try {
                 var dis = new DataInputStream (this.file.read ());
