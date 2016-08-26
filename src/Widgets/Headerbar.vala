@@ -38,6 +38,8 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
     public  Gtk.Revealer search_entry_revealer;
     public  Gtk.Revealer search_button_revealer;
 
+    public Gtk.GestureSwipe gesture;
+
     private bool search_visible = false;
 
     public static Headerbar get_instance () {

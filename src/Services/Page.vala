@@ -23,38 +23,39 @@ public class ENotes.Page : Object {
     public signal void saved_file ();
     public signal void destroy ();
 
-	public string name  { public get; private set; }
-	public string subtitle { public get; private set; }
-	public string full_path { public get; private set; } //File's location + full name
-	public string path { public get; private set; } //This file's location
-	public int date { public get; private set; }
-	public int ID = -1;
-	public bool new_page = false;
+    public string name  { public get; private set; }
+    public string subtitle { public get; private set; }
+    public string full_path { public get; private set; } //File's location + full name
+    public string path { public get; private set; } //This file's location
+    public int date { public get; private set; }
+    public int ID = -1;
+    public bool new_page = false;
 
-	private string? page_data = null;
+    private string? page_data = null;
 
-	private File file { public get; private set; }
+    private File file { public get; private set; }
 
-	public Page (string path) {
-		full_path = path;
-		file = File.new_for_path (full_path);
+    public Page (string path) {
+        full_path = path;
+        file = File.new_for_path (full_path);
 
-		if (!file.query_exists ()) {
-			new_page = true;
-		}
+        if (!file.query_exists ()) {
+            new_page = true;
+        }
 
-		var l = full_path.length;
-		var ln = l - file.get_basename ().length;
+        var l = full_path.length;
+        var ln = l - file.get_basename ().length;
 
-		this.path = full_path.slice(0, ln);
+        this.path = full_path.slice(0, ln);
 
         get_text ();
         load_page_info ();
-	}
+    }
 
     private void load_page_info () {
-        string line[2];
+        string line;
         string[] lines;
+        this.subtitle = "";
 
         lines = page_data.split ("\n");
 
@@ -68,19 +69,21 @@ public class ENotes.Page : Object {
         if (lines.length > 0) {
             name = cleanup(lines[0]);
 
-	        for(int n = 0, i = 1; i < lines.length && n < 1; i++) {
-	            line[n] = cleanup (lines[i]);
-                if (line[n] != "") {
-                    n++;
+            for(int n = 0, i = 1; i < lines.length && n < 150; i++) {
+                line = cleanup (lines[i]);
+                if (line != "") {
+                    if (line.length + n > 150)
+                        this.subtitle = this.subtitle + line[0:150 - n] + " ";
+                    else
+                        this.subtitle = this.subtitle + line + " ";
+                    n = n + line.length;
                 }
-	        }
-	    } else {
-	        name = _("New Page");
-	        new_page = true;
-	    }
-
-        this.subtitle = line[0];
-	}
+            }
+        } else {
+            name = _("New Page");
+            new_page = true;
+        }
+    }
 
     public string get_text (bool force_load = false) {
         debug ("Getting text");
@@ -109,12 +112,12 @@ public class ENotes.Page : Object {
         string file_name = make_filename ();
 
         try {
-		    this.file = File.new_for_path (path + file_name);
-		    FileManager.write_file (file, data, true);
+            this.file = File.new_for_path (path + file_name);
+            FileManager.write_file (file, data, true);
             this.full_path = file.get_path ();
             new_page = false;
         } catch (Error e) {
-            stderr.printf ("Error Saving file: %s", e.message);
+            warning ("Error Saving file: %s", e.message);
         }
 
         this.page_data = data;
@@ -126,7 +129,7 @@ public class ENotes.Page : Object {
         try {
             file.trash ();
         } catch (Error e) {
-            stderr.printf ("Error trashing file: %s", e.message);
+            warning ("Error trashing file: %s", e.message);
         }
     }
 
@@ -164,7 +167,7 @@ public class ENotes.Page : Object {
             output = output[1:output.length];
         }
 
-    	return output;
+        return output;
     }
 
     private string make_filename () {

@@ -49,11 +49,13 @@ public class ENotes.PageItem : Gtk.ListBoxRow {
         ((Gtk.Misc) line1).xalign = 0;
         line1.margin_top = 4;
         line1.margin_left = 8;
+        line1.margin_right = 8;
         line1.margin_bottom = 4;
 
         line2 = new Gtk.Label ("");
         line2.halign = Gtk.Align.START;
         line2.margin_left = 8;
+        line2.margin_right = 8;
         line2.margin_bottom = 4;
         line2.use_markup = true;
         line2.set_line_wrap (true);

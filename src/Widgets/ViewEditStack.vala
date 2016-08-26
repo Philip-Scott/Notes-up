@@ -62,6 +62,8 @@ public class ENotes.ViewEditStack : Gtk.Overlay {
         stack.add_named (viewer, "viewer");
         stack.add_named (editor, "editor");
 
+        stack.set_transition_type (Gtk.StackTransitionType.SLIDE_LEFT_RIGHT);
+
         this.add (stack);
         this.show_all ();
 
