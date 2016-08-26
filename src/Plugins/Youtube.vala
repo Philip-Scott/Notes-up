@@ -20,58 +20,58 @@
 */
 
 public class ENotes.Youtube : ENotes.Plugin , GLib.Object {
-	private PatternSpec spec = new PatternSpec ("*<youtube *>*");
+    private PatternSpec spec = new PatternSpec ("*<youtube *>*");
 
-	construct {
+    construct {
 
-	}
+    }
 
-	public bool is_active () {
-		return true;
-	}
+    public bool is_active () {
+        return true;
+    }
 
-	public void set_active (bool active) {
+    public void set_active (bool active) {
 
-	}
+    }
 
-	public string get_desctiption () {
-		return "Embed youtube videos via <youtube [video]>";
-	}
+    public string get_desctiption () {
+        return "Embed youtube videos via <youtube [video]>";
+    }
 
-	public string get_name () {
-		return "youtube";
-	}
+    public string get_name () {
+        return "youtube";
+    }
 
-	public Gtk.Button? editor_button () {
-		return null;
-	}
+    public Gtk.Button? editor_button () {
+        return null;
+    }
 
-	public bool has_match (string text) {
-		return spec.match_string (text);
-	}
+    public bool has_match (string text) {
+        return spec.match_string (text);
+    }
 
-	public string convert (string line_) {
-		int chars = line_.length;
+    public string convert (string line_) {
+        int chars = line_.length;
         string line = line_ + "     ";
         string builed = "";
 
         int initial = 0, final = 0, last = 0;
         int i;
         for (i = -1; i < chars; ++i) {
-			if (line[i] == '<') initial = i;
-			else if (line[i] == '>') {
-				final = i;
-				string cut = line[initial:final];
-				if (cut.contains ("<youtube ")) {
-					var index = cut.index_of ("v=", 0);
+            if (line[i] == '<') initial = i;
+            else if (line[i] == '>') {
+                final = i;
+                string cut = line[initial:final];
+                if (cut.contains ("<youtube ")) {
+                    var index = cut.index_of ("v=", 0);
 
-					builed = builed + line [last:initial] + "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/" + cut[index + 2:index + 13] + "\" frameborder=\"0\" allowfullscreen></iframe>";
+                    builed = builed + line [last:initial] + "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/" + cut[index + 2:index + 13] + "\" frameborder=\"0\" allowfullscreen></iframe>";
 
-					last = final +1;
-				}
-			}
+                    last = final +1;
+                }
+            }
         }
 
         return builed + line[last:i];
-	}
+    }
 }

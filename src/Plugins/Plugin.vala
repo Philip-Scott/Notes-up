@@ -19,15 +19,16 @@
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
 
-public interface ENotes.Plugin : Object {
-	public abstract void registered (PluginLoader loader);
-	public abstract void activated ();
-	public abstract void deactivated ();
+public interface ENotes.Plugin : GLib.Object {
+    public abstract bool is_active ();
+    public abstract void set_active (bool active);
 
-	public abstract string get_desctiption (); //Description of the plugin
-	public abstract string get_name (); //Plugin name
+    public abstract string get_desctiption (); // Description of the plugin
+    public abstract string get_name (); // Plugin name
 
-	public abstract PatternSpec get_pattern (); //What the module looks for in order to convert
+    public abstract bool has_match (string text); // What the module looks for in order to convert
 
-	public abstract string convert (string line); //Once the viewer finds the key, it will call this function
+    public abstract string convert (string line); // Once the viewer finds the key, it will call this function
+
+    public abstract Gtk.Button? editor_button ();
 }

@@ -20,61 +20,61 @@
 */
 
 public class ENotes.Color : ENotes.Plugin , GLib.Object {
-	private PatternSpec spec = new PatternSpec ("*<color *>*"); 
+    private PatternSpec spec = new PatternSpec ("*<color *>*"); 
 
-	construct {
+    construct {
 
-	}
+    }
 
-	public bool is_active () {
-		return true;
-	}
+    public bool is_active () {
+        return true;
+    }
 
-	public void set_active (bool active) {
+    public void set_active (bool active) {
 
-	}
+    }
 
-	public string get_desctiption () {
-		return "Set a color style for the line with <color [#color]> or for some text with <color [color] [text]>";
-	}
+    public string get_desctiption () {
+        return "Set a color style for the line with <color [#color]> or for some text with <color [color] [text]>";
+    }
 
-	public string get_name () {
-		return "Color module";
-	}
-	
-	public Gtk.Button? editor_button () {
-		return null;
-	}
+    public string get_name () {
+        return "Color module";
+    }
+    
+    public Gtk.Button? editor_button () {
+        return null;
+    }
 
-	public bool has_match (string text) {
-		return spec.match_string (text);
-	}
+    public bool has_match (string text) {
+        return spec.match_string (text);
+    }
 
-	public string convert (string line_) {
-		int chars = line_.length;
+    public string convert (string line_) {
+        int chars = line_.length;
         string line = line_ + "     ";
         string builed = "";
 
         int initial = 0, final = 0, last = 0;
         int i;
         for (i = -1; i < chars; ++i) {
-			if (line[i] == '<') initial = i;
-			else if (line[i] == '>') {
-				final = i;
-				string cut = line[initial:final];
-				if (cut.contains ("<color ")) {
-					var index = cut.index_of_char (' ', 7);
-					if (index == -1) { // simple Convertion
-						builed = builed + line [last:initial] + cut.replace ("<color ", "<color style=\"color:") + "\"";
-						last = final;
-					} else { // <color #xxx text>
-						builed = builed + line [last:initial] + cut[0:index].replace ("<color ", "<color style=\"color:") + "\">" + cut[index:cut.length] + "</color>";
-						last = final +1;
-					}
-				}
-			}
+            if (line[i] == '<') initial = i;
+            else if (line[i] == '>') {
+                final = i;
+                string cut = line[initial:final];
+                if (cut.contains ("<color ")) {
+                    var index = cut.index_of_char (' ', 7);
+                    if (index == -1) { // simple Convertion
+                        builed = builed + line [last:initial] + cut.replace ("<color ", "<color style=\"color:") + "\"";
+                        last = final;
+                    } else { // <color #xxx text>
+                        builed = builed + line [last:initial] + cut[0:index].replace ("<color ", "<color style=\"color:") + "\">" + cut[index:cut.length] + "</color>";
+                        last = final +1;
+                    }
+                }
+            }
         }
 
         return builed + line[last:i];
-	}
+    }
 }

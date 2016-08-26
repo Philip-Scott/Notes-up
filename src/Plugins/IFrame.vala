@@ -20,58 +20,56 @@
 */
 
 public class ENotes.IFrame : ENotes.Plugin , GLib.Object {
-	private PatternSpec spec = new PatternSpec ("*<web *>*"); 
+    private PatternSpec spec = new PatternSpec ("*<web *>*"); 
 
-	construct {
+    construct {
 
-	}
+    }
 
-	public bool is_active () {
-		return true;
-	}
+    public bool is_active () {
+        return true;
+    }
 
-	public void set_active (bool active) {
+    public void set_active (bool active) {
 
-	}
+    }
 
-	public string get_desctiption () {
-		return "Insert a webpage via <web [website]>";
-	}
+    public string get_desctiption () {
+        return "Insert a webpage via <web [website]>";
+    }
 
-	public string get_name () {
-		return "iframe";
-	}
-	
-	public Gtk.Button? editor_button () {
-		return null;
-	}
+    public string get_name () {
+        return "iframe";
+    }
+    
+    public Gtk.Button? editor_button () {
+        return null;
+    }
 
-	public bool has_match (string text) {
-		return spec.match_string (text);
-	}
+    public bool has_match (string text) {
+        return spec.match_string (text);
+    }
 
-	public string convert (string line_) {
-		int chars = line_.length;
+    public string convert (string line_) {
+        int chars = line_.length;
         string line = line_ + "     ";
         string builed = "";
 
         int initial = 0, final = 0, last = 0;
         int i;
         for (i = -1; i < chars; ++i) {
-			if (line[i] == '<') initial = i;
-			else if (line[i] == '>') {
-				final = i;
-				string cut = line[initial:final];
-				if (cut.contains ("<web ")) {
-					var index = cut.index_of_char (' ', 0);
-					
-					builed = builed + line [last:initial] + cut.replace ("<web ", "<iframe src=\"") + "\" style=\"width: 100%; height: 500px\"> </iframe>";
-					last = final +1;
-					
-				}
-			}
+            if (line[i] == '<') initial = i;
+            else if (line[i] == '>') {
+                final = i;
+                string cut = line[initial:final];
+                if (cut.contains ("<web ")) {
+                    builed = builed + line [last:initial] + cut.replace ("<web ", "<iframe src=\"") + "\" style=\"width: 100%; height: 500px\"> </iframe>";
+                    last = final +1;
+                    
+                }
+            }
         }
 
         return builed + line[last:i];
-	}
+    }
 }

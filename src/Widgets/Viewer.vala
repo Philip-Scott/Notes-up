@@ -20,6 +20,8 @@
 */
 
 public class ENotes.Viewer : WebKit.WebView {
+    private ENotes.Plugin[] plugins = {};
+
     public static string[] STYLES = {_("Default"), ("elementary"), _("Air"), _("Modest")};
 
     private static Viewer? instance = null;
@@ -38,6 +40,11 @@ public class ENotes.Viewer : WebKit.WebView {
     }
 
     private Viewer () {
+        // TODO: Better plugin manager
+        plugins += new Color ();
+        plugins += new IFrame ();
+        plugins += new Youtube ();
+
         string file = "/tmp/notes-up-render-" + GLib.Environment.get_user_name ();
         temp_file = File.new_for_path (file);
 
@@ -64,9 +71,9 @@ public class ENotes.Viewer : WebKit.WebView {
                 } else {
                     CSS = Styles.elementary.css;
                 }
+
                 break;
         }
-
 
         if (!trying_global) {
             CSS = CSS + ENotes.settings.render_stylesheet + Notebook.get_styleshet_changes (previous_path);
@@ -125,6 +132,7 @@ public class ENotes.Viewer : WebKit.WebView {
             int next_newline;
             string line = "";
             while (true) {
+
                 next_newline = raw_mk.index_of_char('\n', last_newline + 1);
                 if (next_newline == -1) { // End of file
                     valid_frontmatter = false;
@@ -175,9 +183,29 @@ public class ENotes.Viewer : WebKit.WebView {
         string html = "<!doctype html><meta charset=utf-8><head>";
         html += "<style>"+ CSS +"</style>";
         html += "</head><body><div class=\"markdown-body\">";
-        html += result;
+        html += process_plugins (result);
         html += "</div></body></html>";
 
         return html;
+    }
+    private string process_plugins (string raw_mk) {
+        var lines = raw_mk.split ("\n");
+        string build = "";
+        foreach (var line in lines) {
+            bool found = false;
+            foreach (var plugin in plugins) {
+                if (plugin.has_match (line)) {
+                    build = build + plugin.convert (line) + "\n";
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                build = build + line + "\n";
+            }
+        }
+
+        return build;
     }
 }

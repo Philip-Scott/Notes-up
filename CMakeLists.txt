@@ -127,6 +127,10 @@ vala_precompile(VALA_C
   src/Services/Page.vala
   src/Services/Settings.vala
   src/Services/Trash.vala
+  src/Plugins/Plugin.vala
+  src/Plugins/Color.vala
+  src/Plugins/IFrame.vala
+  src/Plugins/Youtube.vala
   src/config.vala
 PACKAGES
   ${VALA_DEPS}
@@ -159,4 +163,9 @@ install (FILES ${assets}
   DESTINATION ${DATADIR}/notes-up/)
 install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/data/notes.svg"
   DESTINATION ${DATADIR}/pixmaps/)
+
+# App DATA
+#configure_file_translation (io.github.notes-up.xml.in ${CMAKE_CURRENT_BINARY_DIR}/io.github.notes-up.xml ${CMAKE_SOURCE_DIR}/po/)
+#install (FILES ${CMAKE_CURRENT_BINARY_DIR}/io.github.notes-up.xml DESTINATION ${DATADIR}/appdata/)
+
 
