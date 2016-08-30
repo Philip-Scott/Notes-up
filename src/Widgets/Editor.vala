@@ -119,8 +119,44 @@ public class ENotes.Editor : Gtk.Box {
         box.add (link_button);
         box.add (webimage_button);
         box.add (separator3);
+        box.add (PluginButton (new Color ()));
 
         return box;
+    }
+
+    private Gtk.Button PluginButton (Plugin plugin) {
+        var button = new Gtk.Button ();
+        button.add (plugin.editor_button ());
+        button.can_focus = false;
+        button.get_style_context ().add_class ("flat");
+        //button.set_tooltip_text (description);
+
+        button.clicked.connect (() => {
+            if (code_buffer.has_selection) {
+                Gtk.TextIter start, end;
+                code_buffer.get_selection_bounds (out start, out end);
+                var text = start.get_text (end);
+                plugin.request_string (text);
+            } else {
+                plugin.request_string ("");
+            }
+        });
+
+        plugin.string_cooked.connect ((t) => {
+            if (code_buffer.has_selection) {
+                Gtk.TextIter start, end;
+                code_buffer.get_selection_bounds (out start, out end);
+
+                var text = start.get_text (end);
+                code_buffer.@delete (ref start, ref end);
+                code_buffer.insert_at_cursor (t, -1);
+            } else {
+                Gtk.TextIter start, end;
+                code_buffer.insert_at_cursor (t, -1);
+            }
+        });
+
+        return button;
     }
 
     private Gtk.Button ToolbarButton (string icon, string first_half, string second_half, string description = "") {

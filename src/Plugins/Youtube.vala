@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2011-2016 Felipe Escoto (https://github.com/Philip-Scott/Notes-up)
+* Copyright (c) 2016 Felipe Escoto (https://github.com/Philip-Scott/Notes-up)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -42,7 +42,7 @@ public class ENotes.Youtube : ENotes.Plugin , GLib.Object {
         return "youtube";
     }
 
-    public Gtk.Button? editor_button () {
+    public Gtk.Widget? editor_button () {
         return null;
     }
 

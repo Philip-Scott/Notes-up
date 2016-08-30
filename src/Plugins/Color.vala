@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2011-2016 Felipe Escoto (https://github.com/Philip-Scott/Notes-up)
+* Copyright (c) 2016 Felipe Escoto (https://github.com/Philip-Scott/Notes-up)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -20,7 +20,12 @@
 */
 
 public class ENotes.Color : ENotes.Plugin , GLib.Object {
-    private PatternSpec spec = new PatternSpec ("*<color *>*"); 
+    private PatternSpec spec = new PatternSpec ("*<color *>*");
+
+    private Gtk.ColorChooserWidget color_selector;
+    private Gtk.Popover popover;
+
+    private string selection;
 
     construct {
 
@@ -41,9 +46,38 @@ public class ENotes.Color : ENotes.Plugin , GLib.Object {
     public string get_name () {
         return "Color module";
     }
-    
-    public Gtk.Button? editor_button () {
-        return null;
+
+    public Gtk.Widget? editor_button () {
+
+        var image = new Gtk.Image.from_icon_name ("applications-graphics", Gtk.IconSize.SMALL_TOOLBAR);
+
+        popover = new Gtk.Popover (image);
+        color_selector = new Gtk.ColorChooserWidget ();
+        color_selector.margin = 6;
+
+        popover.add (color_selector);
+
+        popover.hide.connect (() => {
+            color_selector.show_editor = false;
+        });
+
+        color_selector.color_activated.connect (() =>{
+            popover.hide ();
+
+            if (this.selection.length > 0) {
+                string_cooked ("<color " + color_selector.get_rgba ().to_string () + " "+ this.selection + ">");
+            } else {
+                string_cooked ("<color " + color_selector.get_rgba ().to_string () + ">");
+            }
+        });
+
+        return image;
+    }
+
+    public string request_string (string selection) {
+        popover.show_all ();
+        this.selection = selection;
+        return "";
     }
 
     public bool has_match (string text) {

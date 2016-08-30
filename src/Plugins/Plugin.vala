@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2011-2016 Felipe Escoto (https://github.com/Philip-Scott/Notes-up)
+* Copyright (c) 2016 Felipe Escoto (https://github.com/Philip-Scott/Notes-up)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -20,6 +20,8 @@
 */
 
 public interface ENotes.Plugin : GLib.Object {
+    public signal void string_cooked (string text);
+
     public abstract bool is_active ();
     public abstract void set_active (bool active);
 
@@ -30,5 +32,9 @@ public interface ENotes.Plugin : GLib.Object {
 
     public abstract string convert (string line); // Once the viewer finds the key, it will call this function
 
-    public abstract Gtk.Button? editor_button ();
+    public abstract Gtk.Widget? editor_button ();
+
+    public virtual string request_string (string selection) {
+        return selection;
+    }
 }
