@@ -42,7 +42,7 @@ public class ENotes.IFrame : ENotes.Plugin , GLib.Object {
         return "iframe";
     }
     
-    public Gtk.Button? editor_button () {
+    public Gtk.Widget? editor_button () {
         return null;
     }
 

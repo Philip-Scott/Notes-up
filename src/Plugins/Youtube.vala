@@ -42,7 +42,7 @@ public class ENotes.Youtube : ENotes.Plugin , GLib.Object {
         return "youtube";
     }
 
-    public Gtk.Button? editor_button () {
+    public Gtk.Widget? editor_button () {
         return null;
     }
 
