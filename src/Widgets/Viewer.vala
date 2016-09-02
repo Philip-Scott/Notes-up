@@ -51,7 +51,7 @@ public class ENotes.Viewer : WebKit.WebView {
         connect_signals ();
     }
 
-    public void load_css (ENotes.Page? page, bool overrride = false) {
+    public async void load_css (ENotes.Page? page, bool overrride = false) {
         if (overrride || previous_path != page.path) {
             if (page != null) previous_path = page.path;
 
@@ -60,7 +60,7 @@ public class ENotes.Viewer : WebKit.WebView {
         }
     }
 
-    private void set_styleshet (string stylesheet, bool trying_global = false) {
+    private async async void set_styleshet (string stylesheet, bool trying_global = false) {
         switch (stylesheet) {
             case "elementary": CSS = Styles.elementary.css; break;
             case "Modest": CSS = Styles.modest.css; break;
@@ -80,34 +80,38 @@ public class ENotes.Viewer : WebKit.WebView {
         }
     }
 
-    public new void reload () {
+    public async new void reload () {
         if (previous_page != null) {
             load_css (previous_page, true);
             load_page (previous_page);
         }
     }
 
-    public void load_page (Page page, bool force_load = false) {
-        if (ViewEditStack.current_mode == Mode.VIEW || force_load) {
-            debug ("Viewer loading: %s", page.name);
+    public async void load_page (Page page, bool force_load = false) {
+        unowned Thread<void*> thread_a = Thread.create<void*> (() => {
+            if (ViewEditStack.current_mode == Mode.VIEW || force_load) {
+                debug ("Viewer loading: %s", page.name);
 
-            previous_page = page;
+                previous_page = page;
 
-            string html;
+                string html;
 
-            process_frontmatter (page.get_text (), out html);
-            load_css (page);
+                process_frontmatter (page.get_text (), out html);
+                load_css (page);
 
-            try {
-                FileManager.write_file(temp_file, process (html), true);
-                load_uri (temp_file.get_uri ());
-            } catch (Error e) {
-                load_html ("<h1>Sorry....</h1> <h2>Loading your file failed :(</h2> <br>", null);
+                try {
+                    FileManager.write_file(temp_file, process (html), true);
+                    load_uri (temp_file.get_uri ());
+                } catch (Error e) {
+                    load_html ("<h1>Sorry....</h1> <h2>Loading your file failed :(</h2> <br>", null);
+                }
+            } else {
+                previous_page = page;
+                load_css (page);
             }
-        } else {
-            previous_page = page;
-            load_css (page);
-        }
+
+            return null;
+        }, true);
     }
 
     private void connect_signals () {
