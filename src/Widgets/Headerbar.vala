@@ -77,7 +77,7 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         search_button_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
 
         search_button = new Gtk.Button.from_icon_name ("edit-find-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
-        search_button.tooltip_text = _("Search your current notebook" + Key.FIND.to_string ());
+        search_button.tooltip_text = (_("Search your current notebook") + Key.FIND.to_string ());
         search_button.clicked.connect(show_search);
 
         search_button_revealer.add(search_button);
