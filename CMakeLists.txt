@@ -111,6 +111,7 @@ vala_precompile(VALA_C
   src/Widgets/NotebookItem.vala
   src/Widgets/BookmarkItem.vala
   src/Widgets/TrashItem.vala
+  src/Widgets/ToolbarButton.vala
   src/Widgets/BookmarkButton.vala
   src/Widgets/PageItem.vala
   src/Widgets/PagesList.vala

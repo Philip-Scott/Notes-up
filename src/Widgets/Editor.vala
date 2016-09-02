@@ -28,9 +28,9 @@ public class ENotes.Editor : Gtk.Box {
     private bool edited = false;
 
     public ENotes.Page current_page = null;
-    public Gtk.Button bold_button;
-    public Gtk.Button italics_button;
-    public Gtk.Button strike_button;
+    public ENotes.ToolbarButton bold_button;
+    public ENotes.ToolbarButton italics_button;
+    public ENotes.ToolbarButton strike_button;
 
     public static Editor get_instance () {
         if (instance == null) {
@@ -83,18 +83,18 @@ public class ENotes.Editor : Gtk.Box {
     private Gtk.Box build_toolbar () {
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
 
-        bold_button = ToolbarButton ("format-text-bold", "**", "**", _("Add bold to text") + Key.BOLD.to_string ());
-        italics_button = ToolbarButton ("format-text-italic", "_", "_", _("Add italic to text") + Key.ITALICS.to_string ());
-        strike_button = ToolbarButton ("format-text-strikethrough", "~~~", "~~~", _("Strikethrough text") + Key.STRIKE.to_string ());
+        bold_button = new ENotes.ToolbarButton ("format-text-bold", "**", "**", _("Add bold to text") + Key.BOLD.to_string (), code_buffer);
+        italics_button = new ENotes.ToolbarButton ("format-text-italic", "_", "_", _("Add italic to text") + Key.ITALICS.to_string (), code_buffer);
+        strike_button = new ENotes.ToolbarButton ("format-text-strikethrough", "~~~", "~~~", _("Strikethrough text") + Key.STRIKE.to_string (), code_buffer);
 
-        var quote_button = ToolbarButton ("format-indent-less-rtl", "> ", "", _("Insert a quote"));
-        var code_button = ToolbarButton ("system-run", "`", "`", _("Insert code"));
-        var link_button = ToolbarButton ("insert-link", "[Link Text](", ")", _("Insert a link"));
+        var quote_button = new ENotes.ToolbarButton ("format-indent-less-rtl", "> ", "", _("Insert a quote"), code_buffer);
+        var code_button = new ENotes.ToolbarButton ("system-run", "`", "`", _("Insert code"), code_buffer);
+        var link_button = new ENotes.ToolbarButton ("insert-link", "[Link Text](", ")", _("Insert a link"), code_buffer);
 
-        var bulleted_button = ToolbarButton ("zoom-out","\n- ", "", _("Add a bulleted list"));
-        var numbered_button = ToolbarButton ("zoom-original","\n1. ", "", _("Add a Numbered list"));
+        var bulleted_button = new ENotes.ToolbarButton ("zoom-out","\n- ", "", _("Add a bulleted list"), code_buffer);
+        var numbered_button = new ENotes.ToolbarButton ("zoom-original","\n1. ", "", _("Add a Numbered list"), code_buffer);
 
-        var webimage_button = get_image_button ("insert-image","![](", ")", _("Insert an image"));
+        var webimage_button = new ENotes.ToolbarButton.is_image_button ("insert-image","![](", ")", _("Insert an image"), code_buffer);
 
         var separator1 = new Gtk.Separator (Gtk.Orientation.VERTICAL);
         var separator2 = new Gtk.Separator (Gtk.Orientation.VERTICAL);
@@ -119,99 +119,9 @@ public class ENotes.Editor : Gtk.Box {
         box.add (link_button);
         box.add (webimage_button);
         box.add (separator3);
-        box.add (PluginButton (new Color ()));
+        box.add (new ENotes.ToolbarButton.from_plugin (new Color (), code_buffer));
 
         return box;
-    }
-
-    private Gtk.Button PluginButton (Plugin plugin) {
-        var button = new Gtk.Button ();
-        button.add (plugin.editor_button ());
-        button.can_focus = false;
-        button.get_style_context ().add_class ("flat");
-        //button.set_tooltip_text (description);
-
-        button.clicked.connect (() => {
-            if (code_buffer.has_selection) {
-                Gtk.TextIter start, end;
-                code_buffer.get_selection_bounds (out start, out end);
-                var text = start.get_text (end);
-                plugin.request_string (text);
-            } else {
-                plugin.request_string ("");
-            }
-        });
-
-        plugin.string_cooked.connect ((t) => {
-            if (code_buffer.has_selection) {
-                Gtk.TextIter start, end;
-                code_buffer.get_selection_bounds (out start, out end);
-
-                var text = start.get_text (end);
-                code_buffer.@delete (ref start, ref end);
-                code_buffer.insert_at_cursor (t, -1);
-            } else {
-                Gtk.TextIter start, end;
-                code_buffer.insert_at_cursor (t, -1);
-            }
-        });
-
-        return button;
-    }
-
-    private Gtk.Button ToolbarButton (string icon, string first_half, string second_half, string description = "") {
-        var button = new Gtk.Button.from_icon_name(icon, Gtk.IconSize.SMALL_TOOLBAR);
-        button.can_focus = false;
-        button.get_style_context ().add_class ("flat");
-        button.set_tooltip_text (description);
-
-        button.clicked.connect (() => {
-            if (code_buffer.has_selection) {
-                Gtk.TextIter start, end;
-                code_buffer.get_selection_bounds (out start, out end);
-
-                var text = start.get_text (end);
-                code_buffer.@delete (ref start, ref end);
-                code_buffer.insert_at_cursor (first_half + text + second_half, -1);
-            } else {
-                Gtk.TextIter start, end;
-                code_buffer.insert_at_cursor (first_half, -1);
-
-                code_buffer.get_selection_bounds (out start, out end);
-                code_buffer.insert (ref end, second_half , -1);
-
-                code_buffer.place_cursor (start);
-            }
-        });
-
-        return button;
-    }
-
-    private Gtk.Button get_image_button (string icon, string first_half, string second_half, string description = "") {
-        var button = new Gtk.Button.from_icon_name(icon, Gtk.IconSize.SMALL_TOOLBAR);
-        button.can_focus = false;
-        button.get_style_context ().add_class ("flat");
-        button.set_tooltip_text (description);
-
-        button.clicked.connect (() => {
-            Gtk.TextIter start, end;
-            code_buffer.get_selection_bounds (out start, out end);
-
-            if (code_buffer.has_selection) {
-                var text = start.get_text (end);
-                code_buffer.@delete (ref start, ref end);
-                code_buffer.insert_at_cursor (first_half + text + second_half, -1);
-            } else {
-                var file = FileManager.get_file_from_user (false);
-
-                if (file != null) {
-                    code_buffer.insert (ref end, first_half + file.get_path () + second_half , -1);
-                    code_buffer.place_cursor (end);
-                }
-            }
-        });
-
-        return button;
     }
 
     public void set_page (ENotes.Page page) {
