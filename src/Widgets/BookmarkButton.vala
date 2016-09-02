@@ -42,7 +42,7 @@ public class ENotes.BookmarkButton : Gtk.Button {
         expand = false;
         can_focus = false;
         has_tooltip = true;
-        tooltip_text = _("Bookmark page" + Key.BOOKMARK.to_string ());
+        tooltip_text = (_("Bookmark page") + Key.BOOKMARK.to_string ());
 
         connect_signals ();
     }
