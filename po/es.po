@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-22 21:30+0200\n"
-"PO-Revision-Date: \n"
+"PO-Revision-Date: 2016-09-1\n"
 "Last-Translator: Felipe Escoto <felescoto95@hotmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -23,6 +23,10 @@ msgstr "Ver"
 msgid "Edit"
 msgstr "Editar"
 
+#: /home/felipe/Notes-up/po/../src/Widgets/Headerbar.vala:64
+msgid "Change mode"
+msgstr "Cambiar modo"
+
 #: /home/felipe/Projets/github/Notes-up/po/../src/Widgets/Headerbar.vala:52
 #: /home/felipe/Projets/github/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:54
 msgid "New Notebook"
@@ -31,7 +35,7 @@ msgstr "Crear Cuaderno"
 #: /home/felipe/Projets/github/Notes-up/po/../src/Widgets/Headerbar.vala:53
 #: /home/felipe/Projets/github/Notes-up/po/../src/Widgets/PreferencesDialog.vala:39
 msgid "Preferences"
-msgstr "Ajustes"
+msgstr "Preferencias"
 
 #: /home/felipe/Projets/github/Notes-up/po/../src/Widgets/Headerbar.vala:54
 msgid "Export to PDF"
@@ -71,6 +75,26 @@ msgstr "Agregar a favoritos"
 msgid "New Page"
 msgstr "Nueva Página"
 
+#: /home/felipe/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:104
+msgid "Properties"
+msgstr "Propiedades"
+
+#: /home/felipe/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:105
+msgid "Style"
+msgstr "Estilo"
+
+#: /home/felipe/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:123
+msgid "Style modifications"
+msgstr "Modificaciones del estilo"
+
+#: /home/felipe/Notes-up/po/../src/Widgets/PreferencesDialog.vala:140
+msgid "Global style modifications"
+msgstr "Modificaciones globales del estilo"
+
+#: /home/felipe/Notes-up/po/../src/Widgets/TrashItem.vala:39
+msgid "Restore"
+msgstr "Restaurar"
+
 #: /home/felipe/Projets/github/Notes-up/po/../src/Widgets/PagesList.vala:167
 #, c-format
 msgid "%i Pages"
@@ -83,6 +107,18 @@ msgstr "Nueva Sección"
 #: /home/felipe/Projets/github/Notes-up/po/../src/Widgets/NotebookItem.vala:48
 msgid "Delete Notebook"
 msgstr "Borrar Cuaderno"
+
+#: /home/felipe/Notes-up/po/../src/Widgets/Viewer.vala:25
+msgid "Default"
+msgstr "Global"
+
+#: /home/felipe/Notes-up/po/../src/Widgets/Viewer.vala:25
+msgid "Air"
+msgstr "Aire"
+
+#: /home/felipe/Notes-up/po/../src/Widgets/Viewer.vala:25
+msgid "Modest"
+msgstr "Modesto"
 
 #: /home/felipe/Projets/github/Notes-up/po/../src/Widgets/PreferencesDialog.vala:47
 msgid "Editor"
@@ -111,6 +147,11 @@ msgstr "Indentación automatica:"
 #: /home/felipe/Projets/github/Notes-up/po/../src/Widgets/PreferencesDialog.vala:112
 msgid "Show line Numbers:"
 msgstr "Mostrar números de linea:"
+
+#: /home/felipe/Notes-up/po/../src/Widgets/PreferencesDialog.vala:153
+#: /home/felipe/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:137
+msgid "Stylesheet:"
+msgstr "Hoja de Estilo:"
 
 #: /home/felipe/Projets/github/Notes-up/po/../src/Widgets/PreferencesDialog.vala:138
 msgid "Global Stylesheet"
@@ -160,9 +201,19 @@ msgstr "Agregar lista numerada"
 msgid "Insert an image"
 msgstr "Agregar una imagen"
 
+#. //bugzilla.gnome.org/show_bug.cgi?id=758000 is fixed.
+#: /home/felipe/Notes-up/po/../src/Widgets/PagesList.vala:186
+#: /home/felipe/Notes-up/po/../src/Widgets/PagesList.vala:274
+#, c-format
+msgid "%i Page"
+msgid_plural "%i Pages"
+msgstr[0] "%i Página"
+msgstr[1] "%i Páginas"
+
+
 #: /home/felipe/Projets/github/Notes-up/po/../src/Widgets/BookmarkItem.vala:54
 msgid "Remove"
-msgstr "Borrar"
+msgstr "Remover"
 
 #: /home/felipe/Projets/github/Notes-up/po/../src/Application.vala:36
 msgid "Notes-up"
