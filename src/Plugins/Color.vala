@@ -77,6 +77,7 @@ public class ENotes.Color : ENotes.Plugin , GLib.Object {
     public string request_string (string selection) {
         popover.show_all ();
         this.selection = selection;
+
         return "";
     }
 

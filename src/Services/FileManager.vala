@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2011-2016 Felipe Escoto (https://github.com/Philip-Scott/Notes-up)
+* Copyright (c) 2015-2016 Felipe Escoto (https://github.com/Philip-Scott/Notes-up)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -101,10 +101,11 @@ public class ENotes.FileManager : Object {
         ENotes.Viewer.get_instance ().load_page (ENotes.Editor.get_instance ().current_page, true);
 
         File file;
-        if (file_path == null)
+        if (file_path == null) {
             file = get_file_from_user ();
-        else
+        } else {
             file = File.new_for_path (file_path);
+        }
 
         try { // TODO: we have to write an empty file so we can get file path
             write_file (file, "");
