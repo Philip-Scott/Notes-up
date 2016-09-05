@@ -69,13 +69,10 @@ public class ENotes.Page : Object {
         if (lines.length > 0) {
             name = cleanup(lines[0]);
 
-            for(int n = 0, i = 1; i < lines.length && n < 150; i++) {
+            for(int n = 0, i = 1; i < lines.length && n < 250; i++) {
                 line = cleanup (lines[i]);
                 if (line != "") {
-                    if (line.length + n > 150)
-                        this.subtitle = this.subtitle + line[0:150 - n] + " ";
-                    else
-                        this.subtitle = this.subtitle + line + " ";
+                    this.subtitle = this.subtitle + line + " ";
                     n = n + line.length;
                 }
             }
@@ -154,7 +151,7 @@ public class ENotes.Page : Object {
 
         if (line.contains ("---")) return "";
 
-        string[] blacklist = {"#", "```", "\t", ">", "<", "\n"};
+        string[] blacklist = {"#", "```", "\t", "<br>", ">", "<", "\n"};
         foreach (string item in blacklist) {
             if (output.contains (item)) {
                 output = output.replace (item, "");
