@@ -119,7 +119,14 @@ public class ENotes.Editor : Gtk.Box {
         box.add (link_button);
         box.add (webimage_button);
         box.add (separator3);
-        box.add (new ENotes.ToolbarButton.from_plugin (new Color (), code_buffer));
+
+        // Load Plugin buttons
+        foreach (var plugin in PluginManager.get_instance ().get_plugs ()) {
+            Gtk.Widget? widget = plugin.editor_button ();
+            if (widget != null) {
+                box.add (new ENotes.ToolbarButton.from_plugin (plugin, widget, code_buffer));
+            }
+        }
 
         return box;
     }

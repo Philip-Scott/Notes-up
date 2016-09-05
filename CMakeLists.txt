@@ -128,6 +128,7 @@ vala_precompile(VALA_C
   src/Services/Page.vala
   src/Services/Settings.vala
   src/Services/Trash.vala
+  src/Plugins/Manager.vala
   src/Plugins/Plugin.vala
   src/Plugins/Color.vala
   src/Plugins/IFrame.vala

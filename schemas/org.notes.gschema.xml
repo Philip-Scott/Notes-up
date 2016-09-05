@@ -98,10 +98,6 @@
 	</schema>
 
 	<schema path="/org/notes/notebook_data/" id="org.notes.notebook_data" gettext-domain="notes">
-		<key type="b" name="do-not-disturb">
-			<default>false</default>
-			<summary>Disable all notifications</summary>
-		</key>
 		<child name="notebooks" schema="org.notes.notebook_data.notebook" />
 	</schema>
 
@@ -119,4 +115,18 @@
 	  	<child name="notebooks" schema="org.notes.notebook_data.notebook" />
 	</schema>
 
+		<schema path="/org/notes/plugin_data/" id="org.notes.plugin_data" gettext-domain="notes">
+			<key type="b" name="active">
+				<default>true</default>
+				<summary>Master plugin control</summary>
+			</key>
+			<child name="notebooks" schema="org.notes.notebook_data.notebook" />
+		</schema>
+
+		<schema id="org.notes.plugin_data.plugin" gettext-domain="notes">
+			<key type="b" name="active">
+				<default>true</default>
+				<summary>Master plugin control</summary>
+			</key>
+		</schema>
 </schemalist>

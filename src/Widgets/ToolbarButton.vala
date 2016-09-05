@@ -52,11 +52,11 @@ public class ENotes.ToolbarButton : Gtk.Button {
         type = 1;
     } 
 
-    public ToolbarButton.from_plugin (Plugin plugin, Gtk.SourceBuffer code_buffer) {
+    public ToolbarButton.from_plugin (Plugin plugin, Gtk.Widget widget, Gtk.SourceBuffer code_buffer) {
         this.plugin = plugin;
         this.code_buffer = code_buffer;
-        add (plugin.editor_button ());
-        set_tooltip_text (plugin.get_desctiption ());
+        add (widget);
+        set_tooltip_text (plugin.get_button_desctiption ());
 
         type = 2;
         
@@ -65,12 +65,9 @@ public class ENotes.ToolbarButton : Gtk.Button {
             if (code_buffer.has_selection) {
                 Gtk.TextIter start, end;
                 code_buffer.get_selection_bounds (out start, out end);
-    
-                var text = start.get_text (end);
                 code_buffer.@delete (ref start, ref end);
                 code_buffer.insert_at_cursor (t, -1);
             } else {
-                Gtk.TextIter start, end;
                 code_buffer.insert_at_cursor (t, -1);
             }
         });

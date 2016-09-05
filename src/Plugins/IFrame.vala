@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2011-2016 Felipe Escoto (https://github.com/Philip-Scott/Notes-up)
+* Copyright (c) 22016 Felipe Escoto (https://github.com/Philip-Scott/Notes-up)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -19,8 +19,11 @@
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
 
-public class ENotes.IFrame : ENotes.Plugin , GLib.Object {
-    private PatternSpec spec = new PatternSpec ("*<web *>*"); 
+public class ENotes.IFrame : ENotes.Plugin {
+    private PatternSpec spec = new PatternSpec ("*<web *>*");
+    private Gtk.Popover popover;
+
+    private Gtk.Entry entry;
 
     construct {
 
@@ -30,27 +33,59 @@ public class ENotes.IFrame : ENotes.Plugin , GLib.Object {
         return true;
     }
 
-    public void set_active (bool active) {
-
+    public override string get_desctiption () {
+        return _("Insert a webpage: <web [website]>");
     }
 
-    public string get_desctiption () {
-        return "Insert a webpage via <web [website]>";
+    public override string get_name () {
+        return _("Web Frame");
     }
 
-    public string get_name () {
-        return "iframe";
-    }
-    
-    public Gtk.Widget? editor_button () {
-        return null;
+    public override Gtk.Widget? editor_button () {
+        var image = new Gtk.Image.from_icon_name ("window-new", Gtk.IconSize.SMALL_TOOLBAR);
+
+        popover = new Gtk.Popover (image);
+        popover.position = Gtk.PositionType.BOTTOM;
+
+        var grid = new Gtk.Grid ();
+        grid.column_spacing = 6;
+        grid.margin = 3;
+
+        var label = new Gtk.Label (_("Website:"));
+        label.get_style_context ().add_class ("h4");
+
+        entry = new Gtk.Entry ();
+
+        entry.activate.connect (() => {
+            popover.hide ();
+
+            unowned string str = entry.get_text ();
+            string_cooked ("<web " + str + ">");
+        });
+
+        grid.add (label);
+        grid.add (entry);
+        popover.add (grid);
+
+        return image;
     }
 
-    public bool has_match (string text) {
+    public override string request_string (string selection) {
+        popover.show_all ();
+        entry.text = selection;
+
+        return "";
+    }
+
+    public override string get_button_desctiption () {
+        return _("Insert a Website");
+    }
+
+    public override bool has_match (string text) {
         return spec.match_string (text);
     }
 
-    public string convert (string line_) {
+    public override string convert (string line_) {
         int chars = line_.length;
         string line = line_ + "     ";
         string builed = "";
@@ -65,7 +100,7 @@ public class ENotes.IFrame : ENotes.Plugin , GLib.Object {
                 if (cut.contains ("<web ")) {
                     builed = builed + line [last:initial] + cut.replace ("<web ", "<iframe src=\"") + "\" style=\"width: 100%; height: 500px\"> </iframe>";
                     last = final +1;
-                    
+
                 }
             }
         }

@@ -19,7 +19,7 @@
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
 
-public class ENotes.Youtube : ENotes.Plugin , GLib.Object {
+public class ENotes.Youtube : ENotes.Plugin {
     private PatternSpec spec = new PatternSpec ("*<youtube *>*");
 
     construct {
@@ -30,27 +30,31 @@ public class ENotes.Youtube : ENotes.Plugin , GLib.Object {
         return true;
     }
 
-    public void set_active (bool active) {
+    public override void set_active (bool active) {
 
     }
 
-    public string get_desctiption () {
-        return "Embed youtube videos via <youtube [video]>";
+    public override string get_desctiption () {
+        return _("Embed youtube videos: <youtube [video]>");
     }
 
-    public string get_name () {
-        return "youtube";
+    public override string get_name () {
+        return _("Youtube");
     }
 
-    public Gtk.Widget? editor_button () {
+    public override Gtk.Widget? editor_button () {
         return null;
     }
 
-    public bool has_match (string text) {
+    public override string get_button_desctiption () {
+        return _("Insert Youtube video");
+    }
+
+    public override bool has_match (string text) {
         return spec.match_string (text);
     }
 
-    public string convert (string line_) {
+    public override string convert (string line_) {
         int chars = line_.length;
         string line = line_ + "     ";
         string builed = "";

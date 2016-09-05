@@ -20,6 +20,8 @@
 */
 
 public class ENotes.FileManager : Object {
+    private static Gee.HashMap<string, Settings> notebook_settings_cache = new Gee.HashMap<string, Settings> ();
+
     public static ENotes.Notebook current_notebook;
     public static ENotes.Page current_page { get; private set; }
 
@@ -223,5 +225,23 @@ public class ENotes.FileManager : Object {
         dialog.close ();
 
         return result;
+    }
+
+    public static Settings get_settings (string notebook_path, string CHILD_SCHEMA_ID, string CHILD_PATH) {
+        var notebook_id = notebook_path.replace (NOTES_DIR, "").replace ("/", "") + "/";
+        Settings? notebook_settings = notebook_settings_cache.get (notebook_id);
+
+        if (notebook_settings == null) {
+            var schema = SettingsSchemaSource.get_default ().lookup (CHILD_SCHEMA_ID, false);
+		    if (schema != null) {
+			    notebook_settings = new Settings.full (schema, null, CHILD_PATH.printf (notebook_id));
+			    notebook_settings_cache.set (notebook_id, notebook_settings);
+                notebook_settings = new Settings.full (SettingsSchemaSource.get_default ().lookup (CHILD_SCHEMA_ID, true), null, CHILD_PATH.printf (notebook_id));
+            } else {
+                warning ("Getting notebook schema failed");
+            }
+        }
+
+        return notebook_settings;
     }
 }

@@ -20,8 +20,6 @@
 */
 
 public class ENotes.Viewer : WebKit.WebView {
-    private ENotes.Plugin[] plugins = {};
-
     public static string[] STYLES = {_("Default"), ("elementary"), _("Air"), _("Modest")};
 
     private static Viewer? instance = null;
@@ -40,11 +38,6 @@ public class ENotes.Viewer : WebKit.WebView {
     }
 
     private Viewer () {
-        // TODO: Better plugin manager
-        plugins += new Color ();
-        plugins += new IFrame ();
-        plugins += new Youtube ();
-
         string file = "/tmp/notes-up-render-" + GLib.Environment.get_user_name ();
         temp_file = File.new_for_path (file);
 
@@ -197,7 +190,7 @@ public class ENotes.Viewer : WebKit.WebView {
         string build = "";
         foreach (var line in lines) {
             bool found = false;
-            foreach (var plugin in plugins) {
+            foreach (var plugin in PluginManager.get_instance ().get_plugs ()) {
                 if (plugin.has_match (line)) {
                     build = build + plugin.convert (line) + "\n";
                     found = true;

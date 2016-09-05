@@ -22,7 +22,6 @@
 public class ENotes.Notebook : Object {
     private static const string CHILD_SCHEMA_ID = "org.notes.notebook_data.notebook";
     private static const string CHILD_PATH = "/org/notes/notebook_data/notebook/%s";
-    private static Gee.HashMap<string, Settings> notebook_settings_cache = new Gee.HashMap<string, Settings> ();
 
     public signal void destroy ();
 
@@ -166,41 +165,23 @@ public class ENotes.Notebook : Object {
         }
     }
 
-    private static Settings get_settings (string notebook_path) {
-        var notebook_id = notebook_path.replace (NOTES_DIR, "").replace ("/", "") + "/";
-        Settings? notebook_settings = notebook_settings_cache.get (notebook_id);
-
-        if (notebook_settings == null) {
-            var schema = SettingsSchemaSource.get_default ().lookup (CHILD_SCHEMA_ID, false);
-		    if (schema != null) {
-			    notebook_settings = new Settings.full (schema, null, CHILD_PATH.printf (notebook_id));
-			    notebook_settings_cache.set (notebook_id, notebook_settings);
-                notebook_settings = new Settings.full (SettingsSchemaSource.get_default ().lookup (CHILD_SCHEMA_ID, true), null, CHILD_PATH.printf (notebook_id));
-            } else {
-                warning ("Getting notebook schema failed");
-            }
-        }
-
-        return notebook_settings;
-    }
-
     public static string get_styleshet (string notebook_path) {
-        var notebook_settings = get_settings (notebook_path);
+        var notebook_settings = FileManager.get_settings (notebook_path, CHILD_SCHEMA_ID, CHILD_PATH);
         return notebook_settings.get_string ("stylesheet");
     }
 
     public static void set_styleshet (string notebook_path, string style) {
-        var notebook_settings = get_settings (notebook_path);
+        var notebook_settings = FileManager.get_settings (notebook_path, CHILD_SCHEMA_ID, CHILD_PATH);
         notebook_settings.set_string ("stylesheet", style);
     }
 
     public static string get_styleshet_changes (string notebook_path) {
-        var notebook_settings = get_settings (notebook_path);
+        var notebook_settings = FileManager.get_settings (notebook_path, CHILD_SCHEMA_ID, CHILD_PATH);
         return notebook_settings.get_string ("stylesheet-changes");
     }
 
     public static void set_styleshet_changes (string notebook_path, string style) {
-        var notebook_settings = get_settings (notebook_path);
+        var notebook_settings = FileManager.get_settings (notebook_path, CHILD_SCHEMA_ID, CHILD_PATH);
         notebook_settings.set_string ("stylesheet-changes", style);
     }
 }

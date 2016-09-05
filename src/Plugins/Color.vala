@@ -19,7 +19,7 @@
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
 
-public class ENotes.Color : ENotes.Plugin , GLib.Object {
+public class ENotes.Color : ENotes.Plugin {
     private PatternSpec spec = new PatternSpec ("*<color *>*");
 
     private Gtk.ColorChooserWidget color_selector;
@@ -28,26 +28,19 @@ public class ENotes.Color : ENotes.Plugin , GLib.Object {
     private string selection;
 
     construct {
-
+        code_name = "ENOTES.COLORS";
+        connect_settings ();
     }
 
-    public bool is_active () {
-        return true;
+    public override string get_desctiption () {
+        return _("Set font color for the line with <color [#color]> or for some text with <color [color] [text]>");
     }
 
-    public void set_active (bool active) {
-
+    public override string get_name () {
+        return _("Font color");
     }
 
-    public string get_desctiption () {
-        return "Set a color style for the line with <color [#color]> or for some text with <color [color] [text]>";
-    }
-
-    public string get_name () {
-        return "Color module";
-    }
-
-    public Gtk.Widget? editor_button () {
+    public override Gtk.Widget? editor_button () {
 
         var image = new Gtk.Image.from_icon_name ("applications-graphics", Gtk.IconSize.SMALL_TOOLBAR);
 
@@ -74,18 +67,22 @@ public class ENotes.Color : ENotes.Plugin , GLib.Object {
         return image;
     }
 
-    public string request_string (string selection) {
+    public override string get_button_desctiption () {
+        return _("Font color");
+    }
+
+    public override string request_string (string selection) {
         popover.show_all ();
         this.selection = selection;
 
         return "";
     }
 
-    public bool has_match (string text) {
+    public override bool has_match (string text) {
         return spec.match_string (text);
     }
 
-    public string convert (string line_) {
+    public override string convert (string line_) {
         int chars = line_.length;
         string line = line_ + "     ";
         string builed = "";

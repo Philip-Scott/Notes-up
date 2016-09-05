@@ -19,22 +19,60 @@
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
 
-public interface ENotes.Plugin : GLib.Object {
+public abstract class ENotes.Plugin : GLib.Object {
+    private static const string CHILD_SCHEMA_ID = "org.notes.plugin_data.plugin";
+    private static const string CHILD_PATH = "/org/notes/plugin_data/plugin/%s";
+
+    protected Settings? settings = null;
+    protected bool state = true;
+
+    protected string code_name = "";
+
+    // Editor after string is requested
     public signal void string_cooked (string text);
 
-    public abstract bool is_active ();
-    public abstract void set_active (bool active);
+    public virtual bool is_active () {
+        return state;
+    }
 
-    public abstract string get_desctiption (); // Description of the plugin
-    public abstract string get_name (); // Plugin name
+    public virtual void set_active (bool active) {
+        if (settings != null) {
+            settings.set_boolean("active", active);
+        }
+    }
 
-    public abstract bool has_match (string text); // What the module looks for in order to convert
+    // Description of the plugin
+    public abstract string get_desctiption ();
 
-    public abstract string convert (string line); // Once the viewer finds the key, it will call this function
+    // Plugin name
+    public abstract string get_name ();
 
+    // What the module looks for in order to convert
+    public abstract bool has_match (string text);
+
+    // Once the viewer finds the key, it will call this function
+    public abstract string convert (string line);
+
+    // Widget that will be placed on a button on the text editor.
     public abstract Gtk.Widget? editor_button ();
 
+    public virtual string get_button_desctiption () {
+        return get_desctiption ();
+    }
+
+    // Action called by the editor when the button is pressed
     public virtual string request_string (string selection) {
         return selection;
+    }
+
+    protected void connect_settings () {
+        if (code_name != "" && settings == null) {
+            settings = FileManager.get_settings (code_name, CHILD_SCHEMA_ID, CHILD_PATH);
+
+            state = settings.get_boolean("active");
+            settings.changed["active"].connect (() => {
+                state = settings.get_boolean("active");
+            });
+        }
     }
 }
