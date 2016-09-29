@@ -12,7 +12,7 @@ As a computer engineer, I've been writing my school notes using just a text edit
 
 ![screenshot](https://github.com/Philip-Scott/Notes-up/blob/master/Screenshot.png?raw=true)
 
-## Mayor changes in 1.2:
+## Major changes in 1.2:
 - In-app trash for deleted pages: Pages or notebooks you delete will first be sent to a trash on the sidebar. Files here will be deleted when the app closes, but it should give you an extra chance to save them!
 - 2 new Stylesheets: Air and Modest by [John Otander](https://github.com/markdowncss), you can also now select and modify the stylesheet per-notebook!
 - Contractor integration: You can now email and send via bluetooth directly from the app, as well as any other action apps give via the Contractor API. 
