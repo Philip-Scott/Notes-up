@@ -100,6 +100,24 @@ add_subdirectory (schemas)
 
 include(ValaPrecompile)
 
+set (BASIC_VALAC_OPTIONS
+  -g
+   --vapidir=${CMAKE_SOURCE_DIR}/vapi
+   --thread
+   --target-glib=2.38
+)
+
+set (GLOBAL_VALAC_OPTIONS
+  ${BASIC_VALAC_OPTIONS}
+)
+
+SET(noele false CACHE BOOL "Remove elementaryOS-only features")
+
+if (noele)
+    set (GLOBAL_VALAC_OPTIONS ${GLOBAL_VALAC_OPTIONS} --define=REMOVE_ELEMENTARY_FEATURES)
+    message ("-- CONTRACTOR disabled")
+endif (noele)
+
 vala_precompile(VALA_C
   src/Main.vala
   src/Application.vala
@@ -138,10 +156,6 @@ PACKAGES
   ${VALA_DEPS}
 OPTIONS
   ${GLOBAL_VALAC_OPTIONS}
- -g
-  --vapidir=${CMAKE_SOURCE_DIR}/vapi
-  --thread
-  --target-glib=2.38 # FIXME check before, and target the same version
 )
 
 add_executable(notes-up ${VALA_C} ${generated_resources})
