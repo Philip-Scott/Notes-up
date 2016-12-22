@@ -30,14 +30,14 @@ public class ENotes.BookmarkItem : ENotes.SidebarItem {
     public BookmarkItem (string bookmark_file) {
         this.bookmark = new Bookmark.from_link (ENotes.NOTES_DIR + bookmark_file);
 
-        if (bookmark.page.new_page) {
+/*        if (bookmark.page.new_page) {
             this.bookmark.unbookmark ();
             this.visible = false;
             return;
-        }
+        }*/
 
         this.name = bookmark.page.name;
-        this.parent_notebook = new ENotes.Notebook (bookmark.page.path);
+//        this.parent_notebook = new ENotes.Notebook (bookmark.page.path);
 
         set_color (parent_notebook);
 

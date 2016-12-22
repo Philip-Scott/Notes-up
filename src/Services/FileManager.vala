@@ -25,9 +25,11 @@ public class ENotes.FileManager : Object {
     public static ENotes.Notebook current_notebook;
     public static ENotes.Page current_page { get; private set; }
 
-    private FileManager () {}
+    private FileManager () {
+    
+    }
 
-    public static List<ENotes.Notebook> load_notebooks () {
+    /*public static List<ENotes.Notebook> load_notebooks () {
         var notebooks = new List<ENotes.Notebook>();
         try {
             var directory = File.new_for_path (ENotes.NOTES_DIR);
@@ -98,7 +100,7 @@ public class ENotes.FileManager : Object {
 
         return bookmarks;
     }
-
+*/
     public static File? export_pdf_action (string? file_path = null) {
         ENotes.Viewer.get_instance ().load_page (ENotes.Editor.get_instance ().current_page, true);
 
@@ -154,18 +156,6 @@ public class ENotes.FileManager : Object {
                 throw new Error (Quark.from_string (""), -1, "Could not write file: %s", e.message);
             }
         }
-    }
-
-    public static string create_notebook (string name, double r, double g, double b, string source = NOTES_DIR) {
-        string notebook_name = "%s§%s§%s§%s".printf(name, r.to_string(), g.to_string(), b.to_string());
-
-        var directory = File.new_for_path (source + notebook_name);
-        try {
-            directory.make_directory_with_parents ();
-        } catch (Error e) {
-            stderr.printf ("Notebook not created: %s", e.message);
-        }
-        return notebook_name;
     }
 
     public static File? get_file_from_user (bool save_as_pdf = true) {

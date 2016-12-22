@@ -27,7 +27,30 @@ public class ENotes.Editor : Gtk.Box {
 
     private bool edited = false;
 
-    public ENotes.Page current_page = null;
+    private ENotes.Page? _current_page = null;
+
+    public ENotes.Page current_page {
+        get {
+            return _current_page;
+        } set {
+            code_buffer.begin_not_undoable_action ();
+
+            save_file ();
+            if (value.new_page) {
+                ViewEditStack.get_instance ().show_edit ();
+            }
+
+            _current_page = value;
+            code_buffer.text = value.data;
+
+            edited = false;
+            ENotes.Headerbar.get_instance ().set_title (value.name);
+            code_buffer.end_not_undoable_action ();
+
+            set_sensitive (true);
+        }
+    }
+
     public ENotes.ToolbarButton bold_button;
     public ENotes.ToolbarButton italics_button;
     public ENotes.ToolbarButton strike_button;
@@ -131,28 +154,13 @@ public class ENotes.Editor : Gtk.Box {
         return box;
     }
 
-    public void set_page (ENotes.Page page) {
-        code_buffer.begin_not_undoable_action ();
-
-        save_file ();
-        if (page.new_page) {
-            ViewEditStack.get_instance ().show_edit ();
-        }
-
-        current_page = page;
-        code_buffer.text = page.get_text (true);
-        edited = false;
-        ENotes.Headerbar.get_instance ().set_title (page.name);
-        code_buffer.end_not_undoable_action ();
-
-        this.set_sensitive (true);
-    }
-
     public void save_file () {
         if (edited) {
             edited = false;
             if (current_page != null) {
-                current_page.save_file (this.get_text ());
+                current_page.data = this.get_text ();
+                current_page.html_cache = "";
+                PageTable.get_instance ().save_page (current_page);
             }
         }
     }
@@ -160,7 +168,7 @@ public class ENotes.Editor : Gtk.Box {
     public void restore () {
         if (current_page != null) {
             edited = false;
-            set_page (current_page);
+            current_page = _current_page;
         }
     }
 

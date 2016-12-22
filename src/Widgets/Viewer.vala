@@ -25,7 +25,7 @@ public class ENotes.Viewer : WebKit.WebView {
     private static Viewer? instance = null;
 
     public string CSS;
-    private string previous_path = "";
+    private int64 previous_id = 0;
     private Page? previous_page = null;
     private File temp_file;
 
@@ -45,12 +45,13 @@ public class ENotes.Viewer : WebKit.WebView {
     }
 
     public void load_css (ENotes.Page? page, bool overrride = false) {
-        if (overrride || previous_path != page.path) {
+        set_styleshet ("elementary");
+/*        if (overrride || previous_path != page.id) {
             if (page != null) previous_path = page.path;
 
             var stylesheet = Notebook.get_styleshet (previous_path);
-            set_styleshet (stylesheet);
-        }
+
+        }*/
     }
 
     private void set_styleshet (string stylesheet, bool trying_global = false) {
@@ -69,37 +70,35 @@ public class ENotes.Viewer : WebKit.WebView {
         }
 
         if (!trying_global) {
-            CSS = CSS + ENotes.settings.render_stylesheet + Notebook.get_styleshet_changes (previous_path);
+            //CSS = CSS + ENotes.settings.render_stylesheet + Notebook.get_styleshet_changes (previous_path);
         }
     }
 
     public new void reload () {
         if (previous_page != null) {
+            stderr.printf ("RELOAD \n");
             load_css (previous_page, true);
             load_page (previous_page);
         }
     }
 
     public void load_page (Page page, bool force_load = false) {
+        debug ("Viewer loading: %s", page.name);
+        previous_page = page;
+
         if (ViewEditStack.current_mode == Mode.VIEW || force_load) {
-            debug ("Viewer loading: %s", page.name);
+            if (page.html_cache == "") {
+                stderr.printf ("Generating HTML form page\n");
 
-            previous_page = page;
+                string markdown;
+                process_frontmatter (page.data, out markdown);
+                load_css (page);
+                page.html_cache = process (markdown);
 
-            string html;
-
-            process_frontmatter (page.get_text (), out html);
-            load_css (page);
-
-            try {
-                FileManager.write_file(temp_file, process (html), true);
-                load_uri (temp_file.get_uri ());
-            } catch (Error e) {
-                load_html ("<h1>Sorry....</h1> <h2>Loading your file failed :(</h2> <br>", null);
+                PageTable.get_instance ().save_cache (page);
             }
-        } else {
-            previous_page = page;
-            load_css (page);
+
+            load_html (page.html_cache, null);
         }
     }
 

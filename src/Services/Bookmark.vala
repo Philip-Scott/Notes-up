@@ -46,7 +46,7 @@ public class ENotes.Bookmark : Object {
 
         try {
             string target = this.bookmark_file.query_info (FileAttribute.STANDARD_NAME + "," + FileAttribute.STANDARD_SYMLINK_TARGET, 0).get_symlink_target ();
-            page = new ENotes.Page (target);
+//            page = new ENotes.Page (target);
 
             if (page.new_page) return;
         } catch (Error e) {

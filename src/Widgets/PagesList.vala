@@ -36,6 +36,8 @@ public class ENotes.PagesList : Gtk.Box {
     private string search_for = "";
     private bool loading_pages = false;
 
+    private Gee.HashMap<int, PageItem> added_pages;
+
     public static PagesList get_instance () {
         if (instance == null) {
             instance = new PagesList ();
@@ -45,6 +47,10 @@ public class ENotes.PagesList : Gtk.Box {
     }
 
     private PagesList () {
+        added_pages = new Gee.HashMap<int, PageItem>();
+
+        PageTable.get_instance ();
+
         build_ui ();
         connect_signals ();
     }
@@ -63,7 +69,7 @@ public class ENotes.PagesList : Gtk.Box {
             if (this.search_for == "") {
                 found = true;
             } else {
-                found = ((PageItem) row).page.get_text ().down ().contains (this.search_for.down ());
+                found = ((PageItem) row).page.data.down ().contains (this.search_for.down ());
             }
 
             return found;
@@ -129,6 +135,7 @@ public class ENotes.PagesList : Gtk.Box {
 
     public void clear_pages () {
         listbox.unselect_all ();
+        added_pages = new Gee.HashMap<int, PageItem>();
         var childerns = listbox.get_children ();
 
         foreach (Gtk.Widget child in childerns) {
@@ -138,7 +145,6 @@ public class ENotes.PagesList : Gtk.Box {
     }
 
     private void refresh () {
-        current_notebook.refresh ();
         load_pages (current_notebook);
     }
 
@@ -163,28 +169,25 @@ public class ENotes.PagesList : Gtk.Box {
     public void load_pages (ENotes.Notebook notebook) {
         loading_pages = true;
         clear_pages ();
-        this.current_notebook = notebook;
-        notebook.refresh ();
 
-        foreach (ENotes.Page page in notebook.pages) {
+        this.current_notebook = notebook;
+        var pages = PageTable.get_instance ().get_pages (notebook.id);
+
+        foreach (ENotes.Page page in pages) {
             new_page (page);
         }
 
-        bool has_pages = notebook.pages.length () > 0;
+        bool has_pages = added_pages.size > 0;
 
         if (!has_pages) {
-            var page = current_notebook.add_page_from_name (_("New Page"));
-            var page_item = new ENotes.PageItem (page);
-
-            listbox.prepend (page_item);
-            listbox.show_all ();
+            new_blank_page ();
         }
 
         toolbar.set_sensitive (true);
         minus_button.set_sensitive (false);
 
-        var page_label = dngettext ("notes-up", "%i Page", "%i Pages", notebook.pages.length ());
-        page_total.label = page_label.printf(notebook.pages.length ());
+        var page_label = dngettext ("notes-up", "%i Page", "%i Pages", added_pages.size);
+        page_total.label = page_label.printf (added_pages.size);
 
         this.notebook_name.label = notebook.name.split ("§")[0] + ":";
         listbox.show_all ();
@@ -196,14 +199,18 @@ public class ENotes.PagesList : Gtk.Box {
     private ENotes.PageItem new_page (ENotes.Page page) {
         var page_box = new ENotes.PageItem (page);
         listbox.add (page_box);
+
+        added_pages.set ((int)page.id, page_box);
+
         return page_box;
     }
 
     public void new_blank_page () {
         ENotes.Editor.get_instance ().save_file ();
-        var page = current_notebook.add_page_from_name (_("New Page"));
-
+        var page = PageTable.get_instance ().new_page (current_notebook.id);
         var page_item = new ENotes.PageItem (page);
+
+        added_pages.set ((int) page.id, page_item);
 
         listbox.prepend (page_item);
         listbox.show_all ();
@@ -265,6 +272,14 @@ public class ENotes.PagesList : Gtk.Box {
 
             if (ENotes.ViewEditStack.current_mode == Mode.EDIT) {
                 ENotes.Editor.get_instance ().give_focus ();
+            }
+        });
+        
+        PageTable.get_instance ().page_saved.connect ((page) => {
+            if (this.added_pages.has_key ((int) page.id)) {
+                var page_item = added_pages.get ((int) page.id);
+                page_item.page = page;
+                page_item.load_data ();
             }
         });
     }

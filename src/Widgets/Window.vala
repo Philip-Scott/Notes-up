@@ -32,6 +32,7 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 
     public Window (Gtk.Application app) {
         Object (application: app);
+        DatabaseTable.init ("/home/felipe/Code/Notes-up/TEST.db");
 
         build_ui ();
         connect_signals (app);
@@ -133,8 +134,6 @@ public class ENotes.Window : Gtk.ApplicationWindow {
     }
 
     protected override bool delete_event (Gdk.EventAny event) {
-        Trash.get_instance ().clear_files ();
-
         int width;
         int height;
         int x;
@@ -150,8 +149,6 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         settings.window_width = width;
         settings.window_height = height;
         settings.mode = ENotes.ViewEditStack.current_mode;
-        settings.last_folder = pages_list.current_notebook.path;
-        settings.page_path = editor.current_page.full_path;
 
         return false;
     }
@@ -159,20 +156,6 @@ public class ENotes.Window : Gtk.ApplicationWindow {
     private void load_settings () {
         resize (settings.window_width, settings.window_height);
         pane2.position = settings.panel_size;
-
-        if (settings.last_folder != "") {
-            var notebook = new ENotes.Notebook (settings.last_folder);
-            sidebar.select_notebook (notebook.name);
-        }
-
-        string path = settings.page_path;
-
-        if (path != "") {
-            var page = new ENotes.Page (path);
-
-            if (!page.new_page)
-                view_edit_stack.set_page (page);
-        }
 
         if (ENotes.Mode.get_mode (settings.mode) == Mode.EDIT) {
             ENotes.ViewEditStack.get_instance ().show_edit ();

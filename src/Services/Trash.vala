@@ -27,12 +27,7 @@ public class ENotes.Trash : Object {
 
     private static Trash? instance = null;
 
-    private Gee.HashMap<string, Page> pages;
-    private Gee.HashMap<string, Notebook> notebooks;
-
     private Trash () {
-        pages = new Gee.HashMap<string, Page>();
-        notebooks = new Gee.HashMap<string, Notebook>();
     }
 
     public static Trash get_instance () {
@@ -44,53 +39,27 @@ public class ENotes.Trash : Object {
     }
 
     public void trash_page (ENotes.Page page) {
-        if (!is_page_trashed (page)) {
-            pages.@set (page.full_path, page);
-            page_added (page);
-        }
     }
 
     public void trash_notebook (ENotes.Notebook notebook) {
-        if (!is_notebook_trashed  (notebook)) {
-            notebooks.@set (notebook.path, notebook);
-            notebook_added (notebook);
-        }
     }
 
     public void restore_page (ENotes.Page page) {
-        pages.unset (page.full_path);
-        page_removed (page);
     }
 
     public void restore_notebook (ENotes.Notebook notebook) {
-        notebooks.unset (notebook.path);
-
-        if (is_notebook_trashed (notebook))
-            stderr.printf ("Is still in trash\n");
-
-        notebook_removed (notebook);
         Sidebar.get_instance ().load_notebooks ();
     }
 
     public bool is_page_trashed (ENotes.Page to_check) {
-        if (pages.size == 0) return false;
-        return pages.has_key (to_check.full_path);
+        return false;
     }
 
     public bool is_notebook_trashed (ENotes.Notebook to_check) {
-        if (notebooks.size == 0) return false;
-        return notebooks.has_key (to_check.path);
+        return false;
     }
 
     public void clear_files () {
-        notebooks.@foreach ((notebook) => {
-            notebook.value.@delete ();
-            return false;
-        });
 
-        pages.@foreach ((page) => {
-            page.value.@delete ();
-            return false;
-        });
     }
 }
