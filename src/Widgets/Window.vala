@@ -32,7 +32,7 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 
     public Window (Gtk.Application app) {
         Object (application: app);
-        DatabaseTable.init ("/home/felipe/Code/Notes-up/TEST.db");
+        DatabaseTable.init (ENotes.NOTES_DB);
 
         build_ui ();
         connect_signals (app);

@@ -75,6 +75,16 @@ public class ENotes.PagesList : Gtk.Box {
             return found;
         });
 
+        listbox.set_sort_func ((row1, row2) => {
+            int64 a = ((PageItem) row1).page.id;
+            int64 b = ((PageItem) row2).page.id;
+
+            if (a > b) return -1;
+            if (b > a) return 1;
+
+            return 0;
+        });
+
         scroll_box.set_size_request (200,250);
         toolbar = build_toolbar ();
 
@@ -274,7 +284,7 @@ public class ENotes.PagesList : Gtk.Box {
                 ENotes.Editor.get_instance ().give_focus ();
             }
         });
-        
+
         PageTable.get_instance ().page_saved.connect ((page) => {
             if (this.added_pages.has_key ((int) page.id)) {
                 var page_item = added_pages.get ((int) page.id);

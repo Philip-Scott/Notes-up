@@ -26,52 +26,81 @@ public class ENotes.FileManager : Object {
     public static ENotes.Page current_page { get; private set; }
 
     private FileManager () {
-    
+
     }
 
-    /*public static List<ENotes.Notebook> load_notebooks () {
-        var notebooks = new List<ENotes.Notebook>();
-        try {
-            var directory = File.new_for_path (ENotes.NOTES_DIR);
-            if (!directory.query_exists ())
-                directory.make_directory_with_parents ();
+    // Initial import for previous owners of the app
+    public static void import_files () {
+        DatabaseTable.init (ENotes.NOTES_DB);
 
+        var directory = File.new_for_path (ENotes.NOTES_DIR);
+        if (directory.query_exists ()) {
+            load_notebooks (directory, 0);
+        }
+
+        ENotes.Services.Settings.get_instance ().import_files = false;
+    }
+
+    public static void load_notebooks (File directory, int64 parent_id) {
+        try {
             var enumerator = directory.enumerate_children (FileAttribute.STANDARD_NAME, 0);
 
             FileInfo file_info;
             while ((file_info = enumerator.next_file ()) != null) {
                 if (file_info.get_file_type () == FileType.DIRECTORY) {
-                    var notebook = new ENotes.Notebook (ENotes.NOTES_DIR + file_info.get_name ());
-                    notebooks.append (notebook);
-                    search_for_subnotebooks (notebook);
+                    var notebook = parse_notebook (file_info);
+                    var id = NotebookTable.get_instance ().new_notebook (parent_id, notebook.name, notebook.rgb, "", "");
+
+                    var new_dir = directory.resolve_relative_path (file_info.get_name ());
+                    add_pages_in_notebook (id, new_dir);
+                    load_notebooks (new_dir, id);
                 }
             }
         } catch (Error e) {
             stderr.printf ("Error: %s\n", e.message);
         }
-
-        return notebooks;
     }
 
-    public static void search_for_subnotebooks (Notebook notebook) {
+    public static Notebook parse_notebook (FileInfo file) {
+        var notebook = new Notebook ();
+        var split = file.get_name ().split ("§", 4);
+        notebook.name = split[0].replace (ENotes.NOTES_DIR, "");
+
+        if (split.length > 3) {
+            var r = double.parse (split[1]);
+            var g = double.parse (split[2]);
+            var b = double.parse (split[3]);
+            notebook.rgb = {r,g,b};
+        }
+
+        return notebook;
+    }
+
+    public static void add_pages_in_notebook (int64 id, File directory) {
         try {
-            var directory = notebook.directory;
-
             var enumerator = directory.enumerate_children (FileAttribute.STANDARD_NAME, 0);
-
             FileInfo file_info;
-            while ((file_info = enumerator.next_file ()) != null) {
-                if (file_info.get_file_type () == FileType.DIRECTORY) {
-                    var new_notebook = new ENotes.Notebook (notebook.path + file_info.get_name ());
-                    notebook.sub_notebooks.append (new_notebook);
 
-                    search_for_subnotebooks (new_notebook);
+            while ((file_info = enumerator.next_file ()) != null) {
+                if (file_info.get_file_type () == FileType.REGULAR) {
+                    var file = directory.resolve_relative_path (file_info.get_name ());
+
+                    try {
+                        var page = PageTable.get_instance ().new_page (id);
+
+                        var dis = new DataInputStream (file.read ());
+                        size_t size;
+                        page.data = dis.read_upto ("\0", -1, out size);
+
+                        PageTable.get_instance ().save_page (page);
+                    } catch (Error e) {
+                        warning ("Error loading file: %s", e.message);
+                    }
                 }
             }
         } catch (Error e) {
-            stderr.printf ("Error: %s\n", e.message);
+            warning ("Could not load pages: %s",e.message);
         }
-
     }
 
     public static List<string> load_bookmarks () {
@@ -100,7 +129,7 @@ public class ENotes.FileManager : Object {
 
         return bookmarks;
     }
-*/
+
     public static File? export_pdf_action (string? file_path = null) {
         ENotes.Viewer.get_instance ().load_page (ENotes.Editor.get_instance ().current_page, true);
 

@@ -161,7 +161,7 @@ public class ENotes.NotebookTable : DatabaseTable {
         stmt.step ();
     }
 
-    public int64 new_Notebook (int64 parent, string name, Gdk.RGBA rgb, string css, string stylesheet) {
+    public int64 new_notebook (int64 parent, string name, Gdk.RGBA rgb, string css, string stylesheet) {
         var stmt = create_stmt ("INSERT INTO Notebook (name, parent_id, rgb, css, stylesheet) "
                    + "VALUES (?, ?, ?, ?, ?)");
 

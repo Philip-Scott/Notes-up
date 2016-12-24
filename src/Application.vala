@@ -54,6 +54,7 @@ public enum ENotes.Key {
 namespace ENotes {
     public ENotes.Services.Settings settings;
     public ENotes.Window window;
+    public string NOTES_DB;
     public string NOTES_DIR;
 }
 
@@ -75,7 +76,16 @@ public class ENotes.Application : Gtk.Application {
                 settings.notes_location = GLib.Environment.get_home_dir () + "/.notes/";
             }
 
+            if (settings.notes_database == "") {
+                settings.notes_database = GLib.Environment.get_home_dir () + "/.local/NotesUp.db";
+            }
+
             ENotes.NOTES_DIR = settings.notes_location;
+            ENotes.NOTES_DB = settings.notes_database;
+
+            if (settings.import_files) {
+                FileManager.import_files ();
+            }
 
             window = new ENotes.Window (this);
             this.add_window (window);

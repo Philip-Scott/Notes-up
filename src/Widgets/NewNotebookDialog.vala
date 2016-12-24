@@ -190,9 +190,9 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
                     var r = color_button.rgba.red; var g = color_button.rgba.green; var b = color_button.rgba.blue;
                     if (notebook == null) {
                         if (parent_nb == null) {
-                            NotebookTable.get_instance ().new_Notebook (0, name_entry.text, {r,g,b}, style_changes.buffer.text, Viewer.STYLES[style_box.active]);
+                            NotebookTable.get_instance ().new_notebook (0, name_entry.text, {r,g,b}, style_changes.buffer.text, Viewer.STYLES[style_box.active]);
                         } else {
-                           NotebookTable.get_instance ().new_Notebook (parent_nb.id, name_entry.text, {r,g,b}, style_changes.buffer.text, Viewer.STYLES[style_box.active]);
+                           NotebookTable.get_instance ().new_notebook (parent_nb.id, name_entry.text, {r,g,b}, style_changes.buffer.text, Viewer.STYLES[style_box.active]);
                         }
                     } else {
                         NotebookTable.get_instance ().save_notebook (notebook.id, name_entry.text, {r,g,b}, style_changes.buffer.text, Viewer.STYLES[style_box.active]);
