@@ -186,15 +186,19 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
     private void connect_signals () {
         response.connect ((ID) => {
             switch (ID) {
-                case 1: // Create Notebook
+                case 1:
                     var r = color_button.rgba.red; var g = color_button.rgba.green; var b = color_button.rgba.blue;
-                    if (notebook == null) {
+                    if (notebook == null) { // Create Notebook
                         if (parent_nb == null) {
                             NotebookTable.get_instance ().new_notebook (0, name_entry.text, {r,g,b}, style_changes.buffer.text, Viewer.STYLES[style_box.active]);
                         } else {
                            NotebookTable.get_instance ().new_notebook (parent_nb.id, name_entry.text, {r,g,b}, style_changes.buffer.text, Viewer.STYLES[style_box.active]);
                         }
                     } else {
+                        if (style_changes.buffer.text != notebook.css || Viewer.STYLES[style_box.active] != notebook.stylesheet) {
+                            PageTable.get_instance ().clear_cache_on (notebook.id);
+                        }
+
                         NotebookTable.get_instance ().save_notebook (notebook.id, name_entry.text, {r,g,b}, style_changes.buffer.text, Viewer.STYLES[style_box.active]);
                     }
 

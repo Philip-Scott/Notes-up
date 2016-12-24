@@ -143,7 +143,7 @@ public class ENotes.NotebookTable : DatabaseTable {
 
         return row;
     }
-    
+
     public int pages_in_notebook (int64 notebook_id) {
         var stmt = create_stmt ("UPDATE Notebook SET name = ?, css = ?, stylesheet = ?, rgb =? WHERE id = ?");
         return 0;
@@ -178,5 +178,28 @@ public class ENotes.NotebookTable : DatabaseTable {
         }
 
         return last_insert_row ();
+    }
+
+    public string? get_stylesheet_from_page (int64 page_id) {
+        stderr.printf ("Get style from: %d\n", (int) page_id);
+        var stmt = create_stmt ("SELECT stylesheet FROM Notebook JOIN Page WHERE Page.id = ? AND Page.notebook_id = Notebook.id");
+        bind_int (stmt, 1, page_id);
+
+        if (stmt.step () != Sqlite.ROW) {
+            return null;
+        }
+
+        return stmt.column_text (0);
+    }
+
+    public string? get_css_from_page (int64 page_id) {
+        var stmt = create_stmt ("SELECT css FROM Notebook JOIN Page WHERE Page.id = ? AND Page.notebook_id = Notebook.id");
+        bind_int (stmt, 1, page_id);
+
+        if (stmt.step () != Sqlite.ROW) {
+            return null;
+        }
+
+        return stmt.column_text (0);
     }
 }

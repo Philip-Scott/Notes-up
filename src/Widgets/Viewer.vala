@@ -25,7 +25,6 @@ public class ENotes.Viewer : WebKit.WebView {
     private static Viewer? instance = null;
 
     public string CSS;
-    private int64 previous_id = 0;
     private Page? previous_page = null;
     private File temp_file;
 
@@ -45,13 +44,12 @@ public class ENotes.Viewer : WebKit.WebView {
     }
 
     public void load_css (ENotes.Page? page, bool overrride = false) {
-        set_styleshet ("elementary");
-/*        if (overrride || previous_path != page.id) {
-            if (page != null) previous_path = page.path;
+        if (overrride || previous_page != page) {
+            if (page != null) previous_page = page;
 
-            var stylesheet = Notebook.get_styleshet (previous_path);
-
-        }*/
+            var stylesheet = NotebookTable.get_instance ().get_stylesheet_from_page (previous_page.id);
+            set_styleshet (stylesheet);
+        }
     }
 
     private void set_styleshet (string stylesheet, bool trying_global = false) {
@@ -70,7 +68,7 @@ public class ENotes.Viewer : WebKit.WebView {
         }
 
         if (!trying_global) {
-            //CSS = CSS + ENotes.settings.render_stylesheet + Notebook.get_styleshet_changes (previous_path);
+            CSS = CSS + ENotes.settings.render_stylesheet + NotebookTable.get_instance ().get_css_from_page (previous_page.id);
         }
     }
 
@@ -78,16 +76,14 @@ public class ENotes.Viewer : WebKit.WebView {
         if (previous_page != null) {
             stderr.printf ("RELOAD \n");
             load_css (previous_page, true);
-            load_page (previous_page);
+            load_page (previous_page, true);
         }
     }
 
     public void load_page (Page page, bool force_load = false) {
-        debug ("Viewer loading: %s", page.name);
-        previous_page = page;
-
         if (ViewEditStack.current_mode == Mode.VIEW || force_load) {
-            if (page.html_cache == "") {
+            stderr.printf ("Viewer loading: %s", page.name);
+            if (page.html_cache == "" || force_load) {
                 stderr.printf ("Generating HTML form page\n");
 
                 string markdown;
@@ -100,6 +96,8 @@ public class ENotes.Viewer : WebKit.WebView {
 
             load_html (page.html_cache, null);
         }
+
+        previous_page = page;
     }
 
     private void connect_signals () {

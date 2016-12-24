@@ -208,6 +208,10 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
     private void on_response (Gtk.Dialog source, int response_id) {
         switch (response_id) {
             case Gtk.ResponseType.CLOSE:
+                if (settings.render_stylesheet != style_box.buffer.text) {
+                    PageTable.get_instance ().clear_cache_on (0);
+                }
+
                 settings.render_stylesheet = style_box.buffer.text;
                 ENotes.Viewer.get_instance ().load_css (null, true);
                 ENotes.Viewer.get_instance ().reload ();
@@ -260,6 +264,7 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
     }
 
     private void save_notebook_style (int selected) {
+        PageTable.get_instance ().clear_cache_on (0);
         settings.stylesheet = Viewer.STYLES[selected + 1];
         ENotes.Viewer.get_instance ().load_css (null, true);
         ENotes.Viewer.get_instance ().reload ();

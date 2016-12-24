@@ -116,7 +116,7 @@ public class ENotes.PageTable : DatabaseTable {
         bind_int (stmt, 5, Gdk.CURRENT_TIME);
         bind_int (stmt, 6, page.id);
         stmt.step ();
-        
+
         page_saved (page);
     }
 
@@ -125,6 +125,22 @@ public class ENotes.PageTable : DatabaseTable {
         bind_text (stmt, 1, page.html_cache);
         bind_int (stmt, 2, page.id);
         stmt.step ();
+    }
+
+    // Clears cache on pages where $id = notebook_id; 0 for clearing all
+    public void clear_cache_on (int64 id) {
+        Sqlite.Statement stmt;
+        stderr.printf ("Clearing cache on: %d\n", (int) id);
+        if (id > 0) {
+            stmt = create_stmt ("UPDATE Page SET html_cache = ? WHERE notebook_id = ?");
+            bind_text (stmt, 1, "");
+            bind_int (stmt, 2, id);
+            stmt.step ();
+        } else {
+            stmt = create_stmt ("UPDATE Page SET html_cache = ?");
+            bind_text (stmt, 1, "");
+            stmt.step ();
+        }
     }
 
     public Page new_page (int64 notebook_id) {
