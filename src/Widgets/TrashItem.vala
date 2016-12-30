@@ -25,7 +25,7 @@ public class ENotes.TrashItem : ENotes.SidebarItem {
     public TrashItem.notebook (Notebook notebook) {
         this.trashed_notebook = notebook;
         this.name = notebook.name;
-        set_color (notebook);
+        set_color (notebook.rgb);
 
         connect_signals ();
     }

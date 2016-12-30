@@ -29,7 +29,7 @@ public class ENotes.NotebookItem : ENotes.SidebarItem {
 
     public NotebookItem (ENotes.Notebook notebook) {
         this.notebook = notebook;
-        set_color (notebook);
+        set_color (notebook.rgb);
 
         this.name = notebook.name;
 

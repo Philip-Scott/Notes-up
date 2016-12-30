@@ -82,16 +82,16 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
     }
 
     public void load_bookmarks () {
-/*        this.bookmarks.clear ();
+        this.bookmarks.clear ();
 
-        var bookmark_list = FileManager.load_bookmarks ();
+        var bookmark_list = BookmarkTable.get_instance ().get_bookmarks ();
 
-        foreach (string bm in bookmark_list) {
+        foreach (var bm in bookmark_list) {
             var bookmark = new BookmarkItem (bm);
             this.bookmarks.add (bookmark);
         }
 
-        bookmarks.expand_all ();*/
+        bookmarks.expand_all ();
     }
 
     public void select_notebook (int64 notebook_id) {
@@ -121,7 +121,7 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
             if (item != null && item is ENotes.BookmarkItem) {
                 // If viewing page == the bookmark, select the notebook. if not just open the page
                 if (ENotes.ViewEditStack.get_instance ().get_page ().equals (((ENotes.BookmarkItem) item).get_page ())) {
-                    select_notebook (((ENotes.BookmarkItem) item).parent_notebook.id);
+                    select_notebook (((ENotes.BookmarkItem) item).parent_notebook);
                     ENotes.PagesList.get_instance ().select_page (((ENotes.BookmarkItem) item).get_page ());
                 } else {
                     ENotes.ViewEditStack.get_instance ().set_page (((ENotes.BookmarkItem) item).get_page ());

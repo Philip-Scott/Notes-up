@@ -28,13 +28,7 @@ public class ENotes.Page : Object {
     public string html_cache;
     public int64 creation_date;
     public int64 modification_date;
-    public bool bookmarked = false;
-
     public bool new_page = false;
-
-    public bool is_bookmarked () {
-        return bookmarked;
-    }
 
     public string full_path = "";
 

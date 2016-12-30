@@ -20,47 +20,42 @@
 */
 
 public class ENotes.BookmarkItem : ENotes.SidebarItem {
-    public ENotes.Notebook parent_notebook { public get; private set; }
+    public int64 parent_notebook {
+        get {
+            return get_page ().notebook_id;
+        }
+    }
 
     private ENotes.Bookmark bookmark;
 
     private Gtk.Menu menu;
     private Gtk.MenuItem remove_item;
 
-    public BookmarkItem (string bookmark_file) {
-        this.bookmark = new Bookmark.from_link (ENotes.NOTES_DIR + bookmark_file);
+    public BookmarkItem (Bookmark bookmark) {
+        this.bookmark = bookmark;
+        this.name = bookmark.name;
 
-/*        if (bookmark.page.new_page) {
-            this.bookmark.unbookmark ();
-            this.visible = false;
-            return;
-        }*/
+        editable = true;
 
-        this.name = bookmark.page.name;
-//        this.parent_notebook = new ENotes.Notebook (bookmark.page.path);
-
-        set_color (parent_notebook);
-
+        set_color (bookmark.color);
         setup_menu ();
-        connect_signals ();
+
+        edited.connect ((new_name) => {
+            BookmarkTable.get_instance ().rename (this.bookmark.page_id, new_name);
+        });
     }
 
     public ENotes.Page get_page () {
-        return bookmark.page;
-    }
-
-    private void connect_signals () {
-        bookmark.destroy.connect (() => {
-            this.visible = false;
-        });
+        return PageTable.get_instance ().get_page (bookmark.page_id);
     }
 
     private void setup_menu () {
         menu = new Gtk.Menu ();
         remove_item = new Gtk.MenuItem.with_label (_("Remove"));
         remove_item.activate.connect (() => {
-            this.bookmark.unbookmark ();
+            BookmarkTable.get_instance ().remove (this.bookmark.page_id);
             ENotes.BookmarkButton.get_instance ().setup ();
+            this.visible = false;
         });
 
         menu.add (remove_item);

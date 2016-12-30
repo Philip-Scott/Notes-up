@@ -44,7 +44,7 @@ public class ENotes.Viewer : WebKit.WebView {
     }
 
     public void load_css (ENotes.Page? page, bool overrride = false) {
-        if (overrride || previous_page != page) {
+        if (overrride || previous_page == null || previous_page.id != page.id) {
             if (page != null) previous_page = page;
 
             var stylesheet = NotebookTable.get_instance ().get_stylesheet_from_page (previous_page.id);
@@ -64,7 +64,7 @@ public class ENotes.Viewer : WebKit.WebView {
                     CSS = Styles.elementary.css;
                 }
 
-                break;
+            break;
         }
 
         if (!trying_global) {
@@ -82,10 +82,7 @@ public class ENotes.Viewer : WebKit.WebView {
 
     public void load_page (Page page, bool force_load = false) {
         if (ViewEditStack.current_mode == Mode.VIEW || force_load) {
-            stderr.printf ("Viewer loading: %s", page.name);
             if (page.html_cache == "" || force_load) {
-                stderr.printf ("Generating HTML form page\n");
-
                 string markdown;
                 process_frontmatter (page.data, out markdown);
                 load_css (page);
@@ -94,10 +91,8 @@ public class ENotes.Viewer : WebKit.WebView {
                 PageTable.get_instance ().save_cache (page);
             }
 
-            load_html (page.html_cache, null);
+            load_html (page.html_cache, "file:///");
         }
-
-        previous_page = page;
     }
 
     private void connect_signals () {
