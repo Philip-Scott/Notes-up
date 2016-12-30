@@ -144,11 +144,6 @@ public class ENotes.NotebookTable : DatabaseTable {
         return row;
     }
 
-    public int pages_in_notebook (int64 notebook_id) {
-        var stmt = create_stmt ("UPDATE Notebook SET name = ?, css = ?, stylesheet = ?, rgb =? WHERE id = ?");
-        return 0;
-    }
-
     public void save_notebook (int64 notebook_id, string name, Gdk.RGBA rgb, string css, string stylesheet) {
         var stmt = create_stmt ("UPDATE Notebook SET name = ?, css = ?, stylesheet = ?, rgb =? WHERE id = ?");
 

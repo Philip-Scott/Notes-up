@@ -20,7 +20,7 @@
 */
 
 public class ENotes.SidebarItem :  Granite.Widgets.SourceList.ExpandableItem {
-    private static const int RADIUS = 16;
+    private const int RADIUS = 16;
 
     protected void set_color (ENotes.Notebook nb) {
         if (nb.r > -1) {

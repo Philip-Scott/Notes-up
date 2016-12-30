@@ -20,8 +20,8 @@
 */
 
 public abstract class ENotes.Plugin : GLib.Object {
-    private static const string CHILD_SCHEMA_ID = "org.notes.plugin_data.plugin";
-    private static const string CHILD_PATH = "/org/notes/plugin_data/plugin/%s";
+    private const string CHILD_SCHEMA_ID = "org.notes.plugin_data.plugin";
+    private const string CHILD_PATH = "/org/notes/plugin_data/plugin/%s";
 
     protected Settings? settings = null;
     protected bool state = true;

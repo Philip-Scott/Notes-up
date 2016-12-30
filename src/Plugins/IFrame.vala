@@ -29,7 +29,7 @@ public class ENotes.IFrame : ENotes.Plugin {
 
     }
 
-    public bool is_active () {
+    public override bool is_active () {
         return true;
     }
 

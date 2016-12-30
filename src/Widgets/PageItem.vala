@@ -26,9 +26,6 @@ public class ENotes.PageItem : Gtk.ListBoxRow {
     private Gtk.Label line1;
     private Gtk.Label line2;
 
-    private bool bold_state = true;
-    private bool italics_state = true;
-
     public PageItem (ENotes.Page page) {
         this.page = page;
         build_ui ();
