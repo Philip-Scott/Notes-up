@@ -104,15 +104,14 @@ public class ENotes.PageTable : DatabaseTable {
     }
 
     public void save_page (Page page) {
-        var stmt = create_stmt ("UPDATE Page SET name = ?, subtitle = ?, data = ?, html_cache = ?, modification_date =? WHERE id = ?");
+        var stmt = create_stmt ("UPDATE Page SET name = ?, subtitle = ?, data = ?, html_cache = ?, modification_date = CAST(strftime('%s', 'now') AS INT) WHERE id = ?");
         load_page_info (page);
 
         bind_text (stmt, 1, page.name);
         bind_text (stmt, 2, page.subtitle);
         bind_text (stmt, 3, page.data);
         bind_text (stmt, 4, "");
-        bind_int (stmt, 5, Gdk.CURRENT_TIME);
-        bind_int (stmt, 6, page.id);
+        bind_int (stmt, 5, page.id);
         stmt.step ();
 
         page_saved (page);
@@ -143,12 +142,10 @@ public class ENotes.PageTable : DatabaseTable {
 
     public Page new_page (int64 notebook_id) {
          var stmt = create_stmt ("INSERT INTO Page (notebook_id, name, creation_date, modification_date) "
-                       + "VALUES (?, ?, ?, ?)");
+                       + "VALUES (?, ?, CAST(strftime('%s', 'now') AS INT), CAST(strftime('%s', 'now') AS INT))");
 
          bind_int (stmt, 1, notebook_id);
          bind_text (stmt, 2, _("New Page"));
-         bind_int (stmt, 3, Gdk.CURRENT_TIME);
-         bind_int (stmt, 4, Gdk.CURRENT_TIME);
 
          stmt.step ();
 
