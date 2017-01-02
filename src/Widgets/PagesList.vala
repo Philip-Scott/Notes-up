@@ -149,8 +149,9 @@ public class ENotes.PagesList : Gtk.Box {
         var childerns = listbox.get_children ();
 
         foreach (Gtk.Widget child in childerns) {
-            if (child is Gtk.ListBoxRow)
+            if (child is Gtk.ListBoxRow) {
                 listbox.remove (child);
+            }
         }
     }
 

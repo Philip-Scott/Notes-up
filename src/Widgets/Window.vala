@@ -149,6 +149,8 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         settings.window_width = width;
         settings.window_height = height;
         settings.mode = ENotes.ViewEditStack.current_mode;
+        settings.last_notebook = (int) PagesList.get_instance ().current_notebook.id;
+        settings.last_page = (int) ViewEditStack.get_instance ().current_page.id;
 
         return false;
     }
@@ -156,6 +158,15 @@ public class ENotes.Window : Gtk.ApplicationWindow {
     private void load_settings () {
         resize (settings.window_width, settings.window_height);
         pane2.position = settings.panel_size;
+
+        if (settings.last_notebook != 0) {
+            var notebook = NotebookTable.get_instance ().load_notebook_data (settings.last_notebook);
+            PagesList.get_instance ().load_pages (notebook);
+        }
+
+        if (settings.last_page != 0) {
+            ViewEditStack.get_instance ().set_page (PageTable.get_instance ().get_page (settings.last_page));
+        }
 
         if (ENotes.Mode.get_mode (settings.mode) == Mode.EDIT) {
             ENotes.ViewEditStack.get_instance ().show_edit ();
