@@ -156,7 +156,6 @@ vala_precompile(VALA_C
   src/Plugins/Manager.vala
   src/Plugins/Plugin.vala
   src/Plugins/Color.vala
-  src/Plugins/IFrame.vala
   src/Plugins/Youtube.vala
   src/config.vala
 PACKAGES

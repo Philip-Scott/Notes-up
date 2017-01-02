@@ -40,7 +40,6 @@ public class ENotes.PluginManager : GLib.Object {
     private void load_plugins () {
         // TODO: Load dynamically from plugins directory        
         plug_list += new Color ();
-        plug_list += new IFrame ();
         plug_list += new Youtube ();
     }
     
