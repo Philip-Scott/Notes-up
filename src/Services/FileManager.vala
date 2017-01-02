@@ -33,9 +33,11 @@ public class ENotes.FileManager : Object {
     public static void import_files () {
         DatabaseTable.init (ENotes.NOTES_DB);
 
-        var directory = File.new_for_path (ENotes.NOTES_DIR);
-        if (directory.query_exists ()) {
-            load_notebooks (directory, 0);
+        if (ENotes.NOTES_DIR != "") {
+            var directory = File.new_for_path (ENotes.NOTES_DIR);
+            if (directory.query_exists ()) {
+                load_notebooks (directory, 0);
+            }
         }
 
         ENotes.Services.Settings.get_instance ().import_files = false;

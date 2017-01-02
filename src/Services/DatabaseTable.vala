@@ -63,6 +63,10 @@ public abstract class DatabaseTable {
     public string table_name = null;
 
     private static void prepare_db (string filename) {
+        File file_db = File.new_for_path (filename);
+
+        var existed = file_db.query_exists ();
+
         // Open DB.
         int res = Sqlite.Database.open_v2 (filename, out db, Sqlite.OPEN_READWRITE | Sqlite.OPEN_CREATE,
                                            null);
@@ -71,20 +75,28 @@ public abstract class DatabaseTable {
         // Check if we have write access to database.
         if (filename != Db.IN_MEMORY_NAME) {
             try {
-                File file_db = File.new_for_path (filename);
                 FileInfo info = file_db.query_info (FileAttribute.ACCESS_CAN_WRITE, FileQueryInfoFlags.NONE);
                 assert (info.get_attribute_boolean (FileAttribute.ACCESS_CAN_WRITE));
 
+                if (!existed) {
+                    ENotes.PageTable.get_instance ();
+                    ENotes.NotebookTable.get_instance ();
+                    ENotes.BookmarkTable.get_instance ();
+                }
             } catch (Error e) {
                 error ("Error accessing database file:\n %s\n\n Error was: \n%s", filename, e.message);
             }
         }
     }
 
+    private static bool _init = false;
+
     public static void init (string filename) {
+        if (_init) return;
+        _init = true;
+
         // Open DB.
         prepare_db (filename);
-        GLib.warning ("NAME: %s", filename);
 
         // Try a query to make sure DB is intact; if not, try to use the backup
         Sqlite.Statement stmt;
