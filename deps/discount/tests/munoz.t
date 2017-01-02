@@ -1,6 +1,6 @@
 . tests/functions.sh
 
-title "data corruption cases from Fernando Muñoz"
+title "data corruption cases from Fernando Munoz"
 
 rc=0
 MARKDOWN_FLAGS=
@@ -52,7 +52,7 @@ MARKDOWN_FLAGS=
  try 'id_000099_06' '<p></>0.' '<p><p></>0.</p>'
  try 'id_000105_06' '<div></di>+' '<p><div></di>+</p>'
  try 'id_000108_06' '<p><!--
-    �</>00000' '<p><p>&lt;!&ndash;
+    ˙</>00000' '<p><p>&lt;!&ndash;
     </p>'
  try 'id_000116_06' '<div></di>0.' '<p><div></di>0.</p>'
  try 'id_000119_06' '<div></di
