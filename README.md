@@ -12,12 +12,16 @@ As a computer engineer, I've been writing my school notes using just a text edit
 
 ![screenshot](https://github.com/Philip-Scott/Notes-up/blob/master/Screenshot.png?raw=true)
 
-## Major changes in 1.2:
-- In-app trash for deleted pages: Pages or notebooks you delete will first be sent to a trash on the sidebar. Files here will be deleted when the app closes, but it should give you an extra chance to save them!
-- 2 new Stylesheets: Air and Modest by [John Otander](https://github.com/markdowncss), you can also now select and modify the stylesheet per-notebook!
-- Contractor integration: You can now email and send via bluetooth directly from the app, as well as any other action apps give via the Contractor API. 
-- For you Keyboard lovers or mouse haters, the edit view now has keyboard shortcuts for bold, italics and strikethrough. Don't know the keyboard shortcuts? Well you can now see them by hovering over the buttons.
-- You can now add bookmarks from the UI.
+## Now in 1.3!
+
+- Notes-Up is now faster than ever! It now uses a database as its backend and saves the preview for quickly loading
+- You can now rename your bookmarks! Double-click on them to rename them
+- Plugins! There are currently 2 plugins installed by default, and with many more to come in the future.
+	- **Color**: You can now easily change the text color! Select it and click the new color button right from the toolbar or by typing ` <color rgb(164,0,0) [your text here]> `
+	- **Youtube**: By typing `<youtube [your video URL]>`, you can now embed youtube videos right into your notes!
+- Fixed: Sometimes the app would show a raw html document. It shouldn't do that anymore!
+- Fixed: Editing and adding a notebook used to restart the whole sidebar, it also doesn't do that anymore!
+- Fixed: Links are now passed to your web browser.
 
 You can also view the full [changelog here](changelog.md)
 
@@ -43,9 +47,3 @@ For advanced users!
 	mkdir build && cd build 
 	cmake -DCMAKE_INSTALL_PREFIX=/usr ../
 	make
-	
-### Future plans! 
-I'm actually very happy with how this app is turning up :) It just started as a small project for my college class, so the support it's being getting is pretty moving! Version 1.2 is is just the begining! For 1.3 I'd really like to add more things such as a way to move notes arround in the app and a Plugin API that would bring extra (non-standard) features such as easly inserting Web Pages, making simple graphs, LATeX support and who knows what else! 
-
-Thank you all for your love and support!
-
