@@ -20,25 +20,27 @@
 */
 
 public class ENotes.NotebookItem : ENotes.SidebarItem {
-    public ENotes.Notebook notebook { public get; private set; }
-
     private Gtk.Menu menu;
     private Gtk.MenuItem remove_item;
     private Gtk.MenuItem edit_item;
     private Gtk.MenuItem new_item;
 
-    public NotebookItem (ENotes.Notebook notebook) {
-        this.notebook = notebook;
-        set_color (notebook.rgb);
+    private ENotes.Notebook _notebook;
+    public ENotes.Notebook notebook {
+        get {
+            return _notebook;
+        } set {
+            _notebook = value;
+            set_color (value.rgb);
 
-        this.name = notebook.name;
-
-        setup_menu ();
-        connect_signals ();
+            name = value.name;
+        }
     }
 
-    private void connect_signals () {
+    public NotebookItem (ENotes.Notebook notebook) {
+        this.notebook = notebook;
 
+        setup_menu ();
     }
 
     private void setup_menu () {
@@ -60,7 +62,7 @@ public class ENotes.NotebookItem : ENotes.SidebarItem {
         });
 
         remove_item.activate.connect (() => {
-            notebook.trash ();
+            Trash.get_instance ().trash_notebook (notebook);
         });
 
         notebook.destroy.connect (() => {

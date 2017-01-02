@@ -183,6 +183,13 @@ public class ENotes.PageTable : DatabaseTable {
         return pages;
     }
 
+    public void delete_page (Page page) {
+        var stmt = create_stmt ("DELETE FROM Page WHERE id = ?");
+        bind_int (stmt, 1, page.id);
+
+        stmt.step ();
+    }
+
     public bool is_bookmarked () {
         return false;
     }

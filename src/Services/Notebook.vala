@@ -53,17 +53,12 @@ public class ENotes.Notebook : Object {
             rgb.blue = value;
         }
     }
-
-    public void trash () {
-
-    }
-
-    public void refresh () {
-
-    }
 }
 
 public class ENotes.NotebookTable : DatabaseTable {
+    public signal void notebook_added (Notebook notebook);
+    public signal void notebook_changed (Notebook notebook);
+
     private static NotebookTable instance = null;
 
     private NotebookTable () {
@@ -154,6 +149,9 @@ public class ENotes.NotebookTable : DatabaseTable {
         bind_int (stmt, 5, notebook_id);
 
         stmt.step ();
+
+        var notebook = load_notebook_data (notebook_id);
+        notebook_changed (notebook);
     }
 
     public int64 new_notebook (int64 parent, string name, Gdk.RGBA rgb, string css, string stylesheet) {
@@ -172,11 +170,14 @@ public class ENotes.NotebookTable : DatabaseTable {
             return 0;
         }
 
-        return last_insert_row ();
+        var last = last_insert_row ();
+        var notebook = load_notebook_data (last);
+        notebook_added (notebook);
+
+        return last;
     }
 
     public string? get_stylesheet_from_page (int64 page_id) {
-        stderr.printf ("Get style from: %d\n", (int) page_id);
         var stmt = create_stmt ("SELECT stylesheet FROM Notebook JOIN Page WHERE Page.id = ? AND Page.notebook_id = Notebook.id");
         bind_int (stmt, 1, page_id);
 
@@ -196,5 +197,21 @@ public class ENotes.NotebookTable : DatabaseTable {
         }
 
         return stmt.column_text (0);
+    }
+
+    public void delete_notebook (Notebook notebook) {
+        var stmt = create_stmt ("UPDATE Notebook SET parent_id = 0 WHERE parent_id = ?");
+        bind_int (stmt, 1, notebook.id);
+        stmt.step ();
+
+        stmt = create_stmt ("DELETE FROM Page WHERE notebook_id = ?");
+        bind_int (stmt, 1, notebook.id);
+
+        stmt.step ();
+
+        stmt = create_stmt ("DELETE FROM Notebook WHERE id = ?");
+        bind_int (stmt, 1, notebook.id);
+
+        stmt.step ();
     }
 }

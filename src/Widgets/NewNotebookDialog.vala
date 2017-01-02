@@ -202,7 +202,6 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
                         NotebookTable.get_instance ().save_notebook (notebook.id, name_entry.text, {r,g,b}, style_changes.buffer.text, Viewer.STYLES[style_box.active]);
                     }
 
-                    ENotes.Sidebar.get_instance ().load_notebooks ();
                     ENotes.Viewer.get_instance ().reload ();
                     this.close ();
                     break;

@@ -260,13 +260,12 @@ public class ENotes.PagesList : Gtk.Box {
 
         minus_button.clicked.connect (() => {
             ENotes.Editor.get_instance ().set_sensitive (false);
-            ENotes.Editor.get_instance ().reset (false);
             Headerbar.get_instance().set_title (null);
 
             var rows = listbox.get_selected_rows ();
 
             foreach (var row in rows) {
-                ((ENotes.PageItem) row).trash_page ();
+                Trash.get_instance ().trash_page (((ENotes.PageItem) row).page);
             }
 
             refresh ();

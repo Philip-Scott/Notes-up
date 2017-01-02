@@ -133,7 +133,28 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
                 ENotes.PagesList.get_instance ().load_pages (((ENotes.NotebookItem) item).notebook);
             }
         });
-/*
+
+        NotebookTable.get_instance ().notebook_added.connect ((notebook) => {
+            var item = new NotebookItem (notebook);
+
+            var parent_id = (int) notebook.parent_id;
+            if (parent_id == 0) {
+                this.notebooks.add (item);
+            } else {
+                if (added_notebooks.has_key (parent_id)) {
+                    added_notebooks.get (parent_id).add (item);
+                }
+            }
+
+            added_notebooks.set ((int) notebook.id, item);
+        });
+
+        NotebookTable.get_instance ().notebook_changed.connect ((notebook) => {
+            if (added_notebooks.has_key ((int) notebook.id)) {
+                added_notebooks.get ((int) notebook.id).notebook = notebook;
+            }
+        });
+
         Trash.get_instance ().page_added.connect ((page) => {
             var trash_item = new TrashItem.page (page);
             trash.add (trash_item);
@@ -149,8 +170,7 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
         });
 
         Trash.get_instance ().notebook_removed.connect ((notebook) => {
-            load_notebooks ();
-            select_notebook (notebook.name);
-        });*/
+            select_notebook (notebook.id);
+        });
     }
 }

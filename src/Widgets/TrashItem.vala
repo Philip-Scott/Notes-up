@@ -15,23 +15,12 @@ public class ENotes.TrashItem : ENotes.SidebarItem {
     public TrashItem.page (Page page) {
         this.trashed_page = page;
         this.name = page.name;
-    //    this.parent_notebook = new ENotes.Notebook (page.path);
-
-    //    set_color (parent_notebook);
-
-        connect_signals ();
     }
 
     public TrashItem.notebook (Notebook notebook) {
         this.trashed_notebook = notebook;
         this.name = notebook.name;
         set_color (notebook.rgb);
-
-        connect_signals ();
-    }
-
-    private void connect_signals () {
-
     }
 
     private void setup_menu () {

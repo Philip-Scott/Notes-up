@@ -152,6 +152,8 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         settings.last_notebook = (int) PagesList.get_instance ().current_notebook.id;
         settings.last_page = (int) ViewEditStack.get_instance ().current_page.id;
 
+        Trash.get_instance ().clear_files ();
+
         return false;
     }
 

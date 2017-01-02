@@ -23,7 +23,6 @@ public class ENotes.BookmarkButton : Gtk.Button {
     private static BookmarkButton? instance = null;
 
     private ENotes.Page current_page;
-    private Bookmark bookmark;
     private Gtk.Image pic;
 
     public static BookmarkButton get_instance () {
