@@ -113,7 +113,6 @@ public class ENotes.Viewer : WebKit.WebView {
                     if (decision is WebKit.ResponsePolicyDecision) {
                         var policy = (WebKit.ResponsePolicyDecision) decision;                        
                         launch_browser (policy.request.get_uri ());
-                        stop_loading ();
                         return false;
                     }
                 break;
@@ -131,10 +130,13 @@ public class ENotes.Viewer : WebKit.WebView {
     }
 
     private void launch_browser (string url) {
-        try {
-            AppInfo.launch_default_for_uri (url, null);
-        } catch (Error e) {
-            warning ("No app to handle urls: %s", e.message);
+        if (!url.contains ("/embed/")) {
+            try {
+                AppInfo.launch_default_for_uri (url, null);
+            } catch (Error e) {
+                warning ("No app to handle urls: %s", e.message);
+            }
+            stop_loading ();
         }
     }
 
