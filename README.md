@@ -30,9 +30,9 @@ If you are using elementary OS **Loki**, in order to add a PPA you might need to
 
 	sudo apt-get install software-properties-common
 
-PPA: _ppa:philip.scott/projects_
+PPA: _ppa:philip.scott/notes-up_
 
-	sudo add-apt-repository ppa:philip.scott/projects
+	sudo add-apt-repository ppa:philip.scott/notes-up
 	sudo apt-get update
 	sudo apt-get install notes-up
 
