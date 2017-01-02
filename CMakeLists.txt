@@ -41,6 +41,7 @@ pkg_check_modules(DEPS REQUIRED
   gtksourceview-3.0>=3.10
   gthread-2.0
   gtk+-3.0>=3.9.10
+  sqlite3>=3.5.9
 )
 
 set (PKG_DEPS
@@ -49,6 +50,7 @@ set (PKG_DEPS
  gtksourceview-3.0
  gtk+-3.0
  webkit2gtk-4.0
+ sqlite3>=3.5.9
  discount
 )
 
@@ -58,6 +60,7 @@ set (VALA_DEPS
  gtksourceview-3.0
  gtk+-3.0
  webkit2gtk-4.0
+ sqlite3
  discount
 )
 
@@ -100,6 +103,24 @@ add_subdirectory (schemas)
 
 include(ValaPrecompile)
 
+set (BASIC_VALAC_OPTIONS
+  -g
+   --vapidir=${CMAKE_SOURCE_DIR}/vapi
+   --thread
+   --target-glib=2.38
+)
+
+set (GLOBAL_VALAC_OPTIONS
+  ${BASIC_VALAC_OPTIONS}
+)
+
+SET(noele false CACHE BOOL "Remove elementaryOS-only features")
+
+if (noele)
+    set (GLOBAL_VALAC_OPTIONS ${GLOBAL_VALAC_OPTIONS} --define=REMOVE_ELEMENTARY_FEATURES)
+    message ("-- CONTRACTOR disabled")
+endif (noele)
+
 vala_precompile(VALA_C
   src/Main.vala
   src/Application.vala
@@ -111,6 +132,7 @@ vala_precompile(VALA_C
   src/Widgets/NotebookItem.vala
   src/Widgets/BookmarkItem.vala
   src/Widgets/TrashItem.vala
+  src/Widgets/ToolbarButton.vala
   src/Widgets/BookmarkButton.vala
   src/Widgets/PageItem.vala
   src/Widgets/PagesList.vala
@@ -118,24 +140,28 @@ vala_precompile(VALA_C
   src/Widgets/SidebarItem.vala
   src/Widgets/Viewer.vala
   src/Widgets/Window.vala
+  
   src/Styles/air.vala
   src/Styles/elementary.vala
   src/Styles/modest.vala
+  
   src/Services/Bookmark.vala
   src/Services/FileManager.vala
   src/Services/Notebook.vala
   src/Services/Page.vala
   src/Services/Settings.vala
   src/Services/Trash.vala
+  src/Services/DatabaseTable.vala
+  
+  src/Plugins/Manager.vala
+  src/Plugins/Plugin.vala
+  src/Plugins/Color.vala
+  src/Plugins/Youtube.vala
   src/config.vala
 PACKAGES
   ${VALA_DEPS}
 OPTIONS
   ${GLOBAL_VALAC_OPTIONS}
- -g
-  --vapidir=${CMAKE_SOURCE_DIR}/vapi
-  --thread
-  --target-glib=2.38 # FIXME check before, and target the same version
 )
 
 add_executable(notes-up ${VALA_C} ${generated_resources})
@@ -159,4 +185,9 @@ install (FILES ${assets}
   DESTINATION ${DATADIR}/notes-up/)
 install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/data/notes.svg"
   DESTINATION ${DATADIR}/pixmaps/)
+
+# App DATA
+#configure_file_translation (io.github.notes-up.xml.in ${CMAKE_CURRENT_BINARY_DIR}/io.github.notes-up.xml ${CMAKE_SOURCE_DIR}/po/)
+#install (FILES ${CMAKE_CURRENT_BINARY_DIR}/io.github.notes-up.xml DESTINATION ${DATADIR}/appdata/)
+
 

@@ -27,12 +27,12 @@ public class ENotes.Trash : Object {
 
     private static Trash? instance = null;
 
-    private Gee.HashMap<string, Page> pages;
-    private Gee.HashMap<string, Notebook> notebooks;
+    private Gee.HashMap<int, Page> pages;
+    private Gee.HashMap<int, Notebook> notebooks;
 
     private Trash () {
-        pages = new Gee.HashMap<string, Page>();
-        notebooks = new Gee.HashMap<string, Notebook>();
+        pages = new Gee.HashMap<int, Page>();
+        notebooks = new Gee.HashMap<int, Notebook>();
     }
 
     public static Trash get_instance () {
@@ -45,52 +45,46 @@ public class ENotes.Trash : Object {
 
     public void trash_page (ENotes.Page page) {
         if (!is_page_trashed (page)) {
-            pages.@set (page.full_path, page);
+            pages.@set ((int) page.id, page);
             page_added (page);
         }
     }
 
     public void trash_notebook (ENotes.Notebook notebook) {
-        if (!is_notebook_trashed  (notebook)) {
-            notebooks.@set (notebook.path, notebook);
+        if (!is_notebook_trashed (notebook)) {
+            notebooks.@set ((int) notebook.id, notebook);
             notebook_added (notebook);
         }
     }
 
     public void restore_page (ENotes.Page page) {
-        pages.unset (page.full_path);
+        pages.unset ((int) page.id);
         page_removed (page);
     }
 
     public void restore_notebook (ENotes.Notebook notebook) {
-        notebooks.unset (notebook.path);
-
-        if (is_notebook_trashed (notebook))
-            stderr.printf ("Is still in trash\n");
-
+        notebooks.unset ((int) notebook.id);
         notebook_removed (notebook);
-        Sidebar.get_instance ().load_notebooks ();
     }
 
     public bool is_page_trashed (ENotes.Page to_check) {
-        if (pages.size == 0) return false;
-        return pages.has_key (to_check.full_path);
+        return pages.has_key ((int) to_check.id);
     }
 
     public bool is_notebook_trashed (ENotes.Notebook to_check) {
-        if (notebooks.size == 0) return false;
-        return notebooks.has_key (to_check.path);
+        return notebooks.has_key ((int) to_check.id);
     }
 
     public void clear_files () {
         notebooks.@foreach ((notebook) => {
-            notebook.value.@delete ();
+            NotebookTable.get_instance ().delete_notebook (notebook.value);
             return false;
         });
 
         pages.@foreach ((page) => {
-            page.value.@delete ();
+            PageTable.get_instance ().delete_page (page.value);
             return false;
         });
     }
 }
+

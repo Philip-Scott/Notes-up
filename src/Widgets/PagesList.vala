@@ -36,6 +36,8 @@ public class ENotes.PagesList : Gtk.Box {
     private string search_for = "";
     private bool loading_pages = false;
 
+    private Gee.HashMap<int, PageItem> added_pages;
+
     public static PagesList get_instance () {
         if (instance == null) {
             instance = new PagesList ();
@@ -45,6 +47,10 @@ public class ENotes.PagesList : Gtk.Box {
     }
 
     private PagesList () {
+        added_pages = new Gee.HashMap<int, PageItem>();
+
+        PageTable.get_instance ();
+
         build_ui ();
         connect_signals ();
     }
@@ -63,10 +69,20 @@ public class ENotes.PagesList : Gtk.Box {
             if (this.search_for == "") {
                 found = true;
             } else {
-                found = ((PageItem) row).page.get_text ().down ().contains (this.search_for.down ());
+                found = ((PageItem) row).page.data.down ().contains (this.search_for.down ());
             }
 
             return found;
+        });
+
+        listbox.set_sort_func ((row1, row2) => {
+            int64 a = ((PageItem) row1).page.id;
+            int64 b = ((PageItem) row2).page.id;
+
+            if (a > b) return -1;
+            if (b > a) return 1;
+
+            return 0;
         });
 
         scroll_box.set_size_request (200,250);
@@ -129,16 +145,17 @@ public class ENotes.PagesList : Gtk.Box {
 
     public void clear_pages () {
         listbox.unselect_all ();
+        added_pages = new Gee.HashMap<int, PageItem>();
         var childerns = listbox.get_children ();
 
         foreach (Gtk.Widget child in childerns) {
-            if (child is Gtk.ListBoxRow)
+            if (child is Gtk.ListBoxRow) {
                 listbox.remove (child);
+            }
         }
     }
 
     private void refresh () {
-        current_notebook.refresh ();
         load_pages (current_notebook);
     }
 
@@ -163,28 +180,25 @@ public class ENotes.PagesList : Gtk.Box {
     public void load_pages (ENotes.Notebook notebook) {
         loading_pages = true;
         clear_pages ();
-        this.current_notebook = notebook;
-        notebook.refresh ();
 
-        foreach (ENotes.Page page in notebook.pages) {
+        this.current_notebook = notebook;
+        var pages = PageTable.get_instance ().get_pages (notebook.id);
+
+        foreach (ENotes.Page page in pages) {
             new_page (page);
         }
 
-        bool has_pages = notebook.pages.length () > 0;
+        bool has_pages = added_pages.size > 0;
 
         if (!has_pages) {
-            var page = current_notebook.add_page_from_name (_("New Page"));
-            var page_item = new ENotes.PageItem (page);
-
-            listbox.prepend (page_item);
-            listbox.show_all ();
+            new_blank_page ();
         }
 
         toolbar.set_sensitive (true);
         minus_button.set_sensitive (false);
 
-        var page_label = dngettext ("notes-up", "%i Page", "%i Pages", notebook.pages.length ());
-        page_total.label = page_label.printf(notebook.pages.length ());
+        var page_label = dngettext ("notes-up", "%i Page", "%i Pages", added_pages.size);
+        page_total.label = page_label.printf (added_pages.size);
 
         this.notebook_name.label = notebook.name.split ("§")[0] + ":";
         listbox.show_all ();
@@ -196,14 +210,18 @@ public class ENotes.PagesList : Gtk.Box {
     private ENotes.PageItem new_page (ENotes.Page page) {
         var page_box = new ENotes.PageItem (page);
         listbox.add (page_box);
+
+        added_pages.set ((int)page.id, page_box);
+
         return page_box;
     }
 
     public void new_blank_page () {
         ENotes.Editor.get_instance ().save_file ();
-        var page = current_notebook.add_page_from_name (_("New Page"));
-
+        var page = PageTable.get_instance ().new_page (current_notebook.id);
         var page_item = new ENotes.PageItem (page);
+
+        added_pages.set ((int) page.id, page_item);
 
         listbox.prepend (page_item);
         listbox.show_all ();
@@ -242,13 +260,12 @@ public class ENotes.PagesList : Gtk.Box {
 
         minus_button.clicked.connect (() => {
             ENotes.Editor.get_instance ().set_sensitive (false);
-            ENotes.Editor.get_instance ().reset (false);
             Headerbar.get_instance().set_title (null);
 
             var rows = listbox.get_selected_rows ();
 
             foreach (var row in rows) {
-                ((ENotes.PageItem) row).trash_page ();
+                Trash.get_instance ().trash_page (((ENotes.PageItem) row).page);
             }
 
             refresh ();
@@ -265,6 +282,14 @@ public class ENotes.PagesList : Gtk.Box {
 
             if (ENotes.ViewEditStack.current_mode == Mode.EDIT) {
                 ENotes.Editor.get_instance ().give_focus ();
+            }
+        });
+
+        PageTable.get_instance ().page_saved.connect ((page) => {
+            if (this.added_pages.has_key ((int) page.id)) {
+                var page_item = added_pages.get ((int) page.id);
+                page_item.page = page;
+                page_item.load_data ();
             }
         });
     }

@@ -26,13 +26,9 @@ public class ENotes.PageItem : Gtk.ListBoxRow {
     private Gtk.Label line1;
     private Gtk.Label line2;
 
-    private bool bold_state = true;
-    private bool italics_state = true;
-
     public PageItem (ENotes.Page page) {
         this.page = page;
         build_ui ();
-        connect_page ();
     }
 
     private void build_ui () {
@@ -49,11 +45,13 @@ public class ENotes.PageItem : Gtk.ListBoxRow {
         ((Gtk.Misc) line1).xalign = 0;
         line1.margin_top = 4;
         line1.margin_left = 8;
+        line1.margin_right = 8;
         line1.margin_bottom = 4;
 
         line2 = new Gtk.Label ("");
         line2.halign = Gtk.Align.START;
         line2.margin_left = 8;
+        line2.margin_right = 8;
         line2.margin_bottom = 4;
         line2.use_markup = true;
         line2.set_line_wrap (true);
@@ -75,80 +73,12 @@ public class ENotes.PageItem : Gtk.ListBoxRow {
     }
 
     public void trash_page () {
-        page.trash_page ();
         this.destroy ();
     }
 
-    private void connect_page () {
-        page.saved_file.connect (() => {
-            load_data ();
-        });
-
-        page.destroy.connect (() => {
-            this.destroy ();
-        });
-    }
-
-    private void load_data () {
-        this.line2.label = convert(page.subtitle);
+    public void load_data () {
+        this.line2.label = page.subtitle;
         this.line1.label = "<b>" + page.name + "</b>";
-    }
-
-    private string convert (string raw_content) {
-        if (raw_content == null || raw_content == "") return "";
-
-        var lines = raw_content.split ("\n", -1);
-
-        string final = "";
-        foreach (string line in lines) {
-            while (line.contains ("----")) { //Line cleanup
-                line = line.replace ("----", "---");
-            }
-
-            if (line.contains ("	")) {
-                line = line.replace ("	", "&nbsp;&nbsp;&nbsp;&nbsp;");
-            }
-
-            if (line.contains ("**")) {
-                line = replace (line, "**", "<b>", "</b>", ref bold_state);
-            }
-
-            if (line.contains ("_")) {
-                line = replace (line, "_", "<i>", "</i>", ref italics_state);
-            }
-
-            final = final + line;
-        }
-
-        bold_state = true;
-        italics_state = true;
-
-        return final;
-    }
-
-    private string replace (string line_, string looking_for, string opening, string closing, ref bool type_state) {
-        int chars = line_.length;
-        int replace_size = looking_for.length;
-        string line = line_ + "     ";
-
-        StringBuilder final = new StringBuilder ();
-        for (int i = 0; i < chars; i++) {
-            if (line[i:i + replace_size] == looking_for) {
-                if (type_state) {
-                    type_state = false;
-                    final.append (opening);
-                } else {
-                    type_state = true;
-                    final.append (closing);
-                }
-                i = i + replace_size - 1;
-
-            }  else {
-                final.append (line[i:i+1]);
-            }
-        }
-
-        return final.str;
     }
 }
 

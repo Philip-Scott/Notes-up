@@ -19,27 +19,28 @@
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
 
-public class ENotes.NotebookItem : ENotes.SidebarItem {//, Granite.Widgets.SourceListDragDest, Granite.Widgets.SourceListDragSource {
-
-    public ENotes.Notebook notebook { public get; private set; }
-
+public class ENotes.NotebookItem : ENotes.SidebarItem {
     private Gtk.Menu menu;
     private Gtk.MenuItem remove_item;
     private Gtk.MenuItem edit_item;
     private Gtk.MenuItem new_item;
 
-    public NotebookItem (ENotes.Notebook notebook) {
-        this.notebook = notebook;
-        set_color (notebook);
+    private ENotes.Notebook _notebook;
+    public ENotes.Notebook notebook {
+        get {
+            return _notebook;
+        } set {
+            _notebook = value;
+            set_color (value.rgb);
 
-        this.name = notebook.name;
-
-        setup_menu ();
-        connect_signals ();
+            name = value.name;
+        }
     }
 
-    private void connect_signals () {
+    public NotebookItem (ENotes.Notebook notebook) {
+        this.notebook = notebook;
 
+        setup_menu ();
     }
 
     private void setup_menu () {
@@ -61,7 +62,7 @@ public class ENotes.NotebookItem : ENotes.SidebarItem {//, Granite.Widgets.Sourc
         });
 
         remove_item.activate.connect (() => {
-            notebook.trash ();
+            Trash.get_instance ().trash_notebook (notebook);
         });
 
         notebook.destroy.connect (() => {
@@ -72,22 +73,4 @@ public class ENotes.NotebookItem : ENotes.SidebarItem {//, Granite.Widgets.Sourc
     public override Gtk.Menu? get_context_menu () {
         return menu;
     }
-
-    public bool data_drop_possible (Gdk.DragContext context, Gtk.SelectionData data) {
-        return data.get_text () != notebook.path;
-    }
-
-    public Gdk.DragAction data_received (Gdk.DragContext context, Gtk.SelectionData data) {
-        stderr.printf ("Got %s in %s", data.get_text (), notebook.path);
-        return Gdk.DragAction.COPY;
-    }
-
-    public bool draggable () {
-        return true;
-    }
-
-    public void prepare_selection_data (Gtk.SelectionData data) {
-        data.set_text (notebook.path, -1);
-    }
 }
-

@@ -20,130 +20,201 @@
 */
 
 public class ENotes.Page : Object {
-    public signal void saved_file ();
-    public signal void destroy ();
+    public int64 id = -1;
+    public int64 notebook_id = -1;
+    public string name;
+    public string data;
+    public string subtitle;
+    public string html_cache;
+    public int64 creation_date;
+    public int64 modification_date;
+    public bool new_page = false;
 
-	public string name  { public get; private set; }
-	public string subtitle { public get; private set; }
-	public string full_path { public get; private set; } //File's location + full name
-	public string path { public get; private set; } //This file's location
-	public int date { public get; private set; }
-	public int ID = -1;
-	public bool new_page = false;
+    public string full_path = "";
 
-	private string? page_data = null;
+    public bool equals (Page page) {
+        return this.id == page.id;
+    }
 
-	private File file { public get; private set; }
+    public string get_text () {
+        return data;
+    }
+}
 
-	public Page (string path) {
-		full_path = path;
-		file = File.new_for_path (full_path);
+public class ENotes.PageTable : DatabaseTable {
+    public signal void page_saved (Page page);
 
-		if (!file.query_exists ()) {
-			new_page = true;
-		}
+    private static PageTable instance = null;
 
-		var l = full_path.length;
-		var ln = l - file.get_basename ().length;
+    public static PageTable get_instance () {
+        if (instance == null) {
+            instance = new PageTable ();
+        }
 
-		this.path = full_path.slice(0, ln);
+        return instance;
+    }
 
-        get_text ();
-        load_page_info ();
-	}
+    private PageTable () {
+        var stmt = create_stmt ("CREATE TABLE IF NOT EXISTS Page ("
+                                 + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                                 + "name TEXT NOT NULL DEFAULT '', "
+                                 + "data TEXT NOT NULL DEFAULT '', "
+                                 + "subtitle TEXT NOT NULL DEFAULT '', "
+                                 + "html_cache TEXT NOT NULL DEFAULT '', "
+                                 + "creation_date INTEGER,"
+                                 + "modification_date INTEGER,"
+                                 + "notebook_id INTEGER)");
+        var res = stmt.step ();
 
-    private void load_page_info () {
+        if (res != Sqlite.DONE)
+            fatal ("create page table", res);
+
+        // index on event_id
+        stmt = create_stmt ("CREATE INDEX IF NOT EXISTS NotebookIDIndex ON Page (notebook_id)");
+
+        res = stmt.step ();
+        if (res != Sqlite.DONE) {
+            fatal ("create page table", res);
+        }
+
+        set_table_name ("Page");
+    }
+
+    public Page? get_page (int64 page_id) {
+        var stmt = create_stmt ("SELECT name, data, subtitle, html_cache, creation_date, modification_date, "
+                      + "notebook_id "
+                      + "FROM Page WHERE id = ?");
+
+        bind_int (stmt, 1, page_id);
+
+        if (stmt.step () != Sqlite.ROW)
+            return null;
+
+        Page row = new Page ();
+        row.id = page_id;
+        row.name = stmt.column_text (0);
+        row.data = stmt.column_text (1);
+        row.subtitle = stmt.column_text (2);
+        row.html_cache = stmt.column_text (3);
+        row.creation_date = stmt.column_int64 (4);
+        row.modification_date = stmt.column_int64 (5);
+        row.notebook_id = stmt.column_int64 (6);
+
+        return row;
+    }
+
+    public void save_page (Page page) {
+        var stmt = create_stmt ("UPDATE Page SET name = ?, subtitle = ?, data = ?, html_cache = ?, modification_date = CAST(strftime('%s', 'now') AS INT) WHERE id = ?");
+        load_page_info (page);
+
+        bind_text (stmt, 1, page.name);
+        bind_text (stmt, 2, page.subtitle);
+        bind_text (stmt, 3, page.data);
+        bind_text (stmt, 4, "");
+        bind_int (stmt, 5, page.id);
+        stmt.step ();
+
+        page_saved (page);
+    }
+
+    public void save_cache (Page page) {
+        var stmt = create_stmt ("UPDATE Page SET html_cache = ? WHERE id = ?");
+        bind_text (stmt, 1, page.html_cache);
+        bind_int (stmt, 2, page.id);
+        stmt.step ();
+    }
+
+    // Clears cache on pages where $id = notebook_id; 0 for clearing all
+    public void clear_cache_on (int64 id) {
+        Sqlite.Statement stmt;
+        stderr.printf ("Clearing cache on: %d\n", (int) id);
+        if (id > 0) {
+            stmt = create_stmt ("UPDATE Page SET html_cache = ? WHERE notebook_id = ?");
+            bind_text (stmt, 1, "");
+            bind_int (stmt, 2, id);
+            stmt.step ();
+        } else {
+            stmt = create_stmt ("UPDATE Page SET html_cache = ?");
+            bind_text (stmt, 1, "");
+            stmt.step ();
+        }
+    }
+
+    public Page new_page (int64 notebook_id) {
+         var stmt = create_stmt ("INSERT INTO Page (notebook_id, name, creation_date, modification_date) "
+                       + "VALUES (?, ?, CAST(strftime('%s', 'now') AS INT), CAST(strftime('%s', 'now') AS INT))");
+
+         bind_int (stmt, 1, notebook_id);
+         bind_text (stmt, 2, _("New Page"));
+
+         stmt.step ();
+
+         return get_page (last_insert_row ());
+    }
+
+    public Gee.ArrayList<Page> get_pages (int64 notebook_id) {
+        var stmt = create_stmt ("SELECT id, name, subtitle, data FROM Page Where notebook_id = ?");
+        bind_int (stmt, 1, notebook_id);
+
+        var pages = new Gee.ArrayList<Page>();
+
+        for (;;) {
+            var res = stmt.step ();
+            if (res == Sqlite.DONE) {
+                break;
+            } else if (res != Sqlite.ROW) {
+                fatal ("get_notebooks", res);
+                break;
+            }
+
+            var row = new Page ();
+
+            row.id = stmt.column_int64 (0);
+            row.name = stmt.column_text (1);
+            row.subtitle = stmt.column_text (2);
+            row.data = stmt.column_text (3);
+
+            pages.add (row);
+        }
+
+        return pages;
+    }
+
+    public void delete_page (Page page) {
+        var stmt = create_stmt ("DELETE FROM Page WHERE id = ?");
+        bind_int (stmt, 1, page.id);
+
+        stmt.step ();
+    }
+
+    public bool is_bookmarked () {
+        return false;
+    }
+
+    private void load_page_info (Page page) {
         string line[2];
         string[] lines;
 
-        lines = page_data.split ("\n");
-
-        string t_name = file.get_basename ();
-        if (t_name.contains ("§")) {
-            var split = t_name.split ("§", 2);
-
-            ID = int.parse (split[0]);
-        }
+        lines = page.data.split ("\n");
 
         if (lines.length > 0) {
-            name = cleanup(lines[0]);
+            page.name = cleanup(lines[0]);
 
-	        for(int n = 0, i = 1; i < lines.length && n < 1; i++) {
-	            line[n] = cleanup (lines[i]);
+            for(int n = 0, i = 1; i < lines.length && n < 1; i++) {
+                line[n] = cleanup (lines[i]);
                 if (line[n] != "") {
                     n++;
                 }
-	        }
-	    } else {
-	        name = _("New Page");
-	        new_page = true;
-	    }
-
-        this.subtitle = line[0];
-	}
-
-    public string get_text (bool force_load = false) {
-        debug ("Getting text");
-        if (new_page) {
-            return "";
-        } if (page_data == null || force_load) {
-            debug ("Loading from file");
-            try {
-                var dis = new DataInputStream (this.file.read ());
-                size_t size;
-                this.page_data = dis.read_upto ("\0", -1, out size);
-            } catch (Error e) {
-                warning ("Error loading file: %s", e.message);
             }
+        } else {
+            page.name = _("New Page");
         }
 
-        return page_data;
-    }
-
-    public void save_file (string data) {
-        if (data == "") {
-            trash_page ();
-            return;
+        if (line[0] != null) {
+            page.subtitle = convert(line[0]);
+        } else {
+            page.subtitle = "";
         }
-
-        string file_name = make_filename ();
-
-        try {
-		    this.file = File.new_for_path (path + file_name);
-		    FileManager.write_file (file, data, true);
-            this.full_path = file.get_path ();
-            new_page = false;
-        } catch (Error e) {
-            stderr.printf ("Error Saving file: %s", e.message);
-        }
-
-        this.page_data = data;
-        load_page_info ();
-        this.saved_file ();
-    }
-
-    public void delete () {
-        try {
-            file.trash ();
-        } catch (Error e) {
-            stderr.printf ("Error trashing file: %s", e.message);
-        }
-    }
-
-    public void trash_page () {
-        Trash.get_instance ().trash_page (this);
-        this.destroy ();
-    }
-
-    public bool move_page (Notebook destination) {
-        try {
-            file.move (destination.directory, FileCopyFlags.NONE);
-        } catch (Error e) {
-            warning ("Moving page failed: %s", e.message);
-            return false;
-        }
-
-        return true;
     }
 
     private string cleanup (string line) {
@@ -151,7 +222,7 @@ public class ENotes.Page : Object {
 
         if (line.contains ("---")) return "";
 
-        string[] blacklist = {"#", "```", "\t", ">", "<", "\n"};
+        string[] blacklist = {"#", "```", "\t", "<br>", ">", "<", "\n"};
         foreach (string item in blacklist) {
             if (output.contains (item)) {
                 output = output.replace (item, "");
@@ -164,41 +235,66 @@ public class ENotes.Page : Object {
             output = output[1:output.length];
         }
 
-    	return output;
+        return output;
     }
 
-    private string make_filename () {
-        string file_name;
+    private bool bold_state;
+    private bool italics_state;
+    private string convert (string raw_content) {
+        bold_state = true;
+        italics_state = true;
 
-        if (new_page) {
-            file_name = ENotes.Editor.get_instance ().get_text ().split ("\n", 2)[0];
-            file_name = clean_filename (file_name);
-            return ID.to_string () + "§" + file_name;
-        } else {
-            return file.get_basename ();
+        if (raw_content == null || raw_content == "") return "";
+        if (!raw_content.contains ("\n")) return raw_content;
+
+        var lines = raw_content.split ("\n", -1);
+
+        string final = "";
+        foreach (string line in lines) {
+            while (line.contains ("----")) { //Line cleanup
+                line = line.replace ("----", "---");
+            }
+
+            if (line.contains ("	")) {
+                line = line.replace ("	", "&nbsp;&nbsp;&nbsp;&nbsp;");
+            }
+
+            if (line.contains ("**")) {
+                line = replace (line, "**", "<b>", "</b>", ref bold_state);
+            }
+
+            if (line.contains ("_")) {
+                line = replace (line, "_", "<i>", "</i>", ref italics_state);
+            }
+
+            final = final + line;
         }
+
+        return final;
     }
 
-    private string clean_filename (string file) {
-        string file_name = file;
+    private string replace (string line_, string looking_for, string opening, string closing, ref bool type_state) {
+        int chars = line_.length;
+        int replace_size = looking_for.length;
+        string line = line_ + "     ";
 
-        string[] blacklist = {"\\", "/", "%", "|", ":", "<",">", "§", "*", "&", "?", "#"};
-        foreach (string item in blacklist) {
-            if (file_name.contains (item))
-                file_name = file_name.replace (item, "");
+        StringBuilder final = new StringBuilder ();
+        for (int i = 0; i < chars; i++) {
+            if (line[i:i + replace_size] == looking_for) {
+                if (type_state) {
+                    type_state = false;
+                    final.append (opening);
+                } else {
+                    type_state = true;
+                    final.append (closing);
+                }
+                i = i + replace_size - 1;
+
+            }  else {
+                final.append (line[i:i+1]);
+            }
         }
 
-        return file_name;
-    }
-
-    public bool equals (ENotes.Page comp) {
-        return this.full_path == comp.full_path;
-    }
-
-    public bool is_bookmarked () {
-        var link = ENotes.NOTES_DIR + full_path.replace (ENotes.NOTES_DIR, "").replace ("/", ".");
-        var file = File.new_for_path (link);
-
-        return file.query_exists ();
+        return final.str;
     }
 }

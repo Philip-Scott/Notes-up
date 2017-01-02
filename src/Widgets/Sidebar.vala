@@ -20,19 +20,14 @@
 */
 
 public class ENotes.Sidebar : Granite.Widgets.SourceList {
-    enum DropTargets {
-        STRING,
-        TEXT
-    }
-
-    private static Gtk.TargetEntry[] targets = get_target_entries ();
-
     private static Sidebar? instance = null;
 
     private Granite.Widgets.SourceList.ExpandableItem notebooks = new Granite.Widgets.SourceList.ExpandableItem (_("Notebooks"));
     private Granite.Widgets.SourceList.ExpandableItem bookmarks = new Granite.Widgets.SourceList.ExpandableItem (_("Bookmarks"));
     private Granite.Widgets.SourceList.ExpandableItem trash = new Granite.Widgets.SourceList.ExpandableItem (_("Trash"));
     private Granite.Widgets.SourceList.Item? previous_selection = null;
+
+    private Gee.HashMap<int, NotebookItem> added_notebooks;
 
     public static Sidebar get_instance () {
         if (instance == null) {
@@ -63,30 +58,25 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
     public void load_notebooks () {
         this.notebooks.clear ();
 
-        var notebook_list = FileManager.load_notebooks ();
+        var notebook_list = NotebookTable.get_instance ().get_notebooks ();
+        added_notebooks = new Gee.HashMap<int, NotebookItem>();
+        var to_add = new Gee.ArrayList<NotebookItem>();
 
-        foreach (ENotes.Notebook nb in notebook_list) {
-            if (Trash.get_instance ().is_notebook_trashed (nb) == false) {
-                var notebook = new NotebookItem (nb);
-                this.notebooks.add (notebook);
+        foreach (ENotes.Notebook notebook in notebook_list) {
+            var item = new NotebookItem (notebook);
 
-                load_sub_notebooks (notebook);
+            if (notebook.parent_id == 0) {
+                this.notebooks.add (item);
             } else {
-                stderr.printf ("something is trashed\n");
+                to_add.add (item);
             }
+
+            added_notebooks.set ((int) notebook.id, item);
         }
-    }
 
-    public void load_sub_notebooks (NotebookItem item) {
-        if (item.notebook.sub_notebooks.length () > 0) {
-            foreach (ENotes.Notebook nb in item.notebook.sub_notebooks) {
-                if (Trash.get_instance ().is_notebook_trashed (nb) == false) {
-                    var new_item = new NotebookItem (nb);
-                    item.add (new_item);
-
-                    load_sub_notebooks (new_item);
-                    item.collapse_all ();
-                }
+        foreach (var item in to_add) {
+            if (added_notebooks.has_key ((int) item.notebook.parent_id)) {
+                added_notebooks.get ((int) item.notebook.parent_id).add (item);
             }
         }
     }
@@ -94,9 +84,9 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
     public void load_bookmarks () {
         this.bookmarks.clear ();
 
-        var bookmark_list = FileManager.load_bookmarks ();
+        var bookmark_list = BookmarkTable.get_instance ().get_bookmarks ();
 
-        foreach (string bm in bookmark_list) {
+        foreach (var bm in bookmark_list) {
             var bookmark = new BookmarkItem (bm);
             this.bookmarks.add (bookmark);
         }
@@ -104,24 +94,10 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
         bookmarks.expand_all ();
     }
 
-    public void select_notebook (string name) {
-        select_sub_notebook (notebooks, name);
-    }
-
-    private bool select_sub_notebook (Granite.Widgets.SourceList.ExpandableItem parent, string name) {
-        foreach (var child in parent.children) {
-            if (child.name == name) {
-                selected = child;
-                return true;
-            }
-
-            if (child is NotebookItem && ((NotebookItem) child).n_children > 0) {
-                bool found = select_sub_notebook ((NotebookItem) child, name);
-                if (found) return true;
-            }
+    public void select_notebook (int64 notebook_id) {
+        if (added_notebooks.has_key ((int) notebook_id)) {
+            selected = added_notebooks.get ((int) notebook_id);
         }
-
-        return false;
     }
 
     public void first_start () {
@@ -131,37 +107,21 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
     }
 
     private void first_notebook () {
-        var dir = FileManager.create_notebook (_("Unamed Notebook"), 1, 0, 0);
+/*        var dir = FileManager.create_notebook (_("Unamed Notebook"), 1, 0, 0);
         var notebook = new ENotes.Notebook (ENotes.NOTES_DIR + dir);
 
         var notebook_item = new NotebookItem (notebook);
         this.notebooks.add (notebook_item);
 
-        select_notebook (notebook.name);
-    }
-
-    private static Gtk.TargetEntry[] get_target_entries () {
-        if (targets == null) {
-            Gtk.TargetEntry string_entry = { "STRING", 0, DropTargets.STRING };
-            Gtk.TargetEntry text_entry = { "text/plain", 0, DropTargets.TEXT };
-
-            targets = { };
-            targets += string_entry;
-            targets += text_entry;
-         }
-
-         return targets;
+        select_notebook (notebook.name);*/
     }
 
     private void connect_signals () {
-        enable_drag_source (get_target_entries ());
-        enable_drag_dest (get_target_entries (), Gdk.DragAction.MOVE);
-
         this.item_selected.connect ((item) => {
             if (item != null && item is ENotes.BookmarkItem) {
                 // If viewing page == the bookmark, select the notebook. if not just open the page
                 if (ENotes.ViewEditStack.get_instance ().get_page ().equals (((ENotes.BookmarkItem) item).get_page ())) {
-                    select_notebook (((ENotes.BookmarkItem) item).parent_notebook.name);
+                    select_notebook (((ENotes.BookmarkItem) item).parent_notebook);
                     ENotes.PagesList.get_instance ().select_page (((ENotes.BookmarkItem) item).get_page ());
                 } else {
                     ENotes.ViewEditStack.get_instance ().set_page (((ENotes.BookmarkItem) item).get_page ());
@@ -171,6 +131,27 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
                 previous_selection = item;
                 ENotes.Editor.get_instance ().save_file ();
                 ENotes.PagesList.get_instance ().load_pages (((ENotes.NotebookItem) item).notebook);
+            }
+        });
+
+        NotebookTable.get_instance ().notebook_added.connect ((notebook) => {
+            var item = new NotebookItem (notebook);
+
+            var parent_id = (int) notebook.parent_id;
+            if (parent_id == 0) {
+                this.notebooks.add (item);
+            } else {
+                if (added_notebooks.has_key (parent_id)) {
+                    added_notebooks.get (parent_id).add (item);
+                }
+            }
+
+            added_notebooks.set ((int) notebook.id, item);
+        });
+
+        NotebookTable.get_instance ().notebook_changed.connect ((notebook) => {
+            if (added_notebooks.has_key ((int) notebook.id)) {
+                added_notebooks.get ((int) notebook.id).notebook = notebook;
             }
         });
 
@@ -189,8 +170,7 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
         });
 
         Trash.get_instance ().notebook_removed.connect ((notebook) => {
-            load_notebooks ();
-            select_notebook (notebook.name);
+            select_notebook (notebook.id);
         });
     }
 }

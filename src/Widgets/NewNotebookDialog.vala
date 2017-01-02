@@ -38,7 +38,6 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
         if (notebook != null) {
             load_data ();
             style_box.changed.connect (() => {
-                save_notebook_style (notebook.path, style_box.active);
                 ENotes.Viewer.get_instance ().reload ();
             });
         }
@@ -49,8 +48,6 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
     public NotebookDialog.new_subnotebook (Notebook parent) {
         this ();
         parent_nb = parent;
-
-        style_changes.buffer.text = Notebook.get_styleshet_changes (parent.path);
         style_box.active = get_notebook_style (parent_nb);
     }
 
@@ -128,7 +125,6 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
         style_changes.set_wrap_mode (Gtk.WrapMode.WORD);
         style_changes.set_hexpand (true);
         style_changes.set_vexpand (true);
-        style_changes.buffer.text = get_notebook_style_changes (notebook);
 
         var scrolled = new Gtk.ScrolledWindow (null, null);
         scrolled.height_request = 90;
@@ -167,75 +163,45 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
 		style_box.pack_start (renderer, true);
 		style_box.add_attribute (renderer, "text", 0);
 
-		if (notebook != null) {
-		    style_box.active = get_notebook_style (notebook);
-		} else {
-		    style_box.active = 0;
-		}
+	    style_box.active = 0;
     }
 
     private int get_notebook_style (Notebook notebook) {
         int active = 0;
-        string value = Notebook.get_styleshet (notebook.path);
 
         foreach (string style in Viewer.STYLES) {
-		    if (value == style) return active;
-		    active++;
-		}
+            if (notebook.stylesheet == style) return active;
+            active++;
+        }
 
         return 0;
     }
 
-    private void save_notebook_style (string path, int selected) {
-        debug ("Saving style %s %d", path, selected);
-        if (selected == 0) {
-            Notebook.set_styleshet (path, "default");
-        } else {
-            Notebook.set_styleshet (path, Viewer.STYLES[selected]);
-        }
-    }
-
-    private string get_notebook_style_changes (Notebook? notebook) {
-        if (notebook == null) return "";
-        return Notebook.get_styleshet_changes (notebook.path);
-    }
-
-    private void set_notebook_style_changes (string path, string style) {
-        Notebook.set_styleshet_changes (notebook.path, style);
-    }
-
     private void load_data () {
         name_entry.text = notebook.name;
+	    style_box.active = get_notebook_style (notebook);
+	    style_changes.buffer.text = notebook.css;
     }
 
     private void connect_signals () {
         response.connect ((ID) => {
             switch (ID) {
-                case 1: // Create Notebook
-                    if (notebook == null) {
-                        var r = color_button.rgba.red; var g = color_button.rgba.green; var b = color_button.rgba.blue;
+                case 1:
+                    var r = color_button.rgba.red; var g = color_button.rgba.green; var b = color_button.rgba.blue;
+                    if (notebook == null) { // Create Notebook
                         if (parent_nb == null) {
-                            string dir = FileManager.create_notebook (name_entry.text, r, g, b);
-                            save_notebook_style (dir, style_box.active);
-                            set_notebook_style_changes (dir, style_changes.buffer.text);
+                            NotebookTable.get_instance ().new_notebook (0, name_entry.text, {r,g,b}, style_changes.buffer.text, Viewer.STYLES[style_box.active]);
                         } else {
-                            string dir = parent_nb.path + FileManager.create_notebook (name_entry.text, r, g, b, parent_nb.path);
-                            save_notebook_style (dir, style_box.active);
-                            set_notebook_style_changes (dir, style_changes.buffer.text);
+                           NotebookTable.get_instance ().new_notebook (parent_nb.id, name_entry.text, {r,g,b}, style_changes.buffer.text, Viewer.STYLES[style_box.active]);
                         }
                     } else {
-                        Notebook? new_notebook = notebook.rename (name_entry.text, color_button.rgba);
-                        if (new_notebook != null) {
-                            save_notebook_style (new_notebook.path, style_box.active);
-                            set_notebook_style_changes (new_notebook.path, style_changes.buffer.text);
-                        } else {
-                            save_notebook_style (notebook.path, style_box.active);
-                            set_notebook_style_changes (notebook.path, style_changes.buffer.text);
+                        if (style_changes.buffer.text != notebook.css || Viewer.STYLES[style_box.active] != notebook.stylesheet) {
+                            PageTable.get_instance ().clear_cache_on (notebook.id);
                         }
+
+                        NotebookTable.get_instance ().save_notebook (notebook.id, name_entry.text, {r,g,b}, style_changes.buffer.text, Viewer.STYLES[style_box.active]);
                     }
 
-                    ENotes.Sidebar.get_instance ().load_notebooks ();
-                    ENotes.Sidebar.get_instance ().select_notebook (name_entry.text);
                     ENotes.Viewer.get_instance ().reload ();
                     this.close ();
                     break;
@@ -246,7 +212,7 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
         });
 
         name_entry.notify["text"].connect (() => {
-            if (name_entry.text == "" || name_entry.text.contains ("/") || name_entry.text.contains ("§")) {
+            if (name_entry.text.strip () == "") {
                 create.sensitive = false;
             } else {
                 create.sensitive = true;

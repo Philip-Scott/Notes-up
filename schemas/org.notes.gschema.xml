@@ -4,31 +4,31 @@
 		<key name="pos-x" type="i">
 			<default>920</default>
 			<summary>The saved width of the window.</summary>
-			<description>The saved width of the window. Must be greater than 700, or it will not take effect.</description>
+			<description></description>
 		</key>
 
 		<key name="pos-y" type="i">
 			<default>920</default>
 			<summary>The saved width of the window.</summary>
-			<description>The saved width of the window. Must be greater than 700, or it will not take effect.</description>
+			<description></description>
 		</key>
 
 		<key name="window-width" type="i">
 			<default>1100</default>
 			<summary>The saved width of the window.</summary>
-			<description>The saved width of the window. Must be greater than 700, or it will not take effect.</description>
+			<description></description>
 		</key>
 
 		<key name="window-height" type="i">
 			<default>640</default>
 			<summary>The saved height of the window.</summary>
-			<description>The saved height of the window. Must be greater than 400, or it will not take effect.</description>
+			<description></description>
 		</key>
 
 		<key name="panel-size" type="i">
 			<default>80</default>
 			<summary>The saved width of the pages panel.</summary>
-			<description>The saved height of the window. Must be greater than 400, or it will not take effect.</description>
+			<description></description>
 		</key>
 
 		<key name="mode" type="i">
@@ -37,29 +37,36 @@
 			<description></description>
 		</key>
 
-		<key name="last-folder" type="s">
-			<default>""</default>
+		<key name="last-notebook" type="i">
+			<default>0</default>
 			<summary>The last folder used</summary>
-			<description>The saved height of the window. Must be greater than 400, or it will not take effect.</description>
-		</key>
-
-		<key name="page-path" type="s">
-			<default>""</default>
-			<summary></summary>
 			<description></description>
 		</key>
 
-		<key name="page-name" type="s">
-			<default>""</default>
+		<key name="last-page" type="i">
+			<default>0</default>
 			<summary>last page opened</summary>
 			<description></description>
 		</key>
 
 		<key name="notes-location" type="s">
 			<default>""</default>
-			<summary>full location of your notes folder</summary>
+			<summary>Previous location of your notes folder</summary>
+			<description>DEPRECATED</description>
+		</key>
+
+		<key name="notes-database" type="s">
+			<default>""</default>
+			<summary>full location of your notes db</summary>
 			<description></description>
 		</key>
+
+		<key name="import-files" type="b">
+			<default>true</default>
+			<summary>Will import files from the previous version of Notes-Up</summary>
+			<description>Enable it to re-import everything</description>
+		</key>
+
 		<key name="auto-indent" type="b">
 			<default>true</default>
 			<summary>Automatic Indentation</summary>
@@ -98,10 +105,6 @@
 	</schema>
 
 	<schema path="/org/notes/notebook_data/" id="org.notes.notebook_data" gettext-domain="notes">
-		<key type="b" name="do-not-disturb">
-			<default>false</default>
-			<summary>Disable all notifications</summary>
-		</key>
 		<child name="notebooks" schema="org.notes.notebook_data.notebook" />
 	</schema>
 
@@ -119,4 +122,18 @@
 	  	<child name="notebooks" schema="org.notes.notebook_data.notebook" />
 	</schema>
 
+		<schema path="/org/notes/plugin_data/" id="org.notes.plugin_data" gettext-domain="notes">
+			<key type="b" name="active">
+				<default>true</default>
+				<summary>Master plugin control</summary>
+			</key>
+			<child name="notebooks" schema="org.notes.notebook_data.notebook" />
+		</schema>
+
+		<schema id="org.notes.plugin_data.plugin" gettext-domain="notes">
+			<key type="b" name="active">
+				<default>true</default>
+				<summary>Master plugin control</summary>
+			</key>
+		</schema>
 </schemalist>

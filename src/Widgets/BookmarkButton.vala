@@ -23,8 +23,7 @@ public class ENotes.BookmarkButton : Gtk.Button {
     private static BookmarkButton? instance = null;
 
     private ENotes.Page current_page;
-    private Bookmark bookmark;
-    private  Gtk.Image pic;
+    private Gtk.Image pic;
 
     public static BookmarkButton get_instance () {
         if (instance == null) {
@@ -53,7 +52,7 @@ public class ENotes.BookmarkButton : Gtk.Button {
     }
 
     public void setup () {
-        if (this.current_page.is_bookmarked ()) {
+        if (BookmarkTable.get_instance ().is_bookmarked (this.current_page)) {
             pic.set_from_icon_name ("starred", Gtk.IconSize.DIALOG);
         } else {
             pic.set_from_icon_name ("non-starred", Gtk.IconSize.DIALOG);
@@ -61,12 +60,10 @@ public class ENotes.BookmarkButton : Gtk.Button {
     }
 
     public void main_action () {
-        this.bookmark = new ENotes.Bookmark.from_page (current_page);
-
-        if (!this.current_page.is_bookmarked ()) {
-            this.bookmark.bookmark ();
+        if (BookmarkTable.get_instance ().is_bookmarked (this.current_page)) {
+            BookmarkTable.get_instance ().remove (this.current_page.id);
         } else {
-            this.bookmark.unbookmark ();
+            BookmarkTable.get_instance ().add (this.current_page);
         }
 
         ENotes.Sidebar.get_instance ().load_bookmarks ();

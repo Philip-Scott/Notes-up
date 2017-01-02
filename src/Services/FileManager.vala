@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2011-2016 Felipe Escoto (https://github.com/Philip-Scott/Notes-up)
+* Copyright (c) 2015-2016 Felipe Escoto (https://github.com/Philip-Scott/Notes-up)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -20,54 +20,89 @@
 */
 
 public class ENotes.FileManager : Object {
+    private static Gee.HashMap<string, Settings> notebook_settings_cache = new Gee.HashMap<string, Settings> ();
+
     public static ENotes.Notebook current_notebook;
     public static ENotes.Page current_page { get; private set; }
 
-    private FileManager () {}
+    private FileManager () {
 
-    public static List<ENotes.Notebook> load_notebooks () {
-        var notebooks = new List<ENotes.Notebook>();
-        try {
-            var directory = File.new_for_path (ENotes.NOTES_DIR);
-            if (!directory.query_exists ())
-                directory.make_directory_with_parents ();
-
-            var enumerator = directory.enumerate_children (FileAttribute.STANDARD_NAME, 0);
-
-            FileInfo file_info;
-            while ((file_info = enumerator.next_file ()) != null) {
-                if (file_info.get_file_type () == FileType.DIRECTORY) {
-                    var notebook = new ENotes.Notebook (ENotes.NOTES_DIR + file_info.get_name ());
-                    notebooks.append (notebook);
-                    search_for_subnotebooks (notebook);
-                }
-            }
-        } catch (Error e) {
-            stderr.printf ("Error: %s\n", e.message);
-        }
-
-        return notebooks;
     }
 
-    public static void search_for_subnotebooks (Notebook notebook) {
-        try {
-            var directory = notebook.directory;
+    // Initial import for previous owners of the app
+    public static void import_files () {
+        DatabaseTable.init (ENotes.NOTES_DB);
 
+        if (ENotes.NOTES_DIR != "") {
+            var directory = File.new_for_path (ENotes.NOTES_DIR);
+            if (directory.query_exists ()) {
+                load_notebooks (directory, 0);
+            }
+        }
+
+        ENotes.Services.Settings.get_instance ().import_files = false;
+    }
+
+    public static void load_notebooks (File directory, int64 parent_id) {
+        try {
             var enumerator = directory.enumerate_children (FileAttribute.STANDARD_NAME, 0);
 
             FileInfo file_info;
             while ((file_info = enumerator.next_file ()) != null) {
                 if (file_info.get_file_type () == FileType.DIRECTORY) {
-                    var new_notebook = new ENotes.Notebook (notebook.path + file_info.get_name ());
-                    notebook.sub_notebooks.append (new_notebook);
+                    var notebook = parse_notebook (file_info);
+                    var id = NotebookTable.get_instance ().new_notebook (parent_id, notebook.name, notebook.rgb, "", "");
 
-                    search_for_subnotebooks (new_notebook);
+                    var new_dir = directory.resolve_relative_path (file_info.get_name ());
+                    add_pages_in_notebook (id, new_dir);
+                    load_notebooks (new_dir, id);
                 }
             }
         } catch (Error e) {
             stderr.printf ("Error: %s\n", e.message);
         }
+    }
 
+    public static Notebook parse_notebook (FileInfo file) {
+        var notebook = new Notebook ();
+        var split = file.get_name ().split ("§", 4);
+        notebook.name = split[0].replace (ENotes.NOTES_DIR, "");
+
+        if (split.length > 3) {
+            var r = double.parse (split[1]);
+            var g = double.parse (split[2]);
+            var b = double.parse (split[3]);
+            notebook.rgb = {r,g,b};
+        }
+
+        return notebook;
+    }
+
+    public static void add_pages_in_notebook (int64 id, File directory) {
+        try {
+            var enumerator = directory.enumerate_children (FileAttribute.STANDARD_NAME, 0);
+            FileInfo file_info;
+
+            while ((file_info = enumerator.next_file ()) != null) {
+                if (file_info.get_file_type () == FileType.REGULAR) {
+                    var file = directory.resolve_relative_path (file_info.get_name ());
+
+                    try {
+                        var page = PageTable.get_instance ().new_page (id);
+
+                        var dis = new DataInputStream (file.read ());
+                        size_t size;
+                        page.data = dis.read_upto ("\0", -1, out size);
+
+                        PageTable.get_instance ().save_page (page);
+                    } catch (Error e) {
+                        warning ("Error loading file: %s", e.message);
+                    }
+                }
+            }
+        } catch (Error e) {
+            warning ("Could not load pages: %s",e.message);
+        }
     }
 
     public static List<string> load_bookmarks () {
@@ -101,10 +136,11 @@ public class ENotes.FileManager : Object {
         ENotes.Viewer.get_instance ().load_page (ENotes.Editor.get_instance ().current_page, true);
 
         File file;
-        if (file_path == null)
+        if (file_path == null) {
             file = get_file_from_user ();
-        else
+        } else {
             file = File.new_for_path (file_path);
+        }
 
         try { // TODO: we have to write an empty file so we can get file path
             write_file (file, "");
@@ -151,18 +187,6 @@ public class ENotes.FileManager : Object {
                 throw new Error (Quark.from_string (""), -1, "Could not write file: %s", e.message);
             }
         }
-    }
-
-    public static string create_notebook (string name, double r, double g, double b, string source = NOTES_DIR) {
-        string notebook_name = "%s§%s§%s§%s".printf(name, r.to_string(), g.to_string(), b.to_string());
-
-        var directory = File.new_for_path (source + notebook_name);
-        try {
-            directory.make_directory_with_parents ();
-        } catch (Error e) {
-            stderr.printf ("Notebook not created: %s", e.message);
-        }
-        return notebook_name;
     }
 
     public static File? get_file_from_user (bool save_as_pdf = true) {
@@ -222,5 +246,23 @@ public class ENotes.FileManager : Object {
         dialog.close ();
 
         return result;
+    }
+
+    public static Settings get_settings (string notebook_path, string CHILD_SCHEMA_ID, string CHILD_PATH) {
+        var notebook_id = notebook_path.replace (NOTES_DIR, "").replace ("/", "") + "/";
+        Settings? notebook_settings = notebook_settings_cache.get (notebook_id);
+
+        if (notebook_settings == null) {
+            var schema = SettingsSchemaSource.get_default ().lookup (CHILD_SCHEMA_ID, false);
+		    if (schema != null) {
+			    notebook_settings = new Settings.full (schema, null, CHILD_PATH.printf (notebook_id));
+			    notebook_settings_cache.set (notebook_id, notebook_settings);
+                notebook_settings = new Settings.full (SettingsSchemaSource.get_default ().lookup (CHILD_SCHEMA_ID, true), null, CHILD_PATH.printf (notebook_id));
+            } else {
+                warning ("Getting notebook schema failed");
+            }
+        }
+
+        return notebook_settings;
     }
 }

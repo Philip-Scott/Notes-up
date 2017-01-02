@@ -62,6 +62,8 @@ public class ENotes.ViewEditStack : Gtk.Overlay {
         stack.add_named (viewer, "viewer");
         stack.add_named (editor, "editor");
 
+        stack.set_transition_type (Gtk.StackTransitionType.SLIDE_LEFT_RIGHT);
+
         this.add (stack);
         this.show_all ();
 
@@ -75,12 +77,12 @@ public class ENotes.ViewEditStack : Gtk.Overlay {
             }
         }
 
-        current_page = page;
-        editor.set_page (page);
-        viewer.load_page (page);
+        current_page = PageTable.get_instance ().get_page (page.id);
+        editor.current_page = current_page;
+        viewer.load_page (current_page);
 
-        bookmark_button.set_page (page);
-        page_set (page);
+        bookmark_button.set_page (current_page);
+        page_set (current_page);
     }
 
     public ENotes.Page? get_page () {
@@ -101,7 +103,6 @@ public class ENotes.ViewEditStack : Gtk.Overlay {
         editor.save_file ();
         current_mode = ENotes.Mode.VIEW;
         viewer.load_page (current_page, true);
-        viewer.reload ();
 
         Headerbar.get_instance ().set_mode (ENotes.Mode.VIEW);
 

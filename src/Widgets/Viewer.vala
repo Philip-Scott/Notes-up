@@ -25,7 +25,6 @@ public class ENotes.Viewer : WebKit.WebView {
     private static Viewer? instance = null;
 
     public string CSS;
-    private string previous_path = "";
     private Page? previous_page = null;
     private File temp_file;
 
@@ -45,10 +44,10 @@ public class ENotes.Viewer : WebKit.WebView {
     }
 
     public void load_css (ENotes.Page? page, bool overrride = false) {
-        if (overrride || previous_path != page.path) {
-            if (page != null) previous_path = page.path;
+        if (overrride || previous_page == null || previous_page.id != page.id) {
+            if (page != null) previous_page = page;
 
-            var stylesheet = Notebook.get_styleshet (previous_path);
+            var stylesheet = NotebookTable.get_instance ().get_stylesheet_from_page (previous_page.id);
             set_styleshet (stylesheet);
         }
     }
@@ -64,52 +63,81 @@ public class ENotes.Viewer : WebKit.WebView {
                 } else {
                     CSS = Styles.elementary.css;
                 }
-                break;
+
+            break;
         }
 
-
         if (!trying_global) {
-            CSS = CSS + ENotes.settings.render_stylesheet + Notebook.get_styleshet_changes (previous_path);
+            CSS = CSS + ENotes.settings.render_stylesheet + NotebookTable.get_instance ().get_css_from_page (previous_page.id);
         }
     }
 
     public new void reload () {
         if (previous_page != null) {
+            stderr.printf ("RELOAD \n");
             load_css (previous_page, true);
-            load_page (previous_page);
+            load_page (previous_page, true);
         }
     }
 
     public void load_page (Page page, bool force_load = false) {
         if (ViewEditStack.current_mode == Mode.VIEW || force_load) {
-            debug ("Viewer loading: %s", page.name);
+            if (page.html_cache == "" || force_load) {
+                string markdown;
+                process_frontmatter (page.data, out markdown);
+                load_css (page);
+                page.html_cache = process (markdown);
 
-            previous_page = page;
-
-            string html;
-
-            process_frontmatter (page.get_text (), out html);
-            load_css (page);
-
-            try {
-                FileManager.write_file(temp_file, process (html), true);
-                load_uri (temp_file.get_uri ());
-            } catch (Error e) {
-                load_html ("<h1>Sorry....</h1> <h2>Loading your file failed :(</h2> <br>", null);
+                PageTable.get_instance ().save_cache (page);
             }
-        } else {
-            previous_page = page;
-            load_css (page);
+
+            load_html (page.html_cache, "file:///");
         }
     }
 
     private void connect_signals () {
+        create.connect ((navigation_action)=> {
+            launch_browser (navigation_action.get_request().get_uri ());
+            return null;
+        });
+
+        decide_policy.connect ((decision, type) => {
+            switch (type) {
+                case WebKit.PolicyDecisionType.NEW_WINDOW_ACTION:
+                    if (decision is WebKit.ResponsePolicyDecision) {
+                        launch_browser ((decision as WebKit.ResponsePolicyDecision).request.get_uri ());
+                    }
+                break;
+                case WebKit.PolicyDecisionType.RESPONSE:
+                    stderr.printf ("Decide response\n");
+                    if (decision is WebKit.ResponsePolicyDecision) {
+                        var policy = (WebKit.ResponsePolicyDecision) decision;                        
+                        launch_browser (policy.request.get_uri ());
+                        return false;
+                    }
+                break;
+            }
+
+            return true;
+        });
+
         load_changed.connect ((event) => {
             if (event == WebKit.LoadEvent.FINISHED) {
                 var rectangle = get_window_properties ().get_geometry ();
                 set_size_request (rectangle.width, rectangle.height);
             }
         });
+    }
+
+    private void launch_browser (string url) {
+        if (!url.contains ("/embed/")) {
+            try {
+                AppInfo.launch_default_for_uri (url, null);
+            } catch (Error e) {
+                warning ("No app to handle urls: %s", e.message);
+            }
+            stop_loading ();
+        }
     }
 
     private string[] process_frontmatter (string raw_mk, out string processed_mk) {
@@ -125,6 +153,7 @@ public class ENotes.Viewer : WebKit.WebView {
             int next_newline;
             string line = "";
             while (true) {
+
                 next_newline = raw_mk.index_of_char('\n', last_newline + 1);
                 if (next_newline == -1) { // End of file
                     valid_frontmatter = false;
@@ -175,9 +204,29 @@ public class ENotes.Viewer : WebKit.WebView {
         string html = "<!doctype html><meta charset=utf-8><head>";
         html += "<style>"+ CSS +"</style>";
         html += "</head><body><div class=\"markdown-body\">";
-        html += result;
+        html += process_plugins (result);
         html += "</div></body></html>";
 
         return html;
+    }
+    private string process_plugins (string raw_mk) {
+        var lines = raw_mk.split ("\n");
+        string build = "";
+        foreach (var line in lines) {
+            bool found = false;
+            foreach (var plugin in PluginManager.get_instance ().get_plugs ()) {
+                if (plugin.has_match (line)) {
+                    build = build + plugin.convert (line) + "\n";
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                build = build + line + "\n";
+            }
+        }
+
+        return build;
     }
 }

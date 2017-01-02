@@ -38,6 +38,8 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
     public  Gtk.Revealer search_entry_revealer;
     public  Gtk.Revealer search_button_revealer;
 
+    public Gtk.GestureSwipe gesture;
+
     private bool search_visible = false;
 
     public static Headerbar get_instance () {
@@ -109,6 +111,8 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         menu.add (item_export);
         menu.add (item_preff);
 
+#if REMOVE_ELEMENTARY_FEATURES
+#else
         var separator = new Gtk.SeparatorMenuItem ();
         menu.add (separator);
 
@@ -129,6 +133,7 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
                 }
             });
         }
+#endif
 
         menu_button = new Granite.Widgets.AppMenu (menu);
     }
