@@ -20,14 +20,10 @@
 */
 
 public class ENotes.FileManager : Object {
-    private static Gee.HashMap<string, Settings> notebook_settings_cache = new Gee.HashMap<string, Settings> ();
+    private static Gee.HashMap<string, Settings> notebook_settings_cache;
 
     public static ENotes.Notebook current_notebook;
     public static ENotes.Page current_page { get; private set; }
-
-    private FileManager () {
-
-    }
 
     // Initial import for previous owners of the app
     public static void import_files () {
@@ -250,6 +246,11 @@ public class ENotes.FileManager : Object {
 
     public static Settings get_settings (string notebook_path, string CHILD_SCHEMA_ID, string CHILD_PATH) {
         var notebook_id = notebook_path.replace (NOTES_DIR, "").replace ("/", "") + "/";
+
+        if (notebook_settings_cache == null) {
+            notebook_settings_cache = new Gee.HashMap<string, Settings> ();
+        }
+
         Settings? notebook_settings = notebook_settings_cache.get (notebook_id);
 
         if (notebook_settings == null) {

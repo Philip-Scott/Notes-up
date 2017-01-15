@@ -211,7 +211,5 @@ public class ENotes.Window : Gtk.ApplicationWindow {
     public void show_app () {
         show ();
         present ();
-
-        set_focus (editor);
     }
 }

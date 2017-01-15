@@ -99,7 +99,8 @@ public class ENotes.ViewEditStack : Gtk.Overlay {
     }
 
     public void show_view () {
-        if (current_mode == ENotes.Mode.VIEW) return;
+        if (current_mode == ENotes.Mode.VIEW || current_page == null) return;
+
         editor.save_file ();
         current_mode = ENotes.Mode.VIEW;
         viewer.load_page (current_page, true);
