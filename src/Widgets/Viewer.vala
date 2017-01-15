@@ -74,7 +74,6 @@ public class ENotes.Viewer : WebKit.WebView {
 
     public new void reload () {
         if (previous_page != null) {
-            stderr.printf ("RELOAD \n");
             load_css (previous_page, true);
             load_page (previous_page, true);
         }
@@ -109,7 +108,6 @@ public class ENotes.Viewer : WebKit.WebView {
                     }
                 break;
                 case WebKit.PolicyDecisionType.RESPONSE:
-                    stderr.printf ("Decide response\n");
                     if (decision is WebKit.ResponsePolicyDecision) {
                         var policy = (WebKit.ResponsePolicyDecision) decision;                        
                         launch_browser (policy.request.get_uri ());
