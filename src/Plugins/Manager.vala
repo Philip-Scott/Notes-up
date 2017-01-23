@@ -41,6 +41,7 @@ public class ENotes.PluginManager : GLib.Object {
         // TODO: Load dynamically from plugins directory        
         plug_list += new Color ();
         plug_list += new Youtube ();
+        plug_list += new Break ();
     }
     
     public List<Plugin> get_plugs () {
