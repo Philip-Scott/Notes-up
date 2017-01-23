@@ -52,7 +52,7 @@ public class ENotes.Break : ENotes.Plugin {
     }
 
     public override string get_button_desctiption () {
-        return _("Page break when exporting to PDF: <break>");
+        return _("Page break on export: <break>");
     }
 
     public override bool has_match (string text) {
