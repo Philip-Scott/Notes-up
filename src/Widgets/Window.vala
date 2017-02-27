@@ -164,6 +164,7 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         if (settings.last_notebook != 0) {
             var notebook = NotebookTable.get_instance ().load_notebook_data (settings.last_notebook);
             PagesList.get_instance ().load_pages (notebook);
+            Sidebar.get_instance ().select_notebook (notebook.id);
         }
 
         if (settings.last_page != 0) {
