@@ -83,6 +83,12 @@ public class ENotes.ViewEditStack : Gtk.Overlay {
 
         bookmark_button.set_page (current_page);
         page_set (current_page);
+
+        if (page.name == _("New Page") && page.data == "") {
+            show_edit ();
+        }
+
+        editor.set_sensitive (!Trash.get_instance ().is_page_trashed (page));
     }
 
     public ENotes.Page? get_page () {
