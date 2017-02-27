@@ -199,18 +199,18 @@ public class ENotes.NotebookTable : DatabaseTable {
         return stmt.column_text (0);
     }
 
-    public void delete_notebook (Notebook notebook) {
+    public void delete_notebook (int64 id) {
         var stmt = create_stmt ("UPDATE Notebook SET parent_id = 0 WHERE parent_id = ?");
-        bind_int (stmt, 1, notebook.id);
+        bind_int (stmt, 1, id);
         stmt.step ();
 
         stmt = create_stmt ("DELETE FROM Page WHERE notebook_id = ?");
-        bind_int (stmt, 1, notebook.id);
+        bind_int (stmt, 1, id);
 
         stmt.step ();
 
         stmt = create_stmt ("DELETE FROM Notebook WHERE id = ?");
-        bind_int (stmt, 1, notebook.id);
+        bind_int (stmt, 1, id);
 
         stmt.step ();
     }

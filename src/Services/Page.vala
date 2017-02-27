@@ -180,9 +180,9 @@ public class ENotes.PageTable : DatabaseTable {
         return pages;
     }
 
-    public void delete_page (Page page) {
+    public void delete_page (int64 id) {
         var stmt = create_stmt ("DELETE FROM Page WHERE id = ?");
-        bind_int (stmt, 1, page.id);
+        bind_int (stmt, 1, id);
 
         stmt.step ();
     }

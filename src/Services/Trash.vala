@@ -27,12 +27,12 @@ public class ENotes.Trash : Object {
 
     private static Trash? instance = null;
 
-    private Gee.HashMap<int, Page> pages;
-    private Gee.HashMap<int, Notebook> notebooks;
+    private Gee.HashSet<int> pages;
+    private Gee.HashSet<int> notebooks;
 
     private Trash () {
-        pages = new Gee.HashMap<int, Page>();
-        notebooks = new Gee.HashMap<int, Notebook>();
+        pages = new Gee.HashSet<int>();
+        notebooks = new Gee.HashSet<int>();
     }
 
     public static Trash get_instance () {
@@ -45,46 +45,44 @@ public class ENotes.Trash : Object {
 
     public void trash_page (ENotes.Page page) {
         if (!is_page_trashed (page)) {
-            pages.@set ((int) page.id, page);
+            pages.add ((int) page.id);
             page_added (page);
         }
     }
 
     public void trash_notebook (ENotes.Notebook notebook) {
         if (!is_notebook_trashed (notebook)) {
-            notebooks.@set ((int) notebook.id, notebook);
+            notebooks.add ((int) notebook.id);
             notebook_added (notebook);
         }
     }
 
     public void restore_page (ENotes.Page page) {
-        pages.unset ((int) page.id);
+        pages.remove ((int) page.id);
         page_removed (page);
     }
 
     public void restore_notebook (ENotes.Notebook notebook) {
-        notebooks.unset ((int) notebook.id);
+        notebooks.remove ((int) notebook.id);
         notebook_removed (notebook);
     }
 
     public bool is_page_trashed (ENotes.Page to_check) {
-        return pages.has_key ((int) to_check.id);
+        return pages.contains ((int) to_check.id);
     }
 
     public bool is_notebook_trashed (ENotes.Notebook to_check) {
-        return notebooks.has_key ((int) to_check.id);
+        return notebooks.contains ((int) to_check.id);
     }
 
     public void clear_files () {
-        notebooks.@foreach ((notebook) => {
-            NotebookTable.get_instance ().delete_notebook (notebook.value);
-            return false;
-        });
+        foreach (var id in notebooks) {
+            NotebookTable.get_instance ().delete_notebook (id);
+        }
 
-        pages.@foreach ((page) => {
-            PageTable.get_instance ().delete_page (page.value);
-            return false;
-        });
+        foreach (var id in pages) {
+            PageTable.get_instance ().delete_page (id);
+        }
     }
 }
 
