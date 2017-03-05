@@ -1,0 +1,18 @@
+build/
+
+# Ignore config.vala as it is generated with cmake
+src/config.vala
+
+# Ignore generated files of discount
+deps/discount/*.o
+deps/discount/Makefile
+deps/discount/blocktags
+deps/discount/config.*
+deps/discount/libmarkdown*
+deps/discount/librarian.sh
+deps/discount/markdown
+deps/discount/mkdio.h
+deps/discount/mktags
+deps/discount/src/
+deps/discount/tmp/
+deps/discount/version.c
