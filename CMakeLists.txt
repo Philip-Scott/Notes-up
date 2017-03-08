@@ -158,6 +158,7 @@ vala_precompile(VALA_C
   src/Plugins/Break.vala
   src/Plugins/Color.vala
   src/Plugins/Youtube.vala
+  src/Plugins/Math.vala
   src/config.vala
 PACKAGES
   ${VALA_DEPS}
