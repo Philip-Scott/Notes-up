@@ -100,7 +100,7 @@ public class ENotes.ViewEditStack : Gtk.Overlay {
         current_mode = ENotes.Mode.EDIT;
         Headerbar.get_instance ().set_mode (ENotes.Mode.EDIT);
         stack.set_visible_child_name ("editor");
-        if ( ! settings.keep_sidebar_visible)
+        if (!settings.keep_sidebar_visible)
         {
             Sidebar.get_instance().visible = false;
         }
