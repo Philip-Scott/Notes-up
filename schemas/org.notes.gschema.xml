@@ -119,7 +119,6 @@
 			<summary>Stylesheet modifications for renderer to use</summary>
 			<description>This data is the actual CSS the renderer will use</description>
 		</key>
-	  	<child name="notebooks" schema="org.notes.notebook_data.notebook" />
 	</schema>
 
 		<schema path="/org/notes/plugin_data/" id="org.notes.plugin_data" gettext-domain="notes">
