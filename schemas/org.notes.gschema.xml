@@ -73,6 +73,12 @@
 			<description>toggles the editor's automatic indentation</description>
 		</key>
 
+		<key name="keep-sidebar-visible" type="b">
+			<default>false</default>
+			<summary>Keep Sidebar visible</summary>
+			<description>Toggles the sidebar to keep it visible when switching between VIEW and EDIT modes.</description>
+		</key>
+
 		<key name="line-numbers" type="b">
 			<default>false</default>
 			<summary>Automatic Indentation</summary>
