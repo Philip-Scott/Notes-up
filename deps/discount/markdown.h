@@ -1,6 +1,7 @@
 #ifndef _MARKDOWN_D
 #define _MARKDOWN_D
 
+#include "config.h"
 #include "cstring.h"
 
 /* reference-style links (and images) are stored in an array
@@ -49,7 +50,7 @@ typedef struct paragraph {
     struct paragraph *down;	/* recompiled contents of this paragraph */
     struct line *text;		/* all the text in this paragraph */
     char *ident;		/* %id% tag for QUOTE */
-    char *lang;         /* lang attribute for CODE */
+    char *lang;			/* lang attribute for CODE */
     enum { WHITESPACE=0, CODE, QUOTE, MARKUP,
 	   HTML, STYLE, DL, UL, OL, AL, LISTITEM,
 	   HDR, HR, TABLE, SOURCE } typ;
@@ -136,14 +137,15 @@ typedef struct mmiot {
 #define MKD_GITHUBTAGS	0x08000000
 #define MKD_URLENCODEDANCHOR 0x10000000
 #define IS_LABEL	0x20000000
-#define USER_FLAGS	0x3FFFFFFF
+#define MKD_LATEX	0x40000000
+#define USER_FLAGS	0x7FFFFFFF
 #define INPUT_MASK	(MKD_NOHEADER|MKD_TABSTOP)
 
     Callback_data *cb;
 } MMIOT;
 
 
-#define MKD_EOLN	3
+#define MKD_EOLN	'\r'
 
 
 /*
