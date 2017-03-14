@@ -34,6 +34,7 @@ public class ENotes.Services.Settings : Granite.Services.Settings {
     public bool auto_indent {get; set;}
     public bool line_numbers {get; set;}
     public bool import_files {get; set;}
+    public bool keep_sidebar_visible { get; set; }
 
     public string notes_location { get; set; }
     public string notes_database { get; set; }
