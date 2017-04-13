@@ -1,4 +1,4 @@
-Source: notes-up
+Source: com.github.philip-scott.notes-up
 Section: editors
 Priority: optional
 Maintainer: Felipe Escoto <felescoto95@hotmail.com>
@@ -13,7 +13,7 @@ Build-Depends: cmake,
 Standards-Version: 3.9.6
 Homepage: https://github.com/Philip-Scott/Notes-up
 
-Package: notes-up
+Package: com.github.philip-scott.notes-up
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Pre-Depends: dpkg (>= 1.15.6)
