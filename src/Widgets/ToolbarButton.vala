@@ -86,7 +86,6 @@ public class ENotes.ToolbarButton : Gtk.Button {
                 } else {
                     code_buffer.@delete (ref start, ref end);
                     code_buffer.insert_at_cursor (first_half + text + second_half, -1);
-                    code_buffer.insert_at_cursor (text, -1);
                 }
             } else {
                 if (this.type == 1) {
