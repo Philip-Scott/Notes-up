@@ -181,6 +181,8 @@ public class ENotes.PageTable : DatabaseTable {
     }
 
     public void delete_page (int64 id) {
+        ImageTable.get_instance ().delete_all_from_page (id);
+
         var stmt = create_stmt ("DELETE FROM Page WHERE id = ?");
         bind_int (stmt, 1, id);
 

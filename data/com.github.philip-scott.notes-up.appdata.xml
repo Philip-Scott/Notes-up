@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2017 Felipe Escoto (https://github.com/Philip-Scott/Notes-up) -->
+<component type="desktop">
+  <id>com.github.philip-scott.notes-up.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0+</project_license>
+  <name>Notes-Up</name>
+  <summary>Your New Notebook</summary>
+   <description>
+     <p>Write beautiful notes fast and easy using Markdown</p>
+     <p>Features include:</p>
+     <ul>
+       <li>Multiple notebook support</li>
+       <li>Easy-to-use markdown editor</li>
+       <li>Exporting to PDF</li>
+       <li>Plugins: such as embedding Youtube videos</li>
+       <li>And much more!</li>
+     </ul>
+    </description>
+  <provides>
+    <binary>notes-up</binary>
+  </provides>
+  <releases>
+  </releases>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/Philip-Scott/Notes-up/master/Screenshot.png</image>
+    </screenshot>
+  </screenshots>
+  <developer_name>Felipe Escoto.</developer_name>
+  <url type="homepage">https://github.com/Philip-Scott</url>
+  <url type="bugtracker">https://github.com/Philip-Scott/Notes-up/issues</url>
+  <url type="help">https://github.com/Philip-Scott/Notes-up/issues</url>
+  <update_contact>felescoto95@hotmail.com</update_contact>
+  <custom>
+    <value key="x-appcenter-color-primary">#D0F3FF</value>
+    <value key="x-appcenter-color-primary-text">#004B66</value>
+  </custom>
+</component>

@@ -148,6 +148,7 @@ vala_precompile(VALA_C
   src/Services/Bookmark.vala
   src/Services/FileManager.vala
   src/Services/Notebook.vala
+  src/Services/Image.vala
   src/Services/Page.vala
   src/Services/Settings.vala
   src/Services/Trash.vala
@@ -158,6 +159,8 @@ vala_precompile(VALA_C
   src/Plugins/Break.vala
   src/Plugins/Color.vala
   src/Plugins/Youtube.vala
+  src/Plugins/Image.vala
+  src/Plugins/Highlight.vala
   src/config.vala
 PACKAGES
   ${VALA_DEPS}
@@ -177,14 +180,14 @@ add_dependencies(notes-up
 install(TARGETS notes-up RUNTIME
   DESTINATION bin)
 
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/Notes.desktop
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/com.github.philip-scott.notes-up.desktop
   DESTINATION ${DATADIR}/applications/)
 
 #install assets
-file(GLOB assets "${CMAKE_CURRENT_SOURCE_DIR}/data/assets/*")
+file(GLOB assets "${CMAKE_CURRENT_SOURCE_DIR}/data/assets/**")
 install (FILES ${assets}
   DESTINATION ${DATADIR}/notes-up/)
-install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/data/notes.svg"
+install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/data/com.github.philip-scott.notes-up.svg"
   DESTINATION ${DATADIR}/pixmaps/)
 
 # App DATA
