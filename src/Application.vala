@@ -36,7 +36,7 @@ public enum ENotes.Key {
             case CHANGE_MODE:   return _("<Ctrl>M");
             case SAVE:          return _("<Ctrl>S");
             case QUIT:          return _("<Ctrl>Q");
-            case NEW_PAGE:      return _("<Ctrl>N");
+            case NEW_PAGE:      return _("<Ctrl><Shift>N");
             case FIND:          return _("<Ctrl>F");
             case BOOKMARK:      return _("<Ctrl>K");
             case BOLD:          return _("<Ctrl>B");
