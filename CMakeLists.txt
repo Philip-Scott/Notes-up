@@ -148,6 +148,7 @@ vala_precompile(VALA_C
   src/Services/Bookmark.vala
   src/Services/FileManager.vala
   src/Services/Notebook.vala
+  src/Services/Image.vala
   src/Services/Page.vala
   src/Services/Settings.vala
   src/Services/Trash.vala
@@ -158,6 +159,7 @@ vala_precompile(VALA_C
   src/Plugins/Break.vala
   src/Plugins/Color.vala
   src/Plugins/Youtube.vala
+  src/Plugins/Image.vala
   src/config.vala
 PACKAGES
   ${VALA_DEPS}

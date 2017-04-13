@@ -23,7 +23,7 @@
 public class ENotes.ToolbarButton : Gtk.Button {
     private Gtk.SourceBuffer code_buffer;
     private Plugin plugin;
-    
+
     private int type = 0; // 1 = Image Button, 2 = Plugin Button
 
     private string first_half;
@@ -33,24 +33,24 @@ public class ENotes.ToolbarButton : Gtk.Button {
         can_focus = false;
         get_style_context ().add_class ("flat");
     }
-    
+
     public ToolbarButton (string icon, string first_half, string second_half, string description = "", Gtk.SourceBuffer code_buffer) {
         var image = new Gtk.Image.from_icon_name (icon, Gtk.IconSize.SMALL_TOOLBAR);
         this.add (image);
-        
+
         this.code_buffer = code_buffer;
         this.first_half = first_half;
         this.second_half = second_half;
-        
+
         set_tooltip_text (description);
-        
+
         connect_signal ();
     }
-    
+
     public ToolbarButton.is_image_button (string icon, string first_half, string second_half, string description = "", Gtk.SourceBuffer code_buffer) {
         this (icon, first_half, second_half, description, code_buffer);
         type = 1;
-    } 
+    }
 
     public ToolbarButton.from_plugin (Plugin plugin, Gtk.Widget widget, Gtk.SourceBuffer code_buffer) {
         this.plugin = plugin;
@@ -59,7 +59,7 @@ public class ENotes.ToolbarButton : Gtk.Button {
         set_tooltip_text (plugin.get_button_desctiption ());
 
         type = 2;
-        
+
         connect_signal ();
         plugin.string_cooked.connect ((t) => {
             if (code_buffer.has_selection) {
@@ -73,7 +73,7 @@ public class ENotes.ToolbarButton : Gtk.Button {
         });
     }
 
-    private void connect_signal () {           
+    private void connect_signal () {
         clicked.connect (() => {
             Gtk.TextIter start, end;
             code_buffer.get_selection_bounds (out start, out end);
@@ -86,23 +86,26 @@ public class ENotes.ToolbarButton : Gtk.Button {
                 } else {
                     code_buffer.@delete (ref start, ref end);
                     code_buffer.insert_at_cursor (first_half + text + second_half, -1);
+                    code_buffer.insert_at_cursor (text, -1);
                 }
             } else {
                 if (this.type == 1) {
                     var file = FileManager.get_file_from_user (false);
-        
+
                     if (file != null) {
-                        code_buffer.insert (ref end, first_half + file.get_path () + second_half , -1);
+                        var image_id = ImageTable.get_instance ().save (ViewEditStack.get_instance ().current_page.id, file);
+
+                        code_buffer.insert (ref end, "<image %lld>".printf (image_id), -1);
                         code_buffer.place_cursor (end);
                     }
                 } else if (type == 2) {
                     plugin.request_string ("");
                 } else {
                     code_buffer.insert_at_cursor (first_half, -1);
-    
+
                     code_buffer.get_selection_bounds (out start, out end);
                     code_buffer.insert (ref end, second_half , -1);
-    
+
                     code_buffer.place_cursor (start);
                 }
             }

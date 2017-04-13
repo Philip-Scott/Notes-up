@@ -42,6 +42,7 @@ public class ENotes.PluginManager : GLib.Object {
         plug_list += new Color ();
         plug_list += new Youtube ();
         plug_list += new Break ();
+        plug_list += new ImagePlugin ();
     }
     
     public List<Plugin> get_plugs () {
