@@ -8,6 +8,7 @@ BINDIR=@exedir@
 MANDIR=@mandir@
 LIBDIR=@libdir@
 INCDIR=@prefix@/include
+@MK_PKGCONFIG@PKGDIR=$(LIBDIR)/pkgconfig
 
 PGMS=markdown
 SAMPLE_PGMS=mkd2html makepage
@@ -23,10 +24,13 @@ MAN3PAGES=mkd-callbacks.3 mkd-functions.3 markdown.3 mkd-line.3
 
 all: $(PGMS) $(SAMPLE_PGMS) $(TESTFRAMEWORK)
 
-install: $(PGMS) $(DESTDIR)$(BINDIR) $(DESTDIR)$(LIBDIR) $(DESTDIR)$(INCDIR)
+install: $(PGMS) $(DESTDIR)$(BINDIR) $(DESTDIR)$(LIBDIR) $(DESTDIR)$(INCDIR) $(DESTDIR)$(PKGDIR)
 	@INSTALL_PROGRAM@ $(PGMS) $(DESTDIR)$(BINDIR)
 	./librarian.sh install libmarkdown VERSION $(DESTDIR)$(LIBDIR)
 	@INSTALL_DATA@ mkdio.h $(DESTDIR)$(INCDIR)
+
+@MK_PKGCONFIG@$(DESTDIR)$(PKGDIR)/$(MKDLIB).pc: $(MKDLIB).pc $(DESTDIR)$(PKGDIR)
+@MK_PKGCONFIG@	@INSTALL_DATA@ $(MKDLIB).pc $(DESTDIR)$(PKGDIR)
 
 install.everything: install install.samples install.man
 
@@ -65,13 +69,16 @@ $(DESTDIR)$(INCDIR):
 $(DESTDIR)$(LIBDIR):
 	@INSTALL_DIR@ $(DESTDIR)$(LIBDIR)
 
+@MK_PKGCONFIG@$(DESTDIR)$(PKGDIR):
+@MK_PKGCONFIG@	@INSTALL_DIR@ $(DESTDIR)$(PKGDIR)
+
 version.o: version.c VERSION
 	$(CC) $(CFLAGS) -DVERSION=\"`cat VERSION`\" -c version.c
 
 VERSION:
 	@true
 
-tags.o: tags.c blocktags
+tags.o: tags.c cstring.h tags.h blocktags
 
 blocktags: mktags
 	./mktags > blocktags
@@ -139,3 +146,5 @@ toc.o: toc.c config.h cstring.h amalloc.h markdown.h
 version.o: version.c config.h
 xml.o: xml.c config.h cstring.h amalloc.h markdown.h
 xmlpage.o: xmlpage.c config.h cstring.h amalloc.h markdown.h
+setup.o: setup.c config.h cstring.h amalloc.h markdown.h
+github_flavoured.o: github_flavoured.c config.h cstring.h amalloc.h markdown.h
