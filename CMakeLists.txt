@@ -160,6 +160,7 @@ vala_precompile(VALA_C
   src/Plugins/Color.vala
   src/Plugins/Youtube.vala
   src/Plugins/Image.vala
+  src/Plugins/Highlight.vala
   src/config.vala
 PACKAGES
   ${VALA_DEPS}
@@ -183,7 +184,7 @@ install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/com.github.philip-scott.notes-up.
   DESTINATION ${DATADIR}/applications/)
 
 #install assets
-file(GLOB assets "${CMAKE_CURRENT_SOURCE_DIR}/data/assets/*")
+file(GLOB assets "${CMAKE_CURRENT_SOURCE_DIR}/data/assets/**")
 install (FILES ${assets}
   DESTINATION ${DATADIR}/notes-up/)
 install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/data/com.github.philip-scott.notes-up.svg"
