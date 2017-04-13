@@ -179,14 +179,14 @@ add_dependencies(notes-up
 install(TARGETS notes-up RUNTIME
   DESTINATION bin)
 
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/Notes.desktop
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/com.github.philip-scott.notes-up.desktop
   DESTINATION ${DATADIR}/applications/)
 
 #install assets
 file(GLOB assets "${CMAKE_CURRENT_SOURCE_DIR}/data/assets/*")
 install (FILES ${assets}
   DESTINATION ${DATADIR}/notes-up/)
-install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/data/notes.svg"
+install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/data/com.github.philip-scott.notes-up.svg"
   DESTINATION ${DATADIR}/pixmaps/)
 
 # App DATA
