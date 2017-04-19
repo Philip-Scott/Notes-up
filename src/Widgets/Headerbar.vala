@@ -28,7 +28,8 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
 
     private ENotes.BookmarkButton bookmark_button;
     private Granite.Widgets.ModeButton mode_button;
-    private Granite.Widgets.AppMenu menu_button;
+    private Gtk.MenuButton menu_button;
+    private Gtk.Menu menu;
     private Gtk.MenuItem item_new;
     private Gtk.MenuItem item_preff;
     private Gtk.MenuItem item_export;
@@ -103,7 +104,7 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
     }
 
     private void create_menu () {
-        var menu = new Gtk.Menu ();
+        menu = new Gtk.Menu ();
         item_new   = new Gtk.MenuItem.with_label (_("New Notebook"));
         item_preff = new Gtk.MenuItem.with_label (_("Preferences"));
         item_export = new Gtk.MenuItem.with_label (_("Export to PDF"));
@@ -135,7 +136,10 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         }
 #endif
 
-        menu_button = new Granite.Widgets.AppMenu (menu);
+        menu_button = new Gtk.MenuButton ();
+        menu_button.set_popup (menu);
+        menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu", Gtk.IconSize.LARGE_TOOLBAR));
+        menu.show_all ();
     }
 
     public void set_mode (ENotes.Mode mode) {
