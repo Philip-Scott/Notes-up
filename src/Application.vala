@@ -74,7 +74,9 @@ public class ENotes.Application : Gtk.Application {
             settings = ENotes.Services.Settings.get_instance ();
 
             if (settings.notes_database == "") { // Init databases
-                settings.notes_database = GLib.Environment.get_home_dir () + "/.local/NotesUp.db";
+                var notes_dir = GLib.Environment.get_home_dir () + "/.local/share/notes-up/";
+                DirUtils.create_with_parents (notes_dir, 0766);
+                settings.notes_database = notes_dir + "NotesUp.db";
             }
 
             ENotes.NOTES_DIR = settings.notes_location;
