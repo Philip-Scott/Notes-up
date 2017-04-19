@@ -59,7 +59,7 @@ namespace ENotes {
 }
 
 public class ENotes.Application : Gtk.Application {
-    public const string PROGRAM_NAME = N_("Notes-up");
+    public const string PROGRAM_NAME = N_("Notes-Up");
     public const string COMMENT = N_("Your Markdown Notebook.");
     public const string ABOUT_STOCK = N_("About Notes");
 

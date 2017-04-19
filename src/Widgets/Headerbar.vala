@@ -148,9 +148,9 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
 
     public new void set_title (string? title) {
         if (title != null) {
-            this.title = title + " - Notes-up";
+            this.title = title + " - Notes-Up";
         } else {
-            this.title = "Notes-up";
+            this.title = "Notes-Up";
         }
     }
 

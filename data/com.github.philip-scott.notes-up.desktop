@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=Notes
+Name=Notes-Up
 Comment=Your markdown notebook
 Exec=/usr/bin/notes-up
 Icon=com.github.philip-scott.notes-up
