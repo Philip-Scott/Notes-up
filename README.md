@@ -12,17 +12,14 @@ As a computer engineer, I've been writing my school notes using just a text edit
 
 ![screenshot](https://github.com/Philip-Scott/Notes-up/blob/master/Screenshot.png?raw=true)
 
-## Now in 1.3!
+## New in 1.3.1!
 
-- Notes-Up is now faster than ever! It now uses a database as its backend and saves the preview for quickly loading
-- You can now rename your bookmarks! Double-click on them to rename them
-- Plugins! There are currently 3 plugins installed by default, and with many more to come in the future.
-	- **Color**: You can now easily change the text color! Select it and click the new color button right from the toolbar or by typing ` <color rgb(164,0,0) [your text here]> `
-	- **Youtube**: By typing `<youtube [your video URL]>`, you can now embed youtube videos right into your notes!
-	- **Break**: Exporting to PDF is sometimes a pain... Now by typing `<break>` or clicking it’s new button on the editor you will be able to easily add page breaks on your exports!
-- Fixed: Sometimes the app would show a raw html document. It shouldn't do that anymore!
-- Fixed: Editing and adding a notebook used to restart the whole sidebar, it also doesn't do that anymore!
-- Fixed: Links are now passed to your web browser.
+- You can now keep your notebook list open while editing. Available right from the settings!
+- Plugins! One more plugin has been added to the family!
+	- **Highlight**: By using it just once in your document, you'll enable syntax highlighting! Just type  ` <highlight>` and your code blocks will be given some style! You just need to add the language you're using like ` ```vala `
+- Clicking on the image button on the toolbar without anything selected now embeds the image with your document! Now you don't have to worry about moving files! You can still link images by dragging and dropping them into the editor
+- Changed: the New Page shortcut has been changed from `Ctrl+N` to `Ctrl+Shift+N` to avoid accidentally creating new pages when you didn't want to
+- Preparations for AppCenter! 
 
 You can also view the full [changelog here](changelog.md)
 

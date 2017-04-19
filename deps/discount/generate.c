@@ -50,22 +50,22 @@ pushc(char c, MMIOT *f)
 
 /* look <i> characters ahead of the cursor.
  */
-static inline int
+static inline unsigned int
 peek(MMIOT *f, int i)
 {
 
     i += (f->isp-1);
 
-    return (i >= 0) && (i < S(f->in)) ? T(f->in)[i] : EOF;
+    return (i >= 0) && (i < S(f->in)) ? (unsigned char)T(f->in)[i] : EOF;
 }
 
 
 /* pull a byte from the input buffer
  */
-static inline int
+static inline unsigned int
 pull(MMIOT *f)
 {
-    return ( f->isp < S(f->in) ) ? T(f->in)[f->isp++] : EOF;
+    return ( f->isp < S(f->in) ) ? (unsigned char)T(f->in)[f->isp++] : EOF;
 }
 
 
@@ -852,7 +852,7 @@ code(MMIOT *f, char *s, int length)
     int i,c;
 
     for ( i=0; i < length; i++ )
-	if ( (c = s[i]) == MKD_EOLN)  /* ^C: expand back to 2 spaces */
+	if ( (c = s[i]) == MKD_EOLN)  /* expand back to 2 spaces */
 	    Qstring("  ", f);
 	else if ( c == '\\' && (i < length-1) && escaped(f, s[i+1]) )
 	    cputc(s[++i], f);
@@ -1207,7 +1207,6 @@ smartypants(int c, int *flags, MMIOT *f)
 } /* smartypants */
 
 
-#if WITH_LATEX
 /* process latex with arbitrary 2-character ( $$ .. $$, \[ .. \], \( .. \)
  * delimiters
  */
@@ -1227,7 +1226,6 @@ mathhandler(MMIOT *f, int e1, int e2)
     }
     return 0;
 }
-#endif
 
 
 /* process a body of text encased in some sort of tick marks.   If it
@@ -1410,12 +1408,11 @@ text(MMIOT *f)
 		    case EOF:	Qchar('\\', f);
 				break;
 
-#if WITH_LATEX
 		    case '[':
-		    case '(':   if ( mathhandler(f, '\\', (c =='(')?')':']') )
+		    case '(':   if ( (f->flags & MKD_LATEX)
+				   && mathhandler(f, '\\', (c =='(')?')':']') )
 				    break;
 				/* else fall through to default */
-#endif
 			
 		    default:    if ( escaped(f,c) ||
 				     strchr(">#.-+{}]![*_\\()`", c) )
@@ -1442,15 +1439,13 @@ text(MMIOT *f)
 			Qchar(c, f);
 		    break;
 
-#if WITH_LATEX
-	case '$':   if ( peek(f, 1) == '$' ) {
+	case '$':   if ( (f->flags & MKD_LATEX) && (peek(f, 1) == '$') ) {
 			pull(f);
 			if ( mathhandler(f, '$', '$') )
 			    break;
 			Qchar('$', f);
 		    }
 		    /* fall through to default */
-#endif
 	
 	default:    Qchar(c, f);
 		    break;

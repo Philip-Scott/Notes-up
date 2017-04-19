@@ -1,4 +1,15 @@
-#Changelog: 
+# Changelog: 
+## 1.3
+- Notes-Up is now faster than ever! It now uses a database as its backend and saves the preview for quickly loading
+- You can now rename your bookmarks! Double-click on them to rename them
+- Plugins! There are currently 3 plugins installed by default, and with many more to come in the future.
+	- **Color**: You can now easily change the text color! Select it and click the new color button right from the toolbar or by typing ` <color rgb(164,0,0) [your text here]> `
+	- **Youtube**: By typing `<youtube [your video URL]>`, you can now embed youtube videos right into your notes!
+	- **Break**: Exporting to PDF is sometimes a pain... Now by typing `<break>` or clicking it’s new button on the editor you will be able to easily add page breaks on your exports!
+- Fixed: Sometimes the app would show a raw html document. It shouldn't do that anymore!
+- Fixed: Editing and adding a notebook used to restart the whole sidebar, it also doesn't do that anymore!
+- Fixed: Links are now passed to your web browser.
+
 ## 1.2.1
 
 - Your notes now autosave every minute if there was a change. No more excuses for lost work +Manuel del Valle ;) 

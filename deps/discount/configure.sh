@@ -9,9 +9,8 @@
 #
 ac_help='--enable-amalloc	Enable memory allocation debugging
 --with-tabstops=N	Set tabstops to N characters (default is 4)
---with-latex		Enable latex passthrough
---enable-all-features	Turn on all stable optional features
---shared		Build shared libraries (default is static)'
+--shared		Build shared libraries (default is static)
+--pkg-config		Install pkg-config(1) glue files'
 
 LOCAL_AC_OPTIONS='
 set=`locals $*`;
@@ -28,21 +27,24 @@ locals() {
     --SHARED)
                 echo TRY_SHARED=T
                 ;;
-    --ENABLE-ALL|--ENABLE-ALL-FEATURES)
-		echo WITH_AMALLOC=T
-		;;
     --ENABLE-*)	enable=`echo $K | sed -e 's/--ENABLE-//' | tr '-' '_'`
 		echo WITH_${enable}=T ;;
     --DEBIAN-GLITCH)
 		echo DEBIAN_GLITCH=T
 		;;
+    --PKG-CONFIG)
+		echo PKGCONFIG=true
+		;;
     esac
 }
 
+VERSION=`cat VERSION`
 TARGET=markdown
 . ./configure.inc
 
 AC_INIT $TARGET
+AC_SUB 'PACKAGE_NAME' lib$TARGET
+AC_SUB 'PACKAGE_VERSION' $VERSION
 
 for banned_with in dl fenced-code id-anchor github-tags urlencoded-anchor; do
     banned_with_variable_ref=\$WITH_`echo "$banned_with" | $AC_UPPERCASE | tr - _`
@@ -65,6 +67,7 @@ AC_DEFINE THEME_CF "$THEME_CF"
 test "$DEBIAN_GLITCH" && AC_DEFINE 'DEBIAN_GLITCH' 1
 
 AC_PROG_CC
+AC_CHECK_NORETURN
 
 test "$TRY_SHARED" && AC_COMPILER_PIC && AC_CC_SHLIBS
 
@@ -86,6 +89,17 @@ fi
 
 AC_PROG ar || AC_FAIL "$TARGET requires ar"
 AC_PROG ranlib
+
+# should we create a .pc for pkg-config & GNU automake
+#
+if [ "$PKGCONFIG" ]; then
+    AC_SUB MK_PKGCONFIG ''
+elif AC_PROG pkg-config || AC_PROG automake ; then
+    PKGCONFIG=true
+    AC_SUB MK_PKGCONFIG ''
+else
+    AC_SUB MK_PKGCONFIG '#'
+fi
 
 AC_C_VOLATILE
 AC_C_CONST
@@ -163,6 +177,11 @@ fi
 [ "$OS_FREEBSD" -o "$OS_DRAGONFLY" ] || AC_CHECK_HEADERS malloc.h
 
 [ "$WITH_PANDOC_HEADER" ] && AC_DEFINE 'PANDOC_HEADER' '1'
-[ "$WITH_LATEX" ] && AC_DEFINE 'WITH_LATEX' '1'
 
-AC_OUTPUT Makefile version.c mkdio.h
+GENERATE="Makefile version.c mkdio.h"
+
+if [ "$PKGCONFIG" ]; then
+    GENERATE="$GENERATE libmarkdown.pc"
+fi
+
+AC_OUTPUT $GENERATE

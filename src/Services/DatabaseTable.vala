@@ -80,6 +80,7 @@ public abstract class DatabaseTable {
 
                 if (!existed) {
                     ENotes.PageTable.get_instance ();
+                    ENotes.ImageTable.get_instance ();
                     ENotes.NotebookTable.get_instance ();
                     ENotes.BookmarkTable.get_instance ();
                 }

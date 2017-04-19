@@ -1,4 +1,4 @@
-Source: notes-up
+Source: com.github.philip-scott.notes-up
 Section: editors
 Priority: optional
 Maintainer: Felipe Escoto <felescoto95@hotmail.com>
@@ -9,11 +9,10 @@ Build-Depends: cmake,
                libgtk-3-dev,
                valac (>= 0.26),
                libgranite-dev,
-               libgtksourceview-3.0-dev (>= 3.10),
-Standards-Version: 3.9.6
-Homepage: https://github.com/Philip-Scott/Notes-up
+               libgtksourceview-3.0-dev (>= 3.10)
 
-Package: notes-up
+Standards-Version: 3.9.6
+Package: com.github.philip-scott.notes-up
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Pre-Depends: dpkg (>= 1.15.6)

@@ -1,10 +1,9 @@
 [Desktop Entry]
-Encoding=UTF-8
 Name=Notes
 Comment=Your markdown notebook
 Exec=/usr/bin/notes-up
-Icon=notes
+Icon=com.github.philip-scott.notes-up
 Terminal=false
 Type=Application
 StartupNotify=true
-Categories=Office
+Categories=Office;
