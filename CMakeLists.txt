@@ -180,6 +180,9 @@ add_dependencies(notes-up
 install(TARGETS notes-up RUNTIME
   DESTINATION bin)
 
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/com.github.philip-scott.notes-up.appdata.xml
+  DESTINATION ${DATADIR}/metainfo/)
+
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/com.github.philip-scott.notes-up.desktop
   DESTINATION ${DATADIR}/applications/)
 
