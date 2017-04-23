@@ -1,3 +1,4 @@
+
 # Notes Up
 ## Your New Notebook
 
@@ -14,6 +15,7 @@ As a computer engineer, I've been writing my school notes using just a text edit
 
 ## New in 1.3.1!
 
+- A help section has been added to the editing view. Simply click on the question mark on the top-right and you'll see a list with the markdown format! (Try clicking on the code)
 - You can now keep your notebook list open while editing. Available right from the settings!
 - Plugins! One more plugin has been added to the family!
 	- **Highlight**: By using it just once in your document, you'll enable syntax highlighting! Just type  ` <highlight>` and your code blocks will be given some style! You just need to add the language you're using like ` ```vala `
