@@ -16,3 +16,5 @@ deps/discount/mktags
 deps/discount/src/
 deps/discount/tmp/
 deps/discount/version.c
+
+*~

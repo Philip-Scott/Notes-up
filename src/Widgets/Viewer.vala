@@ -26,7 +26,6 @@ public class ENotes.Viewer : WebKit.WebView {
 
     public string CSS;
     private Page? previous_page = null;
-    private File temp_file;
 
     public static Viewer get_instance () {
         if (instance == null) {
@@ -37,9 +36,6 @@ public class ENotes.Viewer : WebKit.WebView {
     }
 
     private Viewer () {
-        string file = "/tmp/notes-up-render-" + GLib.Environment.get_user_name ();
-        temp_file = File.new_for_path (file);
-
         connect_signals ();
     }
 

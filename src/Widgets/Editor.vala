@@ -24,6 +24,8 @@ public class ENotes.Editor : Gtk.Box {
 
     private Gtk.SourceView code_view;
     private Gtk.SourceBuffer code_buffer;
+    private Gtk.Box editor_and_help;
+    private ENotes.HelpBox? help = null;
 
     private bool edited = false;
 
@@ -91,10 +93,13 @@ public class ENotes.Editor : Gtk.Box {
         var scroll_box = new Gtk.ScrolledWindow (null, null);
         scroll_box.add (code_view);
 
+        editor_and_help = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        editor_and_help.add (scroll_box);
+
         this.set_orientation (Gtk.Orientation.VERTICAL);
         this.add (build_toolbar ());
         this.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
-        this.add (scroll_box);
+        this.add (editor_and_help);
         this.set_sensitive (false);
         scroll_box.expand = true;
         this.show_all ();
@@ -105,7 +110,7 @@ public class ENotes.Editor : Gtk.Box {
 
         bold_button = new ENotes.ToolbarButton ("format-text-bold", "**", "**", _("Add bold to text") + Key.BOLD.to_string (), code_buffer);
         italics_button = new ENotes.ToolbarButton ("format-text-italic", "_", "_", _("Add italic to text") + Key.ITALICS.to_string (), code_buffer);
-        strike_button = new ENotes.ToolbarButton ("format-text-strikethrough", "~~~", "~~~", _("Strikethrough text") + Key.STRIKE.to_string (), code_buffer);
+        strike_button = new ENotes.ToolbarButton ("format-text-strikethrough", "~~", "~~", _("Strikethrough text") + Key.STRIKE.to_string (), code_buffer);
 
         var quote_button = new ENotes.ToolbarButton ("format-indent-less-rtl", "> ", "", _("Insert a quote"), code_buffer);
         var code_button = new ENotes.ToolbarButton ("system-run", "`", "`", _("Insert code"), code_buffer);
@@ -147,6 +152,31 @@ public class ENotes.Editor : Gtk.Box {
                 box.add (new ENotes.ToolbarButton.from_plugin (plugin, widget, code_buffer));
             }
         }
+
+        var help_button = new Gtk.ToggleButton ();
+        var help_icon = new Gtk.Image.from_icon_name ("dialog-question-symbolic", Gtk.IconSize.MENU);
+
+        help_button.set_tooltip_text (_("Formatting"));
+        help_button.get_style_context ().add_class ("flat");
+        help_button.can_focus = false;
+        help_button.hexpand = true;
+        help_button.halign = Gtk.Align.END;
+
+        help_button.toggled.connect (() => {
+            if (help == null) {
+                help = new ENotes.HelpBox ();
+                help.insert_requested.connect ((text) => {
+                    code_buffer.insert_at_cursor (text, -1);
+                });
+
+                editor_and_help.add (help);
+            }
+
+            help.set_reveal_child (help_button.get_active ());
+        });
+
+        help_button.add (help_icon);
+        box.add (help_button);
 
         return box;
     }
