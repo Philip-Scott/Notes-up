@@ -19,8 +19,8 @@
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
 
-public const string APP_NAME = "Notes";
-public const string TERMINAL_NAME = "Notes";
+public const string APP_NAME = "Notes-Up";
+public const string TERMINAL_NAME = "notes-up";
 
 public static int main (string[] args) {
     /* Initiliaze gettext support */

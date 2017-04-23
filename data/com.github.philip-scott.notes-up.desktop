@@ -7,3 +7,8 @@ Terminal=false
 Type=Application
 StartupNotify=true
 Categories=Office;
+Actions=AboutDialog
+
+[Desktop Action AboutDialog]
+Exec=notes-up --about
+Name=About Notes-Up

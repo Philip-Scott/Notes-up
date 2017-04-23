@@ -58,15 +58,30 @@ namespace ENotes {
     public string NOTES_DIR;
 }
 
-public class ENotes.Application : Gtk.Application {
+public class ENotes.Application : Granite.Application {
     public const string PROGRAM_NAME = N_("Notes-Up");
     public const string COMMENT = N_("Your Markdown Notebook.");
     public const string ABOUT_STOCK = N_("About Notes");
 
     public bool running = false;
 
-    public Application () {
-        Object (application_id: "org.notes");
+    construct {
+        application_id = "com.github.philip-scott.notes-up";
+        program_name = PROGRAM_NAME;
+        app_years = "2015-2017";
+        exec_name = TERMINAL_NAME;
+        app_launcher = "com.github.philip-scott.notes-up";
+
+        build_version = Constants.VERSION;
+        app_icon = "com.github.philip-scott.notes-up";
+        main_url = "https://github.com/Philip-Scott/Notes-up/";
+        bug_url = "https://github.com/Philip-Scott/Notes-up/issues";
+        help_url = "https://github.com/Philip-Scott/Notes-up/";
+        translate_url = "https://github.com/Philip-Scott/Notes-up/tree/master/po";
+        about_authors = {"Felipe Escoto <felescoto95@hotmail.com>", null};
+        about_translators = _("translator-credits");
+
+        about_license_type = Gtk.License.GPL_3_0;
     }
 
     public override void activate () {
