@@ -107,13 +107,10 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
     }
 
     private void first_notebook () {
-/*        var dir = FileManager.create_notebook (_("Unamed Notebook"), 1, 0, 0);
-        var notebook = new ENotes.Notebook (ENotes.NOTES_DIR + dir);
+        var notebook_id = NotebookTable.get_instance ().new_notebook (0, _("My First Notebook"), {1, 0, 0}, "", "");
 
-        var notebook_item = new NotebookItem (notebook);
-        this.notebooks.add (notebook_item);
-
-        select_notebook (notebook.name);*/
+        load_notebooks ();
+        select_notebook (notebook_id);
     }
 
     private void connect_signals () {

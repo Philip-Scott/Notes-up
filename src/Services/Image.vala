@@ -40,14 +40,13 @@ public enum ENotes.ImageFormat {
             case "svg+xml":
             case "svg":
                 return 1;
-                break;
             default: return 0;
         }
     }
 
     public static string get_data (int64 format) {
         switch (format) {
-            case 1: return "data:image/svg+xml;base64"; break;
+            case 1: return "data:image/svg+xml;base64";
             default: return "data:image/png;base64";
         }
     }

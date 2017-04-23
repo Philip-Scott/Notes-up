@@ -163,12 +163,17 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 
         if (settings.last_notebook != 0) {
             var notebook = NotebookTable.get_instance ().load_notebook_data (settings.last_notebook);
-            PagesList.get_instance ().load_pages (notebook);
-            Sidebar.get_instance ().select_notebook (notebook.id);
+            if (notebook != null) {
+                PagesList.get_instance ().load_pages (notebook);
+                Sidebar.get_instance ().select_notebook (notebook.id);
+            }
         }
 
         if (settings.last_page != 0) {
-            ViewEditStack.get_instance ().set_page (PageTable.get_instance ().get_page (settings.last_page));
+            var last_page = PageTable.get_instance ().get_page (settings.last_page);
+            if (last_page != null) {
+                ViewEditStack.get_instance ().set_page (last_page);
+            }
         }
 
         if (ENotes.Mode.get_mode (settings.mode) == Mode.EDIT) {

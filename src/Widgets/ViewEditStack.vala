@@ -107,17 +107,17 @@ public class ENotes.ViewEditStack : Gtk.Overlay {
     }
 
     public void show_view () {
-        if (current_mode == ENotes.Mode.VIEW || current_page == null) return;
-
-        editor.save_file ();
-        current_mode = ENotes.Mode.VIEW;
-        viewer.load_page (current_page, true);
-
+        if (current_mode == ENotes.Mode.VIEW) return;
         Headerbar.get_instance ().set_mode (ENotes.Mode.VIEW);
 
         stack.set_visible_child_name ("viewer");
         Sidebar.get_instance().visible = true;
-
         PagesList.get_instance ().grab_focus ();
+        current_mode = ENotes.Mode.VIEW;
+
+        if (current_page != null) {
+            editor.save_file ();
+            viewer.load_page (current_page, true);
+        }
     }
 }

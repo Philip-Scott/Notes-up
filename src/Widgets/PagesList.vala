@@ -177,7 +177,8 @@ public class ENotes.PagesList : Gtk.Box {
         return false;
     }
 
-    public void load_pages (ENotes.Notebook notebook) {
+    public void load_pages (ENotes.Notebook? notebook) {
+        if (notebook == null) return;
         loading_pages = true;
         clear_pages ();
 
