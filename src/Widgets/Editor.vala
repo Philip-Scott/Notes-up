@@ -36,9 +36,6 @@ public class ENotes.Editor : Gtk.Box {
             code_buffer.begin_not_undoable_action ();
 
             save_file ();
-            if (value.new_page) {
-                ViewEditStack.get_instance ().show_edit ();
-            }
 
             _current_page = value;
             code_buffer.text = value.data;

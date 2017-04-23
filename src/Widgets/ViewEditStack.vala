@@ -34,7 +34,7 @@ public enum ENotes.Mode {
 
 public class ENotes.ViewEditStack : Gtk.Overlay {
     private static ViewEditStack? instance = null;
-    public static ENotes.Mode? current_mode = null;
+    public static ENotes.Mode? current_mode {get; private set; default = null;}
 
     public signal void page_set (ENotes.Page page);
 
@@ -77,6 +77,7 @@ public class ENotes.ViewEditStack : Gtk.Overlay {
             }
         }
 
+        editor.save_file ();
         current_page = PageTable.get_instance ().get_page (page.id);
         editor.current_page = current_page;
         viewer.load_page (current_page);
@@ -84,15 +85,11 @@ public class ENotes.ViewEditStack : Gtk.Overlay {
         bookmark_button.set_page (current_page);
         page_set (current_page);
 
-        if (page.name == _("New Page") && page.data == "") {
+        if (page.data == "") {
             show_edit ();
         }
 
         editor.set_sensitive (!Trash.get_instance ().is_page_trashed (page));
-    }
-
-    public ENotes.Page? get_page () {
-        return current_page;
     }
 
     public void show_edit () {

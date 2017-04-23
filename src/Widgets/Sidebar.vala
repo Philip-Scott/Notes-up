@@ -117,7 +117,7 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
         this.item_selected.connect ((item) => {
             if (item != null && item is ENotes.BookmarkItem) {
                 // If viewing page == the bookmark, select the notebook. if not just open the page
-                if (ENotes.ViewEditStack.get_instance ().get_page ().equals (((ENotes.BookmarkItem) item).get_page ())) {
+                if (ENotes.ViewEditStack.get_instance ().current_page.equals (((ENotes.BookmarkItem) item).get_page ())) {
                     select_notebook (((ENotes.BookmarkItem) item).parent_notebook);
                     ENotes.PagesList.get_instance ().select_page (((ENotes.BookmarkItem) item).get_page ());
                 } else {

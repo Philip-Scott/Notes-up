@@ -130,7 +130,7 @@ public class ENotes.Window : Gtk.ApplicationWindow {
     }
 
     private bool editor_open () {
-        return ViewEditStack.current_mode == ENotes.Mode.EDIT && ViewEditStack.get_instance ().get_page () != null;
+        return ViewEditStack.current_mode == ENotes.Mode.EDIT && ViewEditStack.get_instance ().current_page != null;
     }
 
     protected override bool delete_event (Gdk.EventAny event) {
