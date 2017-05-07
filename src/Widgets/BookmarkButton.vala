@@ -53,9 +53,9 @@ public class ENotes.BookmarkButton : Gtk.Button {
 
     public void setup () {
         if (BookmarkTable.get_instance ().is_bookmarked (this.current_page)) {
-            pic.set_from_icon_name ("starred", Gtk.IconSize.DIALOG);
+            pic.set_from_icon_name ("starred", Gtk.IconSize.LARGE_TOOLBAR);
         } else {
-            pic.set_from_icon_name ("non-starred", Gtk.IconSize.DIALOG);
+            pic.set_from_icon_name ("non-starred", Gtk.IconSize.LARGE_TOOLBAR);
         }
     }
 
