@@ -33,6 +33,7 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
     private Gtk.Switch keep_sidebar_switch;
 
     public PreferencesDialog () {
+        set_transient_for (window);
         build_ui ();
         connect_signals ();
     }

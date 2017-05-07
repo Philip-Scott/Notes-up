@@ -32,6 +32,7 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
 
     public NotebookDialog (Notebook? notebook = null) {
         this.notebook = notebook;
+        set_transient_for (window);
         build_ui ();
         connect_signals ();
 
