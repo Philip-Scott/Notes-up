@@ -22,8 +22,8 @@ execute_process(
 file(COPY ${DISCOUNT_SRC_PATH} DESTINATION ${CMAKE_BINARY_DIR})
 # Reset discount version to master version
 execute_process(
-  COMMAND git checkout master
-  WORKING_DIRECTORY ${DISCOUNT_SRC_PATH}
+  COMMAND git submodule deinit -f --all
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
 )
 
 include(ExternalProject)
