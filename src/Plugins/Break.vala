@@ -24,14 +24,6 @@ public class ENotes.Break : ENotes.Plugin {
 
     construct {}
 
-    public override bool is_active () {
-        return true;
-    }
-
-    public override void set_active (bool active) {
-
-    }
-
     public override string get_desctiption () {
         return _("Page break when exporting to PDF: <break>");
     }

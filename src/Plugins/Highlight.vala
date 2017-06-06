@@ -24,14 +24,6 @@ public class ENotes.Highlight : ENotes.Plugin {
 
     construct {}
 
-    public override bool is_active () {
-        return true;
-    }
-
-    public override void set_active (bool active) {
-
-    }
-
     public override string get_desctiption () {
         return _("Enable Syntax Highlighing");
     }

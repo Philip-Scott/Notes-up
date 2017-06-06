@@ -105,7 +105,7 @@ public class ENotes.Viewer : WebKit.WebView {
                 break;
                 case WebKit.PolicyDecisionType.RESPONSE:
                     if (decision is WebKit.ResponsePolicyDecision) {
-                        var policy = (WebKit.ResponsePolicyDecision) decision;                        
+                        var policy = (WebKit.ResponsePolicyDecision) decision;
                         launch_browser (policy.request.get_uri ());
                         return false;
                     }
@@ -203,6 +203,7 @@ public class ENotes.Viewer : WebKit.WebView {
 
         return html;
     }
+
     private string process_plugins (string raw_mk) {
         var lines = raw_mk.split ("\n");
         string build = "";

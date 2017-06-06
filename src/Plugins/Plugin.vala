@@ -20,10 +20,6 @@
 */
 
 public abstract class ENotes.Plugin : GLib.Object {
-    private const string CHILD_SCHEMA_ID = "org.notes.plugin_data.plugin";
-    private const string CHILD_PATH = "/org/notes/plugin_data/plugin/%s";
-
-    protected Settings? settings = null;
     protected bool state = true;
 
     protected string code_name = "";
@@ -31,15 +27,6 @@ public abstract class ENotes.Plugin : GLib.Object {
     // Editor after string is requested
     public signal void string_cooked (string text);
 
-    public virtual bool is_active () {
-        return state;
-    }
-
-    public virtual void set_active (bool active) {
-        if (settings != null) {
-            settings.set_boolean("active", active);
-        }
-    }
 
     // Description of the plugin
     public abstract string get_desctiption ();
@@ -63,16 +50,5 @@ public abstract class ENotes.Plugin : GLib.Object {
     // Action called by the editor when the button is pressed
     public virtual string request_string (string selection) {
         return selection;
-    }
-
-    protected void connect_settings () {
-        if (code_name != "" && settings == null) {
-            settings = FileManager.get_settings (code_name, CHILD_SCHEMA_ID, CHILD_PATH);
-
-            state = settings.get_boolean("active");
-            settings.changed["active"].connect (() => {
-                state = settings.get_boolean("active");
-            });
-        }
     }
 }

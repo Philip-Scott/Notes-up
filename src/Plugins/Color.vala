@@ -29,7 +29,6 @@ public class ENotes.Color : ENotes.Plugin {
 
     construct {
         code_name = "ENOTES.COLORS";
-        connect_settings ();
     }
 
     public override string get_desctiption () {
@@ -41,7 +40,6 @@ public class ENotes.Color : ENotes.Plugin {
     }
 
     public override Gtk.Widget? editor_button () {
-
         var image = new Gtk.Image.from_icon_name ("applications-graphics", Gtk.IconSize.SMALL_TOOLBAR);
 
         popover = new Gtk.Popover (image);
@@ -63,7 +61,6 @@ public class ENotes.Color : ENotes.Plugin {
                 string_cooked ("<color " + color_selector.get_rgba ().to_string () + ">");
             }
         });
-
         return image;
     }
 

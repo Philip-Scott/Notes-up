@@ -26,14 +26,6 @@ public class ENotes.Youtube : ENotes.Plugin {
 
     }
 
-    public override bool is_active () {
-        return true;
-    }
-
-    public override void set_active (bool active) {
-
-    }
-
     public override string get_desctiption () {
         return _("Embed youtube videos: <youtube [video]>");
     }

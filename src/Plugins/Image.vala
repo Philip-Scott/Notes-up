@@ -24,14 +24,6 @@ public class ENotes.ImagePlugin : ENotes.Plugin {
 
     construct {}
 
-    public override bool is_active () {
-        return true;
-    }
-
-    public override void set_active (bool active) {
-
-    }
-
     public override string get_desctiption () {
         return _("Load an embeded image");
     }

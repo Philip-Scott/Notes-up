@@ -23,38 +23,30 @@ public class ENotes.PluginManager : GLib.Object {
     private static PluginManager? instance = null;
 
     private Plugin[] plug_list = {};
-    
+
     private PluginManager () {
-        
+
     }
-    
+
     public static PluginManager get_instance () {
         if (instance == null) {
             instance = new PluginManager ();
             instance.load_plugins ();
         }
-        
+
         return instance;
     }
-    
+
     private void load_plugins () {
-        // TODO: Load dynamically from plugins directory        
+        // TODO: Load dynamically from plugins directory
         plug_list += new Color ();
         plug_list += new Youtube ();
         plug_list += new Break ();
         plug_list += new Highlight ();
         plug_list += new ImagePlugin ();
     }
-    
-    public List<Plugin> get_plugs () {
-        var plugs = new List<Plugin> ();
 
-        foreach (var plugin in plug_list) {
-            if (plugin.is_active ()) {
-                plugs.append (plugin);
-            }
-        }
-        
-        return plugs;
+    public unowned Plugin[] get_plugs () {
+        return plug_list;
     }
-} 
+}

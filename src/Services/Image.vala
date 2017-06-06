@@ -80,7 +80,7 @@ public class ENotes.ImageTable : DatabaseTable {
         set_table_name ("Image");
     }
 
-    public int64 save (int64 page_id, File file) {
+    public int64 save (int64 page_id, File file) {  
         var file_info = file.query_info ("*", FileQueryInfoFlags.NONE);
         var format = ImageFormat.get_format_id (file_info.get_content_type ());
 
@@ -91,7 +91,7 @@ public class ENotes.ImageTable : DatabaseTable {
             try {
                image = new Gdk.Pixbuf.from_file (file.get_path ());
             } catch (Error e) {
-               stderr.printf ("Error on input: %s", e.message);
+               critical ("Error on input: %s", e.message);
                return -1;
             }
 
