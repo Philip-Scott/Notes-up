@@ -43,8 +43,11 @@ public class ENotes.Viewer : WebKit.WebView {
         if (overrride || previous_page == null || previous_page.id != page.id) {
             if (page != null) previous_page = page;
 
-            var stylesheet = NotebookTable.get_instance ().get_stylesheet_from_page (previous_page.id);
-            set_styleshet (stylesheet);
+
+            if (previous_page != null) {
+                var stylesheet = NotebookTable.get_instance ().get_stylesheet_from_page (previous_page.id);
+                set_styleshet (stylesheet);
+            }
         }
     }
 
