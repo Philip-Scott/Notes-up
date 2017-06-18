@@ -1,6 +1,23 @@
+<div>
+  <h1 align="center">Notes Up</h1>
+  <h3 align="center">Write beautiful notes fast and easy using Markdown</h3>
+</div>
 
-# Notes Up
-## Your New Notebook
+<br/>
+
+<p align="center">
+  <a href="https://appcenter.elementary.io/com.github.philip-scott.notes-up">
+    <img src="https://appcenter.elementary.io/badge.svg" alt="Get it on AppCenter">
+  </a>
+</p>
+
+<br/>
+
+<p align="center">
+    <img src="Screenshot.png" alt="Screenshot">
+</p>
+
+<h2> </h2>
 
 As a computer engineer, I've been writing my school notes using just a text editor, and having to manage all my files and keep everything organized. Well, not anymore! **Notes Up** is a notes manager written for elementary OS. With it, you'll be able to write beautiful notes fast and easy using the markdown format.
 
@@ -10,8 +27,6 @@ As a computer engineer, I've been writing my school notes using just a text edit
 - Easy-to-use markdown editor
 - Exporting to PDF
 - And more to come!
-
-![screenshot](https://github.com/Philip-Scott/Notes-up/blob/master/Screenshot.png?raw=true)
 
 ## New in 1.3.1!
 
@@ -29,9 +44,12 @@ You can also view the full [changelog here](changelog.md)
 If you liked _Notes-up_, and would like to support it's development of this app and more, consider [buying me a coffee](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WYD9ZJK6ZFUDQ) :) 
 
 ## Installation:
-If you are using elementary OS **Loki**, in order to add a PPA you might need to first run
+[![Get it on AppCenter](https://appcenter.elementary.io/badge.svg)](https://appcenter.elementary.io/com.github.philip-scott.spice-up)
 
-	sudo apt-get install software-properties-common
+On elementary OS? Hit the button to get Spice-Up!
+
+#### Not on elementary?
+You can install Notes-Up from a PPA. But be aware that your results may vary
 
 PPA: _ppa:philip.scott/notes-up_
 
