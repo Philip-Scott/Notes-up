@@ -1,5 +1,5 @@
 <div>
-  <h1 align="center">Notes Up</h1>
+  <h1 align="center">Notes-Up</h1>
   <h3 align="center">Write beautiful notes fast and easy using Markdown</h3>
 </div>
 
@@ -44,9 +44,9 @@ You can also view the full [changelog here](changelog.md)
 If you liked _Notes-up_, and would like to support it's development of this app and more, consider [buying me a coffee](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WYD9ZJK6ZFUDQ) :) 
 
 ## Installation:
-[![Get it on AppCenter](https://appcenter.elementary.io/badge.svg)](https://appcenter.elementary.io/com.github.philip-scott.spice-up)
+[![Get it on AppCenter](https://appcenter.elementary.io/badge.svg)](https://appcenter.elementary.io/com.github.philip-scott.notes-up)
 
-On elementary OS? Hit the button to get Spice-Up!
+On elementary OS? Hit the button to get Notes-Up!
 
 #### Not on elementary?
 You can install Notes-Up from a PPA. But be aware that your results may vary
