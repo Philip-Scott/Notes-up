@@ -21,6 +21,15 @@
     <binary>notes-up</binary>
   </provides>
   <releases>
+    <release version="1.4.3" date="2017-06-06">
+      <description>
+        <p>Quick fix</p>
+        <ul>
+          <li>Prevent crash when closing the preferences dialog</li>
+          <li>Make sure to load all plugins</li>
+        </ul>
+      </description>
+    </release>
   </releases>
   <screenshots>
     <screenshot type="default">
