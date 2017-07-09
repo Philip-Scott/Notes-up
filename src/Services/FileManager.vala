@@ -147,9 +147,9 @@ public class ENotes.FileManager : Object {
 
         var op = new WebKit.PrintOperation (ENotes.Viewer.get_instance ());
         var settings = new Gtk.PrintSettings ();
-        settings.set_printer ("Print to File");
+        settings.set_printer (_("Print to File"));
 
-        settings[Gtk.PRINT_SETTINGS_OUTPUT_URI] = "file://" + file.get_path ();
+        settings[Gtk.PRINT_SETTINGS_OUTPUT_URI] = file.get_uri ();
         op.set_print_settings (settings);
 
         op.print ();
