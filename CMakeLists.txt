@@ -30,28 +30,14 @@ add_definitions(-w)
 
 find_package(PkgConfig)
 
-# either of webkitpackages would do
-pkg_search_module(WEBKIT REQUIRED
-  webkit2gtk-4.0
-  webkit2gtk-3.0
-)
-
 pkg_check_modules(DEPS REQUIRED
   granite>=0.3
+  gee-0.8
   gtksourceview-3.0>=3.10
   gthread-2.0
   gtk+-3.0>=3.9.10
+  webkit2gtk-4.0
   sqlite3>=3.5.9
-)
-
-set (PKG_DEPS
- granite>=0.3
- gee-0.8
- gtksourceview-3.0
- gtk+-3.0
- webkit2gtk-4.0
- sqlite3>=3.5.9
- discount
 )
 
 set (VALA_DEPS
@@ -63,8 +49,6 @@ set (VALA_DEPS
  sqlite3
  discount
 )
-
-pkg_check_modules (DEPS REQUIRED ${PKG_DEPS})
 
 add_definitions(${DEPS_CFLAGS})
 add_definitions(${WEBKIT_CFLAGS})
