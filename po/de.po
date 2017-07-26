@@ -68,6 +68,10 @@ msgstr "Neues Notizbuch"
 msgid "Preferences"
 msgstr "Einstellungen"
 
+#: /home/felipe/Code/Notes-up/po/../src/Services/FileManager.vala:150
+msgid "Print to File"
+msgstr "In Datei drucken"
+
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:65
 msgid "Export to PDF"
 msgstr "PDF exportieren"
