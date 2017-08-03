@@ -161,173 +161,173 @@ msgstr "_Schließen"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:73
 msgid "Font:"
-msgstr ""
+msgstr "Schriftart:"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:83
 msgid "Theme:"
-msgstr ""
+msgstr "Farbstil:"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:108
 msgid "Automatic indentation:"
-msgstr ""
+msgstr "Automatische Einrückung:"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:116
 msgid "Show line Numbers:"
-msgstr ""
+msgstr "Zeilennummern anzeigen:"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:124
 msgid "Keep Sidebar Visible:"
-msgstr ""
+msgstr "Seitenleiste immer anzeigen"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:152
 msgid "Global style modifications"
-msgstr ""
+msgstr "Globale Stil-Änderungen"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:165
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:134
 msgid "Stylesheet:"
-msgstr ""
+msgstr "Formatvorlage:"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:62
 msgid "Name:"
-msgstr ""
+msgstr "Name:"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:63
 msgid "Color:"
-msgstr ""
+msgstr "Farbe:"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:71
 msgid "Cancel"
-msgstr ""
+msgstr "Abbrechen"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:84
 msgid "Create"
-msgstr ""
+msgstr "Erstellen"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:102
 msgid "Properties"
-msgstr ""
+msgstr "Einstellungen"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:103
 msgid "Style"
-msgstr ""
+msgstr "Stil"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:121
 msgid "Style modifications"
-msgstr ""
+msgstr "Stilabwandlungen"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/TrashItem.vala:28
 msgid "Restore"
-msgstr ""
+msgstr "Wiederherstellen"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:41
 msgid "Large Header"
-msgstr ""
+msgstr "Größere Überschrift"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:42
 msgid "Medium Header"
-msgstr ""
+msgstr "Mittlere Überschrift"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:43
 msgid "Small Header"
-msgstr ""
+msgstr "Kleinere Überschrift"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:45
 msgid "<i>Italic</i>"
-msgstr ""
+msgstr "<i>kursiv</i>"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:45
 msgid "_italic_"
-msgstr ""
+msgstr "_kursiv_"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:46
 msgid "<b>Bold</b>"
-msgstr ""
+msgstr "<b>fett</b>"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:46
 msgid "**bold**"
-msgstr ""
+msgstr "**fett**"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:47
 msgid "<s>Strike</s>"
-msgstr ""
+msgstr "<s>durchgestrichen</s>"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:47
 msgid "~~strike~~"
-msgstr ""
+msgstr "~~durchgestrichen~~"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:48
 msgid "|  <i>quote</i>"
-msgstr ""
+msgstr "|  <i>Zitat</i>"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:50
 msgid "1. Numbered list"
-msgstr ""
+msgstr "1. Nummerierte Liste"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:51
 msgid "⚫ Bulleted list"
-msgstr ""
+msgstr "⚫ Aufzählung"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:53
 msgid "Divider"
-msgstr ""
+msgstr "Trennstrich"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:54
 msgid "Code"
-msgstr ""
+msgstr "Code"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:55
 msgid "Code Block"
-msgstr ""
+msgstr "Codeblock"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:56
 msgid "Link"
-msgstr ""
+msgstr "Link"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:56
 msgid "[Text](www...) "
-msgstr ""
+msgstr "[Text](www...)"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:57
 msgid "Citation Anchor"
-msgstr ""
+msgstr "Anker des Textbeleges"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:58
 msgid "Citation Text"
-msgstr ""
+msgstr "Ausführung zum Textbeleg"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:60
 msgid "Youtube Video"
-msgstr ""
+msgstr "Youtube Video"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:60
 msgid "<youtube [link]>"
-msgstr ""
+msgstr "<youtube [Link]>"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:61
 msgid "Page Break (when exporting)"
-msgstr ""
+msgstr "Seitenumbruch (Nur beim Export)"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:62
 msgid "Enable Syntax Highlighting"
-msgstr ""
+msgstr "Aktiviert Syntaxhervorhebung"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:63
 msgid "Set Color"
-msgstr ""
+msgstr "Farbe einstellen"
 
 #. //bugzilla.gnome.org/show_bug.cgi?id=758000 is fixed.
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PagesList.vala:201
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PagesList.vala:300
 #, c-format
-msgid "%i Page"
-msgid_plural "%i Pages"
-msgstr[0] ""
-msgstr[1] ""
+msgid "%i page"
+msgid_plural "%i pages"
+msgstr[0] "%i Seite"
+msgstr[1] "%i Seiten"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/BookmarkItem.vala:54
 msgid "Remove"
-msgstr ""
+msgstr "Entfernen"
 
 #. / These keys must be valid since they will be used across the app
 #: /home/felipe/Code/Notes-up/po/../src/Application.vala:36
@@ -368,19 +368,19 @@ msgstr ""
 
 #: /home/felipe/Code/Notes-up/po/../src/Application.vala:62
 msgid "Notes-Up"
-msgstr ""
+msgstr "Notes-Up"
 
 #: /home/felipe/Code/Notes-up/po/../src/Application.vala:63
 msgid "Your Markdown Notebook."
-msgstr ""
+msgstr "Dein Markdown-Notizbuch"
 
 #: /home/felipe/Code/Notes-up/po/../src/Application.vala:64
 msgid "About Notes"
-msgstr ""
+msgstr "Über Notes-Up"
 
 #: /home/felipe/Code/Notes-up/po/../src/Application.vala:82
 msgid "translator-credits"
-msgstr ""
+msgstr "Benjamin Krala"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Color.vala:35
 msgid ""
@@ -399,11 +399,11 @@ msgstr ""
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Youtube.vala:34
 msgid "Youtube"
-msgstr ""
+msgstr "Youtube"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Youtube.vala:42
 msgid "Insert Youtube video"
-msgstr ""
+msgstr "Youtube Video einfügen"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Break.vala:28
 msgid "Page break when exporting to PDF: <break>"
@@ -423,12 +423,12 @@ msgstr ""
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Highlight.vala:32
 msgid "Syntax Highlighing"
-msgstr ""
+msgstr "Syntaxhervorhebung"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Image.vala:28
 msgid "Load an embeded image"
-msgstr ""
+msgstr "Eingebettetes Bild laden "
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Image.vala:32
 msgid "Image"
-msgstr ""
+msgstr "Bild"
