@@ -73,90 +73,91 @@ msgstr "Modest"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:61
 msgid "View"
-msgstr ""
+msgstr "Ansicht"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:62
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:81
 msgid "Edit"
-msgstr ""
+msgstr "Bearbeiten"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:65
 msgid "Change mode"
-msgstr ""
+msgstr "Ändere Modus"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:83
 msgid "Search your current notebook"
-msgstr ""
+msgstr "Aktuelles Notizbuch durchsuchen"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:108
 #: /home/felipe/Code/Notes-up/po/../src/Application.vala:104
 msgid "New Notebook"
-msgstr ""
+msgstr "Neues Notizbuch"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:109
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:43
 msgid "Preferences"
-msgstr ""
+msgstr "Einstellungen"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:110
 msgid "Export to PDF"
-msgstr ""
+msgstr "PDF exportieren"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/BookmarkButton.vala:44
 msgid "Bookmark page"
-msgstr ""
+msgstr "Lesezeichen hinzufügen"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:111
 msgid "Add bold to text"
-msgstr ""
+msgstr "Text fett formatieren"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:112
 msgid "Add italic to text"
-msgstr ""
+msgstr "Text kursiv formatieren"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:113
 msgid "Strikethrough text"
-msgstr ""
+msgstr "Text durchstreichen"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:115
 msgid "Insert a quote"
-msgstr ""
+msgstr "Zitat einfügen"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:116
 msgid "Insert code"
-msgstr ""
+msgstr "Code einfügen"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:117
 msgid "Insert a link"
-msgstr ""
+msgstr "Link einfügen"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:119
 msgid "Add a bulleted list"
-msgstr ""
+msgstr "Aufzählung einfügen"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:120
 msgid "Add a Numbered list"
-msgstr ""
+msgstr "Nummerierte Liste einfügen"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:122
 msgid "Insert an image"
-msgstr ""
+msgstr "Bild einfügen"
+
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:159
 msgid "Formatting"
-msgstr ""
+msgstr "Formatierung"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:51
 msgid "Editor"
-msgstr ""
+msgstr "Editor"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:52
 msgid "Viewer"
-msgstr ""
+msgstr "Ansicht"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:65
 msgid "_Close"
-msgstr ""
+msgstr "_Schließen"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:73
 msgid "Font:"
