@@ -391,11 +391,11 @@ msgstr ""
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Color.vala:39
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Color.vala:68
 msgid "Font color"
-msgstr ""
+msgstr "Schriftfarbe"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Youtube.vala:30
 msgid "Embed youtube videos: <youtube [video]>"
-msgstr ""
+msgstr "Youtube Videos einbetten: <youtube [Video]>"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Youtube.vala:34
 msgid "Youtube"
@@ -411,7 +411,7 @@ msgstr ""
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Break.vala:32
 msgid "Page break"
-msgstr ""
+msgstr "Seitenumbruch"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Break.vala:47
 msgid "Page break on export: <break>"
