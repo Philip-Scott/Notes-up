@@ -23,51 +23,53 @@ msgstr ""
 #: /home/felipe/Code/Notes-up/po/../src/Services/Page.vala:212
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PagesList.vala:121
 msgid "New Page"
-msgstr ""
+msgstr "Neue Seite"
 
 #: /home/felipe/Code/Notes-up/po/../src/Services/FileManager.vala:150
 msgid "Print to File"
-msgstr ""
+msgstr "In Datei drucken"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar.vala:25
 msgid "Notebooks"
-msgstr ""
+msgstr "Notizbücher"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar.vala:26
 msgid "Bookmarks"
-msgstr ""
+msgstr "Lesezeichen"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar.vala:27
 msgid "Trash"
-msgstr ""
+msgstr "Papierkorb"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar.vala:110
 msgid "My First Notebook"
-msgstr ""
+msgstr "Mein erstes Notizbuch"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/NotebookItem.vala:48
 msgid "Edit Notebook"
-msgstr ""
+msgstr "Notizbuch bearbeiten"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/NotebookItem.vala:49
 msgid "New Section"
-msgstr ""
+msgstr "Neuer Abschnitt"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/NotebookItem.vala:50
 msgid "Delete Notebook"
-msgstr ""
+msgstr "Notizbuch löschen"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Viewer.vala:23
 msgid "Default"
-msgstr ""
+msgstr "Standard"
+
+## Es handelt sich hier um Eigennamen. Diese werden daher nicht übersetzt.
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Viewer.vala:23
 msgid "Air"
-msgstr ""
+msgstr "Air"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Viewer.vala:23
 msgid "Modest"
-msgstr ""
+msgstr "Modest"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:61
 msgid "View"
