@@ -320,8 +320,8 @@ msgstr "Farbe einstellen"
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PagesList.vala:201
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PagesList.vala:300
 #, c-format
-msgid "%i page"
-msgid_plural "%i pages"
+msgid "%i Page"
+msgid_plural "%i Pages"
 msgstr[0] "%i Seite"
 msgstr[1] "%i Seiten"
 
