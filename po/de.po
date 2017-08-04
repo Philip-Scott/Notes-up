@@ -386,7 +386,7 @@ msgstr "Benjamin Krala"
 msgid ""
 "Set font color for the line with <color [#color]> or for some text with "
 "<color [color] [text]>"
-msgstr "Schriftfarbe in einer Textzeile "
+msgstr "Schriftfarbe in einer Textzeile mit <color [#Farbe]> oder für eine Textfolge mit <color [#Farbe] [Textfolge]> festlegen"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Color.vala:39
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Color.vala:68
@@ -407,7 +407,7 @@ msgstr "Youtube Video einfügen"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Break.vala:28
 msgid "Page break when exporting to PDF: <break>"
-msgstr ""
+msgstr "Seitenumbruch beim Export in eine PDF-Datei: <break>"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Break.vala:32
 msgid "Page break"
@@ -415,7 +415,7 @@ msgstr "Seitenumbruch"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Break.vala:47
 msgid "Page break on export: <break>"
-msgstr ""
+msgstr "Seitenumbruch beim Export: <break>"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Highlight.vala:28
 msgid "Enable Syntax Highlighing"
