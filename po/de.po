@@ -177,7 +177,7 @@ msgstr "Zeilennummern anzeigen:"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:124
 msgid "Keep Sidebar Visible:"
-msgstr "Seitenleiste immer anzeigen"
+msgstr "Seitenleiste immer anzeigen:"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:152
 msgid "Global style modifications"
