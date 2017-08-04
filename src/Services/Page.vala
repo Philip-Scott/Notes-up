@@ -194,38 +194,38 @@ public class ENotes.PageTable : DatabaseTable {
     }
 
     private void load_page_info (Page page) {
-        string line[2];
         string[] lines;
 
         lines = page.data.split ("\n");
+        string preview = "";
 
         if (lines.length > 0) {
             page.name = cleanup(lines[0]);
 
-            for(int n = 0, i = 1; i < lines.length && n < 1; i++) {
-                line[n] = cleanup (lines[i]);
-                if (line[n] != "") {
-                    n++;
+            for(int i = 1; i < lines.length; i++) {
+                preview = cleanup (lines[i]);
+                if (preview != "") {
+                    break;
                 }
             }
         } else {
             page.name = _("New Page");
         }
 
-        if (line[0] != null) {
-            page.subtitle = convert(line[0]);
+        if (preview != null) {
+            page.subtitle = convert(preview);
         } else {
             page.subtitle = "";
         }
     }
 
+    private const string[] SYMBOLS_BLACKLIST = {"#", "`", "\t", "<br>", ">", "<", "\n", "~" };
     private string cleanup (string line) {
         string output = line;
 
         if (line.contains ("---")) return "";
 
-        string[] blacklist = {"#", "```", "\t", "<br>", ">", "<", "\n"};
-        foreach (string item in blacklist) {
+        foreach (string item in SYMBOLS_BLACKLIST) {
             if (output.contains (item)) {
                 output = output.replace (item, "");
             }
@@ -247,32 +247,22 @@ public class ENotes.PageTable : DatabaseTable {
         italics_state = true;
 
         if (raw_content == null || raw_content == "") return "";
-        if (!raw_content.contains ("\n")) return raw_content;
 
-        var lines = raw_content.split ("\n", -1);
+        var line = raw_content;
 
-        string final = "";
-        foreach (string line in lines) {
-            while (line.contains ("----")) { //Line cleanup
-                line = line.replace ("----", "---");
-            }
-
-            if (line.contains ("	")) {
-                line = line.replace ("	", "&nbsp;&nbsp;&nbsp;&nbsp;");
-            }
-
-            if (line.contains ("**")) {
-                line = replace (line, "**", "<b>", "</b>", ref bold_state);
-            }
-
-            if (line.contains ("_")) {
-                line = replace (line, "_", "<i>", "</i>", ref italics_state);
-            }
-
-            final = final + line;
+        if (line.contains ("	")) {
+            line = line.replace ("	", "&nbsp;&nbsp;&nbsp;&nbsp;");
         }
 
-        return final;
+        if (line.contains ("**")) {
+            line = replace (line, "**", "<b>", "</b>", ref bold_state);
+        }
+
+        if (line.contains ("_")) {
+            line = replace (line, "_", "<i>", "</i>", ref italics_state);
+        }
+
+        return line;
     }
 
     private string replace (string line_, string looking_for, string opening, string closing, ref bool type_state) {
