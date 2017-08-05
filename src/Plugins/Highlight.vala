@@ -25,7 +25,7 @@ public class ENotes.Highlight : ENotes.Plugin {
     construct {}
 
     public override string get_desctiption () {
-        return _("Enable Syntax Highlighing");
+        return _("Enable Syntax Highlighting");
     }
 
     public override string get_name () {

@@ -152,6 +152,10 @@ msgstr "Indentación automatica:"
 msgid "Show line Numbers:"
 msgstr "Mostrar números de linea:"
 
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:124
+msgid "Keep Sidebar Visible:"
+msgstr "Mantener cuadernos visibles:"
+
 #: /home/felipe/Notes-up/po/../src/Widgets/PreferencesDialog.vala:153
 #: /home/felipe/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:137
 msgid "Stylesheet:"
@@ -168,6 +172,14 @@ msgstr "Cuadernos"
 #: /home/felipe/Projets/github/Notes-up/po/../src/Widgets/Sidebar.vala:25
 msgid "Bookmarks"
 msgstr "Favoritos"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar.vala:27
+msgid "Trash"
+msgstr "Papelera"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar.vala:110
+msgid "My First Notebook"
+msgstr "Mi Primer Cuaderno"
 
 #: /home/felipe/Projets/github/Notes-up/po/../src/Widgets/Editor.vala:164
 msgid "Add bold to text"
@@ -205,6 +217,106 @@ msgstr "Agregar lista numerada"
 msgid "Insert an image"
 msgstr "Agregar una imagen"
 
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:159
+msgid "Formatting"
+msgstr "Ayuda"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:41
+msgid "Large Header"
+msgstr "Encabezado"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:42
+msgid "Medium Header"
+msgstr "Encabezado Medio"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:43
+msgid "Small Header"
+msgstr "Encabezado Chico"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:45
+msgid "<i>Italic</i>"
+msgstr "<i>Italicas</i>"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:45
+msgid "_italic_"
+msgstr "_italicas_"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:46
+msgid "<b>Bold</b>"
+msgstr "<b>Negritas</b>"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:46
+msgid "**bold**"
+msgstr "**negritas**"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:47
+msgid "<s>Strike</s>"
+msgstr "<s>Tachado</s>"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:47
+msgid "~~strike~~"
+msgstr "~~tachado~~"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:48
+msgid "|  <i>quote</i>"
+msgstr "|  <i>Cita</i>"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:50
+msgid "1. Numbered list"
+msgstr "1. Lista numerada"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:51
+msgid "⚫ Bulleted list"
+msgstr "⚫ Lista de puntos"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:53
+msgid "Divider"
+msgstr "Divisor"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:54
+msgid "Code"
+msgstr "Código"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:55
+msgid "Code Block"
+msgstr "Bloque de código"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:56
+msgid "Link"
+msgstr "Link"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:56
+msgid "[Text](www...) "
+msgstr "[Texto](www...)"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:57
+msgid "Citation Anchor"
+msgstr "Marca de Cita"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:58
+msgid "Citation Text"
+msgstr "Texto de Cita"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:60
+msgid "Youtube Video"
+msgstr "Video de Youtube"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:60
+msgid "<youtube [link]>"
+msgstr "<youtube [vinculo]>"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:61
+msgid "Page Break (when exporting)"
+msgstr "Salto de página (Al exportar)"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:62
+msgid "Enable Syntax Highlighting"
+msgstr "Marcador de Syntaxis"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:63
+msgid "Set Color"
+msgstr "Cambiar color"
+
 #. //bugzilla.gnome.org/show_bug.cgi?id=758000 is fixed.
 #: /home/felipe/Notes-up/po/../src/Widgets/PagesList.vala:186
 #: /home/felipe/Notes-up/po/../src/Widgets/PagesList.vala:274
@@ -230,3 +342,52 @@ msgstr "Your Markdown Notebook"
 #: /home/felipe/Projets/github/Notes-up/po/../src/Application.vala:38
 msgid "About Notes"
 msgstr "Acerca de"
+
+#: /home/felipe/Code/Notes-up/po/../src/Plugins/Color.vala:35
+msgid ""
+"Set font color for the line with <color [#color]> or for some text with "
+"<color [color] [text]>"
+msgstr "Cambia el color de la linea con <color [#color]> o de solo una parte con"
+"<color [color] [texto]>"
+
+#: /home/felipe/Code/Notes-up/po/../src/Plugins/Color.vala:39
+#: /home/felipe/Code/Notes-up/po/../src/Plugins/Color.vala:68
+msgid "Font color"
+msgstr "Color de fuente"
+
+#: /home/felipe/Code/Notes-up/po/../src/Plugins/Youtube.vala:30
+msgid "Embed youtube videos: <youtube [video]>"
+msgstr "Embebe videos de youtube: <youtube [www...]>"
+
+#: /home/felipe/Code/Notes-up/po/../src/Plugins/Youtube.vala:34
+msgid "Youtube"
+msgstr "Youtube"
+
+#: /home/felipe/Code/Notes-up/po/../src/Plugins/Youtube.vala:42
+msgid "Insert Youtube video"
+msgstr "Insertar video de Youtube"
+
+#: /home/felipe/Code/Notes-up/po/../src/Plugins/Break.vala:28
+msgid "Page break when exporting to PDF: <break>"
+msgstr "Salto de página al exportar a PDF: <break>"
+
+#: /home/felipe/Code/Notes-up/po/../src/Plugins/Break.vala:32
+msgid "Page break"
+msgstr "Salto de página"
+
+#: /home/felipe/Code/Notes-up/po/../src/Plugins/Break.vala:47
+msgid "Page break on export: <break>"
+msgstr "Salto de página al exportar: <break>"
+
+
+#: /home/felipe/Code/Notes-up/po/../src/Plugins/Highlight.vala:32
+msgid "Syntax Highlighing"
+msgstr "Marcador de Syntaxis"
+
+#: /home/felipe/Code/Notes-up/po/../src/Plugins/Image.vala:28
+msgid "Load an embeded image"
+msgstr "Cargar una imagen"
+
+#: /home/felipe/Code/Notes-up/po/../src/Plugins/Image.vala:32
+msgid "Image"
+msgstr "Imagen"
