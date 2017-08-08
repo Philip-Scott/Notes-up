@@ -299,4 +299,4 @@ public class ENotes.PagesList : Gtk.Box {
     private void translations () {
         ngettext ("%i Page", "%i Pages", 0);
     }
-}\
+}

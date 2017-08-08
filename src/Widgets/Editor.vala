@@ -226,7 +226,7 @@ public class ENotes.Editor : Gtk.Box {
     public void show_line_numbers (bool show) {
         code_view.set_show_line_numbers (show);
 
-        if (show) {a
+        if (show) {
             code_view.left_margin = 6;
         } else {
             code_view.left_margin = 12;
