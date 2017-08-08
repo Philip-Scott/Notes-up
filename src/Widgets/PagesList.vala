@@ -261,7 +261,7 @@ public class ENotes.PagesList : Gtk.Box {
 
         minus_button.clicked.connect (() => {
             ENotes.Editor.get_instance ().set_sensitive (false);
-            Headerbar.get_instance().set_title (null);
+            Headerbar.get_instance().set_title (null, null);
 
             var rows = listbox.get_selected_rows ();
 
@@ -299,4 +299,4 @@ public class ENotes.PagesList : Gtk.Box {
     private void translations () {
         ngettext ("%i Page", "%i Pages", 0);
     }
-}
+}\

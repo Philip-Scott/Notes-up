@@ -90,7 +90,7 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
 
         bookmark_button = BookmarkButton.get_instance ();
 
-        set_title (null);
+        set_title (null, null);
         set_show_close_button (true);
 
         pack_start (mode_button);
