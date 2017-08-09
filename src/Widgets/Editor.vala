@@ -43,8 +43,6 @@ public class ENotes.Editor : Gtk.Box {
             code_buffer.text = value.data;
 
             edited = false;
-            string notebook_title = NotebookTable.get_instance().load_notebook_data(value.notebook_id).name;
-            ENotes.Headerbar.get_instance ().set_title (value.name, notebook_title);
             code_buffer.end_not_undoable_action ();
 
             set_sensitive (true);
