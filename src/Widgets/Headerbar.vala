@@ -147,12 +147,16 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
     }
 
     public new void set_title (string? page_title, string? notebook_title) {
-    
-        string left_side = page_title != null ? page_title : "";
-        string right_side = notebook_title != null ? notebook_title : "";
-        
-        this.title = page_title != "" & notebook_title != "" ? page_title + " - " + notebook_title : "";
-    
+        if (page_title != null && notebook_title != null) {
+            this.title = page_title + " - " + notebook_title;
+        else if (page_title != null) {
+            this.title = page_title + " - ";
+        }
+        else if (notebook_title != null) {
+            this.title = " - " + notebook_title;
+        } else {
+            this.title = "";
+        }
     
     
     
