@@ -55,7 +55,7 @@ PPA: _ppa:philip.scott/notes-up_
 
 	sudo add-apt-repository ppa:philip.scott/notes-up
 	sudo apt-get update
-	sudo apt-get install notes-up
+	sudo apt-get install com.github.philip-scott.notes-up
 	
 If you were using the previous version of Notes-up, **you will need to add this new PPA**. This version changes how files are saved on your computer, so it won't be given automatically to the previous users. No worries though, your old files will be imported when you first run the app!
 
