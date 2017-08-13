@@ -31,6 +31,7 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
     private Gtk.Switch indent_switch;
     private Gtk.Switch line_numbers_switch;
     private Gtk.Switch keep_sidebar_switch;
+    private Gtk.Switch spellcheck_switch;
 
     public PreferencesDialog () {
         set_transient_for (window);
@@ -129,6 +130,14 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
         var switch_box_ksv = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         switch_box_ksv.add (keep_sidebar_switch);
 
+        var spellcheck_label = new Gtk.Label (_("Spellcheck:"));
+        spellcheck_label.set_halign (Gtk.Align.END);
+        spellcheck_switch = new Gtk.Switch ();
+        spellcheck_switch.state = settings.spellcheck;
+
+        var switch_box_spl = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        switch_box_spl.add (spellcheck_switch);
+
         grid.attach (font_label,        0, 1, 1, 1);
         grid.attach (font_button,       1, 1, 2, 1);
         grid.attach (scheme_label,      0, 2, 1, 1);
@@ -139,6 +148,8 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
         grid.attach (switch_box_ln,     1, 4, 1, 1);
         grid.attach (keep_sidebar_label,0, 5, 1, 1);
         grid.attach (switch_box_ksv,    1, 5, 1, 1);
+        grid.attach (spellcheck_label,  0, 6, 1, 1);
+        grid.attach (switch_box_spl,    1, 6, 1, 1);
 
         grid.set_column_homogeneous (false);
         grid.set_row_homogeneous (false);
@@ -197,6 +208,12 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
             if (ENotes.ViewEditStack.current_mode == ENotes.Mode.EDIT) {
                 Sidebar.get_instance ().visible = state;
             }
+            return false;
+        });
+
+        spellcheck_switch.state_set.connect ((state) => {
+            settings.spellcheck = state;
+            ENotes.Editor.get_instance ().spellcheck = state;
             return false;
         });
 

@@ -35,6 +35,7 @@ public class ENotes.Services.Settings : Granite.Services.Settings {
     public bool line_numbers {get; set;}
     public bool import_files {get; set;}
     public bool keep_sidebar_visible { get; set; }
+    public bool spellcheck { get; set; }
 
     public string notes_location { get; set; }
     public string notes_database { get; set; }
@@ -42,6 +43,7 @@ public class ENotes.Services.Settings : Granite.Services.Settings {
     public string editor_scheme { get; set; }
     public string render_stylesheet { get; set; }
     public string stylesheet { get; set; }
+    public string spellcheck_language { get; set; }
 
     public static Settings get_instance () {
         if (instance == null) {

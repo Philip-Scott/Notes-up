@@ -79,6 +79,11 @@
 			<description>Toggles the sidebar to keep it visible when switching between VIEW and EDIT modes.</description>
 		</key>
 
+		<key name="spellcheck" type="b">
+			<default>true</default>
+			<summary>Enable spellcheck</summary>
+		</key>
+
 		<key name="line-numbers" type="b">
 			<default>false</default>
 			<summary>Automatic Indentation</summary>
@@ -107,6 +112,12 @@
 			<default>""</default>
 			<summary>Global default stylesheet name for renderer to use</summary>
 			<description>This must be the name of one of the default stylesheets</description>
+		</key>
+
+		<key name="spellcheck-language" type="s">
+			<default>""</default>
+			<summary>Spell check language used</summary>
+			<description>This must be the name of one of the installed languages</description>
 		</key>
 	</schema>
 

@@ -38,6 +38,7 @@ pkg_check_modules(DEPS REQUIRED
   gtk+-3.0>=3.9.10
   webkit2gtk-4.0
   sqlite3>=3.5.9
+  gtkspell3-3.0
 )
 
 set (VALA_DEPS
@@ -48,6 +49,7 @@ set (VALA_DEPS
  webkit2gtk-4.0
  sqlite3
  discount
+ gtkspell3-3.0
 )
 
 add_definitions(${DEPS_CFLAGS})

@@ -26,6 +26,7 @@ public class ENotes.Editor : Gtk.Box {
     private Gtk.SourceBuffer code_buffer;
     private Gtk.Box editor_and_help;
     private ENotes.HelpBox? help = null;
+    private GtkSpell.Checker spell = null;
 
     private bool edited = false;
 
@@ -47,6 +48,37 @@ public class ENotes.Editor : Gtk.Box {
             code_buffer.end_not_undoable_action ();
 
             set_sensitive (true);
+        }
+    }
+
+    public bool spellcheck {
+        set {
+            if (value) {
+                try {
+                    var last_language = settings.get_instance ().spellcheck_language;
+                    bool language_set = false;
+                    var language_list = GtkSpell.Checker.get_language_list ();
+                    foreach (var element in language_list) {
+                        if (last_language == element) {
+                            language_set = true;
+                            spell.set_language (last_language);
+                            break;
+                        }
+                    }
+
+                    if (language_list.length () == 0) {
+                        spell.set_language (null);
+                    } else if (!language_set) {
+                        last_language = language_list.first ().data;
+                        spell.set_language (last_language);
+                    }
+                    spell.attach (code_view);
+                } catch (Error e) {
+                    warning (e.message);
+                }
+            } else {
+                spell.detach ();
+            }
         }
     }
 
@@ -96,6 +128,23 @@ public class ENotes.Editor : Gtk.Box {
         editor_and_help = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         editor_and_help.add (scroll_box);
 
+        spell = new GtkSpell.Checker ();
+        spellcheck = settings.get_instance ().spellcheck;
+
+        code_view.populate_popup.connect ((menu) => {
+            menu.selection_done.connect (() => {
+                var selected = get_selected (menu);
+
+                if (selected != null) {
+                    try {
+                        spell.set_language (selected.label);
+                        settings.get_instance ().spellcheck_language = selected.label;
+                    } catch (Error e) {}
+                }
+            });
+
+        });
+
         this.set_orientation (Gtk.Orientation.VERTICAL);
         this.add (build_toolbar ());
         this.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
@@ -103,6 +152,21 @@ public class ENotes.Editor : Gtk.Box {
         this.set_sensitive (false);
         scroll_box.expand = true;
         this.show_all ();
+    }
+
+    private Gtk.MenuItem? get_selected (Gtk.Menu? menu) {
+        if (menu == null) return null;
+        var active = menu.get_active () as Gtk.MenuItem;
+
+        if (active == null) return null;
+
+        var sub_menu = active.get_submenu () as Gtk.Menu;
+
+        if (sub_menu != null) {
+            return sub_menu.get_active () as Gtk.MenuItem;
+        }
+
+        return null;
     }
 
     private Gtk.Box build_toolbar () {
