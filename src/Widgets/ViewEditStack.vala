@@ -76,11 +76,14 @@ public class ENotes.ViewEditStack : Gtk.Overlay {
                 return;
             }
         }
-
+        
         editor.save_file ();
         current_page = PageTable.get_instance ().get_page (page.id);
         editor.current_page = current_page;
         viewer.load_page (current_page);
+        
+        var ntbook = ENotes.NotebookTable.get_instance().load_notebook_data(current_page.notebook_id);
+        ENotes.Headerbar.get_instance ().set_title (page.name, ntbook.name);
 
         bookmark_button.set_page (current_page);
         page_set (current_page);

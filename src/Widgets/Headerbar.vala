@@ -90,7 +90,7 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
 
         bookmark_button = BookmarkButton.get_instance ();
 
-        set_title (null);
+        set_title (null, null);
         set_show_close_button (true);
 
         pack_start (mode_button);
@@ -146,11 +146,15 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         mode_button.set_active (mode);
     }
 
-    public new void set_title (string? title) {
-        if (title != null) {
-            this.title = title + " - Notes-Up";
+    public new void set_title (string? page_title, string? notebook_title) {
+        if (page_title != null && notebook_title != null) {
+            this.title = page_title + " - " + notebook_title;
+        } else if (page_title != null) {
+            this.title = page_title + " - ";
+        } else if (notebook_title != null) {
+            this.title = " - " + notebook_title;
         } else {
-            this.title = "Notes-Up";
+            this.title = "";
         }
     }
 

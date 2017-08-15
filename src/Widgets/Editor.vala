@@ -44,7 +44,6 @@ public class ENotes.Editor : Gtk.Box {
             code_buffer.text = value.data;
 
             edited = false;
-            ENotes.Headerbar.get_instance ().set_title (value.name);
             code_buffer.end_not_undoable_action ();
 
             set_sensitive (true);
