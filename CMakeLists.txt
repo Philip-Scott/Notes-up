@@ -114,19 +114,21 @@ vala_precompile(VALA_C
   src/Widgets/HelpBox.vala
   src/Widgets/Headerbar.vala
   src/Widgets/ViewEditStack.vala
-  src/Widgets/NewNotebookDialog.vala
-  src/Widgets/PreferencesDialog.vala
-  src/Widgets/NotebookItem.vala
-  src/Widgets/BookmarkItem.vala
-  src/Widgets/TrashItem.vala
   src/Widgets/ToolbarButton.vala
   src/Widgets/BookmarkButton.vala
   src/Widgets/PageItem.vala
   src/Widgets/PagesList.vala
-  src/Widgets/Sidebar.vala
-  src/Widgets/SidebarItem.vala
   src/Widgets/Viewer.vala
   src/Widgets/Window.vala
+
+  src/Widgets/Sidebar/Sidebar.vala
+  src/Widgets/Sidebar/SidebarItem.vala
+  src/Widgets/Sidebar/NotebookItem.vala
+  src/Widgets/Sidebar/BookmarkItem.vala
+  src/Widgets/Sidebar/TrashItem.vala
+
+  src/Widgets/Dialogs/NewNotebookDialog.vala
+  src/Widgets/Dialogs/PreferencesDialog.vala
   
   src/Styles/air.vala
   src/Styles/elementary.vala
