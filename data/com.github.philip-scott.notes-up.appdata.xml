@@ -21,6 +21,15 @@
     <binary>notes-up</binary>
   </provides>
   <releases>
+    <release version="1.4.6" date="2017-08-16">
+      <description>
+        <p>Spell Checking</p>
+        <ul>
+          <li>Notes-up now checks your spelling while you type! No more excuses for misspelled words in your homework ;)</li>
+          <li>The title of the app now displays your current note and notebook</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.4.3" date="2017-06-06">
       <description>
         <p>Quick fix</p>
