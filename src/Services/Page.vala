@@ -219,17 +219,51 @@ public class ENotes.PageTable : DatabaseTable {
         }
     }
 
-    private const string[] SYMBOLS_BLACKLIST = {"#", "`", "\t", "<br>", ">", "<", "\n", "~" };
+    //private const string[] SYMBOLS_BLACKLIST = {"#", "`", "\t", "<br>", ">", "<", "\n", "~" };
+    
+    
+    private struct BLMember {
+        public GLib.Regex reg;
+        public string replace;
+        
+        public BLMember (GLib.Regex reg, string replace) {
+            this.reg = reg;
+            this.replace = replace;
+        }
+    
+    }
+    
+    
+    // One element of REGEX_BLACKLIST has regular expression and then string to replace it
+    // first element replaces # ~ ` etc. with one regular expression 
     private string cleanup (string line) {
+        BLMember[] REGEX_BLACKLIST;
+        REGEX_BLACKLIST = {BLMember (/[#\n\t]+/, ""), BLMember(/<br>/, "")};
+        
+        
+        
+        
+        
+        //{/[#`\n\t~]+/, "", /<br>/, ""};
         string output = line;
 
-        if (line.contains ("---")) return "";
 
+  
+        foreach (BLMember b in REGEX_BLACKLIST) {
+            output = b.reg.replace (output, -1, 0, b.replace);        
+        }
+        
+        if (output.contains ("#")) return "Fehler";
+
+        if (line.contains ("---")) return "";
+        
+        /*
         foreach (string item in SYMBOLS_BLACKLIST) {
             if (output.contains (item)) {
                 output = output.replace (item, "");
             }
         }
+        */
 
         if (output.contains ("&")) output = output.replace ("&","&amp;");
 
