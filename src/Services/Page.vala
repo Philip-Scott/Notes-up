@@ -219,9 +219,6 @@ public class ENotes.PageTable : DatabaseTable {
         }
     }
 
-    
-    
-    
     // Describs member of BlackList used in cleanup. reg is the regular expression and replace the string it will be replaced
     private struct BLMember {
         public GLib.Regex reg;
@@ -233,8 +230,7 @@ public class ENotes.PageTable : DatabaseTable {
         }
     
     }
-    
-    
+      
     private string cleanup (string line) {
  
     // This list is used for complex commands mostly by plugins e.g. "" <youtube [Link]>
@@ -244,7 +240,7 @@ public class ENotes.PageTable : DatabaseTable {
     // [a-zA-Z0-9_\.\?\/:\=\+&\-'"]* is very greedy way for stating website but closer solutions need more space 
        BLMember youtube_video = BLMember(/<youtube [a-zA-Z0-9_\.\?\/:\=\+&\-'"]*>/, _("Youtube Video"));
     // "
-    // Explaination for link: Regex for [Something](Something). As greedy as editor
+    // Explaination for link: Regex for [Something](Something). As greedy as editor on markdown
        BLMember link = BLMember(/\[[a-zA-Z0-9_\.\?\/:\=\+&\-'"]*\]\([a-zA-Z0-9_\.\?\/:\=\+&\-'"]*\)/, _("Link"));
        
     //  \[\^\d+\]:? leads to e.g. [^32], [^68]:   
@@ -252,7 +248,7 @@ public class ENotes.PageTable : DatabaseTable {
        
     // Regex_Simple_elements used for symbols. Some symbols are part of more complex commands so these
     // list is used at the end
-    // first element replaces # ~ ` etc. with one regular expression 
+    // first regular expression replaces # ~ ` etc. with ""
         BLMember[] Regex_Simple_elements = {BLMember (/[#\n\t<>]+/, ""), BLMember(/<br>/, "")};
        
         string output = line;
