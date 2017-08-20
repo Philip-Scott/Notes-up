@@ -257,15 +257,17 @@ public class ENotes.PageTable : DatabaseTable {
        
         string output = line;
 
-
-        foreach (BLMember item in Regex_complex_commands) {
-              output = item.reg.replace (output, -1, 0, item.replace);        
-        }  
+        try {
+            foreach (BLMember item in Regex_complex_commands) {
+                  output = item.reg.replace (output, -1, 0, item.replace);        
+            }  
         
-        foreach (BLMember item in Regex_Simple_elements) {
-            output = item.reg.replace (output, -1, 0, item.replace);        
+            foreach (BLMember item in Regex_Simple_elements) {
+                output = item.reg.replace (output, -1, 0, item.replace);        
+            }
+        } catch (GLib.RegexError e) {
+            return "";
         }
-        
 
         if (line.contains ("---")) return "";
         
