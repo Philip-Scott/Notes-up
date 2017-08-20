@@ -222,7 +222,7 @@ public class ENotes.PageTable : DatabaseTable {
     //private const string[] SYMBOLS_BLACKLIST = {"#", "`", "\t", "<br>", ">", "<", "\n", "~" };
     
     
-    // Describs member of BlackList. reg is the regular expression and replace the string it will be replaced
+    // Describs member of BlackList used in cleanup. reg is the regular expression and replace the string it will be replaced
     private struct BLMember {
         public GLib.Regex reg;
         public string replace;
@@ -242,15 +242,20 @@ public class ENotes.PageTable : DatabaseTable {
        BLMember[] Regex_complex_commands;
        
        
-       Regex_complex_commands = {BLMember (/<break>/, ""), BLMember (/<highlight>/, ""), BLMember (/<color #[\da-zA-Z]{6}>/, "")};
+    // [a-zA-Z0-9_\.\?\/:\=\+&\-'"]* is very greedy way for stating website but closer solutions need more space 
+       BLMember youtube_video = BLMember(/<youtube [a-zA-Z0-9_\.\?\/:\=\+&\-'"]*>/, "Youtube Video");
+    // "
+    // Explaination for link: Regex for [Something](Something). As greedy as editor
+       BLMember link = BLMember(/\[[a-zA-Z0-9_\.\?\/:\=\+&\-'"]*\]\([a-zA-Z0-9_\.\?\/:\=\+&\-'"]*\)/, "Link");
+       
+    //  \[\^\d+\]:? leads to e.g. [^32], [^68]:   
+       Regex_complex_commands = {BLMember (/<break>/, ""), BLMember (/<highlight>/, ""), BLMember (/<color #[\da-zA-Z]{6}>/, ""), BLMember (/\[\^\d+\]:?/, ""), youtube_video, link};
        
        
-    
     
     
     // Regex_Simple_elements used for symbols. Some symbols are part of more complex commands so these
     // list is used at the end
-    // One element of REGEX_BLACKLIST has regular expression and then string to replace it
     // first element replaces # ~ ` etc. with one regular expression 
         BLMember[] Regex_Simple_elements = {BLMember (/[#\n\t<>]+/, ""), BLMember(/<br>/, "")};
        
