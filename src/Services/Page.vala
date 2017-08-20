@@ -237,16 +237,15 @@ public class ENotes.PageTable : DatabaseTable {
     
     private string cleanup (string line) {
  
- 
     // This list is used for complex commands mostly by plugins e.g. "" <youtube [Link]>
        BLMember[] Regex_complex_commands;
        
-       
+    // @translator this code summarises a notebook page. Instead of given youtube link this code changes into Youtube Video      
     // [a-zA-Z0-9_\.\?\/:\=\+&\-'"]* is very greedy way for stating website but closer solutions need more space 
-       BLMember youtube_video = BLMember(/<youtube [a-zA-Z0-9_\.\?\/:\=\+&\-'"]*>/, "Youtube Video");
+       BLMember youtube_video = BLMember(/<youtube [a-zA-Z0-9_\.\?\/:\=\+&\-'"]*>/, _("Youtube Video"));
     // "
     // Explaination for link: Regex for [Something](Something). As greedy as editor
-       BLMember link = BLMember(/\[[a-zA-Z0-9_\.\?\/:\=\+&\-'"]*\]\([a-zA-Z0-9_\.\?\/:\=\+&\-'"]*\)/, "Link");
+       BLMember link = BLMember(/\[[a-zA-Z0-9_\.\?\/:\=\+&\-'"]*\]\([a-zA-Z0-9_\.\?\/:\=\+&\-'"]*\)/, _("Link"));
        
     //  \[\^\d+\]:? leads to e.g. [^32], [^68]:   
        Regex_complex_commands = {BLMember (/<break>/, ""), BLMember (/<highlight>/, ""), BLMember (/<color #[\da-zA-Z]{6}>/, ""), BLMember (/\[\^\d+\]:?/, ""), youtube_video, link};
@@ -270,7 +269,7 @@ public class ENotes.PageTable : DatabaseTable {
 
         if (line.contains ("---")) return "";
         
-        // What is the purpose of this line
+        // What is the purpose of this line?
         if (output.contains ("&")) output = output.replace ("&","&amp;");
 
         if (output.length > 0 && output[0] == ' ') {
