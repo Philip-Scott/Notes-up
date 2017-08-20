@@ -219,7 +219,7 @@ public class ENotes.PageTable : DatabaseTable {
         }
     }
 
-    //private const string[] SYMBOLS_BLACKLIST = {"#", "`", "\t", "<br>", ">", "<", "\n", "~" };
+    
     
     
     // Describs member of BlackList used in cleanup. reg is the regular expression and replace the string it will be replaced
