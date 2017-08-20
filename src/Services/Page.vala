@@ -222,6 +222,7 @@ public class ENotes.PageTable : DatabaseTable {
     //private const string[] SYMBOLS_BLACKLIST = {"#", "`", "\t", "<br>", ">", "<", "\n", "~" };
     
     
+    // Describs member of BlackList. reg is the regular expression and replace the string it will be replaced
     private struct BLMember {
         public GLib.Regex reg;
         public string replace;
@@ -234,26 +235,37 @@ public class ENotes.PageTable : DatabaseTable {
     }
     
     
+    private string cleanup (string line) {
+ 
+ 
+    // This list is used for complex commands mostly by plugins e.g. "" <youtube [Link]>
+       BLMember[] Regex_complex_commands;
+       
+       
+       Regex_complex_commands = {BLMember (/<break>/, ""), BLMember (/<highlight>/, ""), BLMember (/<color #[\da-zA-Z]{6}>/, "")};
+       
+       
+    
+    
+    
+    // Regex_Simple_elements used for symbols. Some symbols are part of more complex commands so these
+    // list is used at the end
     // One element of REGEX_BLACKLIST has regular expression and then string to replace it
     // first element replaces # ~ ` etc. with one regular expression 
-    private string cleanup (string line) {
-        BLMember[] REGEX_BLACKLIST;
-        REGEX_BLACKLIST = {BLMember (/[#\n\t]+/, ""), BLMember(/<br>/, "")};
-        
-        
-        
-        
-        
-        //{/[#`\n\t~]+/, "", /<br>/, ""};
+        BLMember[] Regex_Simple_elements = {BLMember (/[#\n\t<>]+/, ""), BLMember(/<br>/, "")};
+       
         string output = line;
 
 
-  
-        foreach (BLMember b in REGEX_BLACKLIST) {
-            output = b.reg.replace (output, -1, 0, b.replace);        
+        foreach (BLMember item in Regex_complex_commands) {
+              output = item.reg.replace (output, -1, 0, item.replace);        
+        }  
+        
+        foreach (BLMember item in Regex_Simple_elements) {
+            output = item.reg.replace (output, -1, 0, item.replace);        
         }
         
-        if (output.contains ("#")) return "Fehler";
+      
 
         if (line.contains ("---")) return "";
         
