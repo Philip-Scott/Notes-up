@@ -251,9 +251,6 @@ public class ENotes.PageTable : DatabaseTable {
     //  \[\^\d+\]:? leads to e.g. [^32], [^68]:   
        Regex_complex_commands = {BLMember (/<break>/, ""), BLMember (/<highlight>/, ""), BLMember (/<color #[\da-zA-Z]{6}>/, ""), BLMember (/\[\^\d+\]:?/, ""), youtube_video, link};
        
-       
-    
-    
     // Regex_Simple_elements used for symbols. Some symbols are part of more complex commands so these
     // list is used at the end
     // first element replaces # ~ ` etc. with one regular expression 
@@ -270,18 +267,10 @@ public class ENotes.PageTable : DatabaseTable {
             output = item.reg.replace (output, -1, 0, item.replace);        
         }
         
-      
 
         if (line.contains ("---")) return "";
         
-        /*
-        foreach (string item in SYMBOLS_BLACKLIST) {
-            if (output.contains (item)) {
-                output = output.replace (item, "");
-            }
-        }
-        */
-
+        // What is the purpose of this line
         if (output.contains ("&")) output = output.replace ("&","&amp;");
 
         if (output.length > 0 && output[0] == ' ') {
