@@ -288,8 +288,7 @@ public class ENotes.PagesList : Gtk.Box {
                  all_not_trashed = all_not_trashed && !page_trashed;
              }
              if (all_not_trashed) {
-                 minus_button.set_sensitive (true);
-                        
+                 minus_button.set_sensitive (true);                 
              }
              else {
                  minus_button.set_sensitive (false);
