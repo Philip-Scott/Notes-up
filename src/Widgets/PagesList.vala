@@ -272,11 +272,35 @@ public class ENotes.PagesList : Gtk.Box {
             refresh ();
         });
 
-        listbox.row_selected.connect ((row) => {
-            if (row == null || loading_pages) return;
-            minus_button.set_sensitive (true);
-            ENotes.ViewEditStack.get_instance ().set_page (((ENotes.PageItem) row).page, false);
-        });
+        listbox.row_selected.connect ((last_selected_row) => {
+             if (last_selected_row == null || loading_pages) return;
+                    
+             var rows = listbox.get_selected_rows ();
+                    
+             bool all_trashed = true;
+             bool all_not_trashed = true;
+                    
+             foreach (var row in rows) {
+                 var pagerow = ((ENotes.PageItem) row).page;
+                 var page_trashed = Trash.get_instance ().is_page_trashed (pagerow);
+                        
+                 all_trashed = all_trashed && page_trashed;
+                 all_not_trashed = all_not_trashed && !page_trashed;
+             }
+             if (all_not_trashed) {
+                 minus_button.set_sensitive (true);
+                        
+             }
+             else if (all_trashed) {
+                  minus_button.set_sensitive (true);
+                        
+             }
+             else {
+                 minus_button.set_sensitive (false);
+             }
+                    
+             ENotes.ViewEditStack.get_instance ().set_page (((ENotes.PageItem) last_selected_row).page, false);
+         });
 
         listbox.row_activated.connect ((row) => {
             window.toggle_edit ();
