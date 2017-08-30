@@ -30,9 +30,6 @@ public class ENotes.PagesList : Gtk.Box {
     private Gtk.Button plus_button;
     private Gtk.Label notebook_name;
     private Gtk.Label page_total;
-    
-    private Gtk.PixBuf delete_icon;
-    private Gtk.PixBuf undo_icon;
 
     public ENotes.Notebook current_notebook;
 
@@ -107,10 +104,6 @@ public class ENotes.PagesList : Gtk.Box {
         notebook_name = new Gtk.Label ("");
         page_total = new Gtk.Label ("");
         separator = new Gtk.Separator (Gtk.Orientation.VERTICAL);
-        
-        var icon_theme = Gtk.IconTheme.get_default ();
-        delete_icon = icon_theme.load_icon ("edit-delete-symbolic", 16, 0);
-        undo_icon = icon_theme.load_icon ("edit-undo-symbolic", 16, 0);
 
         minus_button.get_style_context ().add_class ("flat");
         plus_button.get_style_context ().add_class ("flat");
@@ -296,10 +289,6 @@ public class ENotes.PagesList : Gtk.Box {
              }
              if (all_not_trashed) {
                  minus_button.set_sensitive (true);
-                        
-             }
-             else if (all_trashed) {
-                  minus_button.set_sensitive (true);
                         
              }
              else {
