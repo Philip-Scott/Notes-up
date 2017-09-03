@@ -218,18 +218,6 @@ public class ENotes.PageTable : DatabaseTable {
             page.subtitle = "";
         }
     }
-
-    // Describs member of BlackList used in cleanup. reg is the regular expression and replace the string it will be replaced
-    private struct BLMember {
-        public GLib.Regex reg;
-        public string replace;
-        
-        public BLMember (GLib.Regex reg, string replace) {
-            this.reg = reg;
-            this.replace = replace;
-        }
-    
-    }
       
     private string cleanup (string line) {
  
@@ -238,10 +226,10 @@ public class ENotes.PageTable : DatabaseTable {
        
     // @translator this code summarises a notebook page. Instead of given youtube link this code changes into Youtube Video      
     // [a-zA-Z0-9_\.\?\/:\=\+&\-'"]* is very greedy way for stating website but closer solutions need more space 
-       BLMember youtube_video = BLMember(/<youtube [a-zA-Z0-9_\.\?\/:\=\+&\-'"]*>/, _("Youtube Video"));
+       var youtube_video = BLMember(/<youtube [a-zA-Z0-9_\.\?\/:\=\+&\-'"]*>/, _("Youtube Video"));
     // "
     // Explaination for link: Regex for [Something](Something). As greedy as editor on markdown
-       BLMember link = BLMember(/\[[a-zA-Z0-9_\.\?\/:\=\+&\-'"]*\]\([a-zA-Z0-9_\.\?\/:\=\+&\-'"]*\)/, _("Link"));
+       var link = BLMember(/\[[a-zA-Z0-9_\.\?\/:\=\+&\-'"]*\]\([a-zA-Z0-9_\.\?\/:\=\+&\-'"]*\)/, _("Link"));
        
     //  \[\^\d+\]:? leads to e.g. [^32], [^68]:   
        Regex_complex_commands = {BLMember (/<break>/, ""), BLMember (/<highlight>/, ""), BLMember (/<color #[\da-zA-Z]{6}>/, ""), BLMember (/\[\^\d+\]:?/, ""), youtube_video, link};
