@@ -51,10 +51,15 @@ public abstract class ENotes.Plugin : GLib.Object {
     public virtual string request_string (string selection) {
         return selection;
     }
+    
+    // if plugin doesnt say anything about syntax just return null
+    public virtual Gee.LinkedList<BLMember> blacklist_members () {
+        return null;
+    }
 }
 
 // Describs member of BlackList used in cleanup. reg is the regular expression and replace the string it will be replaced
-public struct BLMember {
+public class BLMember {
     public GLib.Regex reg;
     public string replace;
     
