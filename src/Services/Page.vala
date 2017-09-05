@@ -226,26 +226,26 @@ public class ENotes.PageTable : DatabaseTable {
        
     // @translator this code summarises a notebook page. Instead of given youtube link this code changes into Youtube Video      
     // [a-zA-Z0-9_\.\?\/:\=\+&\-'"]* is very greedy way for stating website but closer solutions need more space 
-       var youtube_video = BLMember(/<youtube [a-zA-Z0-9_\.\?\/:\=\+&\-'"]*>/, _("Youtube Video"));
+    //   var youtube_video = BLMember(/<youtube [a-zA-Z0-9_\.\?\/:\=\+&\-'"]*>/, _("Youtube Video"));
     // "
     // Explaination for link: Regex for [Something](Something). As greedy as editor on markdown
-       var link = BLMember(/\[[a-zA-Z0-9_\.\?\/:\=\+&\-'"]*\]\([a-zA-Z0-9_\.\?\/:\=\+&\-'"]*\)/, _("Link"));
+    //   var link = BLMember(/\[[a-zA-Z0-9_\.\?\/:\=\+&\-'"]*\]\([a-zA-Z0-9_\.\?\/:\=\+&\-'"]*\)/, _("Link"));
        
     //  \[\^\d+\]:? leads to e.g. [^32], [^68]:   
-       Regex_complex_commands = {BLMember (/<break>/, ""), BLMember (/<highlight>/, ""), BLMember (/<color #[\da-zA-Z]{6}>/, ""), BLMember (/\[\^\d+\]:?/, ""), youtube_video, link};
+    //   Regex_complex_commands = {BLMember (/<break>/, ""), BLMember (/<highlight>/, ""), BLMember (/<color #[\da-zA-Z]{6}>/, ""), BLMember (/\[\^\d+\]:?/, ""), youtube_video, link};
        
     // Regex_Simple_elements used for symbols. Some symbols are part of more complex commands so these
     // list is used at the end
     // first regular expression replaces # ~ ` etc. with ""
-        BLMember[] Regex_Simple_elements = {BLMember (/[#\n\t<>]+/, ""), BLMember(/<br>/, "")};
+        BLMember[] Regex_Simple_elements = {new BLMember (/[#\n\t<>]+/, ""), new BLMember(/<br>/, "")};
        
         string output = line;
 
         try {
-            foreach (BLMember item in Regex_complex_commands) {
+     /*       foreach (BLMember item in Regex_complex_commands) {
                   output = item.reg.replace (output, -1, 0, item.replace);        
             }  
-        
+       */ 
             foreach (BLMember item in Regex_Simple_elements) {
                 output = item.reg.replace (output, -1, 0, item.replace);        
             }
