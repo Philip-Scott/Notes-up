@@ -86,8 +86,7 @@ public class ENotes.PageTable : DatabaseTable {
         }
 
         set_table_name ("Page");
-        
-        
+          
         // @translator this code summarises a notebook page. Instead of given youtube link this code changes into Youtube Video      
     
         // Explaination for link: Regex for [Something](Something). As greedy as editor on markdown
@@ -98,15 +97,12 @@ public class ENotes.PageTable : DatabaseTable {
     
         Regex_complex_commands.add (link);
         Regex_complex_commands.add (anchor);
-        
-        
+              
         var plugin_blacklist_member = PluginManager.get_instance ().get_all_blacklist_members ();
         
         foreach (BLMember blacklist_member in plugin_blacklist_member) {
             Regex_complex_commands.add(blacklist_member);
-        }
-        
-        
+        }    
     }
 
     public Page? get_page (int64 page_id) {

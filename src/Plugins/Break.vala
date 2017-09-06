@@ -55,7 +55,6 @@ public class ENotes.Break : ENotes.Plugin {
         return line_.replace ("<break>", """<div style="page-break-after: always;">&zwnj;</div>""");
     }
     
-    
     public override Gee.List<BLMember> get_blacklist_members () {
         var list = new Gee.LinkedList<BLMember> ();
         list.add (new BLMember (/<break>/, ""));

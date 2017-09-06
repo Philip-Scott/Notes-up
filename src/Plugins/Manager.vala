@@ -50,7 +50,6 @@ public class ENotes.PluginManager : GLib.Object {
         return plug_list;
     }
     
-    
     public Gee.List<BLMember> get_all_blacklist_members () {
         var result = new Gee.LinkedList<BLMember> ();
         foreach (Plugin plugin in plug_list){
