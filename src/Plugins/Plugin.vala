@@ -53,7 +53,7 @@ public abstract class ENotes.Plugin : GLib.Object {
     }
     
     // if plugin doesnt say anything about syntax just return null
-    public virtual Gee.List<BLMember> blacklist_members () {
+    public virtual Gee.List<BLMember> get_blacklist_members () {
         return null;
     }
 }

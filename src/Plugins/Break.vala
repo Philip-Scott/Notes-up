@@ -56,7 +56,7 @@ public class ENotes.Break : ENotes.Plugin {
     }
     
     
-    public override Gee.List<BLMember> blacklist_members () {
+    public override Gee.List<BLMember> get_blacklist_members () {
         var list = new Gee.LinkedList<BLMember> ();
         list.add (new BLMember (/<break>/, ""));
         return list;
