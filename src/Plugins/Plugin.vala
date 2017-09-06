@@ -58,7 +58,7 @@ public abstract class ENotes.Plugin : GLib.Object {
     }
 }
 
-// Describs member of BlackList used in cleanup. reg is the regular expression and replace the string it will be replaced
+// Describes member of BlackList used in cleanup. reg is the regular expression and replace the string it will be replaced
 public class BLMember {
     public GLib.Regex reg;
     public string replace;
