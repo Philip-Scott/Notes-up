@@ -49,4 +49,7 @@ public class ENotes.PluginManager : GLib.Object {
     public unowned Plugin[] get_plugs () {
         return plug_list;
     }
+    
+    
+     
 }

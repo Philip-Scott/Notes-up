@@ -107,7 +107,7 @@ public class ENotes.Color : ENotes.Plugin {
         return builed + line[last:i];
     }
     
-    public override Gee.LinkedList<BLMember> blacklist_members () {
+    public override Gee.List<BLMember> blacklist_members () {
         var list = new Gee.LinkedList<BLMember> ();
         list.add (new BLMember (/<color #[\da-zA-Z]{6}>/, ""));
         return list;

@@ -71,7 +71,7 @@ public class ENotes.Youtube : ENotes.Plugin {
         return builed + line[last:i];
     }
     
-    public override Gee.LinkedList<BLMember> blacklist_members () {
+    public override Gee.List<BLMember> blacklist_members () {
         var list = new Gee.LinkedList<BLMember> ();
         // [a-zA-Z0-9_\.\?\/:\=\+&\-'"]* is very greedy way for stating website but closer solutions need more space 
         var youtube_video = new BLMember (/<youtube [a-zA-Z0-9_\.\?\/:\=\+&\-'"]*>/, _("Youtube Video"));

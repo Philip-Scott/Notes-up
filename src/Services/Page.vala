@@ -227,7 +227,7 @@ public class ENotes.PageTable : DatabaseTable {
     // @translator this code summarises a notebook page. Instead of given youtube link this code changes into Youtube Video      
 
     // Explaination for link: Regex for [Something](Something). As greedy as editor on markdown
-    var link = BLMember(/\[[a-zA-Z0-9_\.\?\/:\=\+&\-'"]*\]\([a-zA-Z0-9_\.\?\/:\=\+&\-'"]*\)/, _("Link"));
+    var link = new BLMember(/\[[a-zA-Z0-9_\.\?\/:\=\+&\-'"]*\]\([a-zA-Z0-9_\.\?\/:\=\+&\-'"]*\)/, _("Link"));
        
     //  \[\^\d+\]:? leads to e.g. [^32], [^68]: 
     var anchor = new BLMember (/\[\^\d+\]:?/, "");
@@ -256,7 +256,6 @@ public class ENotes.PageTable : DatabaseTable {
 
         if (line.contains ("---")) return "";
         
-        // What is the purpose of this line?
         if (output.contains ("&")) output = output.replace ("&","&amp;");
 
         if (output.length > 0 && output[0] == ' ') {
