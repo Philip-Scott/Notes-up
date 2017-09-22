@@ -378,8 +378,8 @@ msgid ""
 "Set font color for the line with <color [#color]> or for some text with "
 "<color [color] [text]>"
 msgstr ""
-"Définissez la couleur de la police pour la ligne avec <couleur [#color]> ou pour un texte avec "
-"<color [color] [text]>"
+"Définissez la couleur de la police pour la ligne avec <color [#couleur]> ou pour un texte avec "
+"<color [couleur] [text]>"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Color.vala:39
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Color.vala:68
