@@ -193,7 +193,7 @@ msgstr "**gras**"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:47
 msgid "<s>Strike</s>"
-msgstr "<s>Souligné</s>"
+msgstr "<s>Barré</s>"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:47
 msgid "~~strike~~"
@@ -425,3 +425,35 @@ msgstr "Charger une image embarquée"
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Image.vala:32
 msgid "Image"
 msgstr "Image"
+
+#: Services/FileManager.vala:197
+msgid "Select destination PDF file"
+msgstr "Sélectionner le fichier PDF de destination"
+
+#: Services/FileManager.vala:199
+msgid "Save"
+msgstr "Enregistrer"
+
+#: Services/FileManager.vala:202
+msgid "PDF File"
+msgstr "Fichier PDF"
+
+#: Services/FileManager.vala:209
+msgid "Open file"
+msgstr "Ouvrir le fichier"
+
+#: Services/FileManager.vala:211
+msgid "Open"
+msgstr "Ouvrir"
+
+#: Services/FileManager.vala:214
+msgid "Images"
+msgstr "Images"
+
+#: Services/FileManager.vala:221
+msgid "All Files"
+msgstr "Tous les fichiers"
+
+#: Widgets/Dialogs/PreferencesDialog.vala:133
+msgid "Spellcheck:"
+msgstr "Correcteur orthographique:"
