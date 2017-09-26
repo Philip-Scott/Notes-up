@@ -428,3 +428,35 @@ msgstr ""
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Image.vala:32
 msgid "Image"
 msgstr ""
+
+#: Services/FileManager.vala:197
+msgid "Select destination PDF file"
+msgstr ""
+
+#: Services/FileManager.vala:199
+msgid "Save"
+msgstr ""
+
+#: Services/FileManager.vala:202
+msgid "PDF File"
+msgstr ""
+
+#: Services/FileManager.vala:209
+msgid "Open file"
+msgstr ""
+
+#: Services/FileManager.vala:211
+msgid "Open"
+msgstr ""
+
+#: Services/FileManager.vala:214
+msgid "Images"
+msgstr ""
+
+#: Services/FileManager.vala:221
+msgid "All Files"
+msgstr ""
+
+#: Widgets/Dialogs/PreferencesDialog.vala:133
+msgid "Spellcheck:"
+msgstr ""
