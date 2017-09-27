@@ -194,31 +194,31 @@ public class ENotes.FileManager : Object {
         List<Gtk.FileFilter> filters = new List<Gtk.FileFilter> ();
 
         if (save_as_pdf) {
-            title =  ("Select destination PDF file");
+            title =  _("Select destination PDF file");
             chooser_action = Gtk.FileChooserAction.SAVE;
-            accept_button_label = ("Save");
+            accept_button_label = _("Save");
 
             var pdf_filter = new Gtk.FileFilter ();
-            pdf_filter.set_filter_name ("PDF File");
+            pdf_filter.set_filter_name (_("PDF File"));
 
             pdf_filter.add_mime_type ("application/pdf");
             pdf_filter.add_pattern ("*.pdf");
 
             filters.append (pdf_filter);
         } else {
-            title =  ("Open file");
+            title =  _("Open file");
             chooser_action = Gtk.FileChooserAction.OPEN;
-            accept_button_label = ("Open");
+            accept_button_label = _("Open");
 
             var filter = new Gtk.FileFilter ();
-            filter.set_filter_name ("Images");
+            filter.set_filter_name (_("Images"));
             filter.add_mime_type ("image/*");
 
             filters.append (filter);
         }
 
         var all_filter = new Gtk.FileFilter ();
-        all_filter.set_filter_name ("All Files");
+        all_filter.set_filter_name (_("All Files"));
         all_filter.add_pattern ("*");
 
         filters.append (all_filter);
@@ -227,7 +227,7 @@ public class ENotes.FileManager : Object {
             title,
             window,
             chooser_action,
-            ("Cancel"), Gtk.ResponseType.CANCEL,
+            _("Cancel"), Gtk.ResponseType.CANCEL,
             accept_button_label, Gtk.ResponseType.ACCEPT);
 
 
