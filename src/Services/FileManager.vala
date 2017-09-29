@@ -138,6 +138,10 @@ public class ENotes.FileManager : Object {
             file = File.new_for_path (file_path);
         }
 
+        if (file == null) {
+          return null;
+        }
+
         try { // TODO: we have to write an empty file so we can get file path
             write_file (file, "");
         } catch (Error e) {
