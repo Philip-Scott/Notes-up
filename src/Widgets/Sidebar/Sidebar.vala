@@ -45,6 +45,12 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
         notebooks.collapse_all (true, true);
         root.expand_all (false, false);
     }
+    
+    public Sidebar.notebook_list (ENotes.Notebook to_ignore) {
+        build_new_ui ();
+        notebooks.expand_all (true, false);
+        load_notebooks (false, to_ignore);
+    }
 
     private void build_new_ui () {
         root.add (notebooks);
@@ -55,23 +61,24 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
         this.width_request = 150;
     }
 
-    public void load_notebooks () {
+    public void load_notebooks (bool add_menus = true, ENotes.Notebook? to_ignore = null) {
         this.notebooks.clear ();
 
         var notebook_list = NotebookTable.get_instance ().get_notebooks ();
         added_notebooks = new Gee.HashMap<int, NotebookItem>();
         var to_add = new Gee.ArrayList<NotebookItem>();
 
-        foreach (ENotes.Notebook notebook in notebook_list) {
-            var item = new NotebookItem (notebook);
+        foreach (ENotes.Notebook notebook in notebook_list) {       
+            var item = new NotebookItem (notebook, add_menus);
+            added_notebooks.set ((int) notebook.id, item);
+            
+            if (to_ignore != null && to_ignore.id == notebook.id) continue;
 
             if (notebook.parent_id == 0) {
                 this.notebooks.add (item);
             } else {
                 to_add.add (item);
             }
-
-            added_notebooks.set ((int) notebook.id, item);
         }
 
         foreach (var item in to_add) {
@@ -132,7 +139,7 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
         });
 
         NotebookTable.get_instance ().notebook_added.connect ((notebook) => {
-            var item = new NotebookItem (notebook);
+            var item = new NotebookItem (notebook, true);
 
             var parent_id = (int) notebook.parent_id;
             if (parent_id == 0) {

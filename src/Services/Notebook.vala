@@ -198,6 +198,14 @@ public class ENotes.NotebookTable : DatabaseTable {
 
         return stmt.column_text (0);
     }
+    
+    public void move_notebook (Notebook notebook, Notebook? parent_notebook) {
+        var stmt = create_stmt ("UPDATE Notebook SET parent_id = ? WHERE id = ?");
+        bind_int (stmt, 1, parent_notebook != null ? parent_notebook.id : 0);
+        bind_int (stmt, 2, notebook.id);
+        
+        stmt.step ();
+    }
 
     public void delete_notebook (int64 id) {
         var stmt = create_stmt ("UPDATE Notebook SET parent_id = 0 WHERE parent_id = ?");
