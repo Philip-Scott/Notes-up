@@ -1,0 +1,462 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-10-01 15:38-0300\n"
+"PO-Revision-Date: 2017-10-01 21:31-0300\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"Last-Translator: \n"
+"Language: pt_BR\n"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Plugins/Youtube.vala:30
+msgid "Embed youtube videos: <youtube [video]>"
+msgstr "Embutir vídeos do YouTube: <youtube [vídeo]>"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Plugins/Youtube.vala:34
+msgid "Youtube"
+msgstr "YouTube"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Plugins/Youtube.vala:42
+msgid "Insert Youtube video"
+msgstr "Inserir vídeo do YouTube"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Plugins/Color.vala:35
+msgid ""
+"Set font color for the line with <color [#color]> or for some text with "
+"<color [color] [text]>"
+msgstr ""
+"Definir cor da fonte à linha com <color [#color]> ou para algum texto "
+"com <color [color] [text]>"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Plugins/Color.vala:39
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Plugins/Color.vala:68
+msgid "Font color"
+msgstr "Cor da Fonte"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Plugins/Image.vala:28
+msgid "Load an embeded image"
+msgstr "Carregar uma imagem embutida"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Plugins/Image.vala:32
+msgid "Image"
+msgstr "Imagem"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Plugins/Highlight.vala:28
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/HelpBox.vala:62
+msgid "Enable Syntax Highlighting"
+msgstr "Habilitar Destaque de Sintaxe"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Plugins/Highlight.vala:32
+msgid "Syntax Highlighing"
+msgstr "Destaque de Sintaxe"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Plugins/Break.vala:28
+msgid "Page break when exporting to PDF: <break>"
+msgstr "Quebra de página ao exportar para PDF: <break>"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Plugins/Break.vala:32
+msgid "Page break"
+msgstr "Quebra de página"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Plugins/Break.vala:47
+msgid "Page break on export: <break>"
+msgstr "Quebra de página na exportação: <break>"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Editor.vala:174
+msgid "Add bold to text"
+msgstr "Adicionar negrito ao texto"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Editor.vala:175
+msgid "Add italic to text"
+msgstr "Adicionar itálico ao texto"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Editor.vala:176
+msgid "Strikethrough text"
+msgstr "Texto cortado"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Editor.vala:178
+msgid "Insert a quote"
+msgstr "Inserir uma citação"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Editor.vala:179
+msgid "Insert code"
+msgstr "Inserir código"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Editor.vala:180
+msgid "Insert a link"
+msgstr "Inserir link"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Editor.vala:182
+msgid "Add a bulleted list"
+msgstr "Adicionar uma lista com marcadores"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Editor.vala:183
+msgid "Add a Numbered list"
+msgstr "Adicionar uma lista com números"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Editor.vala:185
+msgid "Insert an image"
+msgstr "Inserir uma imagem"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Editor.vala:222
+msgid "Formatting"
+msgstr "Formatação"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/PagesList.vala:121
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Services/Page.vala:148
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Services/Page.vala:212
+msgid "New Page"
+msgstr "Nova Página"
+
+#. //bugzilla.gnome.org/show_bug.cgi?id=758000 is fixed.
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/PagesList.vala:201
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/PagesList.vala:300
+#, c-format
+msgid "%i Page"
+msgid_plural "%i Pages"
+msgstr[0] "Página %i"
+msgstr[1] "%i Páginas"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/HelpBox.vala:41
+msgid "Large Header"
+msgstr "Cabeçalho Grande"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/HelpBox.vala:42
+msgid "Medium Header"
+msgstr "Cabeçalho Médio"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/HelpBox.vala:43
+msgid "Small Header"
+msgstr "Cabeçalho Pequeno"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/HelpBox.vala:45
+msgid "<i>Italic</i>"
+msgstr "<i>itálico</i>"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/HelpBox.vala:45
+msgid "_italic_"
+msgstr "_itálico_"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/HelpBox.vala:46
+msgid "<b>Bold</b>"
+msgstr "<b>Negrito</b>"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/HelpBox.vala:46
+msgid "**bold**"
+msgstr "**negrito**"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/HelpBox.vala:47
+msgid "<s>Strike</s>"
+msgstr "<s>Cortado</s>"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/HelpBox.vala:47
+msgid "~~strike~~"
+msgstr "~~cortado~~"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/HelpBox.vala:48
+msgid "|  <i>quote</i>"
+msgstr "| <i>citação</i>"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/HelpBox.vala:50
+msgid "1. Numbered list"
+msgstr "1. Lista com números"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/HelpBox.vala:51
+msgid "⚫ Bulleted list"
+msgstr "⚫ Lista com marcadores"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/HelpBox.vala:53
+msgid "Divider"
+msgstr "Divisor"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/HelpBox.vala:54
+msgid "Code"
+msgstr "Código"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/HelpBox.vala:55
+msgid "Code Block"
+msgstr "Bloco de código"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/HelpBox.vala:56
+msgid "Link"
+msgstr "Link"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/HelpBox.vala:56
+msgid "[Text](www...) "
+msgstr "[Texto](www...)"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/HelpBox.vala:57
+msgid "Citation Anchor"
+msgstr "Âncora de Citação"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/HelpBox.vala:58
+msgid "Citation Text"
+msgstr "Texto de Citação"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/HelpBox.vala:60
+msgid "Youtube Video"
+msgstr "Vídeo do YouTube"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/HelpBox.vala:60
+msgid "<youtube [link]>"
+msgstr "<youtube [link]>"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/HelpBox.vala:61
+msgid "Page Break (when exporting)"
+msgstr "Quebra de Página (quando exportando)"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/HelpBox.vala:63
+msgid "Set Color"
+msgstr "Definir Cor"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Viewer.vala:23
+msgid "Default"
+msgstr "Padrão"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Viewer.vala:23
+msgid "Air"
+msgstr "Ar"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Viewer.vala:23
+msgid "Modest"
+msgstr "Modesto"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Dialogs/NewNotebookDialog.vala:62
+msgid "Name:"
+msgstr "Nome:"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Dialogs/NewNotebookDialog.vala:63
+msgid "Color:"
+msgstr "Cor:"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Dialogs/NewNotebookDialog.vala:71
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Services/FileManager.vala:234
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Dialogs/NewNotebookDialog.vala:81
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Headerbar.vala:62
+msgid "Edit"
+msgstr "Editar"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Dialogs/NewNotebookDialog.vala:84
+msgid "Create"
+msgstr "Criar"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Dialogs/NewNotebookDialog.vala:102
+msgid "Properties"
+msgstr "Propriedades"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Dialogs/NewNotebookDialog.vala:103
+msgid "Style"
+msgstr "Estilo"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Dialogs/NewNotebookDialog.vala:121
+msgid "Style modifications"
+msgstr "Modificações de estilo"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Dialogs/NewNotebookDialog.vala:134
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Dialogs/PreferencesDialog.vala:176
+msgid "Stylesheet:"
+msgstr "Folha de estilo:"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Dialogs/PreferencesDialog.vala:44
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Headerbar.vala:109
+msgid "Preferences"
+msgstr "Preferências"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Dialogs/PreferencesDialog.vala:52
+msgid "Editor"
+msgstr "Editor"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Dialogs/PreferencesDialog.vala:53
+msgid "Viewer"
+msgstr "Prévia"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Dialogs/PreferencesDialog.vala:66
+msgid "_Close"
+msgstr "_Fechar"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Dialogs/PreferencesDialog.vala:74
+msgid "Font:"
+msgstr "Fonte:"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Dialogs/PreferencesDialog.vala:84
+msgid "Theme:"
+msgstr "Tema:"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Dialogs/PreferencesDialog.vala:109
+msgid "Automatic indentation:"
+msgstr "Indentação automática:"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Dialogs/PreferencesDialog.vala:117
+msgid "Show line Numbers:"
+msgstr "Mostrar números de linha:"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Dialogs/PreferencesDialog.vala:125
+msgid "Keep Sidebar Visible:"
+msgstr "Deixar barra lateral visível:"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Dialogs/PreferencesDialog.vala:133
+msgid "Spellcheck:"
+msgstr "Verificação ortográfica:"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Dialogs/PreferencesDialog.vala:163
+msgid "Global style modifications"
+msgstr "Modificações de estilo globais"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/BookmarkButton.vala:44
+msgid "Bookmark page"
+msgstr "Adicionar página aos favoritos"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Sidebar/BookmarkItem.vala:54
+msgid "Remove"
+msgstr "Remover"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Sidebar/TrashItem.vala:28
+msgid "Restore"
+msgstr "Restaurar"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Sidebar/NotebookItem.vala:48
+msgid "Edit Notebook"
+msgstr "Editar Caderno"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Sidebar/NotebookItem.vala:49
+msgid "New Section"
+msgstr "Nova Seção"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Sidebar/NotebookItem.vala:50
+msgid "Delete Notebook"
+msgstr "Deletar Caderno"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Sidebar/Sidebar.vala:25
+msgid "Notebooks"
+msgstr "Cadernos"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Sidebar/Sidebar.vala:26
+msgid "Bookmarks"
+msgstr "Favoritos"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Sidebar/Sidebar.vala:27
+msgid "Trash"
+msgstr "Lixeira"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Sidebar/Sidebar.vala:110
+msgid "My First Notebook"
+msgstr "Meu Primeiro Caderno"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Headerbar.vala:61
+msgid "View"
+msgstr "Ver"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Headerbar.vala:65
+msgid "Change mode"
+msgstr "Mudar modo"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Headerbar.vala:83
+msgid "Search your current notebook"
+msgstr "Procure no seu caderno atual"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Headerbar.vala:108
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Application.vala:104
+msgid "New Notebook"
+msgstr "Novo Caderno"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Headerbar.vala:110
+msgid "Export to PDF"
+msgstr "Exportar a PDF"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Services/FileManager.vala:154
+msgid "Print to File"
+msgstr "Imprimir a um Arquivo"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Services/FileManager.vala:201
+msgid "Select destination PDF file"
+msgstr "Selecione arquivo PDF de destino"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Services/FileManager.vala:203
+msgid "Save"
+msgstr "Salvar"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Services/FileManager.vala:206
+msgid "PDF File"
+msgstr "Arquivo PDF"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Services/FileManager.vala:213
+msgid "Open file"
+msgstr "Abrir arquivo"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Services/FileManager.vala:215
+msgid "Open"
+msgstr "Abrir"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Services/FileManager.vala:218
+msgid "Images"
+msgstr "Imagens"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Services/FileManager.vala:225
+msgid "All Files"
+msgstr "Todos os Arquivos"
+
+#. / These keys must be valid since they will be used across the app
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Application.vala:36
+msgid "<Ctrl>M"
+msgstr "<Ctrl>M"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Application.vala:37
+msgid "<Ctrl>S"
+msgstr "<Ctrl>S"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Application.vala:38
+msgid "<Ctrl>Q"
+msgstr "<Ctrl>Q"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Application.vala:39
+msgid "<Ctrl><Shift>N"
+msgstr "<Ctrl><Shift>N"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Application.vala:40
+msgid "<Ctrl>F"
+msgstr "<Ctrl>F"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Application.vala:41
+msgid "<Ctrl>K"
+msgstr "<Ctrl>K"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Application.vala:42
+msgid "<Ctrl>B"
+msgstr "<Ctrl>B"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Application.vala:43
+msgid "<Ctrl>I"
+msgstr "<Ctrl>I"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Application.vala:44
+msgid "<Ctrl>T"
+msgstr "<Ctrl>T"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Application.vala:62
+msgid "Notes-Up"
+msgstr "Notes-Up"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Application.vala:63
+msgid "Your Markdown Notebook."
+msgstr "Seu caderno de anotações."
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Application.vala:64
+msgid "About Notes"
+msgstr "Sobre Notes-Up"
+
+#: /home/lains/Documents/Dev/Notes-up/po/../src/Application.vala:82
+msgid "translator-credits"
+msgstr "Paulo Galardi <lainsce@airmail.cc>"
