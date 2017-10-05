@@ -77,10 +77,10 @@ public class ENotes.ToolbarButton : Gtk.Button {
         clicked.connect (() => {
             Gtk.TextIter start, end;
             code_buffer.get_selection_bounds (out start, out end);
-            
+
             if (code_buffer.has_selection) {
-                var text = start.get_text (end).strip ();
-                
+                var text = start.get_text (end);
+
                 if (this.type == 2) {
                     plugin.request_string (text);
                 } else {
@@ -89,7 +89,7 @@ public class ENotes.ToolbarButton : Gtk.Button {
                         int trailing_begin = first_half.char_count ();
                         int trailing_end = text.char_count () - second_half.char_count ();
                         text = text.substring (trailing_begin, trailing_end - trailing_begin);
-                        code_buffer.@delete(ref start, ref end);
+                        code_buffer.@delete (ref start, ref end);
                         code_buffer.insert_at_cursor (text, -1);
                     } else {
                         // adds first and second halves
@@ -122,7 +122,7 @@ public class ENotes.ToolbarButton : Gtk.Button {
         });
     }
 
-    private bool already_applied (string text, string first_half, string second_half) {
+    private static bool already_applied (string text, string first_half, string second_half) {
         return text.has_prefix (first_half) && text.has_suffix (second_half);
     }
 }
