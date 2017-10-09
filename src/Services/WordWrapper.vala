@@ -28,7 +28,7 @@ public class WordWrapper : Object {
     private static Regex starting_whitespaces_regex;
     private static Regex ending_whitespaces_regex;
 
-    class construct {
+    static construct {
         //  TODO: create 1 single regex to capture both starting and ending whitespaces only
         WordWrapper.starting_whitespaces_regex = new Regex ("^(\\s)+", RegexCompileFlags.EXTENDED);
         WordWrapper.ending_whitespaces_regex = new Regex ("(\\s)+$", RegexCompileFlags.EXTENDED);
