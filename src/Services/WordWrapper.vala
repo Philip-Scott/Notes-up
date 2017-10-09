@@ -17,7 +17,7 @@
 * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 * Boston, MA 02111-1307, USA.
 *
-* Authored by: Felipe Escoto <felescoto95@hotmail.com>
+* Authored by: Natan Streppel <streppels at gmail.com>
 */
 
 /**
@@ -25,67 +25,62 @@
  * two informed strings, which act as "string wrappers" for the text 
  */
 public class WordWrapper : Object {
-    private string text;
-
-    private int n_leading_spaces = 0;
-    private int n_trailing_spaces = 0;
-
-    private static Regex regex_start_whitespaces;
-    private static Regex regex_end_whitespaces;
+    private static Regex starting_whitespaces_regex;
+    private static Regex ending_whitespaces_regex;
 
     class construct {
         //  TODO: create 1 single regex to capture both starting and ending whitespaces only
-        const string START_WHITESPACES_PATTERN = "^(\\s)+"; 
-        const string END_WHITESPACES_PATTERN = "(\\s)+$"; 
-        regex_start_whitespaces = new Regex (START_WHITESPACES_PATTERN, RegexCompileFlags.EXTENDED);
-        regex_end_whitespaces = new Regex (END_WHITESPACES_PATTERN, RegexCompileFlags.EXTENDED);
-    }
-
-    public WordWrapper (string text) {
-        count_surrouding_spaces (text, ref n_leading_spaces, ref n_trailing_spaces);
-        this.text = text.strip ();
+        WordWrapper.starting_whitespaces_regex = new Regex ("^(\\s)+", RegexCompileFlags.EXTENDED);
+        WordWrapper.ending_whitespaces_regex = new Regex ("(\\s)+$", RegexCompileFlags.EXTENDED);
     }
 
     /**
      * Wraps this instance's text with first and second halves.
      * Unwraps this instance's text element if already wrapped with first and second halves.
      */
-    public string apply_wrap (string first_half, string second_half) {
-        if (already_wrapped (this.text, first_half, second_half)) {
+     public static string apply_wrap (string original_text, string first_half, string second_half) {
+        string leading_spaces = "";
+        string trailing_spaces = "";
+
+        save_surrouding_spaces (original_text, ref leading_spaces, ref trailing_spaces);
+
+        string text = original_text.strip ();
+
+        if (already_wrapped (text, first_half, second_half)) {
             // removes first and second halves within selected text
             int head = first_half.char_count ();
-            int tail = this.text.char_count () - second_half.char_count ();
-            return get_return_string (this.text.substring (head, tail - head));
+            int tail = text.char_count () - second_half.char_count ();
+            return get_return_string (text.substring (head, tail - head), leading_spaces, trailing_spaces);
         } else {
-            // adds first and second halves
-            return get_return_string (first_half + this.text + second_half);
+            // adds first and second halveschar_count ()
+            return get_return_string (first_half + text + second_half, leading_spaces, trailing_spaces);
         }
     }
 
     /**
      * Returns the given stripped string with its leading and trailing whitespaces back on
      */
-    private string get_return_string (string text) {
-        string leading_whitespaces = string.nfill (this.n_leading_spaces, ' ');
-        string trailing_whitespaces = string.nfill (this.n_trailing_spaces, ' ');
-        return leading_whitespaces.concat(text).concat(trailing_whitespaces);
+    private static string get_return_string (string text, string leading_spaces, string trailing_spaces) {
+        return leading_spaces.concat(text).concat(trailing_spaces);
     }
 
     /**
      * Counts the number of whitespace characters to the left and right of a given text
      */
-    private static void count_surrouding_spaces (string text, ref int n_leading_spaces, ref int n_trailing_spaces) {
+    private static void save_surrouding_spaces (string text, ref string leading_spaces, ref string trailing_spaces) {
         MatchInfo match_info;
         // leading whitespaces
-        regex_start_whitespaces.match (text, 0, out match_info);
+        WordWrapper.starting_whitespaces_regex.match (text, 0, out match_info);
         if (match_info.matches ()) {
-            n_leading_spaces = match_info.fetch (0).char_count ();
+            leading_spaces = match_info.fetch (0);
         }
+
         // trailing whitespaces
-        regex_end_whitespaces.match (text, 0, out match_info);
+        WordWrapper.ending_whitespaces_regex.match (text, 0, out match_info);
         if (match_info.matches ()) {
-            n_trailing_spaces = match_info.fetch (0).char_count ();
+            trailing_spaces = match_info.fetch (0);
         }
+        print(@"leading spaces: \"$leading_spaces\" / trailing: \"$trailing_spaces\"\n");
     }
 
     private static bool already_wrapped (string text, string first_half, string second_half) {

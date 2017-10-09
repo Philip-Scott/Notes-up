@@ -30,6 +30,7 @@ public class ENotes.ToolbarButton : Gtk.Button {
     private string second_half;
 
     construct {
+        new WordWrapper(); // used to enforce initialization of static members
         can_focus = false;
         get_style_context ().add_class ("flat");
     }
@@ -83,9 +84,7 @@ public class ENotes.ToolbarButton : Gtk.Button {
                 if (this.type == 2) {
                     plugin.request_string (text);
                 } else {
-                    WordWrapper wrapper = new WordWrapper (ext);
-                    var changed_text = wrapper.apply_wrap (ftext);
-                    var changed_text = wrapper.apply_wrap (first_half, second_half);
+                    var changed_text = WordWrapper.apply_wrap (text, first_half, second_half);
                     code_buffer.@delete (ref start, ref end);
                     code_buffer.insert_at_cursor (changed_text, -1);
                 }
