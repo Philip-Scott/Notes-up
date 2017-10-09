@@ -43,7 +43,7 @@ public class WordWrapper : Object {
 
     public WordWrapper (string text) {
         count_surrouding_spaces (text, ref n_leading_spaces, ref n_trailing_spaces);
-        this.text = text.strip();
+        this.text = text.strip ();
     }
 
     /**
@@ -55,10 +55,10 @@ public class WordWrapper : Object {
             // removes first and second halves within selected text
             int head = first_half.char_count ();
             int tail = this.text.char_count () - second_half.char_count ();
-            return get_return_string(this.text.substring (head, tail - head));
+            return get_return_string (this.text.substring (head, tail - head));
         } else {
             // adds first and second halves
-            return get_return_string(first_half + this.text + second_half);
+            return get_return_string (first_half + this.text + second_half);
         }
     }
 
@@ -66,8 +66,8 @@ public class WordWrapper : Object {
      * Returns the given stripped string with its leading and trailing whitespaces back on
      */
     private string get_return_string (string text) {
-        string leading_whitespaces = string.nfill(this.n_leading_spaces, ' ');
-        string trailing_whitespaces = string.nfill(this.n_trailing_spaces, ' ');
+        string leading_whitespaces = string.nfill (this.n_leading_spaces, ' ');
+        string trailing_whitespaces = string.nfill (this.n_trailing_spaces, ' ');
         return leading_whitespaces.concat(text).concat(trailing_whitespaces);
     }
 
