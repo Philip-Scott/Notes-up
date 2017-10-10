@@ -80,7 +80,6 @@ public class WordWrapper : Object {
         if (match_info.matches ()) {
             trailing_spaces = match_info.fetch (0);
         }
-        print(@"leading spaces: \"$leading_spaces\" / trailing: \"$trailing_spaces\"\n");
     }
 
     private static bool already_wrapped (string text, string first_half, string second_half) {
