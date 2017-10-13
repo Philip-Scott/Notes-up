@@ -30,7 +30,6 @@ public class ENotes.ToolbarButton : Gtk.Button {
     private string second_half;
 
     construct {
-        new WordWrapper(); // used to enforce initialization of static members
         can_focus = false;
         get_style_context ().add_class ("flat");
     }
