@@ -87,6 +87,7 @@ public class ENotes.ToolbarButton : Gtk.Button {
                     code_buffer.@delete (ref start, ref end);
                     code_buffer.insert_at_cursor (changed_text, -1);
                 }
+
             } else {
                 if (this.type == 1) {
                     var file = FileManager.get_file_from_user (false);
