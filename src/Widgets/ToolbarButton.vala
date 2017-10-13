@@ -112,11 +112,12 @@ public class ENotes.ToolbarButton : Gtk.Button {
                     plugin.request_string ("");
                 } else {
                     code_buffer.insert_at_cursor (first_half, -1);
+                    int end_first_half_pos = code_buffer.cursor_position;
+                    code_buffer.insert_at_cursor (second_half, -1);
 
-                    code_buffer.get_selection_bounds (out start, out end);
-                    code_buffer.insert (ref end, second_half , -1);
-
-                    code_buffer.place_cursor (start);
+                    Gtk.TextIter cursor_position;
+                    code_buffer.get_iter_at_offset(out cursor_position, end_first_half_pos);
+                    code_buffer.place_cursor (cursor_position);
                 }
             }
         });
