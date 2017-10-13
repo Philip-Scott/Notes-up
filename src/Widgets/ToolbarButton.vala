@@ -116,7 +116,7 @@ public class ENotes.ToolbarButton : Gtk.Button {
                     code_buffer.insert_at_cursor (second_half, -1);
 
                     Gtk.TextIter cursor_position;
-                    code_buffer.get_iter_at_offset(out cursor_position, end_first_half_pos);
+                    code_buffer.get_iter_at_offset (out cursor_position, end_first_half_pos);
                     code_buffer.place_cursor (cursor_position);
                 }
             }
