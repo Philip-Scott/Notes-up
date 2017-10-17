@@ -111,8 +111,4 @@ public class ENotes.ToolbarButton : Gtk.Button {
             }
         });
     }
-
-    private static bool already_applied (string text, string first_half, string second_half) {
-        return text.has_prefix (first_half) && text.has_suffix (second_half);
-    }
 }
