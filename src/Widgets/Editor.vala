@@ -102,6 +102,7 @@ public class ENotes.Editor : Gtk.Box {
             save_file ();
             return true;
         });
+        new WordWrapper(); // used to enforce initialization of static members
     }
 
     private void build_ui () {

@@ -80,24 +80,13 @@ public class ENotes.ToolbarButton : Gtk.Button {
 
             if (code_buffer.has_selection) {
                 var text = start.get_text (end);
-
                 if (this.type == 2) {
                     plugin.request_string (text);
                 } else {
-                    if (already_applied (text, first_half, second_half)) {
-                        // removes first and second halves
-                        int trailing_begin = first_half.char_count ();
-                        int trailing_end = text.char_count () - second_half.char_count ();
-                        text = text.substring (trailing_begin, trailing_end - trailing_begin);
-                        code_buffer.@delete (ref start, ref end);
-                        code_buffer.insert_at_cursor (text, -1);
-                    } else {
-                        // adds first and second halves
-                        code_buffer.@delete (ref start, ref end);
-                        code_buffer.insert_at_cursor (first_half + text + second_half, -1);
-                    }
+                    var changed_text = WordWrapper.apply_wrap (text, first_half, second_half);
+                    code_buffer.@delete (ref start, ref end);
+                    code_buffer.insert_at_cursor (changed_text, -1);
                 }
-
             } else {
                 if (this.type == 1) {
                     var file = FileManager.get_file_from_user (false);
