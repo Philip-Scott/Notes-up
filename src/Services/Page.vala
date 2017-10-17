@@ -47,12 +47,12 @@ public class ENotes.PageTable : DatabaseTable {
     private static PageTable instance = null;
     
     // This list is used for complex commands mostly by plugins e.g. "" <youtube [Link]>
-    private Gee.LinkedList<BLMember> Regex_complex_commands = new Gee.LinkedList<BLMember> ();
+    private Gee.LinkedList<BLMember> regex_complex_commands = new Gee.LinkedList<BLMember> ();
     
-    // Regex_Simple_elements used for symbols. Some symbols are part of more complex commands so these
+    // regex_simple_elements used for symbols. Some symbols are part of more complex commands so these
     // list is used at the end
     // first regular expression replaces # ~ ` etc. with ""
-    BLMember[] Regex_Simple_elements = {new BLMember (/[#\n\t<>]+/, ""), new BLMember(/<br>/, "")};
+    BLMember[] regex_simple_elements = {new BLMember (/[#\n\t<>]+/, ""), new BLMember(/<br>/, "")};
 
     public static PageTable get_instance () {
         if (instance == null) {
@@ -86,8 +86,7 @@ public class ENotes.PageTable : DatabaseTable {
         }
 
         set_table_name ("Page");
-          
-        // @translator this code summarises a notebook page. Instead of given youtube link this code changes into Youtube Video      
+        /// @translator this code summarises a notebook page. Instead of given youtube link this code changes into Youtube Video      
     
         // Explaination for link: Regex for [Something](Something). As greedy as editor on markdown
         var link = new BLMember(/\[[a-zA-Z0-9_\.\?\/:\=\+&\-'"]*\]\([a-zA-Z0-9_\.\?\/:\=\+&\-'"]*\)/, _("Link"));
@@ -95,13 +94,13 @@ public class ENotes.PageTable : DatabaseTable {
         //  \[\^\d+\]:? leads to e.g. [^32], [^68]: 
         var anchor = new BLMember (/\[\^\d+\]:?/, "");
     
-        Regex_complex_commands.add (link);
-        Regex_complex_commands.add (anchor);
+        regex_complex_commands.add (link);
+        regex_complex_commands.add (anchor);
               
         var plugin_blacklist_member = PluginManager.get_instance ().get_all_blacklist_members ();
         
         foreach (BLMember blacklist_member in plugin_blacklist_member) {
-            Regex_complex_commands.add(blacklist_member);
+            regex_complex_commands.add (blacklist_member);
         }    
     }
 
@@ -248,11 +247,11 @@ public class ENotes.PageTable : DatabaseTable {
         string output = line;
 
         try {
-            foreach (BLMember item in Regex_complex_commands) {
-                  output = item.reg.replace (output, -1, 0, item.replace);        
+            foreach (var item in regex_complex_commands) {
+                output = item.reg.replace (output, -1, 0, item.replace);        
             }  
         
-            foreach (BLMember item in Regex_Simple_elements) {
+            foreach (var item in regex_simple_elements) {
                 output = item.reg.replace (output, -1, 0, item.replace);        
             }
         } catch (GLib.RegexError e) {
