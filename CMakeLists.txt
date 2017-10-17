@@ -142,6 +142,7 @@ vala_precompile(VALA_C
   src/Services/Settings.vala
   src/Services/Trash.vala
   src/Services/DatabaseTable.vala
+  src/Services/WordWrapper.vala
   
   src/Plugins/Manager.vala
   src/Plugins/Plugin.vala
