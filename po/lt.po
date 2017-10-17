@@ -1,316 +1,317 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Moo, 2017.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-09 13:07-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2017-08-28 14:01+0300\n"
+"PO-Revision-Date: 2017-08-28 15:00+0300\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"(n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"Last-Translator: Moo\n"
+"Language: lt\n"
 
 #: /home/felipe/Code/Notes-up/po/../src/Services/Page.vala:148
 #: /home/felipe/Code/Notes-up/po/../src/Services/Page.vala:212
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PagesList.vala:121
 msgid "New Page"
-msgstr ""
+msgstr "Naujas puslapis"
 
 #: /home/felipe/Code/Notes-up/po/../src/Services/FileManager.vala:150
 msgid "Print to File"
-msgstr ""
+msgstr "Spausdinti į failą"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar.vala:25
 msgid "Notebooks"
-msgstr ""
+msgstr "Užrašinės"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar.vala:26
 msgid "Bookmarks"
-msgstr ""
+msgstr "Žymelės"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar.vala:27
 msgid "Trash"
-msgstr ""
+msgstr "Šiukšlinė"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar.vala:110
 msgid "My First Notebook"
-msgstr ""
+msgstr "Mano pirmoji užrašinė"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/NotebookItem.vala:48
 msgid "Edit Notebook"
-msgstr ""
+msgstr "Taisyti užrašinę"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/NotebookItem.vala:49
 msgid "New Section"
-msgstr ""
+msgstr "Nauja sekcija"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/NotebookItem.vala:50
 msgid "Delete Notebook"
-msgstr ""
+msgstr "Ištrinti užrašinę"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Viewer.vala:23
 msgid "Default"
-msgstr ""
+msgstr "Numatytasis"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Viewer.vala:23
 msgid "Air"
-msgstr ""
+msgstr "Oras"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Viewer.vala:23
 msgid "Modest"
-msgstr ""
+msgstr "Kuklus"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:61
 msgid "View"
-msgstr ""
+msgstr "Rodinys"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:62
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:81
 msgid "Edit"
-msgstr ""
+msgstr "Taisa"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:65
 msgid "Change mode"
-msgstr ""
+msgstr "Keisti veikseną"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:83
 msgid "Search your current notebook"
-msgstr ""
+msgstr "Ieškoti esamoje užrašinėje"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:108
 #: /home/felipe/Code/Notes-up/po/../src/Application.vala:104
 msgid "New Notebook"
-msgstr ""
+msgstr "Nauja užrašinė"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:109
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:43
 msgid "Preferences"
-msgstr ""
+msgstr "Nuostatos"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:110
 msgid "Export to PDF"
-msgstr ""
+msgstr "Eksportuoti į PDF"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/BookmarkButton.vala:44
 msgid "Bookmark page"
-msgstr ""
+msgstr "Pažymėti puslapį"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:111
 msgid "Add bold to text"
-msgstr ""
+msgstr "Padaryti tekstą pusjuodį"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:112
 msgid "Add italic to text"
-msgstr ""
+msgstr "Padaryti tekstą kursyvinį"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:113
 msgid "Strikethrough text"
-msgstr ""
+msgstr "Perbrauktas tekstas"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:115
 msgid "Insert a quote"
-msgstr ""
+msgstr "Įterpti citatą"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:116
 msgid "Insert code"
-msgstr ""
+msgstr "Įterpti kodą"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:117
 msgid "Insert a link"
-msgstr ""
+msgstr "Įterpti nuorodą"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:119
 msgid "Add a bulleted list"
-msgstr ""
+msgstr "Pridėti suženklintąjį sąrašą"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:120
 msgid "Add a Numbered list"
-msgstr ""
+msgstr "Pridėti sunumeruotąjį sąrašą"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:122
 msgid "Insert an image"
-msgstr ""
+msgstr "Įterpti paveikslą"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:159
 msgid "Formatting"
-msgstr ""
+msgstr "Formatavimas"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:51
 msgid "Editor"
-msgstr ""
+msgstr "Redaktorius"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:52
 msgid "Viewer"
-msgstr ""
+msgstr "Žiūryklė"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:65
 msgid "_Close"
-msgstr ""
+msgstr "_Užverti"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:73
 msgid "Font:"
-msgstr ""
+msgstr "Šriftas:"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:83
 msgid "Theme:"
-msgstr ""
+msgstr "Tema:"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:108
 msgid "Automatic indentation:"
-msgstr ""
+msgstr "Automatinė įtrauka:"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:116
 msgid "Show line Numbers:"
-msgstr ""
+msgstr "Rodyti eilučių numerius:"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:124
 msgid "Keep Sidebar Visible:"
-msgstr ""
+msgstr "Palikti šoninę juostą matomą:"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:152
 msgid "Global style modifications"
-msgstr ""
+msgstr "Visuotinio stiliaus modifikacijos"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:165
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:134
 msgid "Stylesheet:"
-msgstr ""
+msgstr "Stilių aprašas:"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:62
 msgid "Name:"
-msgstr ""
+msgstr "Pavadinimas:"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:63
 msgid "Color:"
-msgstr ""
+msgstr "Spalva:"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:71
 msgid "Cancel"
-msgstr ""
+msgstr "Atsisakyti"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:84
 msgid "Create"
-msgstr ""
+msgstr "Sukurti"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:102
 msgid "Properties"
-msgstr ""
+msgstr "Savybės"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:103
 msgid "Style"
-msgstr ""
+msgstr "Stilius"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:121
 msgid "Style modifications"
-msgstr ""
+msgstr "Stiliaus modifikacijos"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/TrashItem.vala:28
 msgid "Restore"
-msgstr ""
+msgstr "Atkurti"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:41
 msgid "Large Header"
-msgstr ""
+msgstr "Didelė antraštė"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:42
 msgid "Medium Header"
-msgstr ""
+msgstr "Vidutinė antraštė"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:43
 msgid "Small Header"
-msgstr ""
+msgstr "Maža antraštė"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:45
 msgid "<i>Italic</i>"
-msgstr ""
+msgstr "<i>kursyvas</i>"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:45
 msgid "_italic_"
-msgstr ""
+msgstr "_kursyvas_"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:46
 msgid "<b>Bold</b>"
-msgstr ""
+msgstr "<b>Pusjuodis</b>"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:46
 msgid "**bold**"
-msgstr ""
+msgstr "**pusjuodis**"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:47
 msgid "<s>Strike</s>"
-msgstr ""
+msgstr "<s>Perbrauktas</s>"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:47
 msgid "~~strike~~"
-msgstr ""
+msgstr "~~perbrauktas~~"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:48
 msgid "|  <i>quote</i>"
-msgstr ""
+msgstr "|  <i>citata</i>"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:50
 msgid "1. Numbered list"
-msgstr ""
+msgstr "1. Sunumeruotasis sąrašas"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:51
 msgid "⚫ Bulleted list"
-msgstr ""
+msgstr "⚫ Suženklintasis sąrašas"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:53
 msgid "Divider"
-msgstr ""
+msgstr "Dalytuvas"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:54
 msgid "Code"
-msgstr ""
+msgstr "Kodas"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:55
 msgid "Code Block"
-msgstr ""
+msgstr "Kodo blokas"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:56
 msgid "Link"
-msgstr ""
+msgstr "Nuoroda"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:56
 msgid "[Text](www...) "
-msgstr ""
+msgstr "[Tekstas](www...) "
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:57
 msgid "Citation Anchor"
-msgstr ""
+msgstr "Citatos išnaša"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:58
 msgid "Citation Text"
-msgstr ""
+msgstr "Citatos tekstas"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:60
 msgid "Youtube Video"
-msgstr ""
+msgstr "Youtube vaizdo įrašas"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:60
 msgid "<youtube [link]>"
-msgstr ""
+msgstr "<youtube [nuoroda]>"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:61
 msgid "Page Break (when exporting)"
-msgstr ""
+msgstr "Puslapių skirtukas (eksportuojant)"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:62
 msgid "Enable Syntax Highlighting"
-msgstr ""
+msgstr "Įjungti sintaksės paryškinimą"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:63
 msgid "Set Color"
-msgstr ""
+msgstr "Nustatyti spalvą"
 
 #. //bugzilla.gnome.org/show_bug.cgi?id=758000 is fixed.
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PagesList.vala:201
@@ -318,145 +319,116 @@ msgstr ""
 #, c-format
 msgid "%i Page"
 msgid_plural "%i Pages"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%i puslapis"
+msgstr[1] "%i puslapiai"
+msgstr[2] "%i puslapių"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/BookmarkItem.vala:54
 msgid "Remove"
-msgstr ""
+msgstr "Šalinti"
 
 #. / These keys must be valid since they will be used across the app
 #: /home/felipe/Code/Notes-up/po/../src/Application.vala:36
 msgid "<Ctrl>M"
-msgstr ""
+msgstr "<Ctrl>M"
 
 #: /home/felipe/Code/Notes-up/po/../src/Application.vala:37
 msgid "<Ctrl>S"
-msgstr ""
+msgstr "<Ctrl>S"
 
 #: /home/felipe/Code/Notes-up/po/../src/Application.vala:38
 msgid "<Ctrl>Q"
-msgstr ""
+msgstr "<Ctrl>Q"
 
 #: /home/felipe/Code/Notes-up/po/../src/Application.vala:39
 msgid "<Ctrl><Shift>N"
-msgstr ""
+msgstr "<Ctrl><Shift>N"
 
 #: /home/felipe/Code/Notes-up/po/../src/Application.vala:40
 msgid "<Ctrl>F"
-msgstr ""
+msgstr "<Ctrl>F"
 
 #: /home/felipe/Code/Notes-up/po/../src/Application.vala:41
 msgid "<Ctrl>K"
-msgstr ""
+msgstr "<Ctrl>K"
 
 #: /home/felipe/Code/Notes-up/po/../src/Application.vala:42
 msgid "<Ctrl>B"
-msgstr ""
+msgstr "<Ctrl>B"
 
 #: /home/felipe/Code/Notes-up/po/../src/Application.vala:43
 msgid "<Ctrl>I"
-msgstr ""
+msgstr "<Ctrl>I"
 
 #: /home/felipe/Code/Notes-up/po/../src/Application.vala:44
 msgid "<Ctrl>T"
-msgstr ""
+msgstr "<Ctrl>T"
 
 #: /home/felipe/Code/Notes-up/po/../src/Application.vala:62
 msgid "Notes-Up"
-msgstr ""
+msgstr "Notes-Up"
 
 #: /home/felipe/Code/Notes-up/po/../src/Application.vala:63
 msgid "Your Markdown Notebook."
-msgstr ""
+msgstr "Jūsų Markdown užrašinė."
 
 #: /home/felipe/Code/Notes-up/po/../src/Application.vala:64
 msgid "About Notes"
-msgstr ""
+msgstr "Apie Užrašines"
 
 #: /home/felipe/Code/Notes-up/po/../src/Application.vala:82
 msgid "translator-credits"
-msgstr ""
+msgstr "Moo"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Color.vala:35
 msgid ""
 "Set font color for the line with <color [#color]> or for some text with "
 "<color [color] [text]>"
 msgstr ""
+"Nustatyti šrifto spalvą eilutei, naudojant <color [#spalva]> arba "
+"kuriam nors tekstui, naudojant <color [spalva] [tekstas]>"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Color.vala:39
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Color.vala:68
 msgid "Font color"
-msgstr ""
+msgstr "Šrifto spalva"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Youtube.vala:30
 msgid "Embed youtube videos: <youtube [video]>"
-msgstr ""
+msgstr "Įstatyti youtube vaizdo įrašus: <youtube [vaizdo įrašas]>"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Youtube.vala:34
 msgid "Youtube"
-msgstr ""
+msgstr "Youtube"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Youtube.vala:42
 msgid "Insert Youtube video"
-msgstr ""
+msgstr "Įterpti Youtube vaizdo įrašą"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Break.vala:28
 msgid "Page break when exporting to PDF: <break>"
-msgstr ""
+msgstr "Puslapių skirtukas, eksportuojant į PDF: <break>"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Break.vala:32
 msgid "Page break"
-msgstr ""
+msgstr "Puslapių skirtukas"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Break.vala:47
 msgid "Page break on export: <break>"
-msgstr ""
+msgstr "Puslapių skirtukas, eksportuojant: <break>"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Highlight.vala:28
 msgid "Enable Syntax Highlighing"
-msgstr ""
+msgstr "Įjungti sintaksės paryškinimą"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Highlight.vala:32
 msgid "Syntax Highlighing"
-msgstr ""
+msgstr "Sintaksės paryškinimas"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Image.vala:28
 msgid "Load an embeded image"
-msgstr ""
+msgstr "Įkelti įstatytą paveikslą"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Image.vala:32
 msgid "Image"
-msgstr ""
-
-#: Services/FileManager.vala:197
-msgid "Select destination PDF file"
-msgstr ""
-
-#: Services/FileManager.vala:199
-msgid "Save"
-msgstr ""
-
-#: Services/FileManager.vala:202
-msgid "PDF File"
-msgstr ""
-
-#: Services/FileManager.vala:209
-msgid "Open file"
-msgstr ""
-
-#: Services/FileManager.vala:211
-msgid "Open"
-msgstr ""
-
-#: Services/FileManager.vala:214
-msgid "Images"
-msgstr ""
-
-#: Services/FileManager.vala:221
-msgid "All Files"
-msgstr ""
-
-#: Widgets/Dialogs/PreferencesDialog.vala:133
-msgid "Spellcheck:"
-msgstr ""
+msgstr "Paveikslas"

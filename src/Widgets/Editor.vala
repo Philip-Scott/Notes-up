@@ -102,6 +102,7 @@ public class ENotes.Editor : Gtk.Box {
             save_file ();
             return true;
         });
+        new WordWrapper(); // used to enforce initialization of static members
     }
 
     private void build_ui () {
@@ -171,9 +172,9 @@ public class ENotes.Editor : Gtk.Box {
     private Gtk.Box build_toolbar () {
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
 
-        bold_button = new ENotes.ToolbarButton ("format-text-bold", "**", "**", _("Add bold to text") + Key.BOLD.to_string (), code_buffer);
-        italics_button = new ENotes.ToolbarButton ("format-text-italic", "_", "_", _("Add italic to text") + Key.ITALICS.to_string (), code_buffer);
-        strike_button = new ENotes.ToolbarButton ("format-text-strikethrough", "~~", "~~", _("Strikethrough text") + Key.STRIKE.to_string (), code_buffer);
+        bold_button = new ENotes.ToolbarButton ("format-text-bold-symbolic", "**", "**", _("Add bold to text") + Key.BOLD.to_string (), code_buffer);
+        italics_button = new ENotes.ToolbarButton ("format-text-italic-symbolic", "_", "_", _("Add italic to text") + Key.ITALICS.to_string (), code_buffer);
+        strike_button = new ENotes.ToolbarButton ("format-text-strikethrough-symbolic", "~~", "~~", _("Strikethrough text") + Key.STRIKE.to_string (), code_buffer);
 
         var quote_button = new ENotes.ToolbarButton ("format-indent-less-rtl", "> ", "", _("Insert a quote"), code_buffer);
         var code_button = new ENotes.ToolbarButton ("system-run", "`", "`", _("Insert code"), code_buffer);
