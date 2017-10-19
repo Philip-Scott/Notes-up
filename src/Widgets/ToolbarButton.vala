@@ -101,6 +101,7 @@ public class ENotes.ToolbarButton : Gtk.Button {
                 } else {
                     Gtk.TextIter cursor_position;
                     code_buffer.get_iter_at_offset (out cursor_position, code_buffer.cursor_position);
+                    
                     if (cursor_position.inside_word () || cursor_position.ends_word ()) {
                         // gets word the cursor is currently on and modify it
                         start = end = cursor_position;
@@ -131,8 +132,7 @@ public class ENotes.ToolbarButton : Gtk.Button {
     /**
      * Adjusts iterators to surround a word and its wrapper, if there is one
      */
-    private static void identify_word (ref Gtk.TextIter start, ref Gtk.TextIter end, 
-            string first_half, string second_half) {
+    private static void identify_word (ref Gtk.TextIter start, ref Gtk.TextIter end, string first_half, string second_half) {
             if (!start.starts_word ()) {
                 start.backward_word_start () ;
             }
@@ -146,18 +146,18 @@ public class ENotes.ToolbarButton : Gtk.Button {
     }
 
     /**
-     * checks if a text iterator starts after parameter text
+     * Checks if a text iterator starts after parameter text
      */
-    private static bool iter_starts_after(Gtk.TextIter iter, string text) {
+    private static bool iter_starts_after (Gtk.TextIter iter, string text) {
         Gtk.TextIter peek_surroundings = iter;
         peek_surroundings.backward_chars (text.length);
         return peek_surroundings.get_text (iter) == text;
     }
 
     /**
-     * checks if a text iterator is followed by parameter text
+     * Checks if a text iterator is followed by parameter text
      */
-    private static bool iter_is_followed_by(Gtk.TextIter iter, string text) {
+    private static bool iter_is_followed_by (Gtk.TextIter iter, string text) {
         Gtk.TextIter peek_surroundings = iter;
         peek_surroundings.forward_chars (text.length);
         return peek_surroundings.get_text (iter) == text;
