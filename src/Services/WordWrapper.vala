@@ -93,6 +93,9 @@ public class WordWrapper : Object {
         }
     }
 
+    /**
+     * Detects if iterators' pointed text is surrounded by first and second halves
+     */
     private static void detect_surroundings (ref Gtk.TextIter start, ref Gtk.TextIter end, string first_half, string second_half) {
         if (iter_starts_after (start, first_half) && iter_is_followed_by (end, second_half)) {
             start.backward_chars (first_half.length);
