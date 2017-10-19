@@ -101,7 +101,7 @@ public class ENotes.ToolbarButton : Gtk.Button {
                 } else {
                     Gtk.TextIter cursor_position;
                     code_buffer.get_iter_at_offset (out cursor_position, code_buffer.cursor_position);
-                    
+
                     if (cursor_position.inside_word () || cursor_position.ends_word ()) {
                         // gets word the cursor is currently on and modify it
                         start = end = cursor_position;
