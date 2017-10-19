@@ -38,7 +38,7 @@ public class WordWrapper : Object {
      * Wraps this instance's text with first and second halves.
      * Unwraps this instance's text element if already wrapped with first and second halves.
      */
-     public static string apply_wrap (string original_text, string first_half, string second_half) {
+     public static string get_wrapped_text (string original_text, string first_half, string second_half) {
         string leading_spaces = "";
         string trailing_spaces = "";
 
