@@ -35,10 +35,21 @@ public class WordWrapper : Object {
     }
 
     /**
+     * Moves start and end iterators to the beggining and end of an word, respectively, additionaly
+     * with its wrappers, if present.
+     * Retuns the found string.
+     */
+    public static string identify_word (ref Gtk.TextIter start, ref Gtk.TextIter end, string first_half, string second_half) {
+        detect_word_edges (ref start, ref end);
+        detect_surroundings (ref start, ref end, first_half, second_half);
+        return start.get_text (end);
+    }
+
+    /**
      * Wraps this instance's text with first and second halves.
      * Unwraps this instance's text element if already wrapped with first and second halves.
      */
-     public static string get_wrapped_text (string original_text, string first_half, string second_half) {
+     public static string wrap_string (string original_text, string first_half, string second_half) {
         string leading_spaces = "";
         string trailing_spaces = "";
 
@@ -80,6 +91,43 @@ public class WordWrapper : Object {
         if (match_info.matches ()) {
             trailing_spaces = match_info.fetch (0);
         }
+    }
+
+    private static void detect_surroundings (ref Gtk.TextIter start, ref Gtk.TextIter end, string first_half, string second_half) {
+        if (iter_starts_after (start, first_half) && iter_is_followed_by (end, second_half)) {
+            start.backward_chars (first_half.length);
+            end.forward_chars (second_half.length);
+        }
+    }
+
+    /**
+     * Adjusts iterators to surround a word
+     */
+    private static void detect_word_edges (ref Gtk.TextIter start, ref Gtk.TextIter end) {
+        if (!start.starts_word ()) {
+            start.backward_word_start ();
+        }
+        if (!end.ends_word ()) {
+            end.forward_word_end ();
+        }
+    }
+
+    /**
+     * Checks if a text iterator starts after parameter text
+     */
+    private static bool iter_starts_after (Gtk.TextIter iter, string text) {
+        Gtk.TextIter peek_surroundings = iter;
+        peek_surroundings.backward_chars (text.length);
+        return peek_surroundings.get_text (iter) == text;
+    }
+
+    /**
+     * Checks if a text iterator is followed by parameter text
+     */
+    private static bool iter_is_followed_by (Gtk.TextIter iter, string text) {
+        Gtk.TextIter peek_surroundings = iter;
+        peek_surroundings.forward_chars (text.length);
+        return peek_surroundings.get_text (iter) == text;
     }
 
     private static bool already_wrapped (string text, string first_half, string second_half) {

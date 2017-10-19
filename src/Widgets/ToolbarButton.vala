@@ -83,8 +83,8 @@ public class ENotes.ToolbarButton : Gtk.Button {
                 if (this.type == 2) {
                     plugin.request_string (text);
                 } else {
-                    var wrapped_text = WordWrapper.get_wrapped_text (text, first_half, second_half);
-                    changes_text (ref code_buffer, start, end, wrapped_text);
+                    var wrapped_text = WordWrapper.wrap_string (text, first_half, second_half);
+                    this.change_text (start, end, wrapped_text);
                 }
             } else {
                 if (this.type == 1) {
@@ -102,13 +102,12 @@ public class ENotes.ToolbarButton : Gtk.Button {
                     Gtk.TextIter cursor_position;
                     code_buffer.get_iter_at_offset (out cursor_position, code_buffer.cursor_position);
 
-                    if (cursor_position.inside_word () || cursor_position.ends_word ()) {
+                    if (cursor_inside_word (cursor_position)) {
                         // gets word the cursor is currently on and modify it
                         start = end = cursor_position;
-                        identify_word (ref start, ref end, first_half, second_half);
-                        var text = start.get_text (end);
-                        var wrapped_text = WordWrapper.get_wrapped_text (text, first_half, second_half);
-                        changes_text (ref code_buffer, start, end, wrapped_text);
+                        var word = WordWrapper.identify_word (ref start, ref end, first_half, second_half);
+                        var wrapped_text = WordWrapper.wrap_string (word, first_half, second_half);
+                        this.change_text (start, end, wrapped_text);
                     } else {
                         // prints the wrapping text and put cursor in the middle 
                         code_buffer.insert_at_cursor (first_half + second_half, -1);
@@ -122,44 +121,17 @@ public class ENotes.ToolbarButton : Gtk.Button {
     }
 
     /**
+     * Detects if cursor is inside a word
+     */
+    private bool cursor_inside_word (Gtk.TextIter cursor_position) {
+        return cursor_position.inside_word () || cursor_position.ends_word ();
+    }
+
+    /**
      * Replaces the content from  iter start to iter end with the informed text
      */
-    private void changes_text (ref Gtk.SourceBuffer buffer, Gtk.TextIter start, Gtk.TextIter end, string text) {
+    private void change_text (Gtk.TextIter start, Gtk.TextIter end, string text) {
         code_buffer.@delete (ref start, ref end);
         code_buffer.insert_at_cursor (text, -1);
-    }
-
-    /**
-     * Adjusts iterators to surround a word and its wrapper, if there is one
-     */
-    private static void identify_word (ref Gtk.TextIter start, ref Gtk.TextIter end, string first_half, string second_half) {
-            if (!start.starts_word ()) {
-                start.backward_word_start () ;
-            }
-            if (!end.ends_word ()) {
-                end.forward_word_end ();
-            }
-            if (iter_starts_after (start, first_half) && iter_is_followed_by (end, second_half)) {
-                start.backward_chars (first_half.length);
-                end.forward_chars (second_half.length);
-            }
-    }
-
-    /**
-     * Checks if a text iterator starts after parameter text
-     */
-    private static bool iter_starts_after (Gtk.TextIter iter, string text) {
-        Gtk.TextIter peek_surroundings = iter;
-        peek_surroundings.backward_chars (text.length);
-        return peek_surroundings.get_text (iter) == text;
-    }
-
-    /**
-     * Checks if a text iterator is followed by parameter text
-     */
-    private static bool iter_is_followed_by (Gtk.TextIter iter, string text) {
-        Gtk.TextIter peek_surroundings = iter;
-        peek_surroundings.forward_chars (text.length);
-        return peek_surroundings.get_text (iter) == text;
     }
 }
