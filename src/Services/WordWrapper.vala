@@ -116,7 +116,7 @@ public class WordWrapper : Object {
      */
     private static void detects_wrapping (ref Gtk.TextIter start, ref Gtk.TextIter end, string first_half, string second_half) {
         if (opens_wrapping (start, first_half, second_half)) {
-            backwards_iter_to_whitespace (ref start, first_half.length);
+            forwards_iter_until_whitespace (ref start, first_half.length);
             end = start;
             end.forward_visible_word_end ();
             end.forward_chars (second_half.length) ;
@@ -129,16 +129,16 @@ public class WordWrapper : Object {
     }
 
     /**
-     * Detects if current word pointed by iter is surrounded by first and second halves
+     * Detects if current word pointed by iter is an opening tag that wraps a word
      */
     private static bool opens_wrapping (Gtk.TextIter iter, string first_half, string second_half) {
-        backwards_iter_to_whitespace (ref iter, first_half.length);
+        forwards_iter_until_whitespace (ref iter, first_half.length);
         return (iter_is_followed_by (iter, first_half) && word_ends_with (iter, second_half));
     }
 
 
     /**
-     * Detects if current word pointed by iter is surrounded by first and second halves
+     * Detects if current word pointed by iter is a closing tag that wraps a word
      */
     private static bool closes_wrapping (Gtk.TextIter iter, string first_half, string second_half) {
         forwards_iter_to_whitespace (ref iter, second_half.length);
@@ -148,7 +148,7 @@ public class WordWrapper : Object {
     /**
      * Backwards an iterator up to n times searching for a whitespace
      */
-    private static void backwards_iter_to_whitespace (ref Gtk.TextIter iter, int n ) {
+    private static void forwards_iter_until_whitespace (ref Gtk.TextIter iter, int n ) {
         Gtk.TextIter search_limit = iter;
         search_limit.backward_chars (n + 1);
         iter.backward_find_char ((c) => {
