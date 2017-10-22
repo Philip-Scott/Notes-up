@@ -102,7 +102,7 @@ public class ENotes.ToolbarButton : Gtk.Button {
                     Gtk.TextIter cursor_position;
                     code_buffer.get_iter_at_offset (out cursor_position, code_buffer.cursor_position);
 
-                    if (is_cursor_inside_word (cursor_position)) {
+                    if (is_cursor_inside_word (cursor_position, first_half, second_half)) {
                         // gets word the cursor is currently on and modify it
                         start = end = cursor_position;
                         var word = WordWrapper.identify_word (ref start, ref end, first_half, second_half);
@@ -123,8 +123,11 @@ public class ENotes.ToolbarButton : Gtk.Button {
     /**
      * Detects if cursor is inside a word
      */
-    private bool is_cursor_inside_word (Gtk.TextIter cursor_position) {
-        return cursor_position.inside_word () || cursor_position.ends_word ();
+    private bool is_cursor_inside_word (Gtk.TextIter cursor_position, string first_half, string second_half) {
+        return cursor_position.inside_word () || 
+                cursor_position.get_char ().isspace () || 
+                cursor_position.get_char ().to_string () in first_half ||
+                cursor_position.get_char ().to_string () in second_half;
     }
 
     /**
