@@ -175,9 +175,7 @@ public class WordWrapper : Object {
      */
     private static bool word_ends_with (Gtk.TextIter iter, string tag) {
         iter.forward_visible_word_end ();
-        Gtk.TextIter helper = iter;
-        helper.forward_chars (tag.length);
-        return iter.get_text (helper) == tag;
+        return iter_is_followed_by(iter, tag);
     }
 
     /**
@@ -185,9 +183,7 @@ public class WordWrapper : Object {
      */
     private static bool word_starts_with (Gtk.TextIter iter, string tag) {
         iter.backward_visible_word_start ();
-        Gtk.TextIter helper = iter;
-        helper.backward_chars (tag.length);
-        return helper.get_text (iter) == tag;
+        return iter_starts_after(iter, tag);
     }
 
     /**
