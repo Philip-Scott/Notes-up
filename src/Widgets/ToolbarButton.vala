@@ -83,9 +83,8 @@ public class ENotes.ToolbarButton : Gtk.Button {
                 if (this.type == 2) {
                     plugin.request_string (text);
                 } else {
-                    var changed_text = WordWrapper.apply_wrap (text, first_half, second_half);
-                    code_buffer.@delete (ref start, ref end);
-                    code_buffer.insert_at_cursor (changed_text, -1);
+                    var wrapped_text = WordWrapper.wrap_string (text, first_half, second_half);
+                    this.change_text (start, end, wrapped_text);
                 }
             } else {
                 if (this.type == 1) {
@@ -100,15 +99,42 @@ public class ENotes.ToolbarButton : Gtk.Button {
                 } else if (type == 2) {
                     plugin.request_string ("");
                 } else {
-                    code_buffer.insert_at_cursor (first_half, -1);
-                    int end_first_half_pos = code_buffer.cursor_position;
-                    code_buffer.insert_at_cursor (second_half, -1);
-
                     Gtk.TextIter cursor_position;
-                    code_buffer.get_iter_at_offset (out cursor_position, end_first_half_pos);
-                    code_buffer.place_cursor (cursor_position);
+                    code_buffer.get_iter_at_offset (out cursor_position, code_buffer.cursor_position);
+
+                    if (is_cursor_inside_word (cursor_position, first_half, second_half)) {
+                        // gets word the cursor is currently on and modify it
+                        start = end = cursor_position;
+                        var word = WordWrapper.identify_word (ref start, ref end, first_half, second_half);
+                        var wrapped_text = WordWrapper.wrap_string (word, first_half, second_half);
+                        this.change_text (start, end, wrapped_text);
+                    } else {
+                        // prints the wrapping text and put cursor in the middle 
+                        code_buffer.insert_at_cursor (first_half + second_half, -1);
+                        code_buffer.get_iter_at_offset (out cursor_position, code_buffer.cursor_position);
+                        cursor_position.backward_chars (second_half.length);
+                        code_buffer.place_cursor (cursor_position);
+                    }
                 }
             }
         });
+    }
+
+    /**
+     * Detects if cursor is inside a word
+     */
+    private bool is_cursor_inside_word (Gtk.TextIter cursor_position, string first_half, string second_half) {
+        return cursor_position.inside_word () || 
+                cursor_position.get_char ().isspace () || 
+                cursor_position.get_char ().to_string () in first_half ||
+                cursor_position.get_char ().to_string () in second_half;
+    }
+
+    /**
+     * Replaces the content from  iter start to iter end with the informed text
+     */
+    private void change_text (Gtk.TextIter start, Gtk.TextIter end, string text) {
+        code_buffer.@delete (ref start, ref end);
+        code_buffer.insert_at_cursor (text, -1);
     }
 }
