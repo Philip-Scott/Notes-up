@@ -55,14 +55,13 @@ public class WordWrapper : Object {
         save_surrouding_spaces (original_text, ref leading_spaces, ref trailing_spaces);
 
         string text = original_text.strip ();
-
         if (already_wrapped (text, first_half, second_half)) {
-            // removes first and second halves within selected text
+            // unwraps the text, removing first and second halves
             int head = first_half.char_count ();
-            int tail = text.char_count () - second_half.char_count ();
+            int tail = text.last_index_of (second_half, text.length - second_half.length);
             return get_return_string (text.substring (head, tail - head), leading_spaces, trailing_spaces);
         } else {
-            // adds first and second halveschar_count ()
+            // wraps the text, adding first and second halves 
             return get_return_string (first_half + text + second_half, leading_spaces, trailing_spaces);
         }
     }
