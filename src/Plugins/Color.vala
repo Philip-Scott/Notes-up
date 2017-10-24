@@ -109,7 +109,7 @@ public class ENotes.Color : ENotes.Plugin {
     
     public override Gee.List<BLMember> get_blacklist_members () {
         var list = new Gee.LinkedList<BLMember> ();
-        list.add (new BLMember (/<color #[\da-zA-Z]{6}>/, ""));
+        list.add (new BLMember (/<color #[\d\p{L}]{6}>/, ""));
         return list;
     }
 }

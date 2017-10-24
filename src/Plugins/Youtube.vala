@@ -75,7 +75,7 @@ public class ENotes.Youtube : ENotes.Plugin {
         var list = new Gee.LinkedList<BLMember> ();
         // [a-zA-Z0-9_\.\?\/:\=\+&\-'"]* is very greedy way for stating website but closer solutions need more space 
         var empty_link = new BLMember (/<youtube \[Link\]>/, "");
-        var youtube_video = new BLMember (/<youtube [a-zA-Z0-9_\.\?\/:\=\+&\-'"]*>/, _("Youtube Video"));
+        var youtube_video = new BLMember (/<youtube [\p{L}\d_\.\?\/:\=\+&\-'"]*>/, _("Youtube Video"));
         list.add (youtube_video);
         list.add (empty_link);
         return list;
