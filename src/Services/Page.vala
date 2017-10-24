@@ -52,7 +52,7 @@ public class ENotes.PageTable : DatabaseTable {
     // regex_simple_elements used for symbols. Some symbols are part of more complex commands so these
     // list is used at the end
     // first regular expression replaces # ~ ` etc. with ""
-    BLMember[] regex_simple_elements = {new BLMember (/[#\n\t<>]+/, ""), new BLMember(/<br>/, "")};
+    BLMember[] regex_simple_elements = {new BLMember (/[#\n\t<>`]+/, ""), new BLMember(/<br>/, "")};
 
     public static PageTable get_instance () {
         if (instance == null) {
