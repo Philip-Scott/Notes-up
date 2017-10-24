@@ -89,12 +89,12 @@ public class ENotes.PageTable : DatabaseTable {
         ///This code summarises a notebook page. Instead of given youtube link this code changes into Youtube Video      
     
         // Explaination for link: Regex for [Something](Something). As greedy as editor on markdown
-        var link = new BLMember(/\[[a-zA-Z0-9_ \.\?\/:\=\+&\-'"]*\]\([a-zA-Z0-9_\.\?\/:\=\+&\-'"]*\)/, "");
+        var link = new BLMember(/\[[a-zA-Z0-9_\.\?\/:\=\+&\-'" ]*\]\([a-zA-Z0-9_\.\?\/:\=\+&\-'"]*\)/, "");
        
         //  \[\^\d+\]:? leads to e.g. [^32], [^68]: 
         var anchor = new BLMember (/\[\^\d+\]:?/, "");
             
-        var regex_complex_commands = PluginManager.get_instance ().get_all_blacklist_members ();
+        regex_complex_commands = (Gee.LinkedList) PluginManager.get_instance ().get_all_blacklist_members ();
         regex_complex_commands.add (link);
         regex_complex_commands.add (anchor);
           
