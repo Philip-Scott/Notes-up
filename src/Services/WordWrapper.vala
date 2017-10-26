@@ -28,10 +28,18 @@ public class WordWrapper : Object {
     private static Regex starting_whitespaces_regex;
     private static Regex ending_whitespaces_regex;
 
+    private string first_half;
+    private string second_half;
+
     static construct {
         //  TODO: create 1 single regex to capture both starting and ending whitespaces only
         WordWrapper.starting_whitespaces_regex = new Regex ("^(\\s)+", RegexCompileFlags.EXTENDED);
         WordWrapper.ending_whitespaces_regex = new Regex ("(\\s)+$", RegexCompileFlags.EXTENDED);
+    }
+
+    public WordWrapper (string first_half, string second_half) {
+        this.first_half = first_half;
+        this.second_half = second_half;
     }
 
     /**
@@ -39,8 +47,8 @@ public class WordWrapper : Object {
      * with its wrappers, if present.
      * Retuns the found string.
      */
-    public static string identify_word (ref Gtk.TextIter start, ref Gtk.TextIter end, string first_half, string second_half) {
-        detect_edges (ref start, ref end, first_half, second_half);
+    public string identify_word (ref Gtk.TextIter start, ref Gtk.TextIter end) {
+        detect_edges (ref start, ref end);
         return start.get_text (end);
     }
 
@@ -48,22 +56,83 @@ public class WordWrapper : Object {
      * Wraps this instance's text with first and second halves.
      * Unwraps this instance's text element if already wrapped with first and second halves.
      */
-     public static string wrap_string (string original_text, string first_half, string second_half) {
+     public string wrap_string (string original_text) {
         string leading_spaces = "";
         string trailing_spaces = "";
 
         save_surrouding_spaces (original_text, ref leading_spaces, ref trailing_spaces);
 
         string text = original_text.strip ();
-        if (already_wrapped (text, first_half, second_half)) {
-            // unwraps the text, removing first and second halves
-            int head = first_half.char_count ();
-            int tail = text.last_index_of (second_half, text.length - second_half.length);
+
+        if (already_wrapped (text)) {
+            // removes first and second halves within selected text
+            int head = this.first_half.char_count ();
+            int tail = text.char_count () - this.second_half.char_count ();
             return get_return_string (text.substring (head, tail - head), leading_spaces, trailing_spaces);
         } else {
-            // wraps the text, adding first and second halves 
-            return get_return_string (first_half + text + second_half, leading_spaces, trailing_spaces);
+            // adds first and second halveschar_count ()
+            return get_return_string (this.first_half + text + this.second_half, leading_spaces, trailing_spaces);
         }
+    }
+
+    /**
+     * Adjusts iterators to surround a word or its wrappers if present
+     */
+    private void detect_edges (ref Gtk.TextIter start, ref Gtk.TextIter end) {
+        if (no_edges (end)) {
+            return;
+        }
+        if (start.get_char ().isalnum () || end.get_char ().isspace () || end.ends_line ()) {
+            // moves iter start to beggining of word and iter end to ending of word
+            if (!start.starts_word ()) {
+                start.backward_word_start ();
+            }
+            if (!end.ends_word ()) {
+                end.forward_word_end ();
+            }
+        }
+        detect_wrapping (ref start, ref end);
+    }
+
+    /**
+     * Detects if iterators' pointed text is surrounded by first and second halves
+     */
+    private void detect_wrapping (ref Gtk.TextIter start, ref Gtk.TextIter end) {
+        if (opens_wrapping (start)) {
+            forwards_iter_until_whitespace (ref start, this.first_half.length);
+            end = start;
+            end.forward_visible_word_end ();
+            end.forward_chars (this.second_half.length) ;
+        } else if (closes_wrapping (end)) {
+            forwards_iter_to_whitespace (ref end, this.second_half.length);
+            start = end;
+            start.backward_visible_word_start ();
+            start.backward_chars (this.first_half.length) ;
+        }
+    }
+
+    /**
+     * Detects if current word pointed by iter is an opening tag that wraps a word
+     */
+    private bool opens_wrapping (Gtk.TextIter iter) {
+        forwards_iter_until_whitespace (ref iter, this.first_half.length);
+        return (iter_is_followed_by (iter, this.first_half) && word_ends_with (iter, this.second_half));
+    }
+
+
+    /**
+     * Detects if current word pointed by iter is a closing tag that wraps a word
+     */
+    private bool closes_wrapping (Gtk.TextIter iter) {
+        forwards_iter_to_whitespace (ref iter, this.second_half.length);
+        return (iter_starts_after (iter, this.second_half) && word_starts_with (iter, this.first_half));
+    }
+
+    /**
+     * Returns true if param text is already wrapped by first and second halves
+     */
+    private bool already_wrapped (string text) {
+        return text.has_prefix (this.first_half) && text.has_suffix (this.second_half);
     }
 
     /**
@@ -72,7 +141,7 @@ public class WordWrapper : Object {
     private static string get_return_string (string text, string leading_spaces, string trailing_spaces) {
         return leading_spaces.concat (text).concat (trailing_spaces);
     }
-
+    ex
     /**
      * Counts the number of whitespace characters to the left and right of a given text
      */
@@ -90,64 +159,11 @@ public class WordWrapper : Object {
             trailing_spaces = match_info.fetch (0);
         }
     }
-    
-    /**
-     * Adjusts iterators to surround a word or its wrappers if present
-     */
-    private static void detect_edges (ref Gtk.TextIter start, ref Gtk.TextIter end, string first_half, string second_half) {
-        if (no_edges (end)) {
-            return;
-        }
-        if (start.get_char ().isalnum () || end.get_char ().isspace () || end.ends_line ()) {
-            // moves iter start to beggining of word and iter end to ending of word
-            if (!start.starts_word ()) {
-                start.backward_word_start ();
-            }
-            if (!end.ends_word ()) {
-                end.forward_word_end ();
-            }
-        }
-        detects_wrapping (ref start, ref end, first_half, second_half);
-    }
-
-    /**
-     * Detects if iterators' pointed text is surrounded by first and second halves
-     */
-    private static void detects_wrapping (ref Gtk.TextIter start, ref Gtk.TextIter end, string first_half, string second_half) {
-        if (opens_wrapping (start, first_half, second_half)) {
-            forwards_iter_until_whitespace (ref start, first_half.length);
-            end = start;
-            end.forward_visible_word_end ();
-            end.forward_chars (second_half.length) ;
-        } else if (closes_wrapping (end, first_half, second_half)) {
-            forwards_iter_to_whitespace (ref end, second_half.length);
-            start = end;
-            start.backward_visible_word_start ();
-            start.backward_chars (first_half.length) ;
-        }
-    }
-
-    /**
-     * Detects if current word pointed by iter is an opening tag that wraps a word
-     */
-    private static bool opens_wrapping (Gtk.TextIter iter, string first_half, string second_half) {
-        forwards_iter_until_whitespace (ref iter, first_half.length);
-        return (iter_is_followed_by (iter, first_half) && word_ends_with (iter, second_half));
-    }
-
-
-    /**
-     * Detects if current word pointed by iter is a closing tag that wraps a word
-     */
-    private static bool closes_wrapping (Gtk.TextIter iter, string first_half, string second_half) {
-        forwards_iter_to_whitespace (ref iter, second_half.length);
-        return (iter_starts_after (iter, second_half) && word_starts_with (iter, first_half));
-    }
 
     /**
      * Backwards an iterator up to n times searching for a whitespace
      */
-    private static void forwards_iter_until_whitespace (ref Gtk.TextIter iter, int n ) {
+    private static void forwards_iter_until_whitespace (ref Gtk.TextIter iter, int n) {
         Gtk.TextIter search_limit = iter;
         search_limit.backward_chars (n + 1);
         iter.backward_find_char ((c) => {
@@ -203,7 +219,6 @@ public class WordWrapper : Object {
         return peek_surroundings.get_text (iter) == text;
     }
 
-
     /**
      * Detects if iter is in between two whitespaces
      */
@@ -211,9 +226,5 @@ public class WordWrapper : Object {
         bool previous_value = iter.get_char ().isspace ();
         iter.backward_char ();
         return iter.get_char ().isspace () && previous_value && true;
-    }
-
-    private static bool already_wrapped (string text, string first_half, string second_half) {
-        return text.has_prefix (first_half) && text.has_suffix (second_half);
     }
 }

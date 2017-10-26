@@ -83,7 +83,8 @@ public class ENotes.ToolbarButton : Gtk.Button {
                 if (this.type == 2) {
                     plugin.request_string (text);
                 } else {
-                    var wrapped_text = WordWrapper.wrap_string (text, first_half, second_half);
+                    WordWrapper wrapper = new WordWrapper(first_half, second_half);
+                    var wrapped_text = wrapper.wrap_string (text);
                     this.change_text (start, end, wrapped_text);
                 }
             } else {
@@ -105,8 +106,9 @@ public class ENotes.ToolbarButton : Gtk.Button {
                     if (is_cursor_inside_word (cursor_position, first_half, second_half)) {
                         // gets word the cursor is currently on and modify it
                         start = end = cursor_position;
-                        var word = WordWrapper.identify_word (ref start, ref end, first_half, second_half);
-                        var wrapped_text = WordWrapper.wrap_string (word, first_half, second_half);
+                        WordWrapper wrapper = new WordWrapper(first_half, second_half);
+                        var word = wrapper.identify_word (ref start, ref end);
+                        var wrapped_text = wrapper.wrap_string (word);
                         this.change_text (start, end, wrapped_text);
                     } else {
                         // prints the wrapping text and put cursor in the middle 
