@@ -65,12 +65,12 @@ public class WordWrapper : Object {
         string text = original_text.strip ();
 
         if (already_wrapped (text)) {
-            // removes first and second halves within selected text
+            // unwraps the text, removing first and second halves
             int head = this.first_half.char_count ();
-            int tail = text.char_count () - this.second_half.char_count ();
+            int tail = text.last_index_of (second_half, text.length - second_half.length);
             return get_return_string (text.substring (head, tail - head), leading_spaces, trailing_spaces);
         } else {
-            // adds first and second halveschar_count ()
+            // wraps the text, adding first and second halves 
             return get_return_string (this.first_half + text + this.second_half, leading_spaces, trailing_spaces);
         }
     }
@@ -141,7 +141,7 @@ public class WordWrapper : Object {
     private static string get_return_string (string text, string leading_spaces, string trailing_spaces) {
         return leading_spaces.concat (text).concat (trailing_spaces);
     }
-    ex
+
     /**
      * Counts the number of whitespace characters to the left and right of a given text
      */
