@@ -51,4 +51,20 @@ public abstract class ENotes.Plugin : GLib.Object {
     public virtual string request_string (string selection) {
         return selection;
     }
+    
+    // if plugin doesnt say anything about syntax just return null
+    public virtual Gee.List<BLMember> get_blacklist_members () {
+        return null;
+    }
+}
+
+// Describes member of BlackList used in cleanup. reg is the regular expression and replace the string it will be replaced
+public class BLMember {
+    public GLib.Regex reg;
+    public string replace;
+    
+    public BLMember (GLib.Regex reg, string replace) {
+        this.reg = reg;
+        this.replace = replace;
+    }
 }

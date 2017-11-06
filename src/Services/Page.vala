@@ -45,6 +45,14 @@ public class ENotes.PageTable : DatabaseTable {
     public signal void page_saved (Page page);
 
     private static PageTable instance = null;
+    
+    // This list is used for complex commands mostly by plugins e.g. "" <youtube [Link]>
+    private Gee.LinkedList<BLMember> regex_complex_commands = new Gee.LinkedList<BLMember> ();
+    
+    // regex_simple_elements used for symbols. Some symbols are part of more complex commands so these
+    // list is used at the end
+    // first regular expression replaces # ~ ` etc. with ""
+    BLMember[] regex_simple_elements = {new BLMember (/[#\n\t<>`]+/, ""), new BLMember(/<br>/, "")};
 
     public static PageTable get_instance () {
         if (instance == null) {
@@ -78,6 +86,18 @@ public class ENotes.PageTable : DatabaseTable {
         }
 
         set_table_name ("Page");
+        ///This code summarises a notebook page. Instead of given youtube link this code changes into Youtube Video      
+    
+        // Explaination for link: Regex for [Something](Something). As greedy as editor on markdown
+        var link = new BLMember(/\[[\p{L}\d_\.\?\/:\=\+&\-'" ]*\]\([\p{L}\d_\.\?\/:\=\+&\-'"]*\)/, "");
+       
+        //  \[\^\d+\]:? leads to e.g. [^32], [^68]: 
+        var anchor = new BLMember (/\[\^\d+\]:?/, "");
+            
+        regex_complex_commands = (Gee.LinkedList) PluginManager.get_instance ().get_all_blacklist_members ();
+        regex_complex_commands.add (link);
+        regex_complex_commands.add (anchor);
+          
     }
 
     public Page? get_page (int64 page_id) {
@@ -218,19 +238,24 @@ public class ENotes.PageTable : DatabaseTable {
             page.subtitle = "";
         }
     }
-
-    private const string[] SYMBOLS_BLACKLIST = {"#", "`", "\t", "<br>", ">", "<", "\n", "~" };
+      
     private string cleanup (string line) {
         string output = line;
 
-        if (line.contains ("---")) return "";
-
-        foreach (string item in SYMBOLS_BLACKLIST) {
-            if (output.contains (item)) {
-                output = output.replace (item, "");
+        try {
+            foreach (var item in regex_complex_commands) {
+                output = item.reg.replace (output, -1, 0, item.replace);        
+            }  
+        
+            foreach (var item in regex_simple_elements) {
+                output = item.reg.replace (output, -1, 0, item.replace);        
             }
+        } catch (GLib.RegexError e) {
+            return "";
         }
 
+        if (line.contains ("---")) return "";
+        
         if (output.contains ("&")) output = output.replace ("&","&amp;");
 
         if (output.length > 0 && output[0] == ' ') {
