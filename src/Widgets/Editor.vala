@@ -54,7 +54,7 @@ public class ENotes.Editor : Gtk.Box {
         set {
             if (value) {
                 try {
-                    var last_language = settings.get_instance ().spellcheck_language;
+                    var last_language = Services.Settings.get_instance ().spellcheck_language;
                     bool language_set = false;
                     var language_list = GtkSpell.Checker.get_language_list ();
                     foreach (var element in language_list) {
@@ -129,7 +129,7 @@ public class ENotes.Editor : Gtk.Box {
         editor_and_help.add (scroll_box);
 
         spell = new GtkSpell.Checker ();
-        spellcheck = settings.get_instance ().spellcheck;
+        spellcheck = Services.Settings.get_instance ().spellcheck;
 
         code_view.populate_popup.connect ((menu) => {
             menu.selection_done.connect (() => {
@@ -138,7 +138,7 @@ public class ENotes.Editor : Gtk.Box {
                 if (selected != null) {
                     try {
                         spell.set_language (selected.label);
-                        settings.get_instance ().spellcheck_language = selected.label;
+                        Services.Settings.get_instance ().spellcheck_language = selected.label;
                     } catch (Error e) {}
                 }
             });

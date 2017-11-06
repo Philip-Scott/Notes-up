@@ -55,8 +55,8 @@ public class ENotes.Highlight : ENotes.Plugin {
 <script src="/usr/share/notes-up/highlight.pack.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>""");
     }
-    
-    public override Gee.List<BLMember> get_blacklist_members () {
+
+    public override Gee.List<BLMember>? get_blacklist_members () {
         var list = new Gee.LinkedList<BLMember> ();
         list.add (new BLMember (/<highlight>/, ""));
         return list;

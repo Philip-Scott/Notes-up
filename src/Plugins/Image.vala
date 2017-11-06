@@ -65,7 +65,7 @@ public class ENotes.ImagePlugin : ENotes.Plugin {
         return data.str;
     }
     
-    public override Gee.List<BLMember> get_blacklist_members () {
+    public override Gee.List<BLMember>? get_blacklist_members () {
         var list = new Gee.LinkedList<BLMember> ();
         list.add (new BLMember (/<image \d+>/, ""));
         return list;
