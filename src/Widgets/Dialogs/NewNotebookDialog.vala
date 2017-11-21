@@ -57,6 +57,7 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
         set_keep_above (true);
         set_size_request (360, 280);
         resizable = false;
+        deletable = false;
         modal = true;
 
         var name_label      = new Gtk.Label (_("Name:"));

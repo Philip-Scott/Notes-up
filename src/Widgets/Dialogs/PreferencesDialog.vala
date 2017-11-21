@@ -46,6 +46,7 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
 
         set_size_request (590, 530);
         resizable = false;
+        deletable = false;
         modal = true;
 
         stack = new Gtk.Stack ();
