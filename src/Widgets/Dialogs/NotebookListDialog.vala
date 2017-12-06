@@ -23,11 +23,11 @@ public class ENotes.NotebookListDialog : Gtk.Dialog {
 
     public NotebookListDialog (ENotes.Notebook notebook) {
         title = "Move Notebook";
-		set_size_request (450, 600);
+        set_size_request (450, 600);
         set_transient_for (window);
 
         var notebook_list = new ENotes.Sidebar.notebook_list (notebook);
-		notebook_list.margin = 12;
+        notebook_list.margin = 12;
         get_content_area ().add (notebook_list);
 
         show_all ();
@@ -36,7 +36,7 @@ public class ENotes.NotebookListDialog : Gtk.Dialog {
         var cancel = (Gtk.Button) this.add_button (_("Cancel"), 1);
         var move = (Gtk.Button) this.add_button (_("Move"), 2);
         move.get_style_context ().add_class ("suggested-action");
-        
+
         response.connect ((ID) => {
             switch (ID) {
                 case 1:
@@ -47,14 +47,12 @@ public class ENotes.NotebookListDialog : Gtk.Dialog {
                     if (item != null) {
                         parent_notebook = item.notebook;
                     }
-                    
+
                     NotebookTable.get_instance ().move_notebook (notebook, parent_notebook);
-                    
                     Sidebar.get_instance ().load_notebooks ();
-                    
                     break;
             }
-            
+
             this.close ();
         });
     }
