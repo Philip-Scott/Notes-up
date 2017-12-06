@@ -24,6 +24,7 @@ public class ENotes.NotebookItem : ENotes.SidebarItem {
     private Gtk.MenuItem remove_item;
     private Gtk.MenuItem edit_item;
     private Gtk.MenuItem new_item;
+    private Gtk.MenuItem move_item;
 
     private ENotes.Notebook _notebook;
     public ENotes.Notebook notebook {
@@ -37,20 +38,26 @@ public class ENotes.NotebookItem : ENotes.SidebarItem {
         }
     }
 
-    public NotebookItem (ENotes.Notebook notebook) {
+    public NotebookItem (ENotes.Notebook notebook, bool add_menu) {
         this.notebook = notebook;
 
-        setup_menu ();
+        if (add_menu) {
+            setup_menu ();
+        }
     }
 
     private void setup_menu () {
         menu = new Gtk.Menu ();
         edit_item = new Gtk.MenuItem.with_label (_("Edit Notebook"));
-        new_item = new Gtk.MenuItem.with_label (_("New Section"));
+        new_item = new Gtk.MenuItem.with_label (_("New Notebook"));
         remove_item = new Gtk.MenuItem.with_label (_("Delete Notebook"));
+        move_item = new Gtk.MenuItem.with_label (_("Move Notebook"));
+
         menu.add (edit_item);
-        menu.add (remove_item);
         menu.add (new_item);
+        menu.add (move_item);
+        menu.add (remove_item);
+
         menu.show_all ();
 
         edit_item.activate.connect (() => {
@@ -63,6 +70,10 @@ public class ENotes.NotebookItem : ENotes.SidebarItem {
 
         remove_item.activate.connect (() => {
             Trash.get_instance ().trash_notebook (notebook);
+        });
+
+        move_item.activate.connect (() => {
+            new NotebookListDialog (notebook);
         });
 
         notebook.destroy.connect (() => {

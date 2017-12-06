@@ -129,7 +129,8 @@ vala_precompile(VALA_C
 
   src/Widgets/Dialogs/NewNotebookDialog.vala
   src/Widgets/Dialogs/PreferencesDialog.vala
-  
+  src/Widgets/Dialogs/NotebookListDialog.vala
+
   src/Styles/air.vala
   src/Styles/elementary.vala
   src/Styles/modest.vala

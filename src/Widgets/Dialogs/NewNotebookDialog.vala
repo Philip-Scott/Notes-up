@@ -60,11 +60,11 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
         deletable = false;
         modal = true;
 
-        var name_label      = new Gtk.Label (_("Name:"));
-        var color_label     = new Gtk.Label (_("Color:"));
+        var name_label = new Gtk.Label (_("Name:"));
+        var color_label = new Gtk.Label (_("Color:"));
 
-        name_label.halign   = Gtk.Align.END;
-        color_label.halign  = Gtk.Align.END;
+        name_label.halign  = Gtk.Align.END;
+        color_label.halign = Gtk.Align.END;
 
         make_store ();
 
@@ -87,10 +87,10 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
         }
 
         var grid = new Gtk.Grid ();
-        grid.attach (name_label, 	0,	1, 	1,	1);
-        grid.attach (name_entry,  	1,	1, 	1,	1);
-        grid.attach (color_label, 	0,	2, 	1,	1);
-        grid.attach (color_button, 	1,	2, 	1,	1);
+        grid.attach (name_label,   0, 1, 1, 1);
+        grid.attach (name_entry,   1, 1, 1, 1);
+        grid.attach (color_label,  0, 2, 1, 1);
+        grid.attach (color_button, 1, 2, 1, 1);
 
         grid.set_column_homogeneous (false);
         grid.set_row_homogeneous (true);
@@ -143,29 +143,29 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
         grid.column_spacing = 8;
 
         grid.attach (styles_label, 0, 2, 1, 1);
-        grid.attach (style_box, 1, 2, 1, 1);
-        grid.attach (title, 0, 0, 2, 1);
-        grid.attach (scrolled, 0, 1 ,2, 1);
+        grid.attach (style_box,    1, 2, 1, 1);
+        grid.attach (title,        0, 0, 2, 1);
+        grid.attach (scrolled,     0, 1 ,2, 1);
         return grid;
     }
 
     private void make_store () {
         Gtk.ListStore list_store = new Gtk.ListStore (2, typeof (string), typeof (int));
-		Gtk.TreeIter iter;
+        Gtk.TreeIter iter;
 
-		int value = 0;
-		foreach (string style in Viewer.STYLES) {
-		    list_store.append (out iter);
-		    list_store.set (iter, 0, style, 1, value);
-		}
+        int value = 0;
+        foreach (string style in Viewer.STYLES) {
+            list_store.append (out iter);
+            list_store.set (iter, 0, style, 1, value);
+        }
 
-		// The Box:
-		style_box = new Gtk.ComboBox.with_model (list_store);
-		Gtk.CellRendererText renderer = new Gtk.CellRendererText ();
-		style_box.pack_start (renderer, true);
-		style_box.add_attribute (renderer, "text", 0);
+        // The Box:
+        style_box = new Gtk.ComboBox.with_model (list_store);
+        Gtk.CellRendererText renderer = new Gtk.CellRendererText ();
+        style_box.pack_start (renderer, true);
+        style_box.add_attribute (renderer, "text", 0);
 
-	    style_box.active = 0;
+        style_box.active = 0;
     }
 
     private int get_notebook_style (Notebook notebook) {
@@ -181,8 +181,8 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
 
     private void load_data () {
         name_entry.text = notebook.name;
-	    style_box.active = get_notebook_style (notebook);
-	    style_changes.buffer.text = notebook.css;
+        style_box.active = get_notebook_style (notebook);
+        style_changes.buffer.text = notebook.css;
     }
 
     private void connect_signals () {
