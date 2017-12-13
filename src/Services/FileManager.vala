@@ -134,6 +134,9 @@ public class ENotes.FileManager : Object {
         File file;
         if (file_path == null) {
             file = get_file_from_user ();
+            if (!file.get_basename ().down ().has_suffix (".pdf")) {
+                file = File.new_for_path (file.get_path () + ".pdf");
+            }
         } else {
             file = File.new_for_path (file_path);
         }
