@@ -1,4 +1,4 @@
-project(notes-up)
+project(com.github.philip-scott.notes-up)
 
 cmake_minimum_required(VERSION 2.6)
 
@@ -134,7 +134,7 @@ vala_precompile(VALA_C
   src/Styles/air.vala
   src/Styles/elementary.vala
   src/Styles/modest.vala
-  
+
   src/Services/Bookmark.vala
   src/Services/FileManager.vala
   src/Services/Notebook.vala
@@ -144,7 +144,7 @@ vala_precompile(VALA_C
   src/Services/Trash.vala
   src/Services/DatabaseTable.vala
   src/Services/WordWrapper.vala
-  
+
   src/Plugins/Manager.vala
   src/Plugins/Plugin.vala
   src/Plugins/Break.vala
@@ -159,16 +159,16 @@ OPTIONS
   ${GLOBAL_VALAC_OPTIONS}
 )
 
-add_executable(notes-up ${VALA_C} ${generated_resources})
+add_executable(com.github.philip-scott.notes-up ${VALA_C} ${generated_resources})
 
-target_link_libraries(notes-up
+target_link_libraries(com.github.philip-scott.notes-up
   ${DISCOUNT_LIB_PATH})
 
-add_dependencies(notes-up
+add_dependencies(com.github.philip-scott.notes-up
   discount
 )
 
-install(TARGETS notes-up RUNTIME
+install(TARGETS com.github.philip-scott.notes-up RUNTIME
   DESTINATION bin)
 
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/com.github.philip-scott.notes-up.appdata.xml
