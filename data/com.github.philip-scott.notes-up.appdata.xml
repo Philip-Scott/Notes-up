@@ -21,6 +21,19 @@
     <binary>com.github.philip-scott.notes-up</binary>
   </provides>
   <releases>
+    <release version="1.5.0" date="2017-12-25">
+      <description>
+        <p>The Community Update</p>
+        <ul>
+          <li>Pages are better summarized when they have markdown symbols</li>
+          <li>When applying styles to the text, it will automatically wrap around it properly</li>
+          <li>You can now move Notebooks</li>
+          <li>Fixed some errors from exporting, and some other bugs</li>
+          <li>Notes-Up is now translated to Lithuanian, French, Portuguese and Czech!</li>
+          <li>A huge thanks to the translators, and the new contributors! You guys rock!</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.4.6" date="2017-08-16">
       <description>
         <p>Spell Checking</p>
