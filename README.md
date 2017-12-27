@@ -59,7 +59,7 @@ PPA: _ppa:philip.scott/notes-up_
 	
 If you were using the previous version of Notes-up, **you will need to add this new PPA**. This version changes how files are saved on your computer, so it won't be given automatically to the previous users. No worries though, your old files will be imported when you first run the app!
 
-Notes-Up is also available for [openSUSE](https://software.opensuse.org/package/notes-up).
+Notes-Up is also available for [openSUSE](https://software.opensuse.org/package/notes-up), and [Arch Linux](https://aur.archlinux.org/packages/?O=0&K=notes-up).
 
 ## How To Build
 For advanced users!
