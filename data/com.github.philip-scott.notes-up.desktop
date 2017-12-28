@@ -9,4 +9,4 @@ Icon=com.github.philip-scott.notes-up
 Terminal=false
 Type=Application
 StartupNotify=true
-Categories=Office;
+Categories=Office;WordProcessor;
