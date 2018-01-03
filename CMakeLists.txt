@@ -77,7 +77,6 @@ set (GETTEXT_PACKAGE "notes-up")
 set (RELEASE_NAME "TARS")
 set (VERSION "1.3")
 set (VERSION_INFO "Release")
-set (CMAKE_C_FLAGS "-ggdb")
 set (PREFIX ${CMAKE_INSTALL_PREFIX})
 set (DOLLAR "$")
 
