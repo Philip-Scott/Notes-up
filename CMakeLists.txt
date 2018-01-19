@@ -2,12 +2,31 @@ project(com.github.philip-scott.notes-up)
 
 cmake_minimum_required(VERSION 2.6)
 
-# build the markdown lib
-include(ExternalProject)
-set(DISCOUNT_DEP_PATH ${CMAKE_SOURCE_DIR}/deps/discount)
+# Build discount markdown library
+set(DISCOUNT_LIB_VERSION "v2.2.2")
+set(DISCOUNT_SRC_PATH ${CMAKE_SOURCE_DIR}/deps/discount)
+set(DISCOUNT_DEP_PATH ${CMAKE_BINARY_DIR}/discount)
 set(DISCOUNT_LIB_PATH ${CMAKE_BINARY_DIR}/libmarkdown.a)
 set(DISCOUNT_INCLUDE_PATH ${DISCOUNT_DEP_PATH})
+# Update discount submodule
+execute_process(
+  COMMAND git submodule update --init --recursive
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+)
+# Checkout discount version
+execute_process(
+  COMMAND git checkout --quiet tags/${DISCOUNT_LIB_VERSION}
+  WORKING_DIRECTORY ${DISCOUNT_SRC_PATH}
+)
+# Copy discount to build directory
+file(COPY ${DISCOUNT_SRC_PATH} DESTINATION ${CMAKE_BINARY_DIR})
+# Reset discount version to master version
+execute_process(
+  COMMAND git submodule deinit -f --all
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+)
 
+include(ExternalProject)
 ExternalProject_Add(discount
   PREFIX ${DISCOUNT_DEP_PATH}
   SOURCE_DIR ${DISCOUNT_DEP_PATH}
