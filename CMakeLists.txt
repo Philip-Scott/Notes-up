@@ -2,26 +2,6 @@ project(com.github.philip-scott.notes-up)
 
 cmake_minimum_required(VERSION 2.6)
 
-# build the markdown lib
-include(ExternalProject)
-set(DISCOUNT_DEP_PATH ${CMAKE_SOURCE_DIR}/deps/discount)
-set(DISCOUNT_LIB_PATH ${CMAKE_BINARY_DIR}/libmarkdown.a)
-set(DISCOUNT_INCLUDE_PATH ${DISCOUNT_DEP_PATH})
-
-ExternalProject_Add(discount
-  PREFIX ${DISCOUNT_DEP_PATH}
-  SOURCE_DIR ${DISCOUNT_DEP_PATH}
-  CONFIGURE_COMMAND
-      ${DISCOUNT_DEP_PATH}/configure.sh --src=${DISCOUNT_DEP_PATH}
-                                        --with-fenced-code
-                                        --prefix=${CMAKE_BINARY_DIR}
-                                        --libdir=${CMAKE_BINARY_DIR}
-  BUILD_COMMAND make install
-  BUILD_IN_SOURCE 1
-)
-
-include_directories(${DISCOUNT_INCLUDE_PATH})
-
 # build UI lib
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
@@ -39,6 +19,7 @@ pkg_check_modules(DEPS REQUIRED
   webkit2gtk-4.0
   sqlite3>=3.5.9
   gtkspell3-3.0
+  libmarkdown
 )
 
 set (VALA_DEPS
@@ -48,8 +29,8 @@ set (VALA_DEPS
  gtk+-3.0
  webkit2gtk-4.0
  sqlite3
- discount
  gtkspell3-3.0
+ libmarkdown
 )
 
 add_definitions(${DEPS_CFLAGS})
@@ -69,7 +50,7 @@ set (generated_resources ${generated_resource})
 
 find_package(Vala REQUIRED)
 include(ValaVersion)
-ensure_vala_version("0.26.0" MINIMUM)
+ensure_vala_version("0.39.0" MINIMUM)
 
 set (DATADIR "${CMAKE_INSTALL_PREFIX}/share")
 set (PKGDATADIR "${DATADIR}/notes-up")
@@ -160,12 +141,6 @@ OPTIONS
 
 add_executable(com.github.philip-scott.notes-up ${VALA_C} ${generated_resources})
 
-target_link_libraries(com.github.philip-scott.notes-up
-  ${DISCOUNT_LIB_PATH})
-
-add_dependencies(com.github.philip-scott.notes-up
-  discount
-)
 
 install(TARGETS com.github.philip-scott.notes-up RUNTIME
   DESTINATION bin)
