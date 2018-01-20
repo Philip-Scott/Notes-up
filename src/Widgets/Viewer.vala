@@ -30,6 +30,7 @@ public class ENotes.Viewer : WebKit.WebView {
     public static Viewer get_instance () {
         if (instance == null) {
             instance = new Viewer ();
+            //Markdown.initialize ();
         }
 
         return instance;
@@ -192,11 +193,11 @@ public class ENotes.Viewer : WebKit.WebView {
         string processed_mk;
         process_frontmatter (raw_mk, out processed_mk);
                                                         //Extra Footnote + Autolink + ``` code + Extra def lists + keep style + LaTeX
-        var mkd = new Markdown.Document (processed_mk.data, 0x00200000 + 0x00004000 + 0x02000000 + 0x01000000 + 0x00400000 + 0x40000000);
+        var mkd = new Markdown.Document.from_string (processed_mk.data, 0x00200000 + 0x00004000 + 0x02000000 + 0x01000000 + 0x00400000 + 0x40000000);
         mkd.compile (0x00200000 + 0x00004000 + 0x02000000 + 0x01000000 + 0x00400000 + 0x40000000);
 
         string result;
-        mkd.get_document (out result);
+        mkd.document (out result);
 
         string html = "<!doctype html><meta charset=utf-8><head>";
         html += "<style>"+ CSS +"</style>";
