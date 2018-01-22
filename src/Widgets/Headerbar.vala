@@ -67,6 +67,9 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         create_menu ();
 
         var search_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        search_box.halign = Gtk.Align.END;
+        search_box.valign = Gtk.Align.CENTER;
+
         search_entry = new Gtk.SearchEntry();
         search_entry.editable = true;
         search_entry.visibility = true;
@@ -75,6 +78,8 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         search_entry.margin_right = 12;
 
         search_entry_revealer = new Gtk.Revealer();
+        search_entry_revealer.valign = Gtk.Align.CENTER;
+
         search_button_revealer = new Gtk.Revealer();
         search_entry_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
         search_button_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
