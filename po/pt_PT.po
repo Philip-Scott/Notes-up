@@ -30,13 +30,13 @@ msgid ""
 "Set font color for the line with <color [#color]> or for some text with "
 "<color [color] [text]>"
 msgstr ""
-"Definir cor do texto para a linha com <color [cor]> ou para algum texto "
-"com <color [cor] [texto]>"
+"Define cor da letra de toda a linha com <color [cor]> ou somente para "
+"uma parte do texto com <color [cor] [texto]>"
 
 #: /home/lains/Documents/Dev/Notes-up/po/../src/Plugins/Color.vala:39
 #: /home/lains/Documents/Dev/Notes-up/po/../src/Plugins/Color.vala:68
 msgid "Font color"
-msgstr "Cor do texto"
+msgstr "Cor da letra"
 
 #: /home/lains/Documents/Dev/Notes-up/po/../src/Plugins/Image.vala:28
 msgid "Load an embeded image"
