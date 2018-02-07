@@ -324,7 +324,7 @@ msgstr "Restaurar"
 
 #: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Sidebar/NotebookItem.vala:48
 msgid "Edit Notebook"
-msgstr "Editar bloco de notas"
+msgstr "Editar caderno"
 
 #: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Sidebar/NotebookItem.vala:49
 msgid "New Section"
@@ -332,11 +332,11 @@ msgstr "Nova secção"
 
 #: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Sidebar/NotebookItem.vala:50
 msgid "Delete Notebook"
-msgstr "Eliminar bloco de notas"
+msgstr "Eliminar caderno"
 
 #: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Sidebar/Sidebar.vala:25
 msgid "Notebooks"
-msgstr "Blocos de notas"
+msgstr "Cadernos"
 
 #: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Sidebar/Sidebar.vala:26
 msgid "Bookmarks"
@@ -348,7 +348,7 @@ msgstr "Reciclagem"
 
 #: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Sidebar/Sidebar.vala:110
 msgid "My First Notebook"
-msgstr "O meu primeiro bloco de notas"
+msgstr "O meu primeiro caderno"
 
 #: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Headerbar.vala:61
 msgid "View"
@@ -360,12 +360,12 @@ msgstr "Mudar modo"
 
 #: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Headerbar.vala:83
 msgid "Search your current notebook"
-msgstr "Procurar no seu bloco de notas actual"
+msgstr "Procurar no seu caderno actual"
 
 #: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Headerbar.vala:108
 #: /home/lains/Documents/Dev/Notes-up/po/../src/Application.vala:104
 msgid "New Notebook"
-msgstr "Novo bloco de notas"
+msgstr "Novo caderno"
 
 #: /home/lains/Documents/Dev/Notes-up/po/../src/Widgets/Headerbar.vala:110
 msgid "Export to PDF"
@@ -446,7 +446,7 @@ msgstr "Notes-Up"
 
 #: /home/lains/Documents/Dev/Notes-up/po/../src/Application.vala:63
 msgid "Your Markdown Notebook."
-msgstr "O seu bloco de notas markdown."
+msgstr "O seu caderno markdown."
 
 #: /home/lains/Documents/Dev/Notes-up/po/../src/Application.vala:64
 msgid "About Notes"
