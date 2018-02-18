@@ -155,8 +155,11 @@ install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/com.github.philip-scott.notes-up.
 file(GLOB assets "${CMAKE_CURRENT_SOURCE_DIR}/data/assets/**")
 install (FILES ${assets}
   DESTINATION ${DATADIR}/notes-up/)
-install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/data/com.github.philip-scott.notes-up.svg"
-  DESTINATION share/icons/hicolor/scalable/apps)
+install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/data/icons/48/com.github.philip-scott.notes-up.svg"
+  DESTINATION share/icons/hicolor/48x48/apps)
+
+install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/data/icons/64/com.github.philip-scott.notes-up.svg"
+  DESTINATION share/icons/hicolor/64x64/apps)
 
 # App DATA
 #configure_file_translation (io.github.notes-up.xml.in ${CMAKE_CURRENT_BINARY_DIR}/io.github.notes-up.xml ${CMAKE_SOURCE_DIR}/po/)
