@@ -118,6 +118,7 @@ public class ENotes.PagesList : Gtk.Box {
         plus_button.can_focus = false;
         minus_button.no_show_all = true;
         separator.no_show_all = true;
+        minus_button.set_tooltip_text (_("Delete Page"));
         plus_button.set_tooltip_text (_("New Page") + Key.NEW_PAGE.to_string ());
 
         notebook_name.ellipsize = Pango.EllipsizeMode.END;

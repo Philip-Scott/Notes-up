@@ -200,6 +200,7 @@ public class ENotes.Viewer : WebKit.WebView {
         mkd.document (out result);
 
         string html = "<!doctype html><meta charset=utf-8><head>";
+        html += "<script type=\"text/javascript\" async src=\"/usr/share/notes-up/mathjax/MathJax.js?config=TeX-MML-AM_CHTML\"></script>";
         html += "<style>"+ CSS +"</style>";
         html += "</head><body><div class=\"markdown-body\">";
         html += process_plugins (result);

@@ -107,7 +107,7 @@ public class ENotes.Editor : Gtk.Box {
 
     private void build_ui () {
         var manager = Gtk.SourceLanguageManager.get_default ();
-        var language = manager.guess_language (null, "text/x-markdown");
+        var language = manager.guess_language (null, "text/x-noteup");
         code_buffer = new Gtk.SourceBuffer.with_language (language);
         code_buffer.set_max_undo_levels (100);
 

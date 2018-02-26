@@ -50,7 +50,7 @@ set (generated_resources ${generated_resource})
 
 find_package(Vala REQUIRED)
 include(ValaVersion)
-ensure_vala_version("0.39.0" MINIMUM)
+ensure_vala_version("0.36.0" MINIMUM)
 
 set (DATADIR "${CMAKE_INSTALL_PREFIX}/share")
 set (PKGDATADIR "${DATADIR}/notes-up")
@@ -152,9 +152,12 @@ install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/com.github.philip-scott.notes-up.
   DESTINATION ${DATADIR}/applications/)
 
 #install assets
-file(GLOB assets "${CMAKE_CURRENT_SOURCE_DIR}/data/assets/**")
-install (FILES ${assets}
-  DESTINATION ${DATADIR}/notes-up/)
+install (DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/data/assets/"
+  DESTINATION ${DATADIR}/notes-up)
+
+install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/data/noteup.lang"
+  DESTINATION share/gtksourceview-3.0/language-specs/)
+ 
 install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/data/icons/48/com.github.philip-scott.notes-up.svg"
   DESTINATION share/icons/hicolor/48x48/apps)
 
