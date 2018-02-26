@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
- Author: Jean-Philippe Fleury
- Copyright (C) 2011 Jean-Philippe Fleury <contact@jpfleury.net>
+ Author: Antoine Colombier <contact@antoinecolombier.fr>
 
  GtkSourceView is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -31,20 +30,6 @@
   </metadata>
 
   <definitions>
-      
-    <!-- Examples:
-         Header 1
-         ========
-         Header 2
-         -
-    -->
-    <!-- Note: line break can't be used in regex, so only underline is matched. -->
-<!--
-    <context id="setext-header" style-ref="header">
-      <match>^(-+|=+)[ \t]*$</match>
-    </context>
--->
-
     <context id="noteup" class="no-spell-check">
       <include>
         <context ref="markdown:markdown"/>
