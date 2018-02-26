@@ -29,6 +29,7 @@ As a computer engineer, I've been writing my school notes using just a text edit
 - Built-In markdown cheat-sheet
 - Special plugins such as syntax highlight, inserting images, and setting font color!
 - Spell check
+- LaTeX support using [MathJaX library](http://www.mathjax.org/). (`$$` and `\(\)` supported)
 - And more to come!
 
 ## Donations
