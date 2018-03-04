@@ -1,7 +1,3 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
@@ -26,7 +22,7 @@ msgstr "Nuova Pagina"
 
 #: /home/felipe/Code/Notes-up/po/../src/Services/FileManager.vala:150
 msgid "Print to File"
-msgstr "STampa su file"
+msgstr "Stampa su file"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar.vala:25
 msgid "Notebooks"
