@@ -24,11 +24,13 @@ public class ENotes.NotebookList : Granite.Widgets.SourceList.ExpandableItem {
     private Gtk.MenuItem new_notebook_item;
 
     public NotebookList (string name = "") {
-        this.name = name;
-        
+        Object (name: name);
+    }
+
+    construct {
         setup_menu ();
     }
-    
+
     private void setup_menu () {
         menu = new Gtk.Menu ();
         new_notebook_item = new Gtk.MenuItem.with_label (_("New Notebook"));
@@ -41,7 +43,7 @@ public class ENotes.NotebookList : Granite.Widgets.SourceList.ExpandableItem {
             dialog.run ();
         });
     }
-    
+
     public override Gtk.Menu? get_context_menu () {
         return menu;
     }
