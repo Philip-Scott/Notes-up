@@ -139,8 +139,10 @@ OPTIONS
   ${GLOBAL_VALAC_OPTIONS}
 )
 
-add_executable(com.github.philip-scott.notes-up ${VALA_C} ${generated_resources})
+include (gresource)
+glib_compile_resources(GLIB_RESOURCES_ICONS SOURCE ${CMAKE_CURRENT_SOURCE_DIR}/data/assets.gresource.xml)
 
+add_executable(com.github.philip-scott.notes-up ${VALA_C} ${GLIB_RESOURCES_ICONS})
 
 install(TARGETS com.github.philip-scott.notes-up RUNTIME
   DESTINATION bin)

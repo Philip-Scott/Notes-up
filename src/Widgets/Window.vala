@@ -41,6 +41,10 @@ public class ENotes.Window : Gtk.ApplicationWindow {
     }
 
     private void build_ui () {
+
+        var provider = new Gtk.CssProvider ();
+provider.load_from_resource ("/com/github/philip-scott/notes-up/stylesheet.css");
+
         headerbar = ENotes.Headerbar.get_instance ();
         set_titlebar (headerbar);
 
