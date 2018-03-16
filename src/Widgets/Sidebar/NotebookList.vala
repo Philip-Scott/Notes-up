@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2011-2016 Felipe Escoto (https://github.com/Philip-Scott/Notes-up)
+* Copyright (c) 2011-2018 Felipe Escoto (https://github.com/Philip-Scott/Notes-up)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -16,22 +16,18 @@
 * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 * Boston, MA 02111-1307, USA.
 *
-* Authored by: Felipe Escoto <felescoto95@hotmail.com>
+* Authored by: Darshak Parikh <darshak@protonmail.com>
 */
 
 public class ENotes.NotebookList : Granite.Widgets.SourceList.ExpandableItem {
     private Gtk.Menu menu;
     private Gtk.MenuItem new_notebook_item;
 
-    public NotebookList (string name = "") {
+    public NotebookList (string name) {
         Object (name: name);
     }
 
     construct {
-        setup_menu ();
-    }
-
-    private void setup_menu () {
         menu = new Gtk.Menu ();
         new_notebook_item = new Gtk.MenuItem.with_label (_("New Notebook"));
 
