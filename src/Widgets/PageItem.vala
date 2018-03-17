@@ -68,7 +68,6 @@ public class ENotes.PageItem : Gtk.ListBoxRow {
         line3.margin_left = 8;
         line3.margin_right = 8;
         line3.margin_bottom = 4;
-        line3.use_markup = true;
         line3.set_line_wrap (true);
         line3.ellipsize = Pango.EllipsizeMode.END;
         ((Gtk.Misc) line3).xalign = 0;
