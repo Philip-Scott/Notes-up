@@ -22,10 +22,10 @@
 public class ENotes.Sidebar : Granite.Widgets.SourceList {
     private static Sidebar? instance = null;
 
-    private Granite.Widgets.SourceList.ExpandableItem notebooks = new Granite.Widgets.SourceList.ExpandableItem (_("Notebooks"));
     private Granite.Widgets.SourceList.ExpandableItem bookmarks = new Granite.Widgets.SourceList.ExpandableItem (_("Bookmarks"));
     private Granite.Widgets.SourceList.ExpandableItem trash = new Granite.Widgets.SourceList.ExpandableItem (_("Trash"));
     private Granite.Widgets.SourceList.Item? previous_selection = null;
+    private NotebookList notebooks = new NotebookList (_("Notebooks"));
 
     private Gee.HashMap<int, NotebookItem> added_notebooks;
 

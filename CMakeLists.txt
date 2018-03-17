@@ -103,6 +103,7 @@ vala_precompile(VALA_C
 
   src/Widgets/Sidebar/Sidebar.vala
   src/Widgets/Sidebar/SidebarItem.vala
+  src/Widgets/Sidebar/NotebookList.vala
   src/Widgets/Sidebar/NotebookItem.vala
   src/Widgets/Sidebar/BookmarkItem.vala
   src/Widgets/Sidebar/TrashItem.vala
