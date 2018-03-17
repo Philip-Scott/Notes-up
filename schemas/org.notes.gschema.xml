@@ -91,7 +91,7 @@
 		</key>
 
 		<key name="editor-font" type="s">
-			<default>"Open Sans 12"</default>
+			<default>"Open Sans 10"</default>
 			<summary>Editor font</summary>
 			<description>The editor's font family and size</description>
 		</key>

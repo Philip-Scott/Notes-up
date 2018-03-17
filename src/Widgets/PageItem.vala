@@ -37,43 +37,45 @@ public class ENotes.PageItem : Gtk.ListBoxRow {
     private void build_ui () {
         set_activatable (true);
 
+        var margin_horizontal = 10;
+
         grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
 
         line1 = new Gtk.Label ("");
         line1.use_markup = true;
         line1.halign = Gtk.Align.START;
-        line1.get_style_context ().add_class ("h3");
+        line1.get_style_context ().add_class ("title-label");
         line1.ellipsize = Pango.EllipsizeMode.END;
         ((Gtk.Misc) line1).xalign = 0;
-        line1.margin_top = 4;
-        line1.margin_left = 8;
-        line1.margin_right = 8;
+        line1.margin_top = 10;
+        line1.margin_left = margin_horizontal;
+        line1.margin_right = margin_horizontal;
         line1.margin_bottom = 4;
 
         line2 = new Gtk.Label ("");
         line2.halign = Gtk.Align.START;
-        line2.margin_left = 8;
-        line2.margin_right = 8;
+        line2.margin_left = margin_horizontal;
+        line2.margin_right = margin_horizontal;
         line2.margin_bottom = 4;
         line2.use_markup = true;
         line2.set_line_wrap (true);
         line2.ellipsize = Pango.EllipsizeMode.END;
         ((Gtk.Misc) line2).xalign = 0;
-        line2.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
-        line2.lines = 3;
+        line2.get_style_context ().add_class ("preview-label");
+        line2.lines = 1;
 
         line3 = new Gtk.Label ("");
         line3.halign = Gtk.Align.START;
-        line3.margin_left = 8;
-        line3.margin_right = 8;
-        line3.margin_bottom = 4;
+        line3.margin_left = margin_horizontal;
+        line3.margin_right = margin_horizontal;
+        line3.margin_bottom = 10;
         line3.use_markup = true;
         line3.set_line_wrap (true);
         line3.ellipsize = Pango.EllipsizeMode.END;
         ((Gtk.Misc) line3).xalign = 0;
-        line3.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
-        line3.lines = 3;
+        line3.get_style_context ().add_class ("date-time-label");
+        line3.lines = 1;
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.hexpand = true;
@@ -103,7 +105,7 @@ public class ENotes.PageItem : Gtk.ListBoxRow {
         date_string = date_string.chug ();
         this.line3.label = date_string;
         this.line2.label = page.subtitle;
-        this.line1.label = "<b>" + page.name + "</b>";
+        this.line1.label = page.name;
     }
 }
 
