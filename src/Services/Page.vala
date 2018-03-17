@@ -267,9 +267,11 @@ public class ENotes.PageTable : DatabaseTable {
 
     private bool bold_state;
     private bool italics_state;
+    private bool strikethrough_state;
     private string convert (string raw_content) {
         bold_state = true;
         italics_state = true;
+        strikethrough_state = true;
 
         if (raw_content == null || raw_content == "") return "";
 
@@ -283,8 +285,24 @@ public class ENotes.PageTable : DatabaseTable {
             line = replace (line, "**", "<b>", "</b>", ref bold_state);
         }
 
+        if (line.contains ("__")) {
+            line = replace (line, "__", "<b>", "</b>", ref bold_state);
+        }
+
+        if (line.contains ("*")) {
+            line = replace (line, "*", "<i>", "</i>", ref italics_state);
+        }
+
         if (line.contains ("_")) {
             line = replace (line, "_", "<i>", "</i>", ref italics_state);
+        }
+
+        if (line.contains ("~~~")) {
+            line = replace (line, "~~~", "<s>", "</s>", ref strikethrough_state);
+        }
+
+        if (line.contains ("~~")) {
+            line = replace (line, "~~", "<s>", "</s>", ref strikethrough_state);
         }
 
         return line;
