@@ -23,11 +23,11 @@ public class ENotes.PageItem : Gtk.ListBoxRow {
     public ENotes.Page page;
 
     private Gtk.Grid grid;
-    private Gtk.Label line1;
-    private Gtk.Label line2;
-    private Gtk.Label line3;
+    private Gtk.Label name_label;
+    private Gtk.Label preview_label;
+    private Gtk.Label date_label;
     private DateTime time;
-    private string date_string;
+    private string date_formatted;
 
     public PageItem (ENotes.Page page) {
         this.page = page;
@@ -40,47 +40,47 @@ public class ENotes.PageItem : Gtk.ListBoxRow {
         grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
 
-        line1 = new Gtk.Label ("");
-        line1.use_markup = true;
-        line1.halign = Gtk.Align.START;
-        line1.get_style_context ().add_class ("h3");
-        line1.ellipsize = Pango.EllipsizeMode.END;
-        ((Gtk.Misc) line1).xalign = 0;
-        line1.margin_top = 4;
-        line1.margin_left = 8;
-        line1.margin_right = 8;
-        line1.margin_bottom = 4;
+        name_label = new Gtk.Label ("");
+        name_label.use_markup = true;
+        name_label.halign = Gtk.Align.START;
+        name_label.get_style_context ().add_class ("h3");
+        name_label.ellipsize = Pango.EllipsizeMode.END;
+        ((Gtk.Misc) name_label).xalign = 0;
+        name_label.margin_top = 4;
+        name_label.margin_left = 8;
+        name_label.margin_right = 8;
+        name_label.margin_bottom = 4;
 
-        line2 = new Gtk.Label ("");
-        line2.halign = Gtk.Align.START;
-        line2.margin_left = 8;
-        line2.margin_right = 8;
-        line2.margin_bottom = 4;
-        line2.use_markup = true;
-        line2.set_line_wrap (true);
-        line2.ellipsize = Pango.EllipsizeMode.END;
-        ((Gtk.Misc) line2).xalign = 0;
-        line2.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
-        line2.lines = 3;
+        preview_label = new Gtk.Label ("");
+        preview_label.halign = Gtk.Align.START;
+        preview_label.margin_left = 8;
+        preview_label.margin_right = 8;
+        preview_label.margin_bottom = 4;
+        preview_label.use_markup = true;
+        preview_label.set_line_wrap (true);
+        preview_label.ellipsize = Pango.EllipsizeMode.END;
+        ((Gtk.Misc) preview_label).xalign = 0;
+        preview_label.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+        preview_label.lines = 3;
 
-        line3 = new Gtk.Label ("");
-        line3.halign = Gtk.Align.START;
-        line3.margin_left = 8;
-        line3.margin_right = 8;
-        line3.margin_bottom = 4;
-        line3.set_line_wrap (true);
-        line3.ellipsize = Pango.EllipsizeMode.END;
-        ((Gtk.Misc) line3).xalign = 0;
-        line3.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
-        line3.lines = 3;
+        date_label = new Gtk.Label ("");
+        date_label.halign = Gtk.Align.START;
+        date_label.margin_left = 8;
+        date_label.margin_right = 8;
+        date_label.margin_bottom = 4;
+        date_label.set_line_wrap (true);
+        date_label.ellipsize = Pango.EllipsizeMode.END;
+        ((Gtk.Misc) date_label).xalign = 0;
+        date_label.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+        date_label.lines = 3;
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.hexpand = true;
 
         this.add (grid);
-        grid.add (line1);
-        grid.add (line2);
-        grid.add (line3);
+        grid.add (name_label);
+        grid.add (preview_label);
+        grid.add (date_label);
         grid.add (separator);
 
         load_data ();
@@ -95,14 +95,14 @@ public class ENotes.PageItem : Gtk.ListBoxRow {
         time = new DateTime.from_unix_utc (page.modification_date);
 
         if (use24HSFormat) {
-            date_string = time.format ("%H:%M, %a, %e %b %Y");
+            date_formatted = time.format (_("%a, %e %b %y, %H:%M")).strip ();
         } else {
-            date_string = time.format ("%l:%M %p, %a, %e %b %Y");
+            date_formatted = time.format (_("%a, %e %b %y, %l:%M %p")) .strip ();
         }
-        date_string = date_string.chug ();
-        this.line3.label = date_string;
-        this.line2.label = page.subtitle;
-        this.line1.label = "<b>" + page.name + "</b>";
+
+        this.date_label.label = date_formatted;
+        this.preview_label.label = page.subtitle;
+        this.name_label.label = "<b>" + page.name + "</b>";
     }
 }
 
