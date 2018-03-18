@@ -94,12 +94,13 @@ public class ENotes.PageItem : Gtk.ListBoxRow {
     public void load_data () {
         time = new DateTime.from_unix_utc (page.modification_date);
 
-        if (use24HSFormat) {
-            date_formatted = time.format (_("%a, %e %b %y, %H:%M")).strip ();
-        } else {
-            date_formatted = time.format (_("%a, %e %b %y, %l:%M %p")) .strip ();
-        }
+        //if (ENotes.Application.clock_format == "24h") {
+        //    date_formatted = time.format (_("%a, %e %b %y, %H:%M")).strip ();
+        //} else {
+        //    date_formatted = time.format (_("%a, %e %b %y, %l:%M %p")).strip ();
+        //}
 
+        date_formatted = "placeholder";
         this.date_label.label = date_formatted;
         this.preview_label.label = page.subtitle;
         this.name_label.label = "<b>" + page.name + "</b>";
