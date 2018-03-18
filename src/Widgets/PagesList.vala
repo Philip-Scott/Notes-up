@@ -76,16 +76,13 @@ public class ENotes.PagesList : Gtk.Box {
         });
 
         listbox.set_sort_func ((row1, row2) => {
-            int64 a = ((PageItem) row1).page.modification_date;
-            int64 b = ((PageItem) row2).page.modification_date;
+            int64 a = ((PageItem) row1).page.id;
+            int64 b = ((PageItem) row2).page.id;
 
             if (a > b) return -1;
             if (b > a) return 1;
 
             return 0;
-            
-            // For sorting strings
-            // return a.collate (b);
         });
 
         scroll_box.set_size_request (200,250);
@@ -294,7 +291,6 @@ public class ENotes.PagesList : Gtk.Box {
                 var page_item = added_pages.get ((int) page.id);
                 page_item.page = page;
                 page_item.load_data ();
-                listbox.invalidate_sort ();
             }
         });
     }

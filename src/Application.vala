@@ -54,8 +54,6 @@ public enum ENotes.Key {
 namespace ENotes {
     public ENotes.Services.Settings settings;
     public ENotes.Window window;
-    public ClockSettings clockSettings;
-    public bool use24HSFormat = false;
     public string NOTES_DB;
     public string NOTES_DIR;
 }
@@ -64,6 +62,8 @@ public class ENotes.Application : Granite.Application {
     public const string PROGRAM_NAME = N_("Notes-Up");
     public const string COMMENT = N_("Your Markdown Notebook.");
     public const string ABOUT_STOCK = N_("About Notes");
+    private Settings interface_settings;
+    public string clock_format { get; set; }
 
     public bool running = false;
 
@@ -89,9 +89,18 @@ public class ENotes.Application : Granite.Application {
     public override void activate () {
         if (!running) {
             settings = ENotes.Services.Settings.get_instance ();
-            
-            clockSettings = new ClockSettings ();
-            use24HSFormat = (clockSettings.clock_format == "24h");
+
+            var interface_settings_schema = SettingsSchemaSource.get_default ().lookup ("org.gnome.desktop.interface", true);
+            if (interface_settings_schema == null || !interface_settings_schema.has_key ("clock_format")) {
+                info ("No clock settings schema found, using 12 hours as a fallback");
+            } else {
+                interface_settings = new GLib.Settings ("org.gnome.desktop.interface");
+                interface_settings.bind ("clock_format", this, "clock_format", GLib.SettingsBindFlags.GET);
+
+                // I'm not sure how to actually get access to the above or if I'm even doing it right
+
+                info (clock_format);
+            }
 
             if (settings.notes_database == "") { // Init databases
                 var notes_dir = GLib.Environment.get_home_dir () + "/.local/share/notes-up/";

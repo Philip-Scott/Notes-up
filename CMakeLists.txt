@@ -117,7 +117,6 @@ vala_precompile(VALA_C
   src/Styles/modest.vala
 
   src/Services/Bookmark.vala
-  src/Services/ClockSettings.vala
   src/Services/FileManager.vala
   src/Services/Notebook.vala
   src/Services/Image.vala
