@@ -28,6 +28,7 @@ public class ENotes.PageItem : Gtk.ListBoxRow {
     private Gtk.Label date_label;
     private DateTime time;
     private string date_formatted;
+    private const int HORIZONTAL_MARGIN = 12;
 
     public PageItem (ENotes.Page page) {
         this.page = page;
@@ -37,44 +38,44 @@ public class ENotes.PageItem : Gtk.ListBoxRow {
     private void build_ui () {
         set_activatable (true);
 
-        var margin_horizontal = 10;
-
         grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
 
         name_label = new Gtk.Label ("");
-        name_label.use_markup = true;
-        name_label.halign = Gtk.Align.START;
-        name_label.get_style_context ().add_class ("title-label");
         name_label.ellipsize = Pango.EllipsizeMode.END;
+        name_label.get_style_context ().add_class ("title-label");
+        name_label.halign = Gtk.Align.START;
+        name_label.margin_left = HORIZONTAL_MARGIN;
+        name_label.margin_right = HORIZONTAL_MARGIN;
+        name_label.margin_top = 8;
+        name_label.margin_bottom = 0; // Because the gap between name_label and the below is otherwise uneven compared to the gap between the preview_label and the labe, due to the smaller font-size of the date_label
+        name_label.use_markup = true;
         ((Gtk.Misc) name_label).xalign = 0;
-        name_label.margin_top = 10;
-        name_label.margin_left = margin_horizontal;
-        name_label.margin_right = margin_horizontal;
-        name_label.margin_bottom = 4;
 
         preview_label = new Gtk.Label ("");
-        preview_label.halign = Gtk.Align.START;
-        preview_label.margin_left = margin_horizontal;
-        preview_label.margin_right = margin_horizontal;
-        preview_label.margin_bottom = 4;
-        preview_label.use_markup = true;
-        preview_label.set_line_wrap (true);
         preview_label.ellipsize = Pango.EllipsizeMode.END;
-        ((Gtk.Misc) preview_label).xalign = 0;
         preview_label.get_style_context ().add_class ("preview-label");
-        preview_label.lines = 1;
+        preview_label.halign = Gtk.Align.START;
+        preview_label.lines = 2;
+        preview_label.margin_left = HORIZONTAL_MARGIN;
+        preview_label.margin_right = HORIZONTAL_MARGIN;
+        preview_label.margin_top = 3;
+        preview_label.margin_bottom = 2;
+        preview_label.set_line_wrap (true);
+        preview_label.use_markup = true;
+        ((Gtk.Misc) preview_label).xalign = 0;
 
         date_label = new Gtk.Label ("");
+        date_label.ellipsize = Pango.EllipsizeMode.END;
+        date_label.get_style_context ().add_class ("date-time-label");
         date_label.halign = Gtk.Align.START;
-        date_label.margin_left = margin_horizontal;
-        date_label.margin_right = margin_horizontal;
+        date_label.lines = 1;
+        date_label.margin_left = HORIZONTAL_MARGIN;
+        date_label.margin_right = HORIZONTAL_MARGIN;
+        date_label.margin_top = 3;
         date_label.margin_bottom = 10;
         date_label.set_line_wrap (true);
-        date_label.ellipsize = Pango.EllipsizeMode.END;
         ((Gtk.Misc) date_label).xalign = 0;
-        date_label.get_style_context ().add_class ("date-time-label");
-        date_label.lines = 1;
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.hexpand = true;
@@ -101,7 +102,7 @@ public class ENotes.PageItem : Gtk.ListBoxRow {
         //    date_formatted = time.format (_("%a, %e %b %y, %l:%M %p")).strip ();
         //}
 
-        date_formatted = "placeholder";
+        date_formatted = "Sat, 18 Mar 2018, 10:40 PM";
         this.date_label.label = date_formatted;
         this.preview_label.label = page.subtitle;
         this.name_label.label = page.name;
