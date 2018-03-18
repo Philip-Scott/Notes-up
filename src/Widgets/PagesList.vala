@@ -83,9 +83,6 @@ public class ENotes.PagesList : Gtk.Box {
             if (b > a) return 1;
 
             return 0;
-            
-            // For sorting strings
-            // return a.collate (b);
         });
 
         scroll_box.set_size_request (200,250);
@@ -294,7 +291,6 @@ public class ENotes.PagesList : Gtk.Box {
                 var page_item = added_pages.get ((int) page.id);
                 page_item.page = page;
                 page_item.load_data ();
-                listbox.invalidate_sort ();
             }
         });
     }
