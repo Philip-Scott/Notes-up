@@ -23,8 +23,12 @@ public class ENotes.PageItem : Gtk.ListBoxRow {
     public ENotes.Page page;
 
     private Gtk.Grid grid;
-    private Gtk.Label line1;
-    private Gtk.Label line2;
+    private Gtk.Label name_label;
+    private Gtk.Label preview_label;
+    private Gtk.Label date_label;
+    private DateTime time;
+    private string date_formatted;
+    private const int HORIZONTAL_MARGIN = 12;
 
     public PageItem (ENotes.Page page) {
         this.page = page;
@@ -37,35 +41,49 @@ public class ENotes.PageItem : Gtk.ListBoxRow {
         grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
 
-        line1 = new Gtk.Label ("");
-        line1.use_markup = true;
-        line1.halign = Gtk.Align.START;
-        line1.get_style_context ().add_class ("h3");
-        line1.ellipsize = Pango.EllipsizeMode.END;
-        ((Gtk.Misc) line1).xalign = 0;
-        line1.margin_top = 4;
-        line1.margin_left = 8;
-        line1.margin_right = 8;
-        line1.margin_bottom = 4;
+        name_label = new Gtk.Label ("");
+        name_label.ellipsize = Pango.EllipsizeMode.END;
+        name_label.get_style_context ().add_class ("title-label");
+        name_label.halign = Gtk.Align.START;
+        name_label.margin_left = HORIZONTAL_MARGIN;
+        name_label.margin_right = HORIZONTAL_MARGIN;
+        name_label.margin_top = 8;
+        name_label.margin_bottom = 0; // Because the gap between name_label and the below is otherwise uneven compared to the gap between the preview_label and the labe, due to the smaller font-size of the date_label
+        name_label.use_markup = true;
+        ((Gtk.Misc) name_label).xalign = 0;
 
-        line2 = new Gtk.Label ("");
-        line2.halign = Gtk.Align.START;
-        line2.margin_left = 8;
-        line2.margin_right = 8;
-        line2.margin_bottom = 4;
-        line2.use_markup = true;
-        line2.set_line_wrap (true);
-        line2.ellipsize = Pango.EllipsizeMode.END;
-        ((Gtk.Misc) line2).xalign = 0;
-        line2.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
-        line2.lines = 3;
+        preview_label = new Gtk.Label ("");
+        preview_label.ellipsize = Pango.EllipsizeMode.END;
+        preview_label.get_style_context ().add_class ("preview-label");
+        preview_label.halign = Gtk.Align.START;
+        preview_label.lines = 2;
+        preview_label.margin_left = HORIZONTAL_MARGIN;
+        preview_label.margin_right = HORIZONTAL_MARGIN;
+        preview_label.margin_top = 3;
+        preview_label.margin_bottom = 2;
+        preview_label.set_line_wrap (true);
+        preview_label.use_markup = true;
+        ((Gtk.Misc) preview_label).xalign = 0;
+
+        date_label = new Gtk.Label ("");
+        date_label.ellipsize = Pango.EllipsizeMode.END;
+        date_label.get_style_context ().add_class ("date-time-label");
+        date_label.halign = Gtk.Align.START;
+        date_label.lines = 1;
+        date_label.margin_left = HORIZONTAL_MARGIN;
+        date_label.margin_right = HORIZONTAL_MARGIN;
+        date_label.margin_top = 3;
+        date_label.margin_bottom = 10;
+        date_label.set_line_wrap (true);
+        ((Gtk.Misc) date_label).xalign = 0;
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.hexpand = true;
 
         this.add (grid);
-        grid.add (line1);
-        grid.add (line2);
+        grid.add (name_label);
+        grid.add (preview_label);
+        grid.add (date_label);
         grid.add (separator);
 
         load_data ();
@@ -77,8 +95,17 @@ public class ENotes.PageItem : Gtk.ListBoxRow {
     }
 
     public void load_data () {
-        this.line2.label = page.subtitle;
-        this.line1.label = "<b>" + page.name + "</b>";
+        time = new DateTime.from_unix_utc (page.modification_date);
+        //if (ENotes.Application.clock_format == "24h") {
+        //    date_formatted = time.format (_("%a, %e %b %y, %H:%M")).strip ();
+        //} else {
+        //    date_formatted = time.format (_("%a, %e %b %y, %l:%M %p")).strip ();
+        //}
+
+        date_formatted = "Sat, 18 Mar 2018, 10:40 PM";
+        this.date_label.label = date_formatted;
+        this.preview_label.label = page.subtitle;
+        this.name_label.label = page.name;
     }
 }
 

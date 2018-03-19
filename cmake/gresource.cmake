@@ -1,37 +1,69 @@
-# Used for GResource.
 #
-# resource_dir: Directory where the .gresource.xml is located.
-# resource_file: Filename of the .gresource.xml file (just the
-#                filename, not the complete path).
-# output_dir: Directory where the C output file is written.
-# output_file: This variable will be set with the complete path of the
-#              output C file.
+#    Copyright (C) 2013 Venom authors and contributors
+#
+#    This file is part of Venom.
+#
+#    Venom is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    Venom is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with Venom.  If not, see <http://www.gnu.org/licenses/>.
+#
 
-function (gresource resource_dir resource_file output_dir output_file)
-	# Get the output file path
-	get_filename_component (resource_name ${resource_file} NAME_WE)
-	set (output "${output_dir}/${resource_name}-resources.c")
-	set (${output_file} ${output} PARENT_SCOPE)
+FIND_PROGRAM(GLIB_COMPILE_RESOURCES_EXECUTABLE NAMES glib-compile-resources)
+MARK_AS_ADVANCED(GLIB_COMPILE_RESOURCES_EXECUTABLE)
 
-	# Get the dependencies of the gresource
-	execute_process (
-		OUTPUT_VARIABLE _files
-		WORKING_DIRECTORY ${resource_dir}
-		COMMAND ${gresources_executable} --generate-dependencies ${resource_file}
-	)
+INCLUDE(CMakeParseArguments)
 
-	string (REPLACE "\n" ";" files ${_files})
+FUNCTION(GLIB_COMPILE_RESOURCES output)
+  CMAKE_PARSE_ARGUMENTS(ARGS "" "" "SOURCE" ${ARGN})
+  SET(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+  SET(out_files "")
 
-	set (depends "")
-	foreach (cur_file ${files})
-		list (APPEND depends "${resource_dir}/${cur_file}")
-	endforeach ()
+  FOREACH(src ${ARGS_SOURCE} ${ARGS_UNPARSED_ARGUMENTS})
+    SET(in_file "${CMAKE_CURRENT_SOURCE_DIR}/${src}")
+    GET_FILENAME_COMPONENT(WORKING_DIR ${in_file} PATH)
+    STRING(REPLACE ".xml" ".c" src ${src})
+    SET(out_file "${DIRECTORY}/${src}")
+    GET_FILENAME_COMPONENT(OUPUT_DIR ${out_file} PATH)
+    FILE(MAKE_DIRECTORY ${OUPUT_DIR})
+    LIST(APPEND out_files "${DIRECTORY}/${src}")
 
-	# Command to compile the resources
-	add_custom_command (
-		OUTPUT ${output}
-		DEPENDS "${resource_dir}/${resource_file}" ${depends}
-		WORKING_DIRECTORY ${resource_dir}
-		COMMAND ${gresources_executable} --generate-source --target=${output} ${resource_file}
-	)
-endfunction ()
+    #FIXME implicit depends currently not working
+    EXECUTE_PROCESS(
+      COMMAND
+        ${GLIB_COMPILE_RESOURCES_EXECUTABLE}
+          "--generate-dependencies"
+          ${in_file}
+      WORKING_DIRECTORY ${WORKING_DIR}
+      OUTPUT_VARIABLE in_file_dep
+    )
+    STRING(REGEX REPLACE "(\r?\n)" ";" in_file_dep "${in_file_dep}")
+    SET(in_file_dep_path "")
+    FOREACH(dep ${in_file_dep})
+      LIST(APPEND in_file_dep_path "${WORKING_DIR}/${dep}")
+    ENDFOREACH(dep ${in_file_dep})
+    ADD_CUSTOM_COMMAND(
+      OUTPUT ${out_file}
+      WORKING_DIRECTORY ${WORKING_DIR}
+      COMMAND
+        ${GLIB_COMPILE_RESOURCES_EXECUTABLE}
+      ARGS
+        "--generate-source"
+        "--target=${out_file}"
+        ${in_file}
+      DEPENDS
+        ${in_file};${in_file_dep_path}
+    )
+  ENDFOREACH(src ${ARGS_SOURCES} ${ARGS_UNPARSED_ARGUMENTS})
+  SET(${output} ${out_files} PARENT_SCOPE)
+ENDFUNCTION(GLIB_COMPILE_RESOURCES)
+
+

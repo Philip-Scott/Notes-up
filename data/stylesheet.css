@@ -1,0 +1,13 @@
+.title-label {
+	font-size: 1.2em;
+	font-weight: 700;
+}
+
+.preview-label {
+	opacity:1;
+}
+
+.date-time-label {
+	opacity:0.6;
+	font-size:0.9em;
+}

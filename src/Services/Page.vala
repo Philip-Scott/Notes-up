@@ -161,19 +161,19 @@ public class ENotes.PageTable : DatabaseTable {
     }
 
     public Page new_page (int64 notebook_id) {
-         var stmt = create_stmt ("INSERT INTO Page (notebook_id, name, creation_date, modification_date) "
+        var stmt = create_stmt ("INSERT INTO Page (notebook_id, name, creation_date, modification_date) "
                        + "VALUES (?, ?, CAST(strftime('%s', 'now') AS INT), CAST(strftime('%s', 'now') AS INT))");
 
-         bind_int (stmt, 1, notebook_id);
-         bind_text (stmt, 2, _("New Page"));
+        bind_int (stmt, 1, notebook_id);
+        bind_text (stmt, 2, _("New Page"));
 
-         stmt.step ();
+        stmt.step ();
 
-         return get_page (last_insert_row ());
+        return get_page (last_insert_row ());
     }
 
     public Gee.ArrayList<Page> get_pages (int64 notebook_id) {
-        var stmt = create_stmt ("SELECT id, name, subtitle, data FROM Page Where notebook_id = ?");
+        var stmt = create_stmt ("SELECT id, name, subtitle, data, creation_date, modification_date FROM Page Where notebook_id = ?");
         bind_int (stmt, 1, notebook_id);
 
         var pages = new Gee.ArrayList<Page>();
@@ -193,6 +193,8 @@ public class ENotes.PageTable : DatabaseTable {
             row.name = stmt.column_text (1);
             row.subtitle = stmt.column_text (2);
             row.data = stmt.column_text (3);
+            row.creation_date = stmt.column_int64 (4);
+            row.modification_date = stmt.column_int64 (5);
 
             pages.add (row);
         }
