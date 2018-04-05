@@ -118,7 +118,7 @@ public class ENotes.Editor : Gtk.Box {
 
         code_buffer.changed.connect (trigger_changed);
 
-        code_view.pixels_above_lines = 5;
+        code_view.pixels_below_lines = 6;
         code_view.wrap_mode = Gtk.WrapMode.WORD;
         code_view.show_line_numbers = true;
 
