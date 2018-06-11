@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-07-09 13:07-0500\n"
-"PO-Revision-Date: 2018-06-06 21:01+0900\n"
+"PO-Revision-Date: 2018-06-11 20:05+0900\n"
 "Last-Translator: Ryo Nakano <ryonakaknock@gmail.com>\n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -116,27 +116,27 @@ msgstr "テキストに打ち消し線を引く"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:115
 msgid "Insert a quote"
-msgstr "引用を挿入する"
+msgstr "引用を挿入"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:116
 msgid "Insert code"
-msgstr "コードを挿入する"
+msgstr "コードを挿入"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:117
 msgid "Insert a link"
-msgstr "リンクを挿入する"
+msgstr "リンクを挿入"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:119
 msgid "Add a bulleted list"
-msgstr "箇条書きリストを追加する"
+msgstr "箇条書きリストを追加"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:120
 msgid "Add a Numbered list"
-msgstr "番号付きリストを追加する"
+msgstr "番号付きリストを追加"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:122
 msgid "Insert an image"
-msgstr "画像を挿入する"
+msgstr "画像を挿入"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:159
 msgid "Formatting"
@@ -172,7 +172,7 @@ msgstr "行番号の表示:"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:124
 msgid "Keep Sidebar Visible:"
-msgstr "サイドバーを表示する:"
+msgstr "サイドバーを表示:"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:152
 msgid "Global style modifications"
@@ -281,7 +281,7 @@ msgstr "リンク"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:56
 msgid "[Text](www...) "
-msgstr "[テキスト](www...)"
+msgstr "[テキスト](www...) "
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:57
 msgid "Citation Anchor"
