@@ -1,14 +1,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# ryonakano <ryonakaknock@gmail.com>, 2018.
+# ryonakano <ryonakaknock3@gmail.com>, 2018.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-07-09 13:07-0500\n"
 "PO-Revision-Date: 2018-06-11 20:05+0900\n"
-"Last-Translator: Ryo Nakano <ryonakaknock@gmail.com>\n"
+"Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: \n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
