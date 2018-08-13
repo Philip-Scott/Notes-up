@@ -146,7 +146,7 @@ add_executable(com.github.philip-scott.notes-up ${VALA_C} ${generated_resources}
 install(TARGETS com.github.philip-scott.notes-up RUNTIME
   DESTINATION bin)
 
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/com.github.philip-scott.notes-up.appdata.xml
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/com.github.philip_scott.notes_up.appdata.xml
   DESTINATION ${DATADIR}/metainfo/)
 
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/com.github.philip-scott.notes-up.desktop
