@@ -10,7 +10,8 @@ Build-Depends: cmake,
                valac (>= 0.26),
                libgtkspell3-3-dev,
                libgranite-dev,
-               libgtksourceview-3.0-dev (>= 3.10)
+               libgtksourceview-3.0-dev (>= 3.10),
+               libmarkdown
 
 Standards-Version: 3.9.6
 Package: com.github.philip-scott.notes-up
