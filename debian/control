@@ -11,7 +11,7 @@ Build-Depends: cmake,
                libgtkspell3-3-dev,
                libgranite-dev,
                libgtksourceview-3.0-dev (>= 3.10),
-               libmarkdown
+               libmarkdown2-dev
 
 Standards-Version: 3.9.6
 Package: com.github.philip-scott.notes-up
