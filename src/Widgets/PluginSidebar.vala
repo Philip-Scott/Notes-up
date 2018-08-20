@@ -29,8 +29,11 @@ public class ENotes.PluginSidebar : Gtk.Revealer {
 
     private static PluginSidebar? instance = null;
 
+    private PlugSidebarWidget? opened = null;
     private Gtk.Stack stack;
+
     public ENotes.HelpBox? help_box = null;
+    public ENotes.HelpBox? image_box = null;
 
     public static PluginSidebar get_instance () {
         if (instance == null) {
@@ -58,6 +61,10 @@ public class ENotes.PluginSidebar : Gtk.Revealer {
     }
 
     public void show (PlugSidebarWidget type) {
+        if (opened != null) {
+            item_closed (opened);
+        }
+
         switch (type) {
             case PlugSidebarWidget.HELP:
                 show_help ();
@@ -68,6 +75,7 @@ public class ENotes.PluginSidebar : Gtk.Revealer {
         }
 
         set_reveal_child (true);
+        opened = type;
     }
 
     private void show_help () {
@@ -84,10 +92,20 @@ public class ENotes.PluginSidebar : Gtk.Revealer {
     }
 
     private void show_images () {
+        if (image_box == null) {
+            image_box = new HelpBox ();
+            stack.add_named (image_box, PlugSidebarWidget.IMAGES.to_string ());
+            show_all ();
+        }
 
+        stack.set_visible_child_full (
+            PlugSidebarWidget.HELP.to_string (),
+            Gtk.StackTransitionType.SLIDE_LEFT
+        );
     }
 
     public void close () {
         set_reveal_child (false);
+        opened = null;
     }
 }

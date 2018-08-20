@@ -128,6 +128,9 @@ public class ENotes.Editor : Gtk.Box {
         editor_and_help = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         editor_and_help.add (scroll_box);
 
+        plugin_sidebar = ENotes.PluginSidebar.get_instance ();
+        editor_and_help.add (plugin_sidebar);
+
         spell = new GtkSpell.Checker ();
         spellcheck = Services.Settings.get_instance ().spellcheck;
 
@@ -218,20 +221,22 @@ public class ENotes.Editor : Gtk.Box {
         }
 
         var help_button = new Gtk.ToggleButton ();
-        var help_icon = new Gtk.Image.from_icon_name ("dialog-question-symbolic", Gtk.IconSize.MENU);
+        bool action_running = false;
 
-        help_button.set_tooltip_text (_("Formatting"));
-        help_button.get_style_context ().add_class ("flat");
-        help_button.can_focus = false;
-        help_button.hexpand = true;
-        help_button.halign = Gtk.Align.END;
+        var image_sidebar_button = new Gtk.ToggleButton ();
+        var image_icon = new Gtk.Image.from_icon_name ("image-x-generic", Gtk.IconSize.MENU);
 
-        help_button.toggled.connect (() => {
-            if (plugin_sidebar == null) {
-                plugin_sidebar = ENotes.PluginSidebar.get_instance ();
+        image_sidebar_button.set_tooltip_text (_("Page Images"));
+        image_sidebar_button.get_style_context ().add_class ("flat");
+        image_sidebar_button.can_focus = false;
+        image_sidebar_button.hexpand = true;
+        image_sidebar_button.halign = Gtk.Align.END;
 
-                editor_and_help.add (plugin_sidebar);
-            }
+        image_sidebar_button.add (image_icon);
+
+        image_sidebar_button.toggled.connect (() => {
+            if (action_running) return;
+            action_running = true;
 
             if (plugin_sidebar.help_box == null) {
                 plugin_sidebar.show (PlugSidebarWidget.HELP);
@@ -240,6 +245,41 @@ public class ENotes.Editor : Gtk.Box {
                     code_buffer.insert_at_cursor (text, -1);
                 });
 
+                action_running = false;
+                return;
+            }
+
+            if (image_sidebar_button.get_active ()) {
+                plugin_sidebar.show (PlugSidebarWidget.IMAGES);
+            } else {
+                plugin_sidebar.close ();
+            }
+
+            action_running = false;
+        });
+
+        box.add (image_sidebar_button);
+
+        var help_icon = new Gtk.Image.from_icon_name ("dialog-question-symbolic", Gtk.IconSize.MENU);
+
+        help_button.set_tooltip_text (_("Formatting"));
+        help_button.get_style_context ().add_class ("flat");
+        help_button.can_focus = false;
+        help_button.hexpand = false;
+        help_button.halign = Gtk.Align.END;
+
+        help_button.toggled.connect (() => {
+            if (action_running) return;
+            action_running = true;
+
+            if (plugin_sidebar.help_box == null) {
+                plugin_sidebar.show (PlugSidebarWidget.HELP);
+
+                plugin_sidebar.help_box.insert_requested.connect ((text) => {
+                    code_buffer.insert_at_cursor (text, -1);
+                });
+
+                action_running = false;
                 return;
             }
 
@@ -248,10 +288,23 @@ public class ENotes.Editor : Gtk.Box {
             } else {
                 plugin_sidebar.close ();
             }
+
+            action_running = false;
         });
 
         help_button.add (help_icon);
         box.add (help_button);
+
+        plugin_sidebar.item_closed.connect ((type) => {
+            switch (type) {
+                case PlugSidebarWidget.HELP:
+                    help_button.active = false;
+                    break;
+                case PlugSidebarWidget.IMAGES:
+                    image_sidebar_button.active = false;
+                    break;
+            }
+        });
 
         return box;
     }
