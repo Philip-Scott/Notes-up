@@ -155,7 +155,7 @@ public class ENotes.PagesList : Gtk.Box {
         }
     }
 
-    private void refresh () {
+    public void refresh () {
         load_pages (current_notebook);
     }
 

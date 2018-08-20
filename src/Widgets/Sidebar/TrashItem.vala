@@ -29,6 +29,7 @@ public class ENotes.TrashItem : ENotes.SidebarItem {
         restore_item.activate.connect (() => {
             if (trashed_page != null) {
                 Trash.get_instance ().restore_page (trashed_page);
+                PagesList.get_instance ().refresh ();
             } else if (trashed_notebook != null){
                 Trash.get_instance ().restore_notebook (trashed_notebook);
             }

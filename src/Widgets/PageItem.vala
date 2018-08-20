@@ -20,18 +20,23 @@
 */
 
 public class ENotes.PageItem : Gtk.ListBoxRow {
-    public ENotes.Page page;
+    public ENotes.Page page { get; construct set; }
 
     private Gtk.Grid grid;
     private Gtk.Label line1;
     private Gtk.Label line2;
 
     public PageItem (ENotes.Page page) {
-        this.page = page;
-        build_ui ();
+        Object (page: page);
     }
 
-    private void build_ui () {
+    private static Trash trash_instance;
+
+    static construct {
+        trash_instance = Trash.get_instance ();
+    }
+
+    construct {
         set_activatable (true);
 
         grid = new Gtk.Grid ();
@@ -72,13 +77,11 @@ public class ENotes.PageItem : Gtk.ListBoxRow {
         this.show_all ();
     }
 
-    public void trash_page () {
-        this.destroy ();
-    }
-
     public void load_data () {
-        this.line2.label = page.subtitle;
-        this.line1.label = "<b>" + page.name + "</b>";
+        line2.label = page.subtitle;
+        line1.label = "<b>" + page.name + "</b>";
+
+        line1.sensitive = !trash_instance.is_page_trashed (page);
+        line2.sensitive = line1.sensitive;
     }
 }
-
