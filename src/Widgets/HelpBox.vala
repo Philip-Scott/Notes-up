@@ -19,24 +19,14 @@
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
 
-public class ENotes.HelpBox : Gtk.Revealer {
+public class ENotes.HelpBox : Gtk.Grid {
     public signal void insert_requested (string text);
-
-    private Gtk.Grid grid;
 
     private int row = 0;
 
     public HelpBox () {
-        transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
-
-        grid = new Gtk.Grid ();
-        grid.margin = 12;
-        grid.row_spacing = 4;
-
-        var scroll_box = new Gtk.ScrolledWindow (null, null);
-        scroll_box.get_style_context ().add_class ("list");
-        scroll_box.hscrollbar_policy = Gtk.PolicyType.NEVER;
-        scroll_box.add (grid);
+        margin = 12;
+        row_spacing = 4;
 
         add_item (_("Large Header"), "h1", "\n# " );
         add_item (_("Medium Header"), "h2", "\n## ");
@@ -62,7 +52,6 @@ public class ENotes.HelpBox : Gtk.Revealer {
         add_item (_("Enable Syntax Highlighting"), "", "<highlight>");
         add_item (_("Set Color"), "", "<color #0099FF>");
 
-        add (scroll_box);
         this.show_all ();
     }
 
@@ -86,8 +75,8 @@ public class ENotes.HelpBox : Gtk.Revealer {
             insert_requested (_code);
         });
 
-        grid.attach (title, 0, row, 1, 1);
-        grid.attach (code, 1, row++, 1, 1);
-        grid.attach (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), 0, row++, 2, 1);
+        attach (title, 0, row, 1, 1);
+        attach (code, 1, row++, 1, 1);
+        attach (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), 0, row++, 2, 1);
     }
 }

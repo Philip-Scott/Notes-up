@@ -25,7 +25,7 @@ public class ENotes.Editor : Gtk.Box {
     private Gtk.SourceView code_view;
     private Gtk.SourceBuffer code_buffer;
     private Gtk.Box editor_and_help;
-    private ENotes.HelpBox? help = null;
+    private ENotes.PluginSidebar? plugin_sidebar = null;
     private GtkSpell.Checker spell = null;
 
     private bool edited = false;
@@ -227,16 +227,27 @@ public class ENotes.Editor : Gtk.Box {
         help_button.halign = Gtk.Align.END;
 
         help_button.toggled.connect (() => {
-            if (help == null) {
-                help = new ENotes.HelpBox ();
-                help.insert_requested.connect ((text) => {
+            if (plugin_sidebar == null) {
+                plugin_sidebar = ENotes.PluginSidebar.get_instance ();
+
+                editor_and_help.add (plugin_sidebar);
+            }
+
+            if (plugin_sidebar.help_box == null) {
+                plugin_sidebar.show (PlugSidebarWidget.HELP);
+
+                plugin_sidebar.help_box.insert_requested.connect ((text) => {
                     code_buffer.insert_at_cursor (text, -1);
                 });
 
-                editor_and_help.add (help);
+                return;
             }
 
-            help.set_reveal_child (help_button.get_active ());
+            if (help_button.get_active ()) {
+                plugin_sidebar.show (PlugSidebarWidget.HELP);
+            } else {
+                plugin_sidebar.close ();
+            }
         });
 
         help_button.add (help_icon);
