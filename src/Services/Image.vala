@@ -80,7 +80,7 @@ public class ENotes.ImageTable : DatabaseTable {
         set_table_name ("Image");
     }
 
-    public int64 save (int64 page_id, File file) {  
+    public int64 save (int64 page_id, File file, int64? image_id = null) {
         var file_info = file.query_info ("*", FileQueryInfoFlags.NONE);
         var format = ImageFormat.get_format_id (file_info.get_content_type ());
 
@@ -120,17 +120,26 @@ public class ENotes.ImageTable : DatabaseTable {
         bind_int (count_stmt, 1, page_id);
         count_stmt.step ();
 
-        var new_image_id = count_stmt.column_int64 (0) + 1;
+        if (image_id == null) {
+            image_id = count_stmt.column_int64 (0) + 1;
 
-        var stmt = create_stmt ("INSERT INTO Image (id, page_id, format, data) values (?, ?, ?, ?)");
-        bind_int (stmt, 1, new_image_id);
-        bind_int (stmt, 2, page_id);
-        bind_int (stmt, 3, format);
-        bind_text (stmt, 4, data);
+            var stmt = create_stmt ("INSERT INTO Image (id, page_id, format, data) values (?, ?, ?, ?)");
+            bind_int (stmt, 1, image_id);
+            bind_int (stmt, 2, page_id);
+            bind_int (stmt, 3, format);
+            bind_text (stmt, 4, data);
 
-        stmt.step ();
+            stmt.step ();
+        } else {
+            var stmt = create_stmt ("UPDATE Image SET data = ? WHERE page_id = ? AND id = ?");
+            bind_text (stmt, 1, data);
+            bind_int (stmt, 2, page_id);
+            bind_int (stmt, 3, image_id);
 
-        return new_image_id;
+            stmt.step ();
+        }
+
+        return image_id;
     }
 
     public ENotes.Image? get_image (int64 page_id, int64 photo_id) {
