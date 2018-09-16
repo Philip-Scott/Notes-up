@@ -21,6 +21,18 @@
     <binary>com.github.philip-scott.notes-up</binary>
   </provides>
   <releases>
+    <release version="1.6.0" date="2018-09-16">
+      <description>
+        <p>A Very Juno Update</p>
+        <ul>
+          <li>Notes-Up is now available in elementary OS Juno!</li>
+          <li>Icon updated to use the new elementary color palette</li>
+          <li>Trashed pages show up in the pages list grayed out</li>
+          <li>Added translations for Italian and Japanese</li>
+          <li>Code cleanups and more!</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.5.0" date="2017-12-25">
       <description>
         <p>The Community Update</p>
