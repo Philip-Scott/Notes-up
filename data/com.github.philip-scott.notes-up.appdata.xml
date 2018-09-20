@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright (c) 2017 Felipe Escoto (https://github.com/Philip-Scott/Notes-up) -->
 <component type="desktop">
-  <id>com.github.philip-scott.notes-up.desktop</id>
+  <id>com.github.philip-scott.notes-up</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0+</project_license>
   <name>Notes-Up</name>
