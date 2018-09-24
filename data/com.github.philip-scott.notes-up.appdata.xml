@@ -21,7 +21,7 @@
     <binary>com.github.philip-scott.notes-up</binary>
   </provides>
   <releases>
-    <release version="1.6.0" date="2018-09-16">
+    <release version="1.6.1" date="2018-09-23">
       <description>
         <p>A Very Juno Update</p>
         <ul>
