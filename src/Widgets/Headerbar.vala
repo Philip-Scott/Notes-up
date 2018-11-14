@@ -161,6 +161,8 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         } else {
             this.title = "";
         }
+
+        this.title = this.title.replace ("&amp;", "&");
     }
 
     private void connect_signals () {
