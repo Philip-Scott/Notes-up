@@ -31,6 +31,12 @@
 			<description></description>
 		</key>
 
+		<key name="notebook-panel-size" type="i">
+			<default>50</default>
+			<summary>The saved width of the notebook panel.</summary>
+			<description></description>
+		</key>
+
 		<key name="mode" type="i">
 			<default>0</default>
 			<summary>The last used mode</summary>

@@ -27,6 +27,7 @@ public class ENotes.Services.Settings : Granite.Services.Settings {
     public int window_width { get; set; }
     public int window_height { get; set; }
     public int panel_size { get; set; }
+    public int notebook_panel_size { get; set; }
     public int mode { get; set; }
     public int last_notebook { get; set; }
     public int last_page { get; set; }

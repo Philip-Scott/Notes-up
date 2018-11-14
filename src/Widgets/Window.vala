@@ -59,7 +59,6 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         pane1.pack2 (pane2, true, false);
         pane2.pack1 (pages_list, false, false);
         pane2.pack2 (view_edit_stack, true, false);
-        pane1.position = (50);
 
         this.move (settings.pos_x, settings.pos_y);
         this.add (pane1);
@@ -145,6 +144,7 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 
         settings.pos_x = x;
         settings.pos_y = y;
+        settings.notebook_panel_size = pane1.position;
         settings.panel_size = pane2.position;
         settings.window_width = width;
         settings.window_height = height;
@@ -159,6 +159,7 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 
     private void load_settings () {
         resize (settings.window_width, settings.window_height);
+        pane1.position = settings.notebook_panel_size;
         pane2.position = settings.panel_size;
 
         if (settings.last_notebook != 0) {
@@ -200,7 +201,6 @@ public class ENotes.Window : Gtk.ApplicationWindow {
             view_edit_stack.show_view ();
         } else {
             view_edit_stack.show_edit ();
-            pane2.set_position (0);
         }
     }
 
