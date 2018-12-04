@@ -100,7 +100,8 @@ public class ENotes.PagesList : Gtk.Box {
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
 
         plus_button = new Gtk.Button.from_icon_name ("document-new-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-        plus_button.set_tooltip_text (_("New Page") + Key.NEW_PAGE.to_string ());
+
+        plus_button.set_tooltip_markup (Granite.markup_accel_tooltip (app.get_accels_for_action ("win.new-action"), _("New Page")));
         plus_button.get_style_context ().add_class ("flat");
         plus_button.can_focus = false;
 

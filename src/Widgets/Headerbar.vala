@@ -62,7 +62,7 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         mode_button.append_text (_("Edit"));
         mode_button.valign = Gtk.Align.CENTER;
 
-        mode_button.set_tooltip_text (_("Change mode") + Key.CHANGE_MODE.to_string ());
+        mode_button.set_tooltip_markup (Granite.markup_accel_tooltip (app.get_accels_for_action ("win.change-mode"), _("Change mode")));
 
         create_menu ();
 
@@ -85,7 +85,8 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         search_button_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
 
         search_button = new Gtk.Button.from_icon_name ("edit-find-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
-        search_button.tooltip_text = (_("Search your current notebook") + Key.FIND.to_string ());
+        search_button.set_tooltip_markup (Granite.markup_accel_tooltip (app.get_accels_for_action ("win.find-action"), _("Search your current notebook")));
+
         search_button.clicked.connect(show_search);
 
         search_button_revealer.add(search_button);

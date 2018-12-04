@@ -41,7 +41,7 @@ public class ENotes.BookmarkButton : Gtk.Button {
         expand = false;
         can_focus = false;
         has_tooltip = true;
-        tooltip_text = (_("Bookmark page") + Key.BOOKMARK.to_string ());
+        set_tooltip_markup (Granite.markup_accel_tooltip (app.get_accels_for_action ("win.bookmark-action"), _("Bookmark page")));
 
         connect_signals ();
     }

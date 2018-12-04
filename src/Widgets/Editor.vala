@@ -172,9 +172,26 @@ public class ENotes.Editor : Gtk.Box {
     private Gtk.Box build_toolbar () {
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
 
-        bold_button = new ENotes.ToolbarButton ("format-text-bold-symbolic", "**", "**", _("Add bold to text") + Key.BOLD.to_string (), code_buffer);
-        italics_button = new ENotes.ToolbarButton ("format-text-italic-symbolic", "_", "_", _("Add italic to text") + Key.ITALICS.to_string (), code_buffer);
-        strike_button = new ENotes.ToolbarButton ("format-text-strikethrough-symbolic", "~~", "~~", _("Strikethrough text") + Key.STRIKE.to_string (), code_buffer);
+        bold_button = new ENotes.ToolbarButton (
+            "format-text-bold-symbolic",
+            "**", "**",
+            Granite.markup_accel_tooltip (app.get_accels_for_action ("win.bold-action"), _("Add bold to text")),
+            code_buffer
+        );
+
+        italics_button = new ENotes.ToolbarButton (
+            "format-text-italic-symbolic",
+            "_", "_",
+            Granite.markup_accel_tooltip (app.get_accels_for_action ("win.italics-action"), _("Add italic to text")),
+            code_buffer
+        );
+
+        strike_button = new ENotes.ToolbarButton (
+            "format-text-strikethrough-symbolic",
+            "~~", "~~",
+            Granite.markup_accel_tooltip (app.get_accels_for_action ("win.strike-action"), _("Strikethrough text")),
+            code_buffer
+        );
 
         var quote_button = new ENotes.ToolbarButton ("format-indent-less-rtl", "> ", "", _("Insert a quote"), code_buffer);
         var code_button = new ENotes.ToolbarButton ("system-run", "`", "`", _("Insert code"), code_buffer);

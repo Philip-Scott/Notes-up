@@ -42,7 +42,7 @@ public class ENotes.ToolbarButton : Gtk.Button {
         this.first_half = first_half;
         this.second_half = second_half;
 
-        set_tooltip_text (description);
+        set_tooltip_markup (description);
 
         connect_signal ();
     }
@@ -109,7 +109,7 @@ public class ENotes.ToolbarButton : Gtk.Button {
                         var wrapped_text = WordWrapper.wrap_string (word, first_half, second_half);
                         this.change_text (start, end, wrapped_text);
                     } else {
-                        // prints the wrapping text and put cursor in the middle 
+                        // prints the wrapping text and put cursor in the middle
                         code_buffer.insert_at_cursor (first_half + second_half, -1);
                         code_buffer.get_iter_at_offset (out cursor_position, code_buffer.cursor_position);
                         cursor_position.backward_chars (second_half.length);
@@ -124,8 +124,8 @@ public class ENotes.ToolbarButton : Gtk.Button {
      * Detects if cursor is inside a word
      */
     private bool is_cursor_inside_word (Gtk.TextIter cursor_position, string first_half, string second_half) {
-        return cursor_position.inside_word () || 
-                cursor_position.get_char ().isspace () || 
+        return cursor_position.inside_word () ||
+                cursor_position.get_char ().isspace () ||
                 cursor_position.get_char ().to_string () in first_half ||
                 cursor_position.get_char ().to_string () in second_half;
     }

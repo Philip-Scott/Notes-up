@@ -11,7 +11,7 @@ add_definitions(-w)
 find_package(PkgConfig)
 
 pkg_check_modules(DEPS REQUIRED
-  granite>=0.3
+  granite>=5.2.0
   gee-0.8
   gtksourceview-3.0>=3.10
   gthread-2.0

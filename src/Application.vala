@@ -52,6 +52,7 @@ public enum ENotes.Key {
 }
 
 namespace ENotes {
+    public unowned ENotes.Application app;
     public ENotes.Services.Settings settings;
     public ENotes.Window window;
     public string NOTES_DB;
@@ -86,6 +87,7 @@ public class ENotes.Application : Granite.Application {
 
     public override void activate () {
         if (!running) {
+            ENotes.app = this;
             settings = ENotes.Services.Settings.get_instance ();
 
             if (settings.notes_database == "") { // Init databases
