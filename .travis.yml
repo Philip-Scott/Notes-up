@@ -22,4 +22,4 @@ install:
 
 script:
 - houston ci
- --name-domain com.github.philip-scott.spice-up
+ --name-domain com.github.philip-scott.notes-up
