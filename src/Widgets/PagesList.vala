@@ -193,12 +193,6 @@ public class ENotes.PagesList : Gtk.Box {
             new_page (page);
         }
 
-        bool has_pages = added_pages.size > 0;
-
-        if (!has_pages) {
-            new_blank_page ();
-        }
-
         toolbar.set_sensitive (true);
         minus_button.set_sensitive (false);
 

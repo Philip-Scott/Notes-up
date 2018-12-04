@@ -172,6 +172,8 @@ public class ENotes.NotebookTable : DatabaseTable {
 
         var last = last_insert_row ();
         var notebook = load_notebook_data (last);
+        PageTable.get_instance ().new_page (notebook.id);
+
         notebook_added (notebook);
 
         return last;
@@ -198,12 +200,12 @@ public class ENotes.NotebookTable : DatabaseTable {
 
         return stmt.column_text (0);
     }
-    
+
     public void move_notebook (Notebook notebook, Notebook? parent_notebook) {
         var stmt = create_stmt ("UPDATE Notebook SET parent_id = ? WHERE id = ?");
         bind_int (stmt, 1, parent_notebook != null ? parent_notebook.id : 0);
         bind_int (stmt, 2, notebook.id);
-        
+
         stmt.step ();
     }
 
