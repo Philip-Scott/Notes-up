@@ -75,7 +75,7 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         search_entry.visibility = true;
         search_entry.expand = true;
         search_entry.max_width_chars = 30;
-        search_entry.margin_right = 12;
+        search_entry.margin_end = 12;
 
         search_entry_revealer = new Gtk.Revealer();
         search_entry_revealer.valign = Gtk.Align.CENTER;

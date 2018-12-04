@@ -205,12 +205,12 @@ public class ENotes.Editor : Gtk.Box {
         var separator1 = new Gtk.Separator (Gtk.Orientation.VERTICAL);
         var separator2 = new Gtk.Separator (Gtk.Orientation.VERTICAL);
         var separator3 = new Gtk.Separator (Gtk.Orientation.VERTICAL);
-        separator1.margin_left = 4;
-        separator2.margin_left = 4;
-        separator3.margin_left = 4;
-        separator1.margin_right = 4;
-        separator2.margin_right = 4;
-        separator3.margin_right = 4;
+        separator1.margin_start = 4;
+        separator2.margin_start = 4;
+        separator3.margin_start = 4;
+        separator1.margin_end = 4;
+        separator2.margin_end = 4;
+        separator3.margin_end = 4;
 
         box.add (bold_button);
         box.add (italics_button);

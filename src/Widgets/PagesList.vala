@@ -126,9 +126,9 @@ public class ENotes.PagesList : Gtk.Box {
 
         notebook_name.ellipsize = Pango.EllipsizeMode.END;
         notebook_name.get_style_context ().add_class ("h4");
-        notebook_name.margin_left = 6;
-        notebook_name.margin_right = 6;
-        page_total.margin_right = 6;
+        notebook_name.margin_start = 6;
+        notebook_name.margin_end = 6;
+        page_total.margin_end = 6;
 
         box.add (notebook_name);
         box.add (page_total);
