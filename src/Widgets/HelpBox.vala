@@ -31,7 +31,7 @@ public class ENotes.HelpBox : Gtk.Revealer {
 
         grid = new Gtk.Grid ();
         grid.margin = 12;
-        grid.row_spacing = 4;
+        grid.expand = false;
 
         var scroll_box = new Gtk.ScrolledWindow (null, null);
         scroll_box.get_style_context ().add_class ("list");
@@ -68,8 +68,6 @@ public class ENotes.HelpBox : Gtk.Revealer {
 
     private void add_item (string _name, string _style_class, string _code) {
         var title = new Gtk.Label (_name);
-        var code = new Gtk.Button.with_label (_code.replace ("\n", ""));
-
         title.halign = Gtk.Align.START;
         title.set_use_markup (true);
 
@@ -77,17 +75,29 @@ public class ENotes.HelpBox : Gtk.Revealer {
             title.get_style_context ().add_class (_style_class);
         }
 
-        code.can_focus = false;
+        var code = new Gtk.Label (_code.replace ("\n", ""));
+        code.hexpand = true;
         code.halign = Gtk.Align.END;
         code.valign = Gtk.Align.CENTER;
-        code.get_style_context ().add_class ("tooltip");
-        code.get_style_context ().remove_class ("button");
-        code.clicked.connect (() => {
+        code.get_style_context ().add_class ("overlay-bar");
+        code.get_style_context ().add_class ("h3");
+
+        var item_button = new Gtk.Button ();
+        item_button.get_style_context ().add_class ("flat");
+
+        item_button.clicked.connect (() => {
             insert_requested (_code);
         });
 
-        grid.attach (title, 0, row, 1, 1);
-        grid.attach (code, 1, row++, 1, 1);
-        grid.attach (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), 0, row++, 2, 1);
+        var item_grid = new Gtk.Grid ();
+        item_grid.orientation = Gtk.Orientation.HORIZONTAL;
+        item_grid.column_spacing = 6;
+        item_grid.add (title);
+        item_grid.add (code);
+
+        item_button.add (item_grid);
+
+        grid.attach (item_button, 0, row++, 1, 1);
+        grid.attach (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), 0, row++, 1, 1);
     }
 }
