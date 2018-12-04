@@ -44,6 +44,7 @@ public class ENotes.ViewEditStack : Gtk.Overlay {
     private Gtk.Stack stack;
 
     public ENotes.Page? current_page {get; private set; default = null;}
+    public ENotes.Notebook? current_notebook {get; private set; default = null;}
 
     public static ViewEditStack get_instance () {
         if (instance == null) {
@@ -76,14 +77,13 @@ public class ENotes.ViewEditStack : Gtk.Overlay {
                 return;
             }
         }
-        
+
         editor.save_file ();
         current_page = PageTable.get_instance ().get_page (page.id);
+        current_notebook = ENotes.NotebookTable.get_instance().load_notebook_data (current_page.notebook_id);
+
         editor.current_page = current_page;
         viewer.load_page (current_page);
-        
-        var ntbook = ENotes.NotebookTable.get_instance().load_notebook_data(current_page.notebook_id);
-        ENotes.Headerbar.get_instance ().set_title (page.name, ntbook.name);
 
         bookmark_button.set_page (current_page);
         page_set (current_page);
@@ -93,6 +93,11 @@ public class ENotes.ViewEditStack : Gtk.Overlay {
         }
 
         editor.set_sensitive (!Trash.get_instance ().is_page_trashed (page));
+        refresh_headerbar_title ();
+    }
+
+    public void refresh_headerbar_title () {
+        ENotes.Headerbar.get_instance ().set_title (current_page.name, current_notebook.name);
     }
 
     public void show_edit () {

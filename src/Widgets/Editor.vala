@@ -269,6 +269,7 @@ public class ENotes.Editor : Gtk.Box {
                 current_page.data = this.get_text ();
                 current_page.html_cache = "";
                 PageTable.get_instance ().save_page (current_page);
+                ViewEditStack.get_instance ().refresh_headerbar_title ();
             }
         }
     }
