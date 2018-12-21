@@ -70,7 +70,6 @@ public abstract class DatabaseTable {
         // Open DB.
         int res = Sqlite.Database.open_v2 (filename, out db, Sqlite.OPEN_READWRITE | Sqlite.OPEN_CREATE,
                                            null);
-        assert (res == Sqlite.OK);
 
         // Check if we have write access to database.
         if (filename != Db.IN_MEMORY_NAME) {
@@ -448,4 +447,3 @@ public abstract class DatabaseTable {
             throw_error ("commit_transaction", res);
     }
 }
-

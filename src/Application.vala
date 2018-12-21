@@ -80,10 +80,15 @@ public class ENotes.Application : Granite.Application {
             ENotes.app = this;
             settings = ENotes.Services.Settings.get_instance ();
 
+            var notes_path = Path.build_filename (GLib.Environment.get_home_dir (), "/.local/share/notes-up/");
+            var notes_dir = File.new_for_path (notes_path);
+
+            if (!notes_dir.query_exists ()) {
+                DirUtils.create_with_parents (notes_path, 0766);
+            }
+
             if (settings.notes_database == "") { // Init databases
-                var notes_dir = GLib.Environment.get_home_dir () + "/.local/share/notes-up/";
-                DirUtils.create_with_parents (notes_dir, 0766);
-                settings.notes_database = notes_dir + "NotesUp.db";
+                settings.notes_database = Path.build_filename (notes_path, "NotesUp.db");
             }
 
             ENotes.NOTES_DIR = settings.notes_location;
