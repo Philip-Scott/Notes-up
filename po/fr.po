@@ -49,11 +49,11 @@ msgstr "Chercher dans le carnet courant"
 
 #: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:55
 msgid "Name:"
-msgstr "Nom:"
+msgstr "Nom :"
 
 #: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:56
 msgid "Color:"
-msgstr "Couleur:"
+msgstr "Couleur :"
 
 #: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:63
 msgid "Cancel"
@@ -124,23 +124,23 @@ msgstr "_Fermer"
 
 #: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/PreferencesDialog.vala:69
 msgid "Font:"
-msgstr "Police:"
+msgstr "Police :"
 
 #: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/PreferencesDialog.vala:79
 msgid "Theme:"
-msgstr "Thème:"
+msgstr "Thème :"
 
 #: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/PreferencesDialog.vala:104
 msgid "Automatic indentation:"
-msgstr "Indentation automatique:"
+msgstr "Indentation automatique :"
 
 #: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/PreferencesDialog.vala:112
 msgid "Show line Numbers:"
-msgstr "Afficher les numéros de ligne:"
+msgstr "Afficher les numéros de ligne :"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:124
 msgid "Keep Sidebar Visible:"
-msgstr "Garder la barre latérale visible:"
+msgstr "Garder la barre latérale visible :"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:152
 msgid "Global style modifications"
@@ -149,7 +149,7 @@ msgstr "Personnalisation du style"
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:165
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:134
 msgid "Stylesheet:"
-msgstr "Feuille de Style:"
+msgstr "Feuille de Style :"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:103
 msgid "Style"
@@ -221,7 +221,7 @@ msgstr "Code"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:55
 msgid "Code Block"
-msgstr "Bloque de Code"
+msgstr "Bloc de Code"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:56
 msgid "Link"
@@ -241,7 +241,7 @@ msgstr "Note de bas de page"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:60
 msgid "Youtube Video"
-msgstr "Vidéo Youtube"
+msgstr "Vidéo YouTube"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:60
 msgid "<youtube [link]>"
@@ -273,7 +273,7 @@ msgstr "Corbeille"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar.vala:110
 msgid "My First Notebook"
-msgstr "Mon premier Carnets de Notes"
+msgstr "Mon premier Carnet de Notes"
 
 
 #: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/Editor.vala:164
@@ -290,15 +290,15 @@ msgstr "Barrer le texte"
 
 #: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/Editor.vala:168
 msgid "Insert a quote"
-msgstr "Ajouter une citation"
+msgstr "Insérer une citation"
 
 #: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/Editor.vala:169
 msgid "Insert code"
-msgstr "Ajouter du code"
+msgstr "Insérer du code"
 
 #: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/Editor.vala:170
 msgid "Insert a link"
-msgstr "Ajouter un lien"
+msgstr "Insérer un lien"
 
 #: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/Editor.vala:172
 msgid "Add a bulleted list"
@@ -310,7 +310,7 @@ msgstr "Ajouter une liste numérotée"
 
 #: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/Editor.vala:176
 msgid "Insert an image"
-msgstr "Ajouter une image"
+msgstr "Insérer une image"
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:159
 msgid "Formatting"
@@ -335,7 +335,7 @@ msgstr "<Ctrl>Q"
 
 #: /home/felipe/Code/Notes-up/po/../src/Application.vala:39
 msgid "<Ctrl><Shift>N"
-msgstr "<Ctrl><Shift>N"
+msgstr "<Ctrl><Maj>N"
 
 #: /home/felipe/Code/Notes-up/po/../src/Application.vala:40
 msgid "<Ctrl>F"
@@ -363,7 +363,7 @@ msgstr "Notes-up"
 
 #: /home/dabou/Projets/github/Notes-up/po/../src/Application.vala:37
 msgid "Your Markdown Notebook."
-msgstr "Votre carnet de notes Markdown"
+msgstr "Votre carnet de notes en Markdown."
 
 #: /home/dabou/Projets/github/Notes-up/po/../src/Application.vala:38
 msgid "About Notes"
@@ -371,7 +371,7 @@ msgstr "À Propos"
 
 #: /home/felipe/Code/Notes-up/po/../src/Application.vala:82
 msgid "translator-credits"
-msgstr "Damien Bouthier"
+msgstr "Damien Bouthier / Corrections : NathanBnm"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Color.vala:35
 msgid ""
@@ -388,19 +388,19 @@ msgstr "Couleur de police"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Youtube.vala:30
 msgid "Embed youtube videos: <youtube [video]>"
-msgstr "Embarquer une vidéo youtube: <youtube [vidéo]>"
+msgstr "Intégrer une vidéo YouTube : <youtube [vidéo]>"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Youtube.vala:34
 msgid "Youtube"
-msgstr "Youtube"
+msgstr "YouTube"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Youtube.vala:42
 msgid "Insert Youtube video"
-msgstr "Ajouter une vidéo Youtube"
+msgstr "Insérer une vidéo YouTube"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Break.vala:28
 msgid "Page break when exporting to PDF: <break>"
-msgstr "Saut de page pour export en PDF: <break>"
+msgstr "Saut de page pour export en PDF : <break>"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Break.vala:32
 msgid "Page break"
@@ -408,7 +408,7 @@ msgstr "Saut de page"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Break.vala:47
 msgid "Page break on export: <break>"
-msgstr "Saut de page en export: <break>"
+msgstr "Saut de page en export : <break>"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Highlight.vala:28
 msgid "Enable Syntax Highlighing"
@@ -420,7 +420,7 @@ msgstr "Surbrillance"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Image.vala:28
 msgid "Load an embeded image"
-msgstr "Charger une image embarquée"
+msgstr "Charger une image integrée"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Image.vala:32
 msgid "Image"
@@ -456,4 +456,4 @@ msgstr "Tous les fichiers"
 
 #: Widgets/Dialogs/PreferencesDialog.vala:133
 msgid "Spellcheck:"
-msgstr "Correcteur orthographique:"
+msgstr "Vérification d'orthographe :"
