@@ -1,16 +1,21 @@
+# French translations for com.github.philip-scott.notes-up package.
+# Copyright (C) 2019 THE com.github.philip-scott.notes-up'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.philip-scott.notes-up package.
+# NathanBnm, 2019.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: 2\n"
 "Report-Msgid-Bugs-To: https://github.com/Philip-Scott/Notes-up/issues\n"
 "POT-Creation-Date: 2016-05-22 21:30+0200\n"
-"PO-Revision-Date: 2017-09-21 21:30+0200\n"
-"Last-Translator: Damien Bouthier <dbouthier@gmail.com>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2019-01-28 22:18+0100\n"
+"Last-Translator: NathanBnm\n"
+"Language-Team: Français\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/Headerbar.vala:47
 msgid "View"
@@ -19,7 +24,7 @@ msgstr "Voir"
 #: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/Headerbar.vala:48
 #: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:75
 msgid "Edit"
-msgstr "Éditer"
+msgstr "Modifier"
 
 #: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/Headerbar.vala:52
 #: /home/dabou/Projets/github/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:54
@@ -335,7 +340,7 @@ msgstr "<Ctrl>Q"
 
 #: /home/felipe/Code/Notes-up/po/../src/Application.vala:39
 msgid "<Ctrl><Shift>N"
-msgstr "<Ctrl><Maj>N"
+msgstr "<Ctrl><Shift>N"
 
 #: /home/felipe/Code/Notes-up/po/../src/Application.vala:40
 msgid "<Ctrl>F"
