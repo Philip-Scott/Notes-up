@@ -3,21 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-20 20:01+0200\n"
+"POT-Creation-Date: 2017-07-09 13:07-0500\n"
 "PO-Revision-Date: 2017-08-03 20:37+0200\n"
+"Last-Translator: Benjamin Krala\n"
 "Language-Team: Benjamin Krala\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.4\n"
-"Last-Translator: Benjamin Krala\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: de\n"
 
 #: /home/felipe/Code/Notes-up/po/../src/Services/Page.vala:148
 #: /home/felipe/Code/Notes-up/po/../src/Services/Page.vala:212
@@ -61,8 +60,7 @@ msgstr "Notizbuch löschen"
 msgid "Default"
 msgstr "Standard"
 
-## Es handelt sich hier um Eigennamen. Diese werden daher nicht übersetzt.
-
+# # Es handelt sich hier um Eigennamen. Diese werden daher nicht übersetzt.
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Viewer.vala:23
 msgid "Air"
 msgstr "Air"
@@ -141,7 +139,6 @@ msgstr "Nummerierte Liste einfügen"
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:122
 msgid "Insert an image"
 msgstr "Bild einfügen"
-
 
 #: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:159
 msgid "Formatting"
@@ -386,7 +383,9 @@ msgstr "Benjamin Krala"
 msgid ""
 "Set font color for the line with <color [#color]> or for some text with "
 "<color [color] [text]>"
-msgstr "Schriftfarbe in einer Textzeile mit <color [#Farbe]> oder für eine Textfolge mit <color [#Farbe] [Textfolge]> festlegen"
+msgstr ""
+"Schriftfarbe in einer Textzeile mit <color [#Farbe]> oder für eine Textfolge "
+"mit <color [#Farbe] [Textfolge]> festlegen"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Color.vala:39
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Color.vala:68
@@ -432,3 +431,35 @@ msgstr "Eingebettetes Bild laden "
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Image.vala:32
 msgid "Image"
 msgstr "Bild"
+
+#: Services/FileManager.vala:197
+msgid "Select destination PDF file"
+msgstr "Speicherort für PDF-Datei auswählen"
+
+#: Services/FileManager.vala:199
+msgid "Save"
+msgstr "Speichern"
+
+#: Services/FileManager.vala:202
+msgid "PDF File"
+msgstr "PDF-Datei"
+
+#: Services/FileManager.vala:209
+msgid "Open file"
+msgstr "Öffne Datei"
+
+#: Services/FileManager.vala:211
+msgid "Open"
+msgstr "Öffnen"
+
+#: Services/FileManager.vala:214
+msgid "Images"
+msgstr "Bilder"
+
+#: Services/FileManager.vala:221
+msgid "All Files"
+msgstr "Alle Dateien"
+
+#: Widgets/Dialogs/PreferencesDialog.vala:133
+msgid "Spellcheck:"
+msgstr "Rechtschreibprüfung"
