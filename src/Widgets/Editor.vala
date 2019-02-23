@@ -130,6 +130,8 @@ public class ENotes.Editor : Gtk.Box {
         editor_and_help.add (scroll_box);
 
         spell = new GtkSpell.Checker ();
+        spell.decode_language_codes = true;
+
         spellcheck = Services.Settings.get_instance ().spellcheck;
 
         spell.language_changed.connect (() => {
