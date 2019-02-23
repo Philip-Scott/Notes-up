@@ -22,9 +22,7 @@
 public class ENotes.PreferencesDialog : Gtk.Dialog {
 
     private Gtk.FontButton font_button;
-    private Gtk.ListStore schemes_store;
-    private Gtk.TreeIter schemes_iter;
-    private Gtk.ComboBox scheme_box;
+    private Gtk.SourceStyleSchemeChooserWidget scheme_box;
     private Gtk.ComboBox stylesheet_box;
     private Gtk.TextView style_box;
     private Gtk.Stack stack;
@@ -82,30 +80,16 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
             font_button.set_font (settings.editor_font);
         }
 
-        var scheme_label = new Gtk.Label (_("Theme:"));
-        scheme_label.set_halign (Gtk.Align.END);
+        var scheme_label = new Gtk.Label ("<b>%s</b>".printf (_("Theme:")));
+        scheme_label.use_markup = true;
+        scheme_label.set_halign (Gtk.Align.START);
 
-        schemes_store = new Gtk.ListStore (2, typeof (string), typeof (string));
+        scheme_box = new Gtk.SourceStyleSchemeChooserWidget ();
+        scheme_box.get_style_context ().add_class ("frame");
 
-        scheme_box = new Gtk.ComboBox.with_model (schemes_store);
-        var scheme_renderer = new Gtk.CellRendererText ();
-        scheme_box.pack_start (scheme_renderer, true);
-        scheme_box.add_attribute (scheme_renderer, "text", 1);
-
-        var schemes = get_source_schemes ();
-        int i = 0;
-
-        schemes_iter = {};
-        foreach (var scheme in schemes) {
-            schemes_store.append (out schemes_iter);
-            schemes_store.set (schemes_iter, 0, scheme.id, 1, scheme.name);
-
-            if (scheme.id == settings.editor_scheme) {
-                scheme_box.active = i;
-            }
-
-            i++;
-        }
+        var scheme_box_scroll = new Gtk.ScrolledWindow (null, null);
+        scheme_box_scroll.expand = true;
+        scheme_box_scroll.add (scheme_box);
 
         var indent_label = new Gtk.Label (_("Automatic indentation:"));
         indent_label.set_halign (Gtk.Align.END);
@@ -140,17 +124,17 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
         switch_box_spl.add (spellcheck_switch);
 
         grid.attach (font_label,        0, 1, 1, 1);
-        grid.attach (font_button,       1, 1, 2, 1);
-        grid.attach (scheme_label,      0, 2, 1, 1);
-        grid.attach (scheme_box,        1, 2, 2, 1);
-        grid.attach (indent_label,      0, 3, 1, 1);
-        grid.attach (switch_box,        1, 3, 1, 1);
-        grid.attach (line_numbers_label,0, 4, 1, 1);
-        grid.attach (switch_box_ln,     1, 4, 1, 1);
-        grid.attach (keep_sidebar_label,0, 5, 1, 1);
-        grid.attach (switch_box_ksv,    1, 5, 1, 1);
-        grid.attach (spellcheck_label,  0, 6, 1, 1);
-        grid.attach (switch_box_spl,    1, 6, 1, 1);
+        grid.attach (font_button,       1, 1, 1, 1);
+        grid.attach (indent_label,      0, 2, 1, 1);
+        grid.attach (switch_box,        1, 2, 1, 1);
+        grid.attach (line_numbers_label,0, 3, 1, 1);
+        grid.attach (switch_box_ln,     1, 3, 1, 1);
+        grid.attach (keep_sidebar_label,0, 4, 1, 1);
+        grid.attach (switch_box_ksv,    1, 4, 1, 1);
+        grid.attach (spellcheck_label,  0, 5, 1, 1);
+        grid.attach (switch_box_spl,    1, 5, 1, 1);
+        grid.attach (scheme_label,      0, 6, 1, 1);
+        grid.attach (scheme_box_scroll, 0, 7, 2, 1);
 
         grid.set_column_homogeneous (false);
         grid.set_row_homogeneous (false);
@@ -223,12 +207,10 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
             ENotes.Editor.get_instance ().set_font (font_button.font);
         });
 
-        scheme_box.changed.connect(() => {
-            Value box_val;
-            scheme_box.get_active_iter (out schemes_iter);
-            schemes_store.get_value (schemes_iter, 0, out box_val);
+        scheme_box.notify["style-scheme"].connect (() => {
+            var scheme = scheme_box.get_style_scheme ();
 
-            var scheme_id = (string) box_val;
+            var scheme_id = scheme.get_id ();
             settings.editor_scheme = scheme_id;
 
             ENotes.Editor.get_instance ().set_scheme (scheme_id);
@@ -255,18 +237,6 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
                 destroy ();
             break;
         }
-    }
-
-    private Gtk.SourceStyleScheme[] get_source_schemes () {
-        var style_manager = Gtk.SourceStyleSchemeManager.get_default ();
-        unowned string[] scheme_ids = style_manager.get_scheme_ids ();
-        Gtk.SourceStyleScheme[] schemes = {};
-
-        foreach (string id in scheme_ids) {
-            schemes += style_manager.get_scheme (id);
-        }
-
-        return schemes;
     }
 
     private void make_store () {
