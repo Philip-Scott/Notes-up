@@ -243,8 +243,8 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
         Gtk.ListStore list_store = new Gtk.ListStore (2, typeof (string), typeof (int));
         Gtk.TreeIter iter;
 
-        foreach (string style in Viewer.STYLES) {
-            if (style == Viewer.STYLES[0]) continue;
+        foreach (string style in StyleLoader.STYLES) {
+            if (style == StyleLoader.STYLES[0]) continue;
             list_store.append (out iter);
             list_store.set (iter, 0, style);
         }
@@ -261,7 +261,7 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
     private int get_notebook_style () {
         int active = -1;
         string value = settings.stylesheet;
-        foreach (string style in Viewer.STYLES) {
+        foreach (string style in StyleLoader.STYLES) {
             if (value == style) return active;
             active++;
         }
@@ -271,7 +271,7 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
 
     private void save_notebook_style (int selected) {
         PageTable.get_instance ().clear_cache_on (0);
-        settings.stylesheet = Viewer.STYLES[selected + 1];
+        settings.stylesheet = StyleLoader.STYLES[selected + 1];
         ENotes.Viewer.get_instance ().load_css (null, true);
         ENotes.Viewer.get_instance ().reload ();
     }

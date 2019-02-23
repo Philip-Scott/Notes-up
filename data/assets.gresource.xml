@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/com/github/philip-scott/notes-up/styles">
+    <file alias="Air.css" compressed="true" preprocess="">assets/stylesheets/min/air.min.css</file>
+    <file alias="elementary.css" compressed="true" preprocess="">assets/stylesheets/min/elementary.min.css</file>
+    <file alias="Modest.css" compressed="true" preprocess="">assets/stylesheets/min/modest.min.css</file>
+  </gresource>
+</gresources>

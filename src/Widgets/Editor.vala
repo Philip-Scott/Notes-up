@@ -147,21 +147,6 @@ public class ENotes.Editor : Gtk.Box {
         this.show_all ();
     }
 
-    private Gtk.MenuItem? get_selected (Gtk.Menu? menu) {
-        if (menu == null) return null;
-        var active = menu.get_active () as Gtk.MenuItem;
-
-        if (active == null) return null;
-
-        var sub_menu = active.get_submenu () as Gtk.Menu;
-
-        if (sub_menu != null) {
-            return sub_menu.get_active () as Gtk.MenuItem;
-        }
-
-        return null;
-    }
-
     private Gtk.Box build_toolbar () {
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
 

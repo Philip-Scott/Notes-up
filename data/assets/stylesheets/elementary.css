@@ -1,6 +1,3 @@
-
-public class ENotes.Styles.elementary {
-    public const string css = """
 html,
 body {
     margin: 1em;
@@ -196,6 +193,4 @@ blockquote > :first-child {
 
 blockquote > :last-child {
     margin-bottom: 0;
-}
-""";
 }

@@ -68,6 +68,7 @@ add_subdirectory (po)
 add_subdirectory (schemas)
 
 include(ValaPrecompile)
+include (gresource)
 
 set (BASIC_VALAC_OPTIONS
   -g
@@ -112,16 +113,13 @@ vala_precompile(VALA_C
   src/Widgets/Dialogs/PreferencesDialog.vala
   src/Widgets/Dialogs/NotebookListDialog.vala
 
-  src/Styles/air.vala
-  src/Styles/elementary.vala
-  src/Styles/modest.vala
-
   src/Services/Bookmark.vala
   src/Services/FileManager.vala
   src/Services/Notebook.vala
   src/Services/Image.vala
   src/Services/Page.vala
   src/Services/Settings.vala
+  src/Services/StyleLoader.vala
   src/Services/Trash.vala
   src/Services/DatabaseTable.vala
   src/Services/WordWrapper.vala
@@ -140,28 +138,10 @@ OPTIONS
   ${GLOBAL_VALAC_OPTIONS}
 )
 
-add_executable(com.github.philip-scott.notes-up ${VALA_C} ${generated_resources})
+add_subdirectory (data)
+glib_compile_resources(generated_resources SOURCE data/assets.gresource.xml)
 
+add_executable(com.github.philip-scott.notes-up ${VALA_C} ${generated_resources})
 
 install(TARGETS com.github.philip-scott.notes-up RUNTIME
   DESTINATION bin)
-
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/com.github.philip-scott.notes-up.appdata.xml
-  DESTINATION ${DATADIR}/metainfo/)
-
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/com.github.philip-scott.notes-up.desktop
-  DESTINATION ${DATADIR}/applications/)
-
-#install assets
-file(GLOB assets "${CMAKE_CURRENT_SOURCE_DIR}/data/assets/**")
-install (FILES ${assets}
-  DESTINATION ${DATADIR}/notes-up/)
-install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/data/icons/48/com.github.philip-scott.notes-up.svg"
-  DESTINATION share/icons/hicolor/48x48/apps)
-
-install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/data/icons/64/com.github.philip-scott.notes-up.svg"
-  DESTINATION share/icons/hicolor/64x64/apps)
-
-# App DATA
-#configure_file_translation (io.github.notes-up.xml.in ${CMAKE_CURRENT_BINARY_DIR}/io.github.notes-up.xml ${CMAKE_SOURCE_DIR}/po/)
-#install (FILES ${CMAKE_CURRENT_BINARY_DIR}/io.github.notes-up.xml DESTINATION ${DATADIR}/appdata/)

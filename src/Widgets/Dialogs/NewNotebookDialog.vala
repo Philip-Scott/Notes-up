@@ -154,7 +154,7 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
         Gtk.TreeIter iter;
 
         int value = 0;
-        foreach (string style in Viewer.STYLES) {
+        foreach (string style in StyleLoader.STYLES) {
             list_store.append (out iter);
             list_store.set (iter, 0, style, 1, value);
         }
@@ -171,7 +171,7 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
     private int get_notebook_style (Notebook notebook) {
         int active = 0;
 
-        foreach (string style in Viewer.STYLES) {
+        foreach (string style in StyleLoader.STYLES) {
             if (notebook.stylesheet == style) return active;
             active++;
         }
@@ -192,16 +192,16 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
                     var r = color_button.rgba.red; var g = color_button.rgba.green; var b = color_button.rgba.blue;
                     if (notebook == null) { // Create Notebook
                         if (parent_nb == null) {
-                            NotebookTable.get_instance ().new_notebook (0, name_entry.text, {r,g,b}, style_changes.buffer.text, Viewer.STYLES[style_box.active]);
+                            NotebookTable.get_instance ().new_notebook (0, name_entry.text, {r,g,b}, style_changes.buffer.text, StyleLoader.STYLES[style_box.active]);
                         } else {
-                           NotebookTable.get_instance ().new_notebook (parent_nb.id, name_entry.text, {r,g,b}, style_changes.buffer.text, Viewer.STYLES[style_box.active]);
+                           NotebookTable.get_instance ().new_notebook (parent_nb.id, name_entry.text, {r,g,b}, style_changes.buffer.text, StyleLoader.STYLES[style_box.active]);
                         }
                     } else {
-                        if (style_changes.buffer.text != notebook.css || Viewer.STYLES[style_box.active] != notebook.stylesheet) {
+                        if (style_changes.buffer.text != notebook.css || StyleLoader.STYLES[style_box.active] != notebook.stylesheet) {
                             PageTable.get_instance ().clear_cache_on (notebook.id);
                         }
 
-                        NotebookTable.get_instance ().save_notebook (notebook.id, name_entry.text, {r,g,b}, style_changes.buffer.text, Viewer.STYLES[style_box.active]);
+                        NotebookTable.get_instance ().save_notebook (notebook.id, name_entry.text, {r,g,b}, style_changes.buffer.text, StyleLoader.STYLES[style_box.active]);
                     }
 
                     ENotes.Viewer.get_instance ().reload ();

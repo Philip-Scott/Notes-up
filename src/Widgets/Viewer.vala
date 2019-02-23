@@ -20,8 +20,6 @@
 */
 
 public class ENotes.Viewer : WebKit.WebView {
-    public static string[] STYLES = {_("Default"), ("elementary"), _("Air"), _("Modest")};
-
     private static Viewer? instance = null;
 
     public string CSS;
@@ -30,7 +28,6 @@ public class ENotes.Viewer : WebKit.WebView {
     public static Viewer get_instance () {
         if (instance == null) {
             instance = new Viewer ();
-            //Markdown.initialize ();
         }
 
         return instance;
@@ -47,28 +44,8 @@ public class ENotes.Viewer : WebKit.WebView {
 
             if (previous_page != null) {
                 var stylesheet = NotebookTable.get_instance ().get_stylesheet_from_page (previous_page.id);
-                set_styleshet (stylesheet);
+                CSS = StyleLoader.get_styleshet (stylesheet, previous_page.id);
             }
-        }
-    }
-
-    private void set_styleshet (string stylesheet, bool trying_global = false) {
-        switch (stylesheet) {
-            case "elementary": CSS = Styles.elementary.css; break;
-            case "Modest": CSS = Styles.modest.css; break;
-            case "Air": CSS = Styles.air.css; break;
-            default:
-                if (trying_global == false) {
-                    set_styleshet (ENotes.settings.stylesheet, true);
-                } else {
-                    CSS = Styles.elementary.css;
-                }
-
-            break;
-        }
-
-        if (!trying_global) {
-            CSS = CSS + ENotes.settings.render_stylesheet + NotebookTable.get_instance ().get_css_from_page (previous_page.id);
         }
     }
 
