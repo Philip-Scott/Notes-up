@@ -23,7 +23,18 @@ public class ENotes.StyleLoader {
     public static string[] STYLES = {_("Default"), "elementary", "Air", "Modest"};
     private const string RESOURCE_PATH = "resource:///com/github/philip-scott/notes-up/styles/%s.css";
 
-    public static string get_styleshet (string stylesheet, int64 current_page_id, bool trying_global = false) {
+    private static ENotes.StyleLoader? _instance = null;
+    public static ENotes.StyleLoader instance {
+        get {
+            if (_instance == null) {
+                _instance = new ENotes.StyleLoader ();
+            }
+
+            return _instance;
+        }
+    }
+
+    public string get_styleshet (string stylesheet, int64 current_page_id, bool trying_global = false) {
         string css;
 
         switch (stylesheet) {

@@ -24,6 +24,7 @@ public class ENotes.Viewer : WebKit.WebView {
 
     public string CSS;
     private Page? previous_page = null;
+    private StyleLoader style_loader;
 
     public static Viewer get_instance () {
         if (instance == null) {
@@ -34,6 +35,7 @@ public class ENotes.Viewer : WebKit.WebView {
     }
 
     private Viewer () {
+        style_loader = StyleLoader.instance;
         connect_signals ();
     }
 
@@ -44,7 +46,7 @@ public class ENotes.Viewer : WebKit.WebView {
 
             if (previous_page != null) {
                 var stylesheet = NotebookTable.get_instance ().get_stylesheet_from_page (previous_page.id);
-                CSS = StyleLoader.get_styleshet (stylesheet, previous_page.id);
+                CSS = style_loader.get_styleshet (stylesheet, previous_page.id);
             }
         }
     }
