@@ -32,12 +32,13 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
     private Gtk.Menu menu;
     private Gtk.MenuItem item_new;
     private Gtk.MenuItem item_preff;
-    private Gtk.MenuItem item_export;
+    private Gtk.MenuItem item_pdf_export;
+    private Gtk.MenuItem item_markdown_export;
 
-    public  Gtk.Button search_button;
-    public  Gtk.SearchEntry search_entry;
-    public  Gtk.Revealer search_entry_revealer;
-    public  Gtk.Revealer search_button_revealer;
+    public Gtk.Button search_button;
+    public Gtk.SearchEntry search_entry;
+    public Gtk.Revealer search_entry_revealer;
+    public Gtk.Revealer search_button_revealer;
 
     public Gtk.GestureSwipe gesture;
 
@@ -113,41 +114,21 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         menu = new Gtk.Menu ();
         item_new   = new Gtk.MenuItem.with_label (_("New Notebook"));
         item_preff = new Gtk.MenuItem.with_label (_("Preferences"));
-        item_export = new Gtk.MenuItem.with_label (_("Export to PDF"));
+
+        var item_export = new Gtk.MenuItem.with_label (_("Export as…"));
+        var export_submenu = new Gtk.Menu ();
+
+        item_pdf_export = new Gtk.MenuItem.with_label (_("Export as PDF"));
+        item_markdown_export = new Gtk.MenuItem.with_label (_("Export as Markdown"));
+
+        export_submenu.add (item_pdf_export);
+        export_submenu.add (item_markdown_export);
+
+        item_export.submenu = export_submenu;
+
         menu.add (item_new);
         menu.add (item_export);
         menu.add (item_preff);
-
-#if REMOVE_ELEMENTARY_FEATURES
-#else
-        try {
-            var contracts = Granite.Services.ContractorProxy.get_contracts_by_mime ("application/pdf");
-
-            menu.add (new Gtk.SeparatorMenuItem ());
-            foreach (var contract in contracts) {
-                var contract_item = new Gtk.MenuItem.with_label (contract.get_display_name ());
-                menu.add (contract_item);
-
-                contract_item.activate.connect (() => {
-                    if (ViewEditStack.get_instance ().current_page != null) {
-                        string name = ViewEditStack.get_instance ().current_page.name;
-                        var file = FileManager.export_pdf_action ("/tmp/%s.pdf".printf(name));
-
-                        Idle.add (() => {
-                            try {
-                                contract.execute_with_file (file);
-                            } catch (Error e) {
-                                warning ("Executing contract failed: %s", e.message);
-                            }
-                            return false;
-                        });
-                    }
-                });
-            }
-        } catch (Error e) {
-            warning ("Contractor proxy failed: %s", e.message);
-        }
-#endif
 
         menu_button = new Gtk.MenuButton ();
         menu_button.set_popup (menu);
@@ -174,8 +155,12 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
     }
 
     private void connect_signals () {
-        item_export.activate.connect (() => {
+        item_pdf_export.activate.connect (() => {
             ENotes.FileManager.export_pdf_action ();
+        });
+
+        item_markdown_export.activate.connect (() => {
+            ENotes.FileManager.export_markdown_action ();
         });
 
         item_new.activate.connect (() => {
@@ -217,19 +202,19 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         });
     }
 
-    public void show_search() {
+    public void show_search () {
         search_button_revealer.reveal_child = false;
         search_entry_revealer.reveal_child = true;
-        show_all();
+        show_all ();
         search_visible = true;
         search_entry.can_focus = true;
-        search_entry.grab_focus();
+        search_entry.grab_focus ();
     }
 
-    public void hide_search() {
+    public void hide_search () {
         search_entry_revealer.reveal_child = false;
         search_button_revealer.reveal_child = true;
-        show_all();
+        show_all ();
         search_visible = false;
     }
 }

@@ -133,16 +133,17 @@ public class ENotes.FileManager : Object {
 
         File file;
         if (file_path == null) {
-            file = get_file_from_user ();
-            if (!file.get_basename ().down ().has_suffix (".pdf")) {
-                file = File.new_for_path (file.get_path () + ".pdf");
-            }
+            file = get_file_from_user ("pdf", Gtk.FileChooserAction.SAVE);
         } else {
             file = File.new_for_path (file_path);
         }
 
         if (file == null) {
           return null;
+        }
+
+        if (!file.get_basename ().down ().has_suffix (".pdf")) {
+            file = File.new_for_path (file.get_path () + ".pdf");
         }
 
         try { // TODO: we have to write an empty file so we can get file path
@@ -160,6 +161,34 @@ public class ENotes.FileManager : Object {
         op.set_print_settings (settings);
 
         op.print ();
+
+        return file;
+    }
+
+    public static File? export_markdown_action (string? file_path = null) {
+        File file;
+        if (file_path == null) {
+            file = get_file_from_user ("md", Gtk.FileChooserAction.SAVE);
+        } else {
+            file = File.new_for_path (file_path);
+        }
+
+        if (file == null) {
+          return null;
+        }
+
+        if (!file.get_basename ().down ().has_suffix (".md")) {
+            file = File.new_for_path (file.get_path () + ".md");
+        }
+
+        var editor = ENotes.ViewEditStack.get_instance ().editor;
+        editor.save_file ();
+
+        try {
+            FileUtils.set_data (file.get_path (), (uint8[]) editor.current_page.data.to_utf8 ());
+        } catch (Error e) {
+            warning ("Failed to export file %s", e.message);
+        }
 
         return file;
     }
@@ -192,36 +221,51 @@ public class ENotes.FileManager : Object {
         }
     }
 
-    public static File? get_file_from_user (bool save_as_pdf = true) {
+    public static File? get_file_from_user (string filetype, Gtk.FileChooserAction chooser_action) {
         File? result = null;
 
         string title = "";
-        Gtk.FileChooserAction chooser_action = Gtk.FileChooserAction.SAVE;
         string accept_button_label = "";
         List<Gtk.FileFilter> filters = new List<Gtk.FileFilter> ();
 
-        if (save_as_pdf) {
-            title =  _("Select destination PDF file");
-            chooser_action = Gtk.FileChooserAction.SAVE;
+        switch (filetype) {
+            case "pdf":
+                title =  _("Save as PDF");
+                var filter = new Gtk.FileFilter ();
+                filter.set_filter_name (_("PDF File"));
+
+                filter.add_mime_type ("application/pdf");
+                filter.add_pattern ("*.pdf");
+
+                filters.append (filter);
+                break;
+            case "md":
+                title =  _("Save as Markdown");
+                var filter = new Gtk.FileFilter ();
+                filter.set_filter_name (_("Markdown File"));
+
+                filter.add_mime_type ("text/markdown");
+                filter.add_pattern ("*.md");
+
+                filters.append (filter);
+                break;
+            case "image":
+                title =  _("Open Image");
+
+                var filter = new Gtk.FileFilter ();
+                filter.set_filter_name (_("Images"));
+                filter.add_mime_type ("image/*");
+
+                filters.append (filter);
+                break;
+            default:
+                assert_not_reached ();
+        }
+
+        if (chooser_action == Gtk.FileChooserAction.SAVE) {
             accept_button_label = _("Save");
-
-            var pdf_filter = new Gtk.FileFilter ();
-            pdf_filter.set_filter_name (_("PDF File"));
-
-            pdf_filter.add_mime_type ("application/pdf");
-            pdf_filter.add_pattern ("*.pdf");
-
-            filters.append (pdf_filter);
         } else {
-            title =  _("Open file");
-            chooser_action = Gtk.FileChooserAction.OPEN;
             accept_button_label = _("Open");
-
-            var filter = new Gtk.FileFilter ();
-            filter.set_filter_name (_("Images"));
-            filter.add_mime_type ("image/*");
-
-            filters.append (filter);
         }
 
         var all_filter = new Gtk.FileFilter ();

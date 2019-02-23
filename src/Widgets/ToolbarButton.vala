@@ -88,7 +88,7 @@ public class ENotes.ToolbarButton : Gtk.Button {
                 }
             } else {
                 if (this.type == 1) {
-                    var file = FileManager.get_file_from_user (false);
+                    var file = FileManager.get_file_from_user ("image", Gtk.FileChooserAction.OPEN);
 
                     if (file != null) {
                         var image_id = ImageTable.get_instance ().save (ViewEditStack.get_instance ().current_page.id, file);

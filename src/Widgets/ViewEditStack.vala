@@ -39,8 +39,8 @@ public class ENotes.ViewEditStack : Gtk.Overlay {
     public signal void page_set (ENotes.Page page);
 
     private ENotes.BookmarkButton bookmark_button;
-    private ENotes.Viewer viewer;
-    private ENotes.Editor editor;
+    public ENotes.Viewer viewer { get; private set; }
+    public ENotes.Editor editor { get; private set; }
     private Gtk.Stack stack;
 
     public ENotes.Page? current_page {get; private set; default = null;}
