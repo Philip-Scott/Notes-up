@@ -120,25 +120,32 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
 
 #if REMOVE_ELEMENTARY_FEATURES
 #else
-        var separator = new Gtk.SeparatorMenuItem ();
-        menu.add (separator);
+        try {
+            var contracts = Granite.Services.ContractorProxy.get_contracts_by_mime ("application/pdf");
 
-        var contracts = Granite.Services.ContractorProxy.get_contracts_by_mime ("application/pdf");
-        foreach (var contract in contracts) {
-            var contract_item = new Gtk.MenuItem.with_label (contract.get_display_name ());
-            menu.add (contract_item);
+            menu.add (new Gtk.SeparatorMenuItem ());
+            foreach (var contract in contracts) {
+                var contract_item = new Gtk.MenuItem.with_label (contract.get_display_name ());
+                menu.add (contract_item);
 
-            contract_item.activate.connect (() => {
-                if (ViewEditStack.get_instance ().current_page != null) {
-                    string name = ViewEditStack.get_instance ().current_page.name;
-                    var file = FileManager.export_pdf_action ("/tmp/%s.pdf".printf(name));
+                contract_item.activate.connect (() => {
+                    if (ViewEditStack.get_instance ().current_page != null) {
+                        string name = ViewEditStack.get_instance ().current_page.name;
+                        var file = FileManager.export_pdf_action ("/tmp/%s.pdf".printf(name));
 
-                    Idle.add (() => {
-                        contract.execute_with_file (file);
-                        return false;
-                    });
-                }
-            });
+                        Idle.add (() => {
+                            try {
+                                contract.execute_with_file (file);
+                            } catch (Error e) {
+                                warning ("Executing contract failed: %s", e.message);
+                            }
+                            return false;
+                        });
+                    }
+                });
+            }
+        } catch (Error e) {
+            warning ("Contractor proxy failed: %s", e.message);
         }
 #endif
 

@@ -40,10 +40,6 @@ namespace Db {
         UPGRADE_ERROR,
         NO_UPGRADE_AVAILABLE
     }
-
-    public VerifyResult verify_database (out string app_version, out int schema_version) {
-        return VerifyResult.OK;
-    }
 }
 
 public abstract class DatabaseTable {
@@ -68,8 +64,7 @@ public abstract class DatabaseTable {
         var existed = file_db.query_exists ();
 
         // Open DB.
-        int res = Sqlite.Database.open_v2 (filename, out db, Sqlite.OPEN_READWRITE | Sqlite.OPEN_CREATE,
-                                           null);
+        Sqlite.Database.open_v2 (filename, out db, Sqlite.OPEN_READWRITE | Sqlite.OPEN_CREATE, null);
 
         // Check if we have write access to database.
         if (filename != Db.IN_MEMORY_NAME) {
@@ -106,17 +101,6 @@ public abstract class DatabaseTable {
                                  + "app_version TEXT, "
                                  + "user_data TEXT NULL"
                                  + ")", -1, out stmt);
-
-        // Query on db failed, copy over backup and open it
-        if (res != Sqlite.OK) {
-            db = null;
-
-            string backup_path = filename + ".bak";
-            string cmdline = "cp " + backup_path + " " + filename;
-            //Posix.system (cmdline);
-
-            prepare_db (filename);
-        }
 
         // disable synchronized commits for performance reasons ... this is not vital, hence we
         // don't error out if this fails

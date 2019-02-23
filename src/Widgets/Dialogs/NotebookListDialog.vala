@@ -22,7 +22,7 @@
 public class ENotes.NotebookListDialog : Gtk.Dialog {
 
     public NotebookListDialog (ENotes.Notebook notebook) {
-        title = "Move Notebook";
+        title = _("Move Notebook");
         set_size_request (450, 600);
         set_transient_for (window);
 
@@ -33,7 +33,8 @@ public class ENotes.NotebookListDialog : Gtk.Dialog {
         show_all ();
         show ();
 
-        var cancel = (Gtk.Button) this.add_button (_("Cancel"), 1);
+        add_button (_("Cancel"), 1);
+
         var move = (Gtk.Button) this.add_button (_("Move"), 2);
         move.get_style_context ().add_class ("suggested-action");
 

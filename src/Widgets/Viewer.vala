@@ -95,7 +95,7 @@ public class ENotes.Viewer : WebKit.WebView {
     }
 
     private void connect_signals () {
-        create.connect ((navigation_action)=> {
+        create.connect ((navigation_action) => {
             launch_browser (navigation_action.get_request().get_uri ());
             return null;
         });

@@ -76,10 +76,10 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
         font_label.set_halign (Gtk.Align.END);
         font_button = new Gtk.FontButton ();
         font_button.use_font = true;
-        font_button.use_size = true;
+        font_button.use_size = false;
 
         if (settings.editor_font != "") {
-            font_button.set_font_name (settings.editor_font);
+            font_button.set_font (settings.editor_font);
         }
 
         var scheme_label = new Gtk.Label (_("Theme:"));
@@ -219,10 +219,8 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
         });
 
         font_button.font_set.connect (() => {
-            unowned string name = font_button.get_font_name ();
-            settings.editor_font = name;
-
-            ENotes.Editor.get_instance ().set_font (name);
+            settings.editor_font = font_button.font;
+            ENotes.Editor.get_instance ().set_font (font_button.font);
         });
 
         scheme_box.changed.connect(() => {
