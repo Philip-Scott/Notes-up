@@ -149,6 +149,8 @@ public class ENotes.Editor : Gtk.Box {
 
     private Gtk.Box build_toolbar () {
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        box.get_style_context ().add_class ("toolbar");
+        box.get_style_context ().add_class ("inline-toolbar");
 
         bold_button = new ENotes.ToolbarButton (
             "format-text-bold-symbolic",
