@@ -126,22 +126,4 @@
 			<description>This must be the name of one of the installed languages</description>
 		</key>
 	</schema>
-
-	<schema path="/org/notes/notebook_data/" id="org.notes.notebook_data" gettext-domain="notes">
-		<child name="notebooks" schema="org.notes.notebook_data.notebook" />
-	</schema>
-
-	<schema id="org.notes.notebook_data.notebook" gettext-domain="notes">
-		<key name="stylesheet" type="s">
-			<default>"default"</default>
-			<summary>Stylesheet name for renderer to use</summary>
-			<description>This must be the name of one of the default stylesheets</description>
-		</key>
-		<key name="stylesheet-changes" type="s">
-			<default>""</default>
-			<summary>Stylesheet modifications for renderer to use</summary>
-			<description>This data is the actual CSS the renderer will use</description>
-		</key>
-	  	<child name="notebooks" schema="org.notes.notebook_data.notebook" />
-	</schema>
 </schemalist>
