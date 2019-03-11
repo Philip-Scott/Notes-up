@@ -105,8 +105,8 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         pages_list = ENotes.PagesList.get_instance ();
 
         view_edit_stack = ENotes.ViewEditStack.get_instance ();
-        editor = ENotes.Editor.get_instance ();
-        viewer = ENotes.Viewer.get_instance ();
+        editor = ENotes.ViewEditStack.get_instance ().editor;
+        viewer = ENotes.ViewEditStack.get_instance ().viewer;
 
         pane1.pack1 (sidebar, false, false);
         pane1.pack2 (pane2, true, false);
@@ -119,15 +119,15 @@ public class ENotes.Window : Gtk.ApplicationWindow {
     }
 
     private void bold_act () {
-        if (editor_open ()) Editor.get_instance ().bold_button.clicked ();
+        if (editor_open ()) ENotes.ViewEditStack.get_instance ().editor.bold_button.clicked ();
     }
 
     private void italics_act () {
-        if (editor_open ()) Editor.get_instance ().italics_button.clicked ();
+        if (editor_open ()) ENotes.ViewEditStack.get_instance ().editor.italics_button.clicked ();
     }
 
     private void strike_act () {
-        if (editor_open ()) Editor.get_instance ().strike_button.clicked ();
+        if (editor_open ()) ENotes.ViewEditStack.get_instance ().editor.strike_button.clicked ();
     }
 
     private bool editor_open () {

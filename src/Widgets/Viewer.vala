@@ -26,15 +26,7 @@ public class ENotes.Viewer : WebKit.WebView {
     private Page? previous_page = null;
     private StyleLoader style_loader;
 
-    public static Viewer get_instance () {
-        if (instance == null) {
-            instance = new Viewer ();
-        }
-
-        return instance;
-    }
-
-    private Viewer () {
+    public Viewer () {
         style_loader = StyleLoader.instance;
         connect_signals ();
     }

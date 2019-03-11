@@ -25,6 +25,7 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
     private Granite.Widgets.SourceList.ExpandableItem bookmarks = new Granite.Widgets.SourceList.ExpandableItem (_("Bookmarks"));
     private Granite.Widgets.SourceList.ExpandableItem trash = new Granite.Widgets.SourceList.ExpandableItem (_("Trash"));
     private Granite.Widgets.SourceList.Item? previous_selection = null;
+
     private NotebookList notebooks = new NotebookList (_("Notebooks"));
 
     private Gee.HashMap<int, NotebookItem> added_notebooks;
@@ -45,7 +46,7 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
         notebooks.collapse_all (true, true);
         root.expand_all (false, false);
     }
-    
+
     public Sidebar.notebook_list (ENotes.Notebook to_ignore) {
         build_new_ui ();
         notebooks.expand_all (true, false);
@@ -68,10 +69,10 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
         added_notebooks = new Gee.HashMap<int, NotebookItem>();
         var to_add = new Gee.ArrayList<NotebookItem>();
 
-        foreach (ENotes.Notebook notebook in notebook_list) {       
+        foreach (ENotes.Notebook notebook in notebook_list) {
             var item = new NotebookItem (notebook, add_menus);
             added_notebooks.set ((int) notebook.id, item);
-            
+
             if (to_ignore != null && to_ignore.id == notebook.id) continue;
 
             if (notebook.parent_id == 0) {
@@ -133,7 +134,7 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
                 }
             } else if (item is ENotes.NotebookItem) {
                 previous_selection = item;
-                ENotes.Editor.get_instance ().save_file ();
+                ENotes.ViewEditStack.get_instance ().editor.save_file ();
                 ENotes.PagesList.get_instance ().load_pages (((ENotes.NotebookItem) item).notebook);
             }
         });

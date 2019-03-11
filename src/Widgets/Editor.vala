@@ -86,15 +86,7 @@ public class ENotes.Editor : Gtk.Box {
     public ENotes.ToolbarButton italics_button;
     public ENotes.ToolbarButton strike_button;
 
-    public static Editor get_instance () {
-        if (instance == null) {
-            instance = new Editor ();
-        }
-
-        return instance;
-    }
-
-    private Editor () {
+    public Editor () {
         build_ui ();
         reset ();
         load_settings ();
@@ -103,6 +95,7 @@ public class ENotes.Editor : Gtk.Box {
             save_file ();
             return true;
         });
+
         new WordWrapper(); // used to enforce initialization of static members
     }
 

@@ -216,7 +216,7 @@ public class ENotes.PagesList : Gtk.Box {
     }
 
     public void new_blank_page () {
-        ENotes.Editor.get_instance ().save_file ();
+        ENotes.ViewEditStack.get_instance ().editor.save_file ();
         var page = PageTable.get_instance ().new_page (current_notebook.id);
         var page_item = new ENotes.PageItem (page);
 
@@ -258,7 +258,7 @@ public class ENotes.PagesList : Gtk.Box {
         });
 
         minus_button.clicked.connect (() => {
-            ENotes.Editor.get_instance ().set_sensitive (false);
+            ENotes.ViewEditStack.get_instance ().editor.set_sensitive (false);
             Headerbar.get_instance().set_title (null, null);
 
             var rows = listbox.get_selected_rows ();
@@ -280,7 +280,7 @@ public class ENotes.PagesList : Gtk.Box {
             window.toggle_edit ();
 
             if (ENotes.ViewEditStack.current_mode == Mode.EDIT) {
-                ENotes.Editor.get_instance ().give_focus ();
+                ENotes.ViewEditStack.get_instance ().editor.give_focus ();
             }
         });
 

@@ -184,7 +184,7 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
         line_numbers_switch.state_set.connect ((state) => {
             settings.line_numbers = state;
 
-            ENotes.Editor.get_instance ().show_line_numbers (state);
+            ENotes.ViewEditStack.get_instance ().editor.show_line_numbers (state);
             return false;
         });
 
@@ -198,13 +198,13 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
 
         spellcheck_switch.state_set.connect ((state) => {
             settings.spellcheck = state;
-            ENotes.Editor.get_instance ().spellcheck = state;
+            ENotes.ViewEditStack.get_instance ().editor.spellcheck = state;
             return false;
         });
 
         font_button.font_set.connect (() => {
             settings.editor_font = font_button.font;
-            ENotes.Editor.get_instance ().set_font (font_button.font);
+            ENotes.ViewEditStack.get_instance ().editor.set_font (font_button.font);
         });
 
         scheme_box.notify["style-scheme"].connect (() => {
@@ -213,7 +213,7 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
             var scheme_id = scheme.get_id ();
             settings.editor_scheme = scheme_id;
 
-            ENotes.Editor.get_instance ().set_scheme (scheme_id);
+            ENotes.ViewEditStack.get_instance ().editor.set_scheme (scheme_id);
         });
 
         stylesheet_box.changed.connect (() => {
@@ -231,9 +231,9 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
                 }
 
                 settings.render_stylesheet = style_box.buffer.text;
-                ENotes.Viewer.get_instance ().load_css (null, true);
-                ENotes.Viewer.get_instance ().reload ();
-                ENotes.Editor.get_instance ().load_settings ();
+                ENotes.ViewEditStack.get_instance ().viewer.load_css (null, true);
+                ENotes.ViewEditStack.get_instance ().viewer.reload ();
+                ENotes.ViewEditStack.get_instance ().editor.load_settings ();
                 destroy ();
             break;
         }
@@ -272,7 +272,7 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
     private void save_notebook_style (int selected) {
         PageTable.get_instance ().clear_cache_on (0);
         settings.stylesheet = StyleLoader.STYLES[selected + 1];
-        ENotes.Viewer.get_instance ().load_css (null, true);
-        ENotes.Viewer.get_instance ().reload ();
+        ENotes.ViewEditStack.get_instance ().viewer.load_css (null, true);
+        ENotes.ViewEditStack.get_instance ().viewer.reload ();
     }
 }

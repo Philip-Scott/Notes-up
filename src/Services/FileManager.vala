@@ -129,7 +129,7 @@ public class ENotes.FileManager : Object {
     }
 
     public static File? export_pdf_action (string? file_path = null) {
-        ENotes.Viewer.get_instance ().load_page (ENotes.Editor.get_instance ().current_page, true);
+        ENotes.ViewEditStack.get_instance ().viewer.load_page (ENotes.ViewEditStack.get_instance ().editor.current_page, true);
 
         File file;
         if (file_path == null) {
@@ -153,7 +153,7 @@ public class ENotes.FileManager : Object {
             return null;
         }
 
-        var op = new WebKit.PrintOperation (ENotes.Viewer.get_instance ());
+        var op = new WebKit.PrintOperation (ENotes.ViewEditStack.get_instance ().viewer);
         var settings = new Gtk.PrintSettings ();
         settings.set_printer (_("Print to File"));
 

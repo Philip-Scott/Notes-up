@@ -43,8 +43,8 @@ public class ENotes.ViewEditStack : Gtk.Overlay {
     public ENotes.Editor editor { get; private set; }
     private Gtk.Stack stack;
 
-    public ENotes.Page? current_page {get; private set; default = null;}
-    public ENotes.Notebook? current_notebook {get; private set; default = null;}
+    public ENotes.Page? current_page { get; private set; default = null;}
+    public ENotes.Notebook? current_notebook { get; private set; default = null;}
 
     public static ViewEditStack get_instance () {
         if (instance == null) {
@@ -57,8 +57,9 @@ public class ENotes.ViewEditStack : Gtk.Overlay {
     private ViewEditStack () {
         stack = new Gtk.Stack ();
 
-        viewer = ENotes.Viewer.get_instance ();
-        editor = ENotes.Editor.get_instance ();
+        editor = new ENotes.Editor ();
+        viewer = new ENotes.Viewer ();
+
         bookmark_button = BookmarkButton.get_instance ();
         stack.add_named (viewer, "viewer");
         stack.add_named (editor, "editor");
