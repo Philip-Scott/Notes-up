@@ -1,0 +1,232 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.calo001.luna package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.calo001.luna\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-02-09 18:56-0600\n"
+"PO-Revision-Date: 2019-03-14 13:50+0100\n"
+"Language-Team: Dutch <vistausss@outlook.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.1.1\n"
+"Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: nl_NL\n"
+
+#: src/configs/Strings.vala:28
+msgid "MON"
+msgstr "MA"
+
+#: src/configs/Strings.vala:29
+msgid "TUE"
+msgstr "DI"
+
+#: src/configs/Strings.vala:30
+msgid "WED"
+msgstr "WOE"
+
+#: src/configs/Strings.vala:31
+msgid "THU"
+msgstr "DO"
+
+#: src/configs/Strings.vala:32
+msgid "FRI"
+msgstr "VRIJ"
+
+#: src/configs/Strings.vala:33
+msgid "SAT"
+msgstr "ZA"
+
+#: src/configs/Strings.vala:34
+msgid "SUN"
+msgstr "ZO"
+
+#: src/configs/Strings.vala:35
+msgid "January"
+msgstr "januari"
+
+#: src/configs/Strings.vala:36
+msgid "February"
+msgstr "februari"
+
+#: src/configs/Strings.vala:37
+msgid "March"
+msgstr "maart"
+
+#: src/configs/Strings.vala:38
+msgid "April"
+msgstr "april"
+
+#: src/configs/Strings.vala:39
+msgid "May"
+msgstr "mei"
+
+#: src/configs/Strings.vala:40
+msgid "June"
+msgstr "juni"
+
+#: src/configs/Strings.vala:41
+msgid "July"
+msgstr "juli"
+
+#: src/configs/Strings.vala:42
+msgid "August"
+msgstr "augustus"
+
+#: src/configs/Strings.vala:43
+msgid "September"
+msgstr "september"
+
+#: src/configs/Strings.vala:44
+msgid "October"
+msgstr "oktober"
+
+#: src/configs/Strings.vala:45
+msgid "November"
+msgstr "november"
+
+#: src/configs/Strings.vala:46
+msgid "December"
+msgstr "december"
+
+#: src/configs/Strings.vala:47
+msgid "GO TODAY"
+msgstr "GA NAAR VANDAAG"
+
+#: src/configs/Strings.vala:48
+msgid "Select a theme color"
+msgstr "Kies een themakleur"
+
+#: src/configs/Strings.vala:49
+msgid "White"
+msgstr "Wit"
+
+#: src/configs/Strings.vala:50
+msgid "Black"
+msgstr "Zwart"
+
+#: src/configs/Strings.vala:51
+msgid "Pink"
+msgstr "Roze"
+
+#: src/configs/Strings.vala:52
+msgid "Red"
+msgstr "Rood"
+
+#: src/configs/Strings.vala:53
+msgid "Orange"
+msgstr "Oranje"
+
+#: src/configs/Strings.vala:54
+msgid "Green"
+msgstr "Groen"
+
+#: src/configs/Strings.vala:55
+msgid "Teal"
+msgstr "Groenblauw"
+
+#: src/configs/Strings.vala:56
+msgid "Yellow"
+msgstr "Geel"
+
+#: src/configs/Strings.vala:57
+msgid "Blue"
+msgstr "Blauw"
+
+#: src/configs/Strings.vala:58
+msgid "Purple"
+msgstr "Paars"
+
+#: src/configs/Strings.vala:59
+msgid "Coco"
+msgstr "Kokos"
+
+#: src/configs/Strings.vala:60
+msgid "Blue to Green"
+msgstr "Blauw met groen"
+
+#: src/configs/Strings.vala:61
+msgid "Purple to Red"
+msgstr "Paars met rood"
+
+#: src/configs/Strings.vala:62
+msgid "Pride"
+msgstr "Trots"
+
+#: src/configs/Strings.vala:63
+msgid "Transparent black"
+msgstr "Doorzichtig zwart"
+
+#: src/configs/Strings.vala:64
+msgid "Transparent white"
+msgstr "Doorzichtig wit"
+
+#: src/configs/Strings.vala:65
+msgid "Semi Transparent black"
+msgstr "Halfdoorzichtig zwart"
+
+#: src/configs/Strings.vala:66
+msgid "Semi Transparent white"
+msgstr "Halfdoorzichtig wit"
+
+#: data/com.github.calo001.luna.appdata.xml.in:7
+#: data/com.github.calo001.luna.desktop.in:3
+msgid "Luna"
+msgstr "Luna"
+
+#: data/com.github.calo001.luna.appdata.xml.in:8
+msgid "An amazing calendar widget"
+msgstr "Een geweldige kalenderwidget"
+
+#: data/com.github.calo001.luna.appdata.xml.in:9
+msgid "Carlos Lopez"
+msgstr "Carlos Lopez"
+
+#: data/com.github.calo001.luna.appdata.xml.in:31
+msgid ""
+"Select a theme color for the calendar and browse through the months and "
+"years with an intuitive interface."
+msgstr ""
+"Kies een themakleur voor de kalender en blader door de maanden en jaren "
+"met een intuïtieve navigatie."
+
+#: data/com.github.calo001.luna.appdata.xml.in:36
+msgid "New"
+msgstr "Nieuw"
+
+#: data/com.github.calo001.luna.appdata.xml.in:38
+msgid "A new look and feel!"
+msgstr "Een nieuw uiterlijk!"
+
+#: data/com.github.calo001.luna.appdata.xml.in:44
+msgid "Fixes"
+msgstr "Probleemoplossingen"
+
+#: data/com.github.calo001.luna.appdata.xml.in:46
+msgid "Delete \"label-today\" class when you are not in the current date"
+msgstr "\"Vandaag\" wordt niet getoond als je op de huidige datum staat"
+
+#: data/com.github.calo001.luna.appdata.xml.in:47
+msgid "A new more elemtary native look"
+msgstr "Een nieuw, meer elementary-achtig uiterlijk"
+
+#: data/com.github.calo001.luna.appdata.xml.in:53
+msgid "Initial 1.0.0 release!"
+msgstr "Initiële 1.0.0-uitgave!"
+
+#: data/com.github.calo001.luna.desktop.in:4
+msgid "An amazing calendar widget "
+msgstr "Een geweldige kalenderwidget "
+
+#: data/com.github.calo001.luna.desktop.in:5
+msgid "com.github.calo001.luna"
+msgstr "com.github.calo001.luna"
+
+#: data/com.github.calo001.luna.desktop.in:11
+msgid "calendar;day;month;year;"
+msgstr "kalender;dag;maand;jaar;"
