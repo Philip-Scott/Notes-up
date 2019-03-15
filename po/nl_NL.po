@@ -1,232 +1,464 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the com.github.calo001.luna package.
+# This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: com.github.calo001.luna\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-09 18:56-0600\n"
-"PO-Revision-Date: 2019-03-14 13:50+0100\n"
+"POT-Creation-Date: 2017-07-09 13:07-0500\n"
+"PO-Revision-Date: 2019-03-15 16:39+0100\n"
 "Language-Team: Dutch <vistausss@outlook.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.1.1\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: nl_NL\n"
 
-#: src/configs/Strings.vala:28
-msgid "MON"
-msgstr "MA"
+#: /home/felipe/Code/Notes-up/po/../src/Services/Page.vala:148
+#: /home/felipe/Code/Notes-up/po/../src/Services/Page.vala:212
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PagesList.vala:121
+msgid "New Page"
+msgstr "Nieuwe pagina"
 
-#: src/configs/Strings.vala:29
-msgid "TUE"
-msgstr "DI"
+#: /home/felipe/Code/Notes-up/po/../src/Services/FileManager.vala:150
+msgid "Print to File"
+msgstr "Afdrukken naar bestand"
 
-#: src/configs/Strings.vala:30
-msgid "WED"
-msgstr "WOE"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar.vala:25
+msgid "Notebooks"
+msgstr "Notitieboeken"
 
-#: src/configs/Strings.vala:31
-msgid "THU"
-msgstr "DO"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar.vala:26
+msgid "Bookmarks"
+msgstr "Bladwijzers"
 
-#: src/configs/Strings.vala:32
-msgid "FRI"
-msgstr "VRIJ"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar.vala:27
+msgid "Trash"
+msgstr "Prullenbak"
 
-#: src/configs/Strings.vala:33
-msgid "SAT"
-msgstr "ZA"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar.vala:110
+msgid "My First Notebook"
+msgstr "Mijn eerste notitieboek"
 
-#: src/configs/Strings.vala:34
-msgid "SUN"
-msgstr "ZO"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NotebookItem.vala:48
+msgid "Edit Notebook"
+msgstr "Notitieboek bewerken"
 
-#: src/configs/Strings.vala:35
-msgid "January"
-msgstr "januari"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NotebookItem.vala:49
+msgid "New Section"
+msgstr "Nieuwe sectie"
 
-#: src/configs/Strings.vala:36
-msgid "February"
-msgstr "februari"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NotebookItem.vala:50
+msgid "Delete Notebook"
+msgstr "Notitieboek verwijderen"
 
-#: src/configs/Strings.vala:37
-msgid "March"
-msgstr "maart"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Viewer.vala:23
+msgid "Default"
+msgstr "Standaard"
 
-#: src/configs/Strings.vala:38
-msgid "April"
-msgstr "april"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Viewer.vala:23
+msgid "Air"
+msgstr "Luchtig"
 
-#: src/configs/Strings.vala:39
-msgid "May"
-msgstr "mei"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Viewer.vala:23
+msgid "Modest"
+msgstr "Bescheiden"
 
-#: src/configs/Strings.vala:40
-msgid "June"
-msgstr "juni"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:61
+msgid "View"
+msgstr "Bekijken"
 
-#: src/configs/Strings.vala:41
-msgid "July"
-msgstr "juli"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:62
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:81
+msgid "Edit"
+msgstr "Bewerken"
 
-#: src/configs/Strings.vala:42
-msgid "August"
-msgstr "augustus"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:65
+msgid "Change mode"
+msgstr "Modus aanpassen"
 
-#: src/configs/Strings.vala:43
-msgid "September"
-msgstr "september"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:83
+msgid "Search your current notebook"
+msgstr "Doorzoek je huidige notitieboek"
 
-#: src/configs/Strings.vala:44
-msgid "October"
-msgstr "oktober"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:108
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:104
+msgid "New Notebook"
+msgstr "Nieuw notitieboek"
 
-#: src/configs/Strings.vala:45
-msgid "November"
-msgstr "november"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:109
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:43
+msgid "Preferences"
+msgstr "Voorkeuren"
 
-#: src/configs/Strings.vala:46
-msgid "December"
-msgstr "december"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:110
+msgid "Export to PDF"
+msgstr "Exporteren naar PDF"
 
-#: src/configs/Strings.vala:47
-msgid "GO TODAY"
-msgstr "GA NAAR VANDAAG"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/BookmarkButton.vala:44
+msgid "Bookmark page"
+msgstr "Pagina toevoegen aan bladwijzers"
 
-#: src/configs/Strings.vala:48
-msgid "Select a theme color"
-msgstr "Kies een themakleur"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:111
+msgid "Add bold to text"
+msgstr "Vetgedrukte tekst toevoegen"
 
-#: src/configs/Strings.vala:49
-msgid "White"
-msgstr "Wit"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:112
+msgid "Add italic to text"
+msgstr "Cursieve tekst toevoegen"
 
-#: src/configs/Strings.vala:50
-msgid "Black"
-msgstr "Zwart"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:113
+msgid "Strikethrough text"
+msgstr "Doorgehaalde tekst toevoegen"
 
-#: src/configs/Strings.vala:51
-msgid "Pink"
-msgstr "Roze"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:115
+msgid "Insert a quote"
+msgstr "Citaat invoegen"
 
-#: src/configs/Strings.vala:52
-msgid "Red"
-msgstr "Rood"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:116
+msgid "Insert code"
+msgstr "Code invoegen"
 
-#: src/configs/Strings.vala:53
-msgid "Orange"
-msgstr "Oranje"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:117
+msgid "Insert a link"
+msgstr "Link invoegen"
 
-#: src/configs/Strings.vala:54
-msgid "Green"
-msgstr "Groen"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:119
+msgid "Add a bulleted list"
+msgstr "Lijst met opsommingstekens toevoegen"
 
-#: src/configs/Strings.vala:55
-msgid "Teal"
-msgstr "Groenblauw"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:120
+msgid "Add a Numbered list"
+msgstr "Genummerde lijst toevoegen"
 
-#: src/configs/Strings.vala:56
-msgid "Yellow"
-msgstr "Geel"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:122
+msgid "Insert an image"
+msgstr "Afbeelding invoegen"
 
-#: src/configs/Strings.vala:57
-msgid "Blue"
-msgstr "Blauw"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:159
+msgid "Formatting"
+msgstr "Opmaak"
 
-#: src/configs/Strings.vala:58
-msgid "Purple"
-msgstr "Paars"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:51
+msgid "Editor"
+msgstr "Bewerker"
 
-#: src/configs/Strings.vala:59
-msgid "Coco"
-msgstr "Kokos"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:52
+msgid "Viewer"
+msgstr "Weergave"
 
-#: src/configs/Strings.vala:60
-msgid "Blue to Green"
-msgstr "Blauw met groen"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:65
+msgid "_Close"
+msgstr "_Sluiten"
 
-#: src/configs/Strings.vala:61
-msgid "Purple to Red"
-msgstr "Paars met rood"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:73
+msgid "Font:"
+msgstr "Lettertype:"
 
-#: src/configs/Strings.vala:62
-msgid "Pride"
-msgstr "Trots"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:83
+msgid "Theme:"
+msgstr "Thema:"
 
-#: src/configs/Strings.vala:63
-msgid "Transparent black"
-msgstr "Doorzichtig zwart"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:108
+msgid "Automatic indentation:"
+msgstr "Automatisch inspringen:"
 
-#: src/configs/Strings.vala:64
-msgid "Transparent white"
-msgstr "Doorzichtig wit"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:116
+msgid "Show line Numbers:"
+msgstr "Regelnummers tonen:"
 
-#: src/configs/Strings.vala:65
-msgid "Semi Transparent black"
-msgstr "Halfdoorzichtig zwart"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:124
+msgid "Keep Sidebar Visible:"
+msgstr "Zijpaneel altijd zichtbaar:"
 
-#: src/configs/Strings.vala:66
-msgid "Semi Transparent white"
-msgstr "Halfdoorzichtig wit"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:152
+msgid "Global style modifications"
+msgstr "Algemene stijlaanpassingen"
 
-#: data/com.github.calo001.luna.appdata.xml.in:7
-#: data/com.github.calo001.luna.desktop.in:3
-msgid "Luna"
-msgstr "Luna"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PreferencesDialog.vala:165
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:134
+msgid "Stylesheet:"
+msgstr "Stijlblad:"
 
-#: data/com.github.calo001.luna.appdata.xml.in:8
-msgid "An amazing calendar widget"
-msgstr "Een geweldige kalenderwidget"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:62
+msgid "Name:"
+msgstr "Naam:"
 
-#: data/com.github.calo001.luna.appdata.xml.in:9
-msgid "Carlos Lopez"
-msgstr "Carlos Lopez"
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:63
+msgid "Color:"
+msgstr "Kleur:"
 
-#: data/com.github.calo001.luna.appdata.xml.in:31
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:71
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:84
+msgid "Create"
+msgstr "Creëren"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:102
+msgid "Properties"
+msgstr "Eigenschappen"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:103
+msgid "Style"
+msgstr "Stijl"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/NewNotebookDialog.vala:121
+msgid "Style modifications"
+msgstr "Stijlaanpassingen"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/TrashItem.vala:28
+msgid "Restore"
+msgstr "Herstellen"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:41
+msgid "Large Header"
+msgstr "Grote kop"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:42
+msgid "Medium Header"
+msgstr "Middelgrote kop"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:43
+msgid "Small Header"
+msgstr "Kleine kop"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:45
+msgid "<i>Italic</i>"
+msgstr "<i>Cursief</i>"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:45
+msgid "_italic_"
+msgstr "_cursief_"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:46
+msgid "<b>Bold</b>"
+msgstr "<b>Vetgedrukt</b>"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:46
+msgid "**bold**"
+msgstr "**vetgedrukt**"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:47
+msgid "<s>Strike</s>"
+msgstr "<s>Doorhalen</s>"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:47
+msgid "~~strike~~"
+msgstr "~~doorhalen~~"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:48
+msgid "|  <i>quote</i>"
+msgstr "|  <i>citaat</i>"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:50
+msgid "1. Numbered list"
+msgstr "1. Genummerde lijst"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:51
+msgid "⚫ Bulleted list"
+msgstr "⚫ Opsommingslijst"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:53
+msgid "Divider"
+msgstr "Scheiding"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:54
+msgid "Code"
+msgstr "Code"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:55
+msgid "Code Block"
+msgstr "Codeblok"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:56
+msgid "Link"
+msgstr "Link"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:56
+msgid "[Text](www...) "
+msgstr "[Tekst](www...) "
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:57
+msgid "Citation Anchor"
+msgstr "Citaatanker"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:58
+msgid "Citation Text"
+msgstr "Citaattekst"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:60
+msgid "Youtube Video"
+msgstr "YouTube-video"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:60
+msgid "<youtube [link]>"
+msgstr "<youtube [link]>"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:61
+msgid "Page Break (when exporting)"
+msgstr "Pagina-einde (tijdens exporteren)"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:62
+msgid "Enable Syntax Highlighting"
+msgstr "Syntaxmarkering inschakelen"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:63
+msgid "Set Color"
+msgstr "Kleur instellen"
+
+#. //bugzilla.gnome.org/show_bug.cgi?id=758000 is fixed.
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PagesList.vala:201
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/PagesList.vala:300
+#, c-format
+msgid "%i Page"
+msgid_plural "%i Pages"
+msgstr[0] "%i pagina"
+msgstr[1] "%i pagina's"
+
+#: /home/felipe/Code/Notes-up/po/../src/Widgets/BookmarkItem.vala:54
+msgid "Remove"
+msgstr "Verwijderen"
+
+#. / These keys must be valid since they will be used across the app
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:36
+msgid "<Ctrl>M"
+msgstr "<Ctrl>M"
+
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:37
+msgid "<Ctrl>S"
+msgstr "<Ctrl>S"
+
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:38
+msgid "<Ctrl>Q"
+msgstr "<Ctrl>Q"
+
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:39
+msgid "<Ctrl><Shift>N"
+msgstr "<Ctrl><Shift>N"
+
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:40
+msgid "<Ctrl>F"
+msgstr "<Ctrl>F"
+
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:41
+msgid "<Ctrl>K"
+msgstr "<Ctrl>K"
+
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:42
+msgid "<Ctrl>B"
+msgstr "<Ctrl>B"
+
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:43
+msgid "<Ctrl>I"
+msgstr "<Ctrl>I"
+
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:44
+msgid "<Ctrl>T"
+msgstr "<Ctrl>T"
+
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:62
+msgid "Notes-Up"
+msgstr "Notes-Up"
+
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:63
+msgid "Your Markdown Notebook."
+msgstr "Jouw markdown-notitieboek."
+
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:64
+msgid "About Notes"
+msgstr "Over Notities"
+
+#: /home/felipe/Code/Notes-up/po/../src/Application.vala:82
+msgid "translator-credits"
+msgstr "Heimen Stoffels"
+
+#: /home/felipe/Code/Notes-up/po/../src/Plugins/Color.vala:35
 msgid ""
-"Select a theme color for the calendar and browse through the months and "
-"years with an intuitive interface."
+"Set font color for the line with <color [#color]> or for some text with "
+"<color [color] [text]>"
 msgstr ""
-"Kies een themakleur voor de kalender en blader door de maanden en jaren "
-"met een intuïtieve navigatie."
+"Stel de lettertypekleur in van de regel <color [#kleur]> of, voor "
+"tekst, met <color [kleur] [tekst]>"
 
-#: data/com.github.calo001.luna.appdata.xml.in:36
-msgid "New"
-msgstr "Nieuw"
+#: /home/felipe/Code/Notes-up/po/../src/Plugins/Color.vala:39
+#: /home/felipe/Code/Notes-up/po/../src/Plugins/Color.vala:68
+msgid "Font color"
+msgstr "Lettertypekleur"
 
-#: data/com.github.calo001.luna.appdata.xml.in:38
-msgid "A new look and feel!"
-msgstr "Een nieuw uiterlijk!"
+#: /home/felipe/Code/Notes-up/po/../src/Plugins/Youtube.vala:30
+msgid "Embed youtube videos: <youtube [video]>"
+msgstr "Sluit een YouTube-video in met <youtube [video]>"
 
-#: data/com.github.calo001.luna.appdata.xml.in:44
-msgid "Fixes"
-msgstr "Probleemoplossingen"
+#: /home/felipe/Code/Notes-up/po/../src/Plugins/Youtube.vala:34
+msgid "Youtube"
+msgstr "YouTube"
 
-#: data/com.github.calo001.luna.appdata.xml.in:46
-msgid "Delete \"label-today\" class when you are not in the current date"
-msgstr "\"Vandaag\" wordt niet getoond als je op de huidige datum staat"
+#: /home/felipe/Code/Notes-up/po/../src/Plugins/Youtube.vala:42
+msgid "Insert Youtube video"
+msgstr "YouTube-video invoegen"
 
-#: data/com.github.calo001.luna.appdata.xml.in:47
-msgid "A new more elemtary native look"
-msgstr "Een nieuw, meer elementary-achtig uiterlijk"
+#: /home/felipe/Code/Notes-up/po/../src/Plugins/Break.vala:28
+msgid "Page break when exporting to PDF: <break>"
+msgstr "Pagina-einde tijdens exporteren naar PDF: <break>"
 
-#: data/com.github.calo001.luna.appdata.xml.in:53
-msgid "Initial 1.0.0 release!"
-msgstr "Initiële 1.0.0-uitgave!"
+#: /home/felipe/Code/Notes-up/po/../src/Plugins/Break.vala:32
+msgid "Page break"
+msgstr "Pagina-einde"
 
-#: data/com.github.calo001.luna.desktop.in:4
-msgid "An amazing calendar widget "
-msgstr "Een geweldige kalenderwidget "
+#: /home/felipe/Code/Notes-up/po/../src/Plugins/Break.vala:47
+msgid "Page break on export: <break>"
+msgstr "Pagina-einde tijdens exporteren: <break>"
 
-#: data/com.github.calo001.luna.desktop.in:5
-msgid "com.github.calo001.luna"
-msgstr "com.github.calo001.luna"
+#: /home/felipe/Code/Notes-up/po/../src/Plugins/Highlight.vala:28
+msgid "Enable Syntax Highlighing"
+msgstr "Syntaxmarkering inschakelen"
 
-#: data/com.github.calo001.luna.desktop.in:11
-msgid "calendar;day;month;year;"
-msgstr "kalender;dag;maand;jaar;"
+#: /home/felipe/Code/Notes-up/po/../src/Plugins/Highlight.vala:32
+msgid "Syntax Highlighing"
+msgstr "Syntaxmarkering"
+
+#: /home/felipe/Code/Notes-up/po/../src/Plugins/Image.vala:28
+msgid "Load an embeded image"
+msgstr "Ingesloten afbeelding laden"
+
+#: /home/felipe/Code/Notes-up/po/../src/Plugins/Image.vala:32
+msgid "Image"
+msgstr "Afbeelding"
+
+#: Services/FileManager.vala:197
+msgid "Select destination PDF file"
+msgstr "Kies de bestemming"
+
+#: Services/FileManager.vala:199
+msgid "Save"
+msgstr "Opslaan"
+
+#: Services/FileManager.vala:202
+msgid "PDF File"
+msgstr "PDF-bestand"
+
+#: Services/FileManager.vala:209
+msgid "Open file"
+msgstr "Bestand openen"
+
+#: Services/FileManager.vala:211
+msgid "Open"
+msgstr "Openen"
+
+#: Services/FileManager.vala:214
+msgid "Images"
+msgstr "Afbeeldingen"
+
+#: Services/FileManager.vala:221
+msgid "All Files"
+msgstr "Alle bestanden"
+
+#: Widgets/Dialogs/PreferencesDialog.vala:133
+msgid "Spellcheck:"
+msgstr "Spellingcontrole:"
