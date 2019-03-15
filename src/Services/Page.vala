@@ -200,6 +200,33 @@ public class ENotes.PageTable : DatabaseTable {
         return pages;
     }
 
+    public Gee.ArrayList<Page> get_all_pages () {
+        var stmt = create_stmt ("SELECT id, name, subtitle, data FROM Page");
+
+        var pages = new Gee.ArrayList<Page>();
+
+        for (;;) {
+            var res = stmt.step ();
+            if (res == Sqlite.DONE) {
+                break;
+            } else if (res != Sqlite.ROW) {
+                fatal ("get_notebooks", res);
+                break;
+            }
+
+            var row = new Page ();
+
+            row.id = stmt.column_int64 (0);
+            row.name = stmt.column_text (1);
+            row.subtitle = stmt.column_text (2);
+            row.data = stmt.column_text (3);
+
+            pages.add (row);
+        }
+
+        return pages;
+    }
+
     public void delete_page (int64 id) {
         ImageTable.get_instance ().delete_all_from_page (id);
 

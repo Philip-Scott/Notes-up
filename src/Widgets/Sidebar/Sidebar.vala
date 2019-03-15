@@ -25,6 +25,7 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
     private Granite.Widgets.SourceList.ExpandableItem bookmarks = new Granite.Widgets.SourceList.ExpandableItem (_("Bookmarks"));
     private Granite.Widgets.SourceList.ExpandableItem trash = new Granite.Widgets.SourceList.ExpandableItem (_("Trash"));
     private Granite.Widgets.SourceList.Item? previous_selection = null;
+    private Granite.Widgets.SourceList.Item all_notes;
 
     private NotebookList notebooks = new NotebookList (_("Notebooks"));
 
@@ -39,6 +40,11 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
     }
 
     private Sidebar () {
+        // Hidden until new UX for tagging/notebooks is figured out
+        all_notes = new Granite.Widgets.SourceList.Item ("");
+        all_notes.markup = "<span foreground='#000' weight='heavy'>%s</span>".printf (_("Notes"));
+        all_notes.visible = false;
+
         build_new_ui ();
         load_notebooks ();
         load_bookmarks ();
@@ -136,6 +142,8 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
                 previous_selection = item;
                 ENotes.ViewEditStack.get_instance ().editor.save_file ();
                 ENotes.PagesList.get_instance ().load_pages (((ENotes.NotebookItem) item).notebook);
+            } else if (item == all_notes) {
+                ENotes.PagesList.get_instance ().load_all_pages ();
             }
         });
 

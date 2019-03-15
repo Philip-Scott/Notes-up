@@ -206,6 +206,31 @@ public class ENotes.PagesList : Gtk.Box {
         loading_pages = false;
     }
 
+    public void load_all_pages () {
+        loading_pages = true;
+
+        clear_pages ();
+
+        var pages = PageTable.get_instance ().get_all_pages ();
+
+        foreach (ENotes.Page page in pages) {
+            new_page (page);
+        }
+
+        toolbar.set_sensitive (true);
+        minus_button.set_sensitive (false);
+
+        var page_label = dngettext ("notes-up", "%i Page", "%i Pages", added_pages.size);
+        page_total.label = page_label.printf (added_pages.size);
+
+        this.notebook_name.label = "Notes:";
+        listbox.show_all ();
+
+        //  select_page (ENotes.ViewEditStack.get_instance ().current_page);
+
+        loading_pages = false;
+    }
+
     private ENotes.PageItem new_page (ENotes.Page page) {
         var page_box = new ENotes.PageItem (page);
         listbox.add (page_box);
