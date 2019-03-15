@@ -382,7 +382,7 @@ msgid ""
 "Set font color for the line with <color [#color]> or for some text with "
 "<color [color] [text]>"
 msgstr ""
-"Stel de lettertypekleur in van de regel <color [#kleur]> of, voor "
+"Stel de lettertypekleur in van de regel met <color [#kleur]> of, voor "
 "tekst, met <color [kleur] [tekst]>"
 
 #: /home/felipe/Code/Notes-up/po/../src/Plugins/Color.vala:39
