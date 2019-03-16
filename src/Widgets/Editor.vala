@@ -20,7 +20,7 @@
 */
 
 public class ENotes.Editor : Gtk.Box {
-    private static Editor? instance = null;
+    private ENotes.PageInfoEditor page_info;
 
     private Gtk.SourceView code_view;
     private Gtk.SourceBuffer code_buffer;
@@ -47,6 +47,7 @@ public class ENotes.Editor : Gtk.Box {
             code_buffer.end_not_undoable_action ();
 
             set_sensitive (true);
+            page_info.page = value;
         }
     }
 
@@ -108,6 +109,7 @@ public class ENotes.Editor : Gtk.Box {
         code_view = new Gtk.SourceView.with_buffer (code_buffer);
 
         set_size_request (250,50);
+        orientation = Gtk.Orientation.VERTICAL;
         expand = true;
 
         code_buffer.changed.connect (trigger_changed);
@@ -131,19 +133,20 @@ public class ENotes.Editor : Gtk.Box {
             Services.Settings.get_instance ().spellcheck_language = spell.get_language ();
         });
 
-        this.set_orientation (Gtk.Orientation.VERTICAL);
-        this.add (build_toolbar ());
-        this.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
-        this.add (editor_and_help);
-        this.set_sensitive (false);
+        page_info = new ENotes.PageInfoEditor ();
+
+        add (page_info);
+        add (build_toolbar ());
+        add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        add (editor_and_help);
+        set_sensitive (false);
         scroll_box.expand = true;
-        this.show_all ();
+
+        show_all ();
     }
 
     private Gtk.Box build_toolbar () {
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        box.get_style_context ().add_class ("toolbar");
-        box.get_style_context ().add_class ("inline-toolbar");
 
         bold_button = new ENotes.ToolbarButton (
             "format-text-bold-symbolic",
@@ -178,13 +181,20 @@ public class ENotes.Editor : Gtk.Box {
         var separator1 = new Gtk.Separator (Gtk.Orientation.VERTICAL);
         var separator2 = new Gtk.Separator (Gtk.Orientation.VERTICAL);
         var separator3 = new Gtk.Separator (Gtk.Orientation.VERTICAL);
+        var separator4 = new Gtk.Separator (Gtk.Orientation.VERTICAL);
+
         separator1.margin_start = 4;
         separator2.margin_start = 4;
         separator3.margin_start = 4;
+        separator4.margin_start = 4;
+
         separator1.margin_end = 4;
         separator2.margin_end = 4;
         separator3.margin_end = 4;
+        separator4.margin_end = 4;
 
+        box.add (page_info.get_toggle_button ());
+        box.add (separator4);
         box.add (bold_button);
         box.add (italics_button);
         box.add (strike_button);

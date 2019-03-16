@@ -98,6 +98,7 @@ vala_precompile(VALA_C
   src/Widgets/ToolbarButton.vala
   src/Widgets/BookmarkButton.vala
   src/Widgets/PageItem.vala
+  src/Widgets/PageInfoEditor.vala
   src/Widgets/PagesList.vala
   src/Widgets/Viewer.vala
   src/Widgets/Window.vala

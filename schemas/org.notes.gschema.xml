@@ -85,6 +85,12 @@
 			<description>Toggles the sidebar to keep it visible when switching between VIEW and EDIT modes.</description>
 		</key>
 
+		<key name="show-notes-info" type="b">
+			<default>true</default>
+			<summary>The last state of the notes-info bar</summary>
+			<description>Set to true by default for discoverability</description>
+		</key>
+
 		<key name="spellcheck" type="b">
 			<default>true</default>
 			<summary>Enable spellcheck</summary>
