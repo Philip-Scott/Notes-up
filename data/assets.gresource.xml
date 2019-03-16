@@ -5,4 +5,7 @@
     <file alias="elementary.css" compressed="true" preprocess="">assets/stylesheets/min/elementary.min.css</file>
     <file alias="Modest.css" compressed="true" preprocess="">assets/stylesheets/min/modest.min.css</file>
   </gresource>
+  <gresource prefix="/com/github/philip-scott/notes-up/icons">
+    <file alias="notebook-symbolic.svg" compressed="false" preprocess="">icons/symbolic/notebook-symbolic.svg</file>
+  </gresource>
 </gresources>

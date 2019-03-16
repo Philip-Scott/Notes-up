@@ -78,6 +78,8 @@ public class ENotes.Application : Granite.Application {
 
         build_version = Constants.VERSION;
         state = new State ();
+
+
     }
 
     public override void activate () {
@@ -111,6 +113,9 @@ public class ENotes.Application : Granite.Application {
             this.add_window (window);
 
             running = true;
+
+            weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
+            default_theme.add_resource_path ("/com/github/philip-scott/notes-up/icons/");
         }
 
         window.show_app ();

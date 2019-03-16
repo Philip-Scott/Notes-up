@@ -41,10 +41,10 @@ public class ENotes.Sidebar : Granite.Widgets.SourceListPatch {
         return instance;
     }
 
-    private Sidebar () {
+    public Sidebar () {
         selectring_notebook = true;
 
-        notebooks.icon = new GLib.ThemedIcon ("x-office-address-book");
+        notebooks.icon = new GLib.ThemedIcon ("notebook-symbolic");
         trash.icon = new GLib.ThemedIcon ("edit-delete-symbolic");
         bookmarks.icon = new GLib.ThemedIcon ("user-bookmarks");
 
@@ -174,7 +174,7 @@ public class ENotes.Sidebar : Granite.Widgets.SourceListPatch {
             if (item != null && item is ENotes.BookmarkItem) {
                 // If viewing page == the bookmark, select the notebook. if not just open the page
                 if (app.state.opened_page.equals (((ENotes.BookmarkItem) item).get_page ())) {
-                    select_notebook (((ENotes.BookmarkItem) item).parent_notebook);
+                    app.state.open_notebook (((ENotes.BookmarkItem) item).parent_notebook);
                     app.state.opened_page = ((ENotes.BookmarkItem) item).get_page ();
                 } else {
                     app.state.opened_page = ((ENotes.BookmarkItem) item).get_page ();

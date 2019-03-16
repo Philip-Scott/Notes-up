@@ -129,8 +129,7 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
         notebook_css_provider = new Gtk.CssProvider ();
         current_notebook.get_style_context ().add_provider (notebook_css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-        // TODO: Add a Notebook icon
-        button_grid.add (new Gtk.Image.from_icon_name ("x-office-address-book-symbolic", Gtk.IconSize.MENU));
+        button_grid.add (new Gtk.Image.from_icon_name ("notebook-symbolic", Gtk.IconSize.MENU));
         button_grid.add (current_notebook);
 
         current_notebook_button.add (button_grid);
