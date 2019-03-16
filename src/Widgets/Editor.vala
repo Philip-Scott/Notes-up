@@ -30,10 +30,17 @@ public class ENotes.Editor : Gtk.Box {
 
     private ENotes.Page? _current_page = null;
 
-    public ENotes.Page current_page {
+    public ENotes.Page? current_page {
         get {
             return _current_page;
         } set {
+            if (value == null) {
+                set_sensitive (false);
+                return;
+            } else {
+                set_sensitive (!Trash.get_instance ().is_page_trashed (value));
+            }
+
             code_buffer.begin_not_undoable_action ();
 
             save_file ();
@@ -43,8 +50,6 @@ public class ENotes.Editor : Gtk.Box {
 
             edited = false;
             code_buffer.end_not_undoable_action ();
-
-            set_sensitive (true);
         }
     }
 
@@ -137,6 +142,10 @@ public class ENotes.Editor : Gtk.Box {
         scroll_box.expand = true;
 
         show_all ();
+
+        app.state.notify["opened-page"].connect (() => {
+            current_page = app.state.opened_page;
+        });
     }
 
     private Gtk.Box build_toolbar () {

@@ -87,11 +87,8 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         italics_action.activate.connect (italics_act);
         strike_action.activate.connect (strike_act);
 
-        headerbar.mode_changed.connect ((mode) => {
-            set_mode (mode);
-        });
-
         Sidebar.get_instance ().first_start ();
+
         load_settings ();
     }
 
@@ -162,8 +159,8 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         settings.window_width = width;
         settings.window_height = height;
         settings.mode = app.state.mode;
-        settings.last_notebook = (int) app.state.opened_notebook.id;
-        settings.last_page = (int) app.state.opened_page.id;
+        settings.last_notebook = app.state.opened_notebook != null ? (int) app.state.opened_notebook.id : 0;
+        settings.last_page = app.state.opened_page != null ? (int) app.state.opened_page.id : 0;
 
         Trash.get_instance ().clear_files ();
 
@@ -175,19 +172,13 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         pane1.position = settings.notebook_panel_size;
         pane2.position = settings.panel_size;
 
-        if (settings.last_notebook != 0) {
-            var notebook = NotebookTable.get_instance ().load_notebook_data (settings.last_notebook);
+        app.state.mode = ENotes.Mode.get_mode (settings.mode);
 
-            app.state.opened_notebook = notebook;
-        } else {
-            app.state.opened_notebook = null;
-        }
+        app.state.open_notebook (settings.last_notebook);
 
         if (settings.last_page != 0) {
-            app.state.opened_page = PageTable.get_instance ().get_page (settings.last_page);
+            app.state.open_page (settings.last_page);
         }
-
-        app.state.mode = ENotes.Mode.get_mode (settings.mode);
     }
 
     private void new_page () {

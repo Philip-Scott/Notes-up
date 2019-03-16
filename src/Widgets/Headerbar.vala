@@ -20,8 +20,6 @@
 */
 
 public class ENotes.Headerbar : Gtk.HeaderBar {
-    public signal void mode_changed (ENotes.Mode mode);
-
     public ENotes.BookmarkButton bookmark_button;
 
     private Granite.Widgets.ModeButton mode_button;
@@ -162,9 +160,9 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
 
         mode_button.mode_changed.connect ((widget) => {
             if (mode_button.selected == 0) {
-                mode_changed (ENotes.Mode.VIEW);
+                app.state.mode = ENotes.Mode.VIEW;
             } else {
-                mode_changed (ENotes.Mode.EDIT);
+                app.state.mode = ENotes.Mode.EDIT;
             }
         });
 
@@ -186,6 +184,10 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
             }
 
             return false;
+        });
+
+        app.state.notify["mode"].connect (() => {
+            mode_button.set_active (app.state.mode);
         });
 
         app.state.update_page_title.connect (() => {

@@ -51,14 +51,14 @@ public class ENotes.PageItem : Gtk.ListBoxRow {
         title_label.margin_top = 8;
         title_label.margin_start = 9;
         title_label.margin_end = 9;
-        title_label.margin_bottom = 8;
+        title_label.margin_bottom = 6;
 
         preview_label = new Gtk.Label ("");
         preview_label.halign = Gtk.Align.START;
         preview_label.margin_top = 0;
         preview_label.margin_start = 9;
         preview_label.margin_end = 9;
-        preview_label.margin_bottom = 7;
+        preview_label.margin_bottom = 9;
         preview_label.use_markup = true;
         preview_label.set_line_wrap (true);
         preview_label.ellipsize = Pango.EllipsizeMode.END;

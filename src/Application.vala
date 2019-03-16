@@ -117,15 +117,13 @@ public class ENotes.Application : Granite.Application {
     // Dummy class that holds the current app state so other elements can interact with it
     public class State : Object {
         public signal void update_page_title ();
-        public ENotes.Page? opened_page { get; set; default = null; }
-        public ENotes.Notebook? opened_page_notebook { get; set; default = null; }
 
-        /**
-         * Set to null to open all notebooks.
-         */
-        public ENotes.Notebook? opened_notebook { get; set; default = null; }
+        public ENotes.Page? opened_page { get; set; }
 
-        public ENotes.Mode mode { get; set; default = ENotes.Mode.VIEW; }
+        public ENotes.Notebook? opened_page_notebook { get; set;  }
+        public ENotes.Notebook? opened_notebook { get; set; }
+
+        public ENotes.Mode mode { get; set; default = ENotes.Mode.NONE; }
 
         // Search items
         public signal void search_selected ();
@@ -135,12 +133,30 @@ public class ENotes.Application : Granite.Application {
         public signal void bookmark_changed ();
 
         // Page state changed
+        public signal void page_updated ();
         public signal void page_deleted ();
+
+        // Notebook state changed
+        public signal void opened_notebook_updated ();
+        public signal void load_all_pages ();
 
         construct {
             notify.connect ((spec) => {
                 print ("Property changed in state: %s\n", spec.name);
             });
+        }
+
+        public void open_notebook (int64 notebook_id) {
+            if (notebook_id != 0) {
+                opened_notebook = NotebookTable.get_instance ().load_notebook_data (notebook_id);
+            } else {
+                load_all_pages ();
+            }
+        }
+
+        public void open_page (int64 page_id) {
+            print ("Open page %lld\n", page_id);
+            opened_page = PageTable.get_instance ().get_page (page_id);
         }
     }
 }

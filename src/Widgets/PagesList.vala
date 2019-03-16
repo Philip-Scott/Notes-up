@@ -33,6 +33,7 @@ public class ENotes.PagesList : Gtk.Box {
 
     private string search_for = "";
     private bool loading_pages = false;
+    private bool selecting = false;
 
     private Gee.HashMap<int, PageItem> added_pages;
 
@@ -165,8 +166,10 @@ public class ENotes.PagesList : Gtk.Box {
         }
     }
 
-    public bool select_page (ENotes.Page? page) {
+    private bool select_page (ENotes.Page? page) {
         if (page == null) return false;
+        selecting = true;
+
         var childerns = listbox.get_children ();
 
         foreach (Gtk.Widget child in childerns) {
@@ -175,11 +178,15 @@ public class ENotes.PagesList : Gtk.Box {
 
                 if (page.equals (item.page)) {
                     listbox.select_row (item);
+                    minus_button.set_sensitive (true);
+                    selecting = false;
                     return true;
                 }
             }
         }
 
+        minus_button.set_sensitive (false);
+        selecting = false;
         return false;
     }
 
@@ -286,6 +293,14 @@ public class ENotes.PagesList : Gtk.Box {
             }
         });
 
+        app.state.load_all_pages.connect (() => {
+            load_all_pages ();
+        });
+
+        app.state.notify["opened-page"].connect (() => {
+            select_page (app.state.opened_page);
+        });
+
         app.state.search_selected.connect (() => {
             listbox.select_row (listbox.get_row_at_y (0));
             listbox.get_row_at_y (0).grab_focus ();
@@ -308,9 +323,8 @@ public class ENotes.PagesList : Gtk.Box {
         });
 
         listbox.row_selected.connect ((row) => {
-            if (row == null || loading_pages) return;
-            minus_button.set_sensitive (true);
-            ENotes.ViewEditStack.get_instance ().set_page (((ENotes.PageItem) row).page, false);
+            if (row == null || loading_pages || selecting) return;
+            app.state.open_page (((ENotes.PageItem) row).page.id);
         });
 
         listbox.row_activated.connect ((row) => {

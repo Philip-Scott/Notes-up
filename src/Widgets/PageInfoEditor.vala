@@ -30,18 +30,21 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
 
     private Gtk.ToggleButton? toggle_button;
 
-    public ENotes.Page page {
-        set {
+    private ENotes.Page? _page;
+    private ENotes.Page page {
+        get {
+            return _page;
+        } set {
             if (value != null) {
                 visibility = true;
 
                 creation_date = new DateTime.from_unix_local (value.creation_date);
                 modification_date = new DateTime.from_unix_local (value.modification_date);
-
-                notebook_id = value.notebook_id;
             } else {
                 visibility = false;
             }
+
+            _page = value;
         }
     }
 
@@ -73,19 +76,18 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
         }
     }
 
-    private int64 last_nb = -2;
+    private ENotes.Notebook? _notebook;
 
-    private int64 notebook_id {
-        set {
-            if (last_nb == value) return;
-
-            if (value > 0) {
-                var nb = ENotes.NotebookTable.get_instance ().load_notebook_data (value);
-                current_notebook.label = Markup.printf_escaped ("""%s<span color="#444" size="x-large">⌄</span>""", nb.name);
+    private ENotes.Notebook? notebook {
+        get {
+            return _notebook;
+        } set {
+            if (value != null) {
+                current_notebook.label = Markup.printf_escaped ("""%s<span color="#444" size="x-large">⌄</span>""", value.name);
 
                 try {
-                    nb.rgb.alpha = 1;
-                    var style = NB_STYLE.printf (nb.rgb.to_string ());
+                    value.rgb.alpha = 1;
+                    var style = NB_STYLE.printf (value.rgb.to_string ());
                     notebook_css_provider.load_from_data (style, style.length);
                 } catch (Error e) {
                     warning ("Style error: %s", e.message);
@@ -100,7 +102,7 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
                 }
             }
 
-            last_nb = value;
+            _notebook = value;
         }
     }
 
@@ -164,6 +166,10 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
 
         app.state.notify["opened-page"].connect (() => {
             page = app.state.opened_page;
+        });
+
+        app.state.notify["opened-page-notebook"].connect (() => {
+            notebook = app.state.opened_page_notebook;
         });
 
         toggle_button = new Gtk.ToggleButton ();

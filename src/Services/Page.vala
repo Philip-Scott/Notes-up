@@ -173,7 +173,7 @@ public class ENotes.PageTable : DatabaseTable {
     }
 
     public Gee.ArrayList<Page> get_pages (int64 notebook_id) {
-        var stmt = create_stmt ("SELECT id, name, subtitle, data FROM Page Where notebook_id = ?");
+        var stmt = create_stmt ("SELECT id, name, subtitle FROM Page Where notebook_id = ?");
         bind_int (stmt, 1, notebook_id);
 
         var pages = new Gee.ArrayList<Page>();
@@ -192,7 +192,6 @@ public class ENotes.PageTable : DatabaseTable {
             row.id = stmt.column_int64 (0);
             row.name = stmt.column_text (1);
             row.subtitle = stmt.column_text (2);
-            row.data = stmt.column_text (3);
 
             pages.add (row);
         }

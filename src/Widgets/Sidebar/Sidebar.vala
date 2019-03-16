@@ -20,6 +20,8 @@
 */
 
 public class ENotes.Sidebar : Granite.Widgets.SourceList {
+    private bool selectring_notebook = false;
+
     private static Sidebar? instance = null;
 
     private Granite.Widgets.SourceList.ExpandableItem bookmarks = new Granite.Widgets.SourceList.ExpandableItem (_("Bookmarks"));
@@ -40,6 +42,8 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
     }
 
     private Sidebar () {
+        selectring_notebook = true;
+
         all_notes = new Granite.Widgets.SourceList.Item ("");
         all_notes.markup = "<span foreground='#000' weight='heavy'>%s</span>".printf (_("All Notes"));
         root.add (all_notes);
@@ -50,6 +54,8 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
         connect_signals ();
         notebooks.collapse_all (true, true);
         root.expand_all (false, false);
+
+        selectring_notebook = false;
     }
 
     public Sidebar.notebook_list (ENotes.Notebook to_ignore) {
@@ -108,6 +114,8 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
     }
 
     private void select_notebook (int64 notebook_id) {
+        selectring_notebook = true;
+
         if (added_notebooks.has_key ((int) notebook_id)) {
             var last_selected = selected as ENotes.NotebookItem;
 
@@ -119,6 +127,8 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
                 selected = to_select;
             }
         }
+
+        selectring_notebook = false;
     }
 
     public void first_start () {
@@ -136,13 +146,15 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
 
     private void connect_signals () {
         item_selected.connect ((item) => {
+            if (selectring_notebook) return;
+
             if (item != null && item is ENotes.BookmarkItem) {
                 // If viewing page == the bookmark, select the notebook. if not just open the page
                 if (app.state.opened_page.equals (((ENotes.BookmarkItem) item).get_page ())) {
                     select_notebook (((ENotes.BookmarkItem) item).parent_notebook);
-                    ENotes.PagesList.get_instance ().select_page (((ENotes.BookmarkItem) item).get_page ());
+                    app.state.opened_page = ((ENotes.BookmarkItem) item).get_page ();
                 } else {
-                    ENotes.ViewEditStack.get_instance ().set_page (((ENotes.BookmarkItem) item).get_page ());
+                    app.state.opened_page = ((ENotes.BookmarkItem) item).get_page ();
                     this.selected = previous_selection;
                 }
             } else if (item is ENotes.NotebookItem) {
@@ -189,7 +201,7 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
         });
 
         Trash.get_instance ().page_removed.connect ((page) => {
-            ViewEditStack.get_instance ().set_page (page);
+            app.state.open_page (page.id);
         });
 
         Trash.get_instance ().notebook_added.connect ((notebook) => {

@@ -20,8 +20,10 @@
 */
 
 public enum ENotes.Mode {
+    NONE = -1,
     VIEW = 0,
     EDIT = 1;
+
 
     public static ENotes.Mode get_mode (int value) {
         return (value == 1) ? EDIT : VIEW;
@@ -73,32 +75,26 @@ public class ENotes.ViewEditStack : Gtk.Grid {
                 show_view ();
             }
         });
-    }
 
-    public void set_page (ENotes.Page page, bool dummy_page = true) {
-        if (dummy_page) {
-            if (PagesList.get_instance ().select_page (page)) {
-                return;
+        app.state.notify["opened-page"].connect (() => {
+            editor.save_file ();
+
+            var current_page = app.state.opened_page;
+
+            app.state.opened_page_notebook = ENotes.NotebookTable.get_instance().load_notebook_data (current_page.notebook_id);
+
+            editor.current_page = current_page;
+            viewer.load_page (current_page);
+
+            page_set (current_page);
+
+            if (current_page.data == "" && app.state.mode == ENotes.Mode.VIEW) {
+                app.state.mode = ENotes.Mode.EDIT;
             }
-        }
 
-        editor.save_file ();
-        var current_page = PageTable.get_instance ().get_page (page.id);
-
-        app.state.opened_page_notebook = ENotes.NotebookTable.get_instance().load_notebook_data (current_page.notebook_id);
-
-        editor.current_page = current_page;
-        viewer.load_page (current_page);
-
-        page_set (current_page);
-
-        if (page.data == "") {
-            show_edit ();
-        }
-
-        editor.set_sensitive (!Trash.get_instance ().is_page_trashed (page));
-        app.state.opened_page = current_page;
-        app.state.update_page_title ();
+            app.state.opened_page = current_page;
+            app.state.update_page_title ();
+        });
     }
 
     private void show_edit () {
