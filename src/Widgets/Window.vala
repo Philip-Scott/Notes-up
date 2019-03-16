@@ -31,29 +31,20 @@ public class ENotes.Window : Gtk.ApplicationWindow {
     private Gtk.Paned pane1;
     private Gtk.Paned pane2;
 
-    private SimpleAction change_mode;
-    private SimpleAction save_action;
-    private SimpleAction close_action;
-    private SimpleAction new_action;
-    private SimpleAction find_action;
-    private SimpleAction bookmark_action;
-    private SimpleAction bold_action;
-    private SimpleAction italics_action;
-    private SimpleAction strike_action;
-
     public Window (Gtk.Application app) {
         Object (application: app);
         DatabaseTable.init (ENotes.NOTES_DB);
 
-        change_mode = new SimpleAction ("change-mode", null);
-        save_action = new SimpleAction ("save", null);
-        close_action = new SimpleAction ("close-action", null);
-        new_action = new SimpleAction ("new-action", null);
-        find_action = new SimpleAction ("find-action", null);
-        bookmark_action = new SimpleAction ("bookmark-action", null);
-        bold_action = new SimpleAction ("bold-action", null);
-        italics_action = new SimpleAction ("italics-action", null);
-        strike_action = new SimpleAction ("strike-action", null);
+        var change_mode = new SimpleAction ("change-mode", null);
+        var save_action = new SimpleAction ("save", null);
+        var close_action = new SimpleAction ("close-action", null);
+        var new_action = new SimpleAction ("new-action", null);
+        var find_action = new SimpleAction ("find-action", null);
+        var bookmark_action = new SimpleAction ("bookmark-action", null);
+        var bold_action = new SimpleAction ("bold-action", null);
+        var italics_action = new SimpleAction ("italics-action", null);
+        var strike_action = new SimpleAction ("strike-action", null);
+        var page_info_action = new SimpleAction ("page-info-action", null);
 
         add_action (change_mode);
         add_action (save_action);
@@ -64,6 +55,7 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         add_action (bold_action);
         add_action (italics_action);
         add_action (strike_action);
+        add_action (page_info_action);
 
         app.set_accels_for_action ("win.change-mode", {ENotes.Key.CHANGE_MODE.to_key() });
         app.set_accels_for_action ("win.save", {ENotes.Key.SAVE.to_key()});
@@ -74,6 +66,7 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         app.set_accels_for_action ("win.bold-action", {ENotes.Key.BOLD.to_key()});
         app.set_accels_for_action ("win.italics-action", {ENotes.Key.ITALICS.to_key()});
         app.set_accels_for_action ("win.strike-action", {ENotes.Key.STRIKE.to_key()});
+        app.set_accels_for_action ("win.page-info-action", {ENotes.Key.PAGE_INFO.to_key()});
 
         build_ui ();
 
@@ -86,6 +79,7 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         bold_action.activate.connect (bold_act);
         italics_action.activate.connect (italics_act);
         strike_action.activate.connect (strike_act);
+        page_info_action.activate.connect (toggle_page_info);
 
         Sidebar.get_instance ().first_start ();
 
@@ -161,6 +155,7 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         settings.mode = app.state.mode;
         settings.last_notebook = app.state.opened_notebook != null ? (int) app.state.opened_notebook.id : 0;
         settings.last_page = app.state.opened_page != null ? (int) app.state.opened_page.id : 0;
+        settings.show_page_info = app.state.show_page_info;
 
         Trash.get_instance ().clear_files ();
 
@@ -179,6 +174,8 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         if (settings.last_page != 0) {
             app.state.open_page (settings.last_page);
         }
+
+        app.state.show_page_info = settings.show_page_info;
     }
 
     private void new_page () {
@@ -210,5 +207,9 @@ public class ENotes.Window : Gtk.ApplicationWindow {
     public void show_app () {
         show ();
         present ();
+    }
+
+    public void toggle_page_info () {
+        app.state.show_page_info = !app.state.show_page_info;
     }
 }

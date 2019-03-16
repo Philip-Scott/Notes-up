@@ -28,7 +28,8 @@ public enum ENotes.Key {
     BOOKMARK,
     BOLD,
     ITALICS,
-    STRIKE;
+    STRIKE,
+    PAGE_INFO;
 
     public string to_key () {
         switch (this) {
@@ -42,6 +43,7 @@ public enum ENotes.Key {
             case BOLD:          return _("<Ctrl>B");
             case ITALICS:       return _("<Ctrl>I");
             case STRIKE:        return _("<Ctrl>T");
+            case PAGE_INFO:     return _("<Ctrl><Shift>I");
             default:            assert_not_reached();
         }
     }
@@ -124,6 +126,7 @@ public class ENotes.Application : Granite.Application {
         public ENotes.Notebook? opened_notebook { get; set; }
 
         public ENotes.Mode mode { get; set; default = ENotes.Mode.NONE; }
+        public bool show_page_info { get; set; }
 
         // Search items
         public signal void search_selected ();

@@ -94,7 +94,7 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
                 }
             } else {
                 try {
-                    current_notebook.label = _("Not in Notebook");
+                    current_notebook.label = Markup.printf_escaped ("""%s<span color="#444" size="x-large">⌄</span>""", _("Not in Notebook"));
                     var style = NB_STYLE.printf ("#000");
                     notebook_css_provider.load_from_data (style, style.length);
                 } catch (Error e) {
@@ -123,7 +123,7 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
         current_notebook_button.get_style_context ().add_class ("flat");
         current_notebook_button.tooltip_text = _("Move page…");
 
-        current_notebook = new Gtk.Label ("Test");
+        current_notebook = new Gtk.Label ("");
         current_notebook.use_markup = true;
 
         notebook_css_provider = new Gtk.CssProvider ();
@@ -159,8 +159,6 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
         grid.attach (updated_date_label, 1, 2, 1, 1);
         grid.attach (bottom_separator, 0, 3, 2, 1);
 
-        reveal_child = ENotes.Services.Settings.get_instance ().show_notes_info;
-
         show_all ();
         add (grid);
 
@@ -174,18 +172,32 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
 
         toggle_button = new Gtk.ToggleButton ();
         toggle_button.get_style_context ().add_class ("flat");
-        toggle_button.tooltip_text = _("Toggle page information");
+        toggle_button.get_style_context ().add_class ("circular");
+        toggle_button.set_tooltip_markup (Granite.markup_accel_tooltip (app.get_accels_for_action ("win.page-info-action"), _("Toggle page information")));
         toggle_button.can_focus = false;
 
-        toggle_button.set_active (reveal_child);
-
         var icon = new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.MENU);
+        icon.margin_start = 3;
+        icon.margin_end = 3;
+
         toggle_button.add (icon);
 
-        toggle_button.toggled.connect (() => {
-            reveal_child = toggle_button.get_active ();
-            ENotes.Services.Settings.get_instance ().show_notes_info = reveal_child;
+        app.state.notify["show-page-info"].connect (() => {
+            reveal_child = app.state.show_page_info;
+            if (toggle_button.get_active () != reveal_child) {
+                toggle_button.set_active (reveal_child);
+            }
         });
+
+        toggle_button.toggled.connect (() => {
+            app.state.show_page_info = toggle_button.get_active ();
+        });
+
+        current_notebook_button.clicked.connect (() => {
+            new NotebookListDialog.to_move_page (this.page);
+        });
+
+        notebook = null;
     }
 
     public Gtk.ToggleButton get_toggle_button () {
