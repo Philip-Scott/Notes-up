@@ -137,6 +137,15 @@ public class ENotes.PageTable : DatabaseTable {
         page_saved (page);
     }
 
+    public void move_to_notebook (Page page, int64 notebook) {
+        var stmt = create_stmt ("UPDATE Page SET notebook_id = ?, modification_date = CAST(strftime('%s', 'now') AS INT) WHERE id = ?");
+        load_page_info (page);
+
+        bind_int (stmt, 1, notebook);
+        bind_int (stmt, 2, page.id);
+        stmt.step ();
+    }
+
     public void save_cache (Page page) {
         var stmt = create_stmt ("UPDATE Page SET html_cache = ? WHERE id = ?");
         bind_text (stmt, 1, page.html_cache);

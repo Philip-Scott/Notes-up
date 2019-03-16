@@ -40,6 +40,8 @@ public class ENotes.NotebookItem : ENotes.SidebarItem {
 
     public NotebookItem (ENotes.Notebook notebook, bool add_menu) {
         this.notebook = notebook;
+        use_pango_style = false;
+        force_visible = true;
 
         if (add_menu) {
             setup_menu ();

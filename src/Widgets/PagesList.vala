@@ -293,6 +293,10 @@ public class ENotes.PagesList : Gtk.Box {
             }
         });
 
+        app.state.opened_notebook_updated.connect (() => {
+            refresh ();
+        });
+
         app.state.load_all_pages.connect (() => {
             load_all_pages ();
         });

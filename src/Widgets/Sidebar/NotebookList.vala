@@ -19,7 +19,7 @@
 * Authored by: Darshak Parikh <darshak@protonmail.com>
 */
 
-public class ENotes.NotebookList : Granite.Widgets.SourceList.ExpandableItem {
+public class ENotes.NotebookList : Granite.Widgets.SourceListPatch.ExpandableItem {
     private Gtk.Menu menu;
     private Gtk.MenuItem new_notebook_item;
 

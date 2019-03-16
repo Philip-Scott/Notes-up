@@ -91,6 +91,9 @@ endif (noele)
 vala_precompile(VALA_C
   src/Main.vala
   src/Application.vala
+
+  src/GranitePatches/SourceList.vala
+
   src/Widgets/Editor.vala
   src/Widgets/HelpBox.vala
   src/Widgets/Headerbar.vala

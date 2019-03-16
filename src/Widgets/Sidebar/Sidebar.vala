@@ -19,15 +19,15 @@
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
 
-public class ENotes.Sidebar : Granite.Widgets.SourceList {
+public class ENotes.Sidebar : Granite.Widgets.SourceListPatch {
     private bool selectring_notebook = false;
 
     private static Sidebar? instance = null;
 
-    private Granite.Widgets.SourceList.ExpandableItem bookmarks = new Granite.Widgets.SourceList.ExpandableItem (_("Bookmarks"));
-    private Granite.Widgets.SourceList.ExpandableItem trash = new Granite.Widgets.SourceList.ExpandableItem (_("Trash"));
-    private Granite.Widgets.SourceList.Item? previous_selection = null;
-    private Granite.Widgets.SourceList.Item all_notes;
+    private Granite.Widgets.SourceListPatch.ExpandableItem bookmarks = new Granite.Widgets.SourceListPatch.ExpandableItem (_("Bookmarks"));
+    private Granite.Widgets.SourceListPatch.ExpandableItem trash = new Granite.Widgets.SourceListPatch.ExpandableItem (_("Trash"));
+    private Granite.Widgets.SourceListPatch.Item? previous_selection = null;
+    private Granite.Widgets.SourceListPatch.Item all_notes;
 
     private NotebookList notebooks = new NotebookList (_("Notebooks"));
 
@@ -44,11 +44,11 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
     private Sidebar () {
         selectring_notebook = true;
 
-        all_notes = new Granite.Widgets.SourceList.Item ("");
-        all_notes.markup = "<span foreground='#000' weight='heavy'>%s</span>".printf (_("All Notes"));
-        root.add (all_notes);
+        notebooks.icon = new GLib.ThemedIcon ("x-office-address-book");
+        trash.icon = new GLib.ThemedIcon ("edit-delete-symbolic");
+        bookmarks.icon = new GLib.ThemedIcon ("user-bookmarks");
 
-        build_new_ui ();
+        build_new_ui (_("All Notes"));
         load_notebooks ();
         load_bookmarks ();
         connect_signals ();
@@ -56,15 +56,34 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
         root.expand_all (false, false);
 
         selectring_notebook = false;
+
+        try {
+            var provider = new Gtk.CssProvider ();
+            get_child ().get_style_context ().add_provider (provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+            provider.load_from_data (STYLE, STYLE.length);
+        } catch (Error e) {
+            warning ("Style error: %s", e.message);
+        }
     }
 
-    public Sidebar.notebook_list (ENotes.Notebook to_ignore) {
-        build_new_ui ();
+    public Sidebar.notebook_list (ENotes.Notebook? to_ignore) {
+        get_child ().get_style_context ().remove_class ("source-list");
+        get_child ().get_style_context ().remove_class ("view");
+
+        build_new_ui (_("Not in a Notebook"));
+        all_notes.use_pango_style = false;
+
         notebooks.expand_all (true, false);
         load_notebooks (false, to_ignore);
     }
 
-    private void build_new_ui () {
+    private void build_new_ui (string all_notes_title) {
+        all_notes = new Granite.Widgets.SourceListPatch.Item (all_notes_title);
+
+        all_notes.icon = new GLib.ThemedIcon ("text-x-generic-symbolic");
+        all_notes.selectable = true;
+        root.add (all_notes);
+
         root.add (notebooks);
         root.add (bookmarks);
         root.add (trash);
@@ -87,7 +106,11 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
             if (to_ignore != null && to_ignore.id == notebook.id) continue;
 
             if (notebook.parent_id == 0) {
-                this.notebooks.add (item);
+                if (add_menus) {
+                    this.notebooks.add (item);
+                } else {
+                    root.add (item);
+                }
             } else {
                 to_add.add (item);
             }
@@ -213,4 +236,6 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
             select_notebook (notebook.id);
         });
     }
+
+    private const string STYLE = ".source-list {-gtk-icon-style: symbolic; }";
 }

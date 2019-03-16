@@ -19,7 +19,7 @@
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
 
-public class ENotes.SidebarItem :  Granite.Widgets.SourceList.ExpandableItem {
+public class ENotes.SidebarItem :  Granite.Widgets.SourceListPatch.ExpandableItem {
     private const int RADIUS = 16;
 
     protected void set_color (Gdk.RGBA rgba) {
