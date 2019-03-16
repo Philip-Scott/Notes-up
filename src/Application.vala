@@ -66,6 +66,8 @@ public class ENotes.Application : Granite.Application {
 
     public bool running = false;
 
+    public State state;
+
     construct {
         application_id = "com.github.philip-scott.notes-up";
         program_name = PROGRAM_NAME;
@@ -73,6 +75,7 @@ public class ENotes.Application : Granite.Application {
         app_launcher = "com.github.philip-scott.notes-up";
 
         build_version = Constants.VERSION;
+        state = new State ();
     }
 
     public override void activate () {
@@ -109,5 +112,35 @@ public class ENotes.Application : Granite.Application {
         }
 
         window.show_app ();
+    }
+
+    // Dummy class that holds the current app state so other elements can interact with it
+    public class State : Object {
+        public signal void update_page_title ();
+        public ENotes.Page? opened_page { get; set; default = null; }
+        public ENotes.Notebook? opened_page_notebook { get; set; default = null; }
+
+        /**
+         * Set to null to open all notebooks.
+         */
+        public ENotes.Notebook? opened_notebook { get; set; default = null; }
+
+        public ENotes.Mode mode { get; set; default = ENotes.Mode.VIEW; }
+
+        // Search items
+        public signal void search_selected ();
+        public string search_field { get; set; default = ""; }
+
+        // Bookmarking
+        public signal void bookmark_changed ();
+
+        // Page state changed
+        public signal void page_deleted ();
+
+        construct {
+            notify.connect ((spec) => {
+                print ("Property changed in state: %s\n", spec.name);
+            });
+        }
     }
 }

@@ -20,8 +20,6 @@
 */
 
 public class ENotes.Viewer : WebKit.WebView {
-    private static Viewer? instance = null;
-
     public string CSS;
     private Page? previous_page = null;
     private StyleLoader style_loader;
@@ -51,7 +49,7 @@ public class ENotes.Viewer : WebKit.WebView {
     }
 
     public void load_page (Page page, bool force_load = false) {
-        if (ViewEditStack.current_mode == Mode.VIEW || force_load) {
+        if (app.state.mode == Mode.VIEW || force_load) {
             if (page.html_cache == "" || force_load) {
                 string markdown;
                 process_frontmatter (page.data, out markdown);

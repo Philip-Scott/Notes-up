@@ -190,7 +190,7 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
 
         keep_sidebar_switch.state_set.connect ((state) => {
             settings.keep_sidebar_visible = state;
-            if (ENotes.ViewEditStack.current_mode == ENotes.Mode.EDIT) {
+            if (app.state.mode == ENotes.Mode.EDIT) {
                 Sidebar.get_instance ().visible = state;
             }
             return false;

@@ -40,10 +40,9 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
     }
 
     private Sidebar () {
-        // Hidden until new UX for tagging/notebooks is figured out
         all_notes = new Granite.Widgets.SourceList.Item ("");
-        all_notes.markup = "<span foreground='#000' weight='heavy'>%s</span>".printf (_("Notes"));
-        all_notes.visible = false;
+        all_notes.markup = "<span foreground='#000' weight='heavy'>%s</span>".printf (_("All Notes"));
+        root.add (all_notes);
 
         build_new_ui ();
         load_notebooks ();
@@ -108,9 +107,17 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
         bookmarks.expand_all ();
     }
 
-    public void select_notebook (int64 notebook_id) {
+    private void select_notebook (int64 notebook_id) {
         if (added_notebooks.has_key ((int) notebook_id)) {
-            selected = added_notebooks.get ((int) notebook_id);
+            var last_selected = selected as ENotes.NotebookItem;
+
+            if (last_selected != null && last_selected.notebook.id != notebook_id) {
+                var to_select = added_notebooks.get ((int) notebook_id) as ENotes.NotebookItem;
+                selected = to_select;
+            } else if (last_selected == null || selected == null) {
+                var to_select = added_notebooks.get ((int) notebook_id) as ENotes.NotebookItem;
+                selected = to_select;
+            }
         }
     }
 
@@ -128,10 +135,10 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
     }
 
     private void connect_signals () {
-        this.item_selected.connect ((item) => {
+        item_selected.connect ((item) => {
             if (item != null && item is ENotes.BookmarkItem) {
                 // If viewing page == the bookmark, select the notebook. if not just open the page
-                if (ENotes.ViewEditStack.get_instance ().current_page.equals (((ENotes.BookmarkItem) item).get_page ())) {
+                if (app.state.opened_page.equals (((ENotes.BookmarkItem) item).get_page ())) {
                     select_notebook (((ENotes.BookmarkItem) item).parent_notebook);
                     ENotes.PagesList.get_instance ().select_page (((ENotes.BookmarkItem) item).get_page ());
                 } else {
@@ -141,9 +148,17 @@ public class ENotes.Sidebar : Granite.Widgets.SourceList {
             } else if (item is ENotes.NotebookItem) {
                 previous_selection = item;
                 ENotes.ViewEditStack.get_instance ().editor.save_file ();
-                ENotes.PagesList.get_instance ().load_pages (((ENotes.NotebookItem) item).notebook);
+                app.state.opened_notebook = ((ENotes.NotebookItem) item).notebook;
             } else if (item == all_notes) {
-                ENotes.PagesList.get_instance ().load_all_pages ();
+                app.state.opened_notebook = null;
+            }
+        });
+
+        app.state.notify["opened-notebook"].connect (() => {
+            var notebook = app.state.opened_notebook;
+
+            if (notebook != null) {
+                select_notebook (notebook.id);
             }
         });
 

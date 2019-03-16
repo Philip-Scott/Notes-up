@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2011-2016 Felipe Escoto (https://github.com/Philip-Scott/Notes-up)
+* Copyright (c) 2019 Felipe Escoto (https://github.com/Philip-Scott/Notes-up)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -20,20 +20,10 @@
 */
 
 public class ENotes.BookmarkButton : Gtk.Button {
-    private static BookmarkButton? instance = null;
-
     private ENotes.Page current_page;
     private Gtk.Image pic;
 
-    public static BookmarkButton get_instance () {
-        if (instance == null) {
-            instance = new BookmarkButton ();
-        }
-
-        return instance;
-    }
-
-    private BookmarkButton () {
+    public BookmarkButton () {
         pic = new Gtk.Image.from_icon_name ("non-starred",  Gtk.IconSize.LARGE_TOOLBAR);
 
         this.image = pic;
@@ -43,15 +33,19 @@ public class ENotes.BookmarkButton : Gtk.Button {
         has_tooltip = true;
         set_tooltip_markup (Granite.markup_accel_tooltip (app.get_accels_for_action ("win.bookmark-action"), _("Bookmark page")));
 
-        connect_signals ();
+        app.state.notify["opened-page"].connect (() => {
+            current_page = app.state.opened_page;
+            setup ();
+        });
+
+        app.state.bookmark_changed.connect (setup);
+
+        clicked.connect (() => {
+            main_action ();
+        });
     }
 
-    public void set_page (ENotes.Page page) {
-        this.current_page = page;
-        setup ();
-    }
-
-    public void setup () {
+    private void setup () {
         if (BookmarkTable.get_instance ().is_bookmarked (this.current_page)) {
             pic.set_from_icon_name ("starred", Gtk.IconSize.LARGE_TOOLBAR);
         } else {
@@ -68,11 +62,5 @@ public class ENotes.BookmarkButton : Gtk.Button {
 
         ENotes.Sidebar.get_instance ().load_bookmarks ();
         setup ();
-    }
-
-    private void connect_signals () {
-        this.clicked.connect (() => {
-            main_action ();
-        });
     }
 }

@@ -31,8 +31,6 @@ public class ENotes.PagesList : Gtk.Box {
     private Gtk.Label notebook_name;
     private Gtk.Label page_total;
 
-    public ENotes.Notebook current_notebook;
-
     private string search_for = "";
     private bool loading_pages = false;
 
@@ -92,7 +90,7 @@ public class ENotes.PagesList : Gtk.Box {
         this.add (scroll_box);
         this.add (toolbar);
 
-        toolbar_mode (ENotes.ViewEditStack.current_mode);
+        toolbar_mode (app.state.mode);
     }
 
     private Gtk.Frame build_toolbar () {
@@ -160,7 +158,11 @@ public class ENotes.PagesList : Gtk.Box {
     }
 
     public void refresh () {
-        load_pages (current_notebook);
+        if (app.state.opened_notebook != null) {
+            load_pages (app.state.opened_notebook);
+        } else {
+            load_all_pages ();
+        }
     }
 
     public bool select_page (ENotes.Page? page) {
@@ -181,12 +183,12 @@ public class ENotes.PagesList : Gtk.Box {
         return false;
     }
 
-    public void load_pages (ENotes.Notebook? notebook) {
+    private void load_pages (ENotes.Notebook? notebook) {
         if (notebook == null) return;
+
         loading_pages = true;
         clear_pages ();
 
-        this.current_notebook = notebook;
         var pages = PageTable.get_instance ().get_pages (notebook.id);
 
         foreach (ENotes.Page page in pages) {
@@ -202,7 +204,7 @@ public class ENotes.PagesList : Gtk.Box {
         this.notebook_name.label = notebook.name.split ("§")[0] + ":";
         listbox.show_all ();
 
-        select_page (ENotes.ViewEditStack.get_instance ().current_page);
+        select_page (app.state.opened_page);
         loading_pages = false;
     }
 
@@ -226,8 +228,6 @@ public class ENotes.PagesList : Gtk.Box {
         this.notebook_name.label = "Notes:";
         listbox.show_all ();
 
-        //  select_page (ENotes.ViewEditStack.get_instance ().current_page);
-
         loading_pages = false;
     }
 
@@ -242,7 +242,11 @@ public class ENotes.PagesList : Gtk.Box {
 
     public void new_blank_page () {
         ENotes.ViewEditStack.get_instance ().editor.save_file ();
-        var page = PageTable.get_instance ().new_page (current_notebook.id);
+
+        var current_notebook = app.state.opened_notebook;
+        var current_id = current_notebook != null ? current_notebook.id : -1;
+
+        var page = PageTable.get_instance ().new_page (current_id);
         var page_item = new ENotes.PageItem (page);
 
         added_pages.set ((int) page.id, page_item);
@@ -264,16 +268,25 @@ public class ENotes.PagesList : Gtk.Box {
     }
 
     private void connect_signals () {
-        Headerbar.get_instance().mode_changed.connect ((mode) => {
-            toolbar_mode (mode);
+        app.state.notify["mode"].connect (() => {
+            toolbar_mode (app.state.mode);
         });
 
-        Headerbar.get_instance().search_changed.connect (() => {
-            this.search_for = Headerbar.get_instance().search_entry.get_text ();
+        app.state.notify["search-field"].connect (() => {
+            this.search_for = app.state.search_field;
             listbox.invalidate_filter ();
         });
 
-        Headerbar.get_instance().search_selected.connect (() => {
+        app.state.notify["opened-notebook"].connect (() => {
+            var notebook = app.state.opened_notebook;
+            if (notebook != null) {
+                load_pages (notebook);
+            } else {
+                load_all_pages ();
+            }
+        });
+
+        app.state.search_selected.connect (() => {
             listbox.select_row (listbox.get_row_at_y (0));
             listbox.get_row_at_y (0).grab_focus ();
         });
@@ -284,7 +297,6 @@ public class ENotes.PagesList : Gtk.Box {
 
         minus_button.clicked.connect (() => {
             ENotes.ViewEditStack.get_instance ().editor.set_sensitive (false);
-            Headerbar.get_instance().set_title (null, null);
 
             var rows = listbox.get_selected_rows ();
 
@@ -304,7 +316,7 @@ public class ENotes.PagesList : Gtk.Box {
         listbox.row_activated.connect ((row) => {
             window.toggle_edit ();
 
-            if (ENotes.ViewEditStack.current_mode == Mode.EDIT) {
+            if (app.state.mode == Mode.EDIT) {
                 ENotes.ViewEditStack.get_instance ().editor.give_focus ();
             }
         });

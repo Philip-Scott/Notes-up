@@ -129,7 +129,7 @@ public class ENotes.FileManager : Object {
     }
 
     public static File? export_pdf_action (string? file_path = null) {
-        ENotes.ViewEditStack.get_instance ().viewer.load_page (ENotes.ViewEditStack.get_instance ().editor.current_page, true);
+        ENotes.ViewEditStack.get_instance ().viewer.load_page (app.state.opened_page, true);
 
         File file;
         if (file_path == null) {
@@ -185,7 +185,7 @@ public class ENotes.FileManager : Object {
         editor.save_file ();
 
         try {
-            FileUtils.set_data (file.get_path (), (uint8[]) editor.current_page.data.to_utf8 ());
+            FileUtils.set_data (file.get_path (), (uint8[]) app.state.opened_page.data.to_utf8 ());
         } catch (Error e) {
             warning ("Failed to export file %s", e.message);
         }

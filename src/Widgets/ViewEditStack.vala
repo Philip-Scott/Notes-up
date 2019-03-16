@@ -32,19 +32,15 @@ public enum ENotes.Mode {
     }
 }
 
-public class ENotes.ViewEditStack : Gtk.Overlay {
+public class ENotes.ViewEditStack : Gtk.Grid {
     private static ViewEditStack? instance = null;
-    public static ENotes.Mode? current_mode {get; private set; default = null;}
+    private ENotes.Mode? current_mode = null;
 
     public signal void page_set (ENotes.Page page);
 
-    private ENotes.BookmarkButton bookmark_button;
     public ENotes.Viewer viewer { get; private set; }
     public ENotes.Editor editor { get; private set; }
     private Gtk.Stack stack;
-
-    public ENotes.Page? current_page { get; private set; default = null;}
-    public ENotes.Notebook? current_notebook { get; private set; default = null;}
 
     public static ViewEditStack get_instance () {
         if (instance == null) {
@@ -60,7 +56,6 @@ public class ENotes.ViewEditStack : Gtk.Overlay {
         editor = new ENotes.Editor ();
         viewer = new ENotes.Viewer ();
 
-        bookmark_button = BookmarkButton.get_instance ();
         stack.add_named (viewer, "viewer");
         stack.add_named (editor, "editor");
 
@@ -70,6 +65,14 @@ public class ENotes.ViewEditStack : Gtk.Overlay {
         this.show_all ();
 
         show_view ();
+
+        app.state.notify["mode"].connect (() => {
+            if (app.state.mode == ENotes.Mode.EDIT) {
+                show_edit ();
+            } else {
+                show_view ();
+            }
+        });
     }
 
     public void set_page (ENotes.Page page, bool dummy_page = true) {
@@ -80,13 +83,13 @@ public class ENotes.ViewEditStack : Gtk.Overlay {
         }
 
         editor.save_file ();
-        current_page = PageTable.get_instance ().get_page (page.id);
-        current_notebook = ENotes.NotebookTable.get_instance().load_notebook_data (current_page.notebook_id);
+        var current_page = PageTable.get_instance ().get_page (page.id);
+
+        app.state.opened_page_notebook = ENotes.NotebookTable.get_instance().load_notebook_data (current_page.notebook_id);
 
         editor.current_page = current_page;
         viewer.load_page (current_page);
 
-        bookmark_button.set_page (current_page);
         page_set (current_page);
 
         if (page.data == "") {
@@ -94,36 +97,36 @@ public class ENotes.ViewEditStack : Gtk.Overlay {
         }
 
         editor.set_sensitive (!Trash.get_instance ().is_page_trashed (page));
-        refresh_headerbar_title ();
+        app.state.opened_page = current_page;
+        app.state.update_page_title ();
     }
 
-    public void refresh_headerbar_title () {
-        ENotes.Headerbar.get_instance ().set_title (current_page.name, current_notebook.name);
-    }
-
-    public void show_edit () {
+    private void show_edit () {
         if (current_mode == ENotes.Mode.EDIT) return;
         current_mode = ENotes.Mode.EDIT;
-        Headerbar.get_instance ().set_mode (ENotes.Mode.EDIT);
+
         stack.set_visible_child_name ("editor");
+
         if (!settings.keep_sidebar_visible) {
             Sidebar.get_instance().visible = false;
         }
+
         editor.give_focus ();
     }
 
-    public void show_view () {
+    private void show_view () {
         if (current_mode == ENotes.Mode.VIEW) return;
-        Headerbar.get_instance ().set_mode (ENotes.Mode.VIEW);
 
         stack.set_visible_child_name ("viewer");
+
         Sidebar.get_instance().visible = true;
         PagesList.get_instance ().grab_focus ();
+
         current_mode = ENotes.Mode.VIEW;
 
-        if (current_page != null) {
+        if (app.state.opened_page != null) {
             editor.save_file ();
-            viewer.load_page (current_page, true);
+            viewer.load_page (app.state.opened_page, true);
         }
     }
 }

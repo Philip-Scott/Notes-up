@@ -32,10 +32,30 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
 
     public ENotes.Page page {
         set {
-            creation_date = new DateTime.from_unix_local (value.creation_date);
-            modification_date = new DateTime.from_unix_local (value.modification_date);
+            if (value != null) {
+                visibility = true;
 
-            notebook_id = value.notebook_id;
+                creation_date = new DateTime.from_unix_local (value.creation_date);
+                modification_date = new DateTime.from_unix_local (value.modification_date);
+
+                notebook_id = value.notebook_id;
+            } else {
+                visibility = false;
+            }
+        }
+    }
+
+    private bool visibility {
+        set {
+            if (visible == value) return;
+
+            visible = value;
+            no_show_all = !value;
+            toggle_button.visible = value;
+            toggle_button.no_show_all = !value;
+
+            toggle_button.show_all ();
+            show_all ();
         }
     }
 
@@ -85,7 +105,7 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
     }
 
     public PageInfoEditor () {
-
+        visibility = false;
     }
 
     construct {
@@ -141,9 +161,11 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
 
         show_all ();
         add (grid);
-    }
 
-    public Gtk.ToggleButton get_toggle_button () {
+        app.state.notify["opened-page"].connect (() => {
+            page = app.state.opened_page;
+        });
+
         toggle_button = new Gtk.ToggleButton ();
         toggle_button.get_style_context ().add_class ("flat");
         toggle_button.tooltip_text = _("Toggle page information");
@@ -158,7 +180,9 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
             reveal_child = toggle_button.get_active ();
             ENotes.Services.Settings.get_instance ().show_notes_info = reveal_child;
         });
+    }
 
+    public Gtk.ToggleButton get_toggle_button () {
         return toggle_button;
     }
 

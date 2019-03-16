@@ -20,13 +20,10 @@
 */
 
 public class ENotes.Headerbar : Gtk.HeaderBar {
-    private static Headerbar? instance = null;
-
     public signal void mode_changed (ENotes.Mode mode);
-    public signal void search_changed ();
-    public signal void search_selected ();
 
-    private ENotes.BookmarkButton bookmark_button;
+    public ENotes.BookmarkButton bookmark_button;
+
     private Granite.Widgets.ModeButton mode_button;
     private Gtk.MenuButton menu_button;
     private Gtk.Menu menu;
@@ -44,20 +41,7 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
 
     private bool search_visible = false;
 
-    public static Headerbar get_instance () {
-        if (instance == null) {
-            instance = new Headerbar ();
-        }
-
-        return instance;
-    }
-
-    private Headerbar () {
-        build_ui ();
-        connect_signals ();
-    }
-
-    private void build_ui () {
+    public Headerbar (ENotes.PageInfoEditor page_info) {
         mode_button = new Granite.Widgets.ModeButton ();
         mode_button.append_text (_("View"));
         mode_button.append_text (_("Edit"));
@@ -95,19 +79,21 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         search_entry_revealer.reveal_child = false;
         search_button_revealer.reveal_child = true;
 
-        bookmark_button = BookmarkButton.get_instance ();
+        bookmark_button = new BookmarkButton ();
 
         set_title (null, null);
         set_show_close_button (true);
 
         pack_start (mode_button);
         pack_end (menu_button);
+        pack_end (page_info.get_toggle_button ());
         pack_end (bookmark_button);
         search_box.add (search_button_revealer);
         search_box.add (search_entry_revealer);
         pack_end (search_box);
 
         this.show_all ();
+        connect_signals ();
     }
 
     private void create_menu () {
@@ -137,6 +123,7 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
     }
 
     public void set_mode (ENotes.Mode mode) {
+        app.state.mode = mode;
         mode_button.set_active (mode);
     }
 
@@ -182,7 +169,7 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         });
 
         search_entry.activate.connect (() => {
-            search_selected ();
+            app.state.search_selected ();
         });
 
         search_entry.icon_release.connect ((p0, p1) => {
@@ -190,7 +177,7 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         });
 
         search_entry.search_changed.connect(() => {
-            search_changed ();
+            app.state.search_field = search_entry.get_text ();
         });
 
         search_entry.focus_out_event.connect (() => {
@@ -199,6 +186,17 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
             }
 
             return false;
+        });
+
+        app.state.update_page_title.connect (() => {
+            var notebook = app.state.opened_page_notebook;
+            var page = app.state.opened_page;
+
+            set_title (page != null ? page.name : null, notebook != null ? notebook.name : null);
+        });
+
+        app.state.page_deleted.connect (() => {
+            set_title (null, null);
         });
     }
 

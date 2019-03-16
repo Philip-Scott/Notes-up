@@ -24,6 +24,7 @@ public class ENotes.Window : Gtk.ApplicationWindow {
     private ENotes.Headerbar headerbar;
     private ENotes.PagesList pages_list;
     private ENotes.Sidebar sidebar;
+    private ENotes.PageInfoEditor page_info;
     private ENotes.ViewEditStack view_edit_stack;
     private ENotes.Viewer viewer;
 
@@ -81,20 +82,24 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         close_action.activate.connect (request_close);
         new_action.activate.connect (new_page);
         find_action.activate.connect (headerbar.show_search);
-        bookmark_action.activate.connect (BookmarkButton.get_instance ().main_action);
+        bookmark_action.activate.connect (headerbar.bookmark_button.main_action);
         bold_action.activate.connect (bold_act);
         italics_action.activate.connect (italics_act);
         strike_action.activate.connect (strike_act);
+
         headerbar.mode_changed.connect ((mode) => {
             set_mode (mode);
         });
 
-        load_settings ();
         Sidebar.get_instance ().first_start ();
+        load_settings ();
     }
 
     private void build_ui () {
-        headerbar = ENotes.Headerbar.get_instance ();
+        page_info = new ENotes.PageInfoEditor ();
+
+        headerbar = new ENotes.Headerbar (page_info);
+
         set_titlebar (headerbar);
 
         set_events (Gdk.EventMask.BUTTON_PRESS_MASK);
@@ -108,10 +113,16 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         editor = ENotes.ViewEditStack.get_instance ().editor;
         viewer = ENotes.ViewEditStack.get_instance ().viewer;
 
+        var main_area_grid = new Gtk.Grid ();
+        main_area_grid.orientation = Gtk.Orientation.VERTICAL;
+
+        main_area_grid.add (page_info);
+        main_area_grid.add (view_edit_stack);
+
         pane1.pack1 (sidebar, false, false);
         pane1.pack2 (pane2, true, false);
         pane2.pack1 (pages_list, false, false);
-        pane2.pack2 (view_edit_stack, true, false);
+        pane2.pack2 (main_area_grid, true, false);
 
         this.move (settings.pos_x, settings.pos_y);
         this.add (pane1);
@@ -131,7 +142,7 @@ public class ENotes.Window : Gtk.ApplicationWindow {
     }
 
     private bool editor_open () {
-        return ViewEditStack.current_mode == ENotes.Mode.EDIT && ViewEditStack.get_instance ().current_page != null;
+        return app.state.mode == ENotes.Mode.EDIT && app.state.opened_page != null;
     }
 
     protected override bool delete_event (Gdk.EventAny event) {
@@ -150,9 +161,9 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         settings.panel_size = pane2.position;
         settings.window_width = width;
         settings.window_height = height;
-        settings.mode = ENotes.ViewEditStack.current_mode;
-        settings.last_notebook = (int) PagesList.get_instance ().current_notebook.id;
-        settings.last_page = (int) ViewEditStack.get_instance ().current_page.id;
+        settings.mode = app.state.mode;
+        settings.last_notebook = (int) app.state.opened_notebook.id;
+        settings.last_page = (int) app.state.opened_page.id;
 
         Trash.get_instance ().clear_files ();
 
@@ -166,24 +177,17 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 
         if (settings.last_notebook != 0) {
             var notebook = NotebookTable.get_instance ().load_notebook_data (settings.last_notebook);
-            if (notebook != null) {
-                PagesList.get_instance ().load_pages (notebook);
-                Sidebar.get_instance ().select_notebook (notebook.id);
-            }
+
+            app.state.opened_notebook = notebook;
+        } else {
+            app.state.opened_notebook = null;
         }
 
         if (settings.last_page != 0) {
-            var last_page = PageTable.get_instance ().get_page (settings.last_page);
-            if (last_page != null) {
-                ViewEditStack.get_instance ().set_page (last_page);
-            }
+            app.state.opened_page = PageTable.get_instance ().get_page (settings.last_page);
         }
 
-        if (ENotes.Mode.get_mode (settings.mode) == Mode.EDIT) {
-            ENotes.ViewEditStack.get_instance ().show_edit ();
-        } else {
-            ENotes.ViewEditStack.get_instance ().show_view ();
-        }
+        app.state.mode = ENotes.Mode.get_mode (settings.mode);
     }
 
     private void new_page () {
@@ -199,20 +203,16 @@ public class ENotes.Window : Gtk.ApplicationWindow {
     }
 
     public void set_mode (ENotes.Mode mode) {
-        if (mode == ENotes.Mode.VIEW) {
-            view_edit_stack.show_view ();
-        } else {
-            view_edit_stack.show_edit ();
-        }
+        app.state.mode = mode;
     }
 
     public void toggle_edit () {
-        ENotes.Mode mode = ENotes.ViewEditStack.current_mode;
+        ENotes.Mode mode = app.state.mode;
 
         if (mode == ENotes.Mode.EDIT) {
-            ENotes.ViewEditStack.get_instance ().show_view ();
+            app.state.mode = ENotes.Mode.VIEW;
         } else {
-            ENotes.ViewEditStack.get_instance ().show_edit ();
+            app.state.mode = ENotes.Mode.EDIT;
         }
     }
 

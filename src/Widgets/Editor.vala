@@ -20,8 +20,6 @@
 */
 
 public class ENotes.Editor : Gtk.Box {
-    private ENotes.PageInfoEditor page_info;
-
     private Gtk.SourceView code_view;
     private Gtk.SourceBuffer code_buffer;
     private Gtk.Box editor_and_help;
@@ -47,7 +45,6 @@ public class ENotes.Editor : Gtk.Box {
             code_buffer.end_not_undoable_action ();
 
             set_sensitive (true);
-            page_info.page = value;
         }
     }
 
@@ -133,9 +130,6 @@ public class ENotes.Editor : Gtk.Box {
             Services.Settings.get_instance ().spellcheck_language = spell.get_language ();
         });
 
-        page_info = new ENotes.PageInfoEditor ();
-
-        add (page_info);
         add (build_toolbar ());
         add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         add (editor_and_help);
@@ -181,20 +175,15 @@ public class ENotes.Editor : Gtk.Box {
         var separator1 = new Gtk.Separator (Gtk.Orientation.VERTICAL);
         var separator2 = new Gtk.Separator (Gtk.Orientation.VERTICAL);
         var separator3 = new Gtk.Separator (Gtk.Orientation.VERTICAL);
-        var separator4 = new Gtk.Separator (Gtk.Orientation.VERTICAL);
 
         separator1.margin_start = 4;
         separator2.margin_start = 4;
         separator3.margin_start = 4;
-        separator4.margin_start = 4;
 
         separator1.margin_end = 4;
         separator2.margin_end = 4;
         separator3.margin_end = 4;
-        separator4.margin_end = 4;
 
-        box.add (page_info.get_toggle_button ());
-        box.add (separator4);
         box.add (bold_button);
         box.add (italics_button);
         box.add (strike_button);
@@ -252,7 +241,6 @@ public class ENotes.Editor : Gtk.Box {
                 current_page.data = this.get_text ();
                 current_page.html_cache = "";
                 PageTable.get_instance ().save_page (current_page);
-                ViewEditStack.get_instance ().refresh_headerbar_title ();
             }
         }
     }

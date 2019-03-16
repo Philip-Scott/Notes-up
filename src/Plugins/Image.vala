@@ -52,7 +52,7 @@ public class ENotes.ImagePlugin : ENotes.Plugin {
     public override string convert (string _line) {
         var image_table = ENotes.ImageTable.get_instance ();
         var image_id = int64.parse(_line.split ("<image ")[1].replace (">", ""));
-        var page_id = ViewEditStack.get_instance ().current_page.id;
+        var page_id = app.state.opened_page.id;
         var image = image_table.get_image (page_id, image_id);
 
         var data = new StringBuilder ();
@@ -64,7 +64,7 @@ public class ENotes.ImagePlugin : ENotes.Plugin {
 
         return data.str;
     }
-    
+
     public override Gee.List<BLMember>? get_blacklist_members () {
         var list = new Gee.LinkedList<BLMember> ();
         list.add (new BLMember (/<image \d+>/, ""));

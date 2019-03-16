@@ -91,7 +91,7 @@ public class ENotes.ToolbarButton : Gtk.Button {
                     var file = FileManager.get_file_from_user ("image", Gtk.FileChooserAction.OPEN);
 
                     if (file != null) {
-                        var image_id = ImageTable.get_instance ().save (ViewEditStack.get_instance ().current_page.id, file);
+                        var image_id = ImageTable.get_instance ().save (app.state.opened_page.id, file);
 
                         code_buffer.insert (ref end, "<image %lld>".printf (image_id), -1);
                         code_buffer.place_cursor (end);
