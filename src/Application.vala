@@ -167,7 +167,9 @@ public class ENotes.Application : Granite.Application {
             request_saving_page_info ();
             opened_page = PageTable.get_instance ().get_page (page_id);
 
-            if (opened_page_notebook == null || opened_page_notebook.id != opened_page.notebook_id) {
+            if (opened_page == null) {
+                opened_page_notebook = null;
+            } else if (opened_page_notebook == null || opened_page_notebook.id != opened_page.notebook_id) {
                 opened_page_notebook = NotebookTable.get_instance ().load_notebook_data (opened_page.notebook_id);
             }
         }
