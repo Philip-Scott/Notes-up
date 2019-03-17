@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2011-2016 Felipe Escoto (https://github.com/Philip-Scott/Notes-up)
+* Copyright (c) 2019 Felipe Escoto (https://github.com/Philip-Scott/Notes-up)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -19,6 +19,151 @@
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
 
+public class ENotes.ButtonEntry : Gtk.Grid {
+    public signal void changed (string text);
+    public signal void activated ();
+
+    public Gtk.Entry entry { get; construct; }
+
+    private Gtk.Revealer entry_revealer;
+    private Gtk.Revealer button_revealer;
+
+    private Gtk.Button button;
+    private bool hide_if_contains_text = false;
+
+    private bool setting = false;
+    private Gtk.Label label;
+
+    public string text {
+        get {
+            return entry.text;
+        } set {
+            setting = true;
+            label.label = value;
+            entry.text = value;
+            setting = false;
+        }
+    }
+
+    public class ButtonEntry.search_entry () {
+        Object (entry: new Gtk.SearchEntry ());
+        halign = Gtk.Align.END;
+
+        (entry as Gtk.SearchEntry).search_changed.connect(() => {
+            changed (entry.get_text ());
+        });
+
+        button = new Gtk.Button.from_icon_name ("edit-find-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
+        button.set_tooltip_markup (Granite.markup_accel_tooltip (app.get_accels_for_action ("win.find-action"), _("Search your current notebook")));
+
+        button_revealer.add (button);
+        button.clicked.connect (show_entry);
+    }
+
+    public class ButtonEntry.for_tags (string label) {
+        Object (entry: new Gtk.Entry ());
+
+        button = new Gtk.Button.with_label (label);
+        button.set_tooltip_markup ("Edit Tag");
+
+        button_revealer.add (button);
+        button.clicked.connect (show_entry);
+
+        button.get_style_context ().add_class ("flat");
+
+        entry.max_width_chars = 6;
+        hide_if_contains_text = true;
+        vexpand = false;
+    }
+
+    public class ButtonEntry.for_page_title () {
+        Object (entry: new Gtk.Entry ());
+        halign = Gtk.Align.START;
+
+        button = new Gtk.Button ();
+        button.set_tooltip_markup ("Edit Note Title");
+
+        label = new Gtk.Label ("");
+        label.ellipsize = Pango.EllipsizeMode.END;
+
+        var button_grid = new Gtk.Grid ();
+        button_grid.orientation = Gtk.Orientation.HORIZONTAL;
+        button_grid.add (new Gtk.Image.from_icon_name ("folder-documents-symbolic", Gtk.IconSize.MENU));
+        button_grid.add (label);
+        button.add (button_grid);
+
+        button_revealer.add (button);
+        button.clicked.connect (show_entry);
+
+        button.get_style_context ().add_class ("flat");
+
+        entry.max_width_chars = 3;
+        entry.margin = 2;
+
+        hide_if_contains_text = true;
+        vexpand = false;
+    }
+
+    construct {
+        orientation = Gtk.Orientation.HORIZONTAL;
+        valign = Gtk.Align.CENTER;
+
+        entry.editable = true;
+        entry.visibility = true;
+        entry.expand = false;
+        entry.max_width_chars = 30;
+        entry.margin_end = 12;
+
+        entry_revealer = new Gtk.Revealer ();
+        entry_revealer.valign = Gtk.Align.CENTER;
+        entry_revealer.add (entry);
+        entry_revealer.reveal_child = false;
+        entry_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+
+        button_revealer = new Gtk.Revealer ();
+        button_revealer.reveal_child = true;
+        button_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+
+        add (button_revealer);
+        add (entry_revealer);
+
+        entry.activate.connect (() => {
+            activated ();
+        });
+
+        entry.icon_release.connect ((p0, p1) => {
+            if (!has_focus) hide_entry ();
+        });
+
+        entry.focus_out_event.connect (() => {
+            if (this.hide_if_contains_text || entry.get_text () == "") {
+                hide_entry ();
+            }
+
+            return false;
+        });
+    }
+
+    public void show_entry () {
+        button_revealer.reveal_child = false;
+        entry_revealer.reveal_child = true;
+
+        show_all ();
+
+        entry.can_focus = true;
+        entry.grab_focus ();
+    }
+
+    public void hide_entry () {
+        entry_revealer.reveal_child = false;
+        button_revealer.reveal_child = true;
+
+        entry.can_focus = false;
+
+        show_all ();
+    }
+}
+
 public class ENotes.Headerbar : Gtk.HeaderBar {
     public ENotes.BookmarkButton bookmark_button;
 
@@ -30,10 +175,7 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
     private Gtk.MenuItem item_pdf_export;
     private Gtk.MenuItem item_markdown_export;
 
-    public Gtk.Button search_button;
-    public Gtk.SearchEntry search_entry;
-    public Gtk.Revealer search_entry_revealer;
-    public Gtk.Revealer search_button_revealer;
+    private ENotes.ButtonEntry search_entry;
 
     public Gtk.GestureSwipe gesture;
 
@@ -49,33 +191,7 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
 
         create_menu ();
 
-        var search_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        search_box.halign = Gtk.Align.END;
-        search_box.valign = Gtk.Align.CENTER;
-
-        search_entry = new Gtk.SearchEntry();
-        search_entry.editable = true;
-        search_entry.visibility = true;
-        search_entry.expand = true;
-        search_entry.max_width_chars = 30;
-        search_entry.margin_end = 12;
-
-        search_entry_revealer = new Gtk.Revealer();
-        search_entry_revealer.valign = Gtk.Align.CENTER;
-
-        search_button_revealer = new Gtk.Revealer();
-        search_entry_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
-        search_button_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
-
-        search_button = new Gtk.Button.from_icon_name ("edit-find-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
-        search_button.set_tooltip_markup (Granite.markup_accel_tooltip (app.get_accels_for_action ("win.find-action"), _("Search your current notebook")));
-
-        search_button.clicked.connect(show_search);
-
-        search_button_revealer.add(search_button);
-        search_entry_revealer.add(search_entry);
-        search_entry_revealer.reveal_child = false;
-        search_button_revealer.reveal_child = true;
+        search_entry = new ENotes.ButtonEntry.search_entry ();
 
         bookmark_button = new BookmarkButton ();
 
@@ -86,9 +202,7 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         pack_end (menu_button);
         pack_end (page_info.get_toggle_button ());
         pack_end (bookmark_button);
-        search_box.add (search_button_revealer);
-        search_box.add (search_entry_revealer);
-        pack_end (search_box);
+        pack_end (search_entry);
 
         this.show_all ();
         connect_signals ();
@@ -166,24 +280,12 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
             }
         });
 
-        search_entry.activate.connect (() => {
+        search_entry.activated.connect (() => {
             app.state.search_selected ();
         });
 
-        search_entry.icon_release.connect ((p0, p1) => {
-            if (!has_focus) hide_search ();
-        });
-
-        search_entry.search_changed.connect(() => {
-            app.state.search_field = search_entry.get_text ();
-        });
-
-        search_entry.focus_out_event.connect (() => {
-            if (search_entry.get_text () == "") {
-                hide_search ();
-            }
-
-            return false;
+        search_entry.changed.connect ((text) => {
+            app.state.search_field = text;
         });
 
         app.state.notify["mode"].connect (() => {
@@ -203,18 +305,6 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
     }
 
     public void show_search () {
-        search_button_revealer.reveal_child = false;
-        search_entry_revealer.reveal_child = true;
-        show_all ();
-        search_visible = true;
-        search_entry.can_focus = true;
-        search_entry.grab_focus ();
-    }
-
-    public void hide_search () {
-        search_entry_revealer.reveal_child = false;
-        search_button_revealer.reveal_child = true;
-        show_all ();
-        search_visible = false;
+        search_entry.show_entry ();
     }
 }

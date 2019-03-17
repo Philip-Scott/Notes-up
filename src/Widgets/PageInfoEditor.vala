@@ -28,6 +28,8 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
     private Gtk.Label updated_date_label;
     private Gtk.Grid grid;
 
+    private ENotes.ButtonEntry page_title;
+
     private Gtk.ToggleButton? toggle_button;
 
     private ENotes.Page? _page;
@@ -40,6 +42,7 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
 
                 creation_date = new DateTime.from_unix_local (value.creation_date);
                 modification_date = new DateTime.from_unix_local (value.modification_date);
+                page_title.text = value.name;
             } else {
                 visibility = false;
             }
@@ -141,24 +144,30 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
         created_date_label.halign = Gtk.Align.START;
         created_date_label.use_markup = true;
         created_date_label.get_style_context ().add_class ("h4");
-        created_date_label.margin_start = 8;
 
         updated_date_label = new Gtk.Label ("");
         updated_date_label.halign = Gtk.Align.START;
         updated_date_label.use_markup = true;
         updated_date_label.hexpand = true;
         updated_date_label.get_style_context ().add_class ("h4");
+        updated_date_label.margin_start = 8;
 
         var bottom_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         bottom_separator.hexpand = true;
 
+        page_title = new ENotes.ButtonEntry.for_page_title ();
+
         grid.attach (current_notebook_button, 0, 0, 1, 1);
-        grid.attach (mid_separator, 0, 1, 2, 1);
-        grid.attach (created_date_label, 0, 2, 1, 1);
-        grid.attach (updated_date_label, 1, 2, 1, 1);
-        grid.attach (bottom_separator, 0, 3, 2, 1);
+        grid.attach (mid_separator, 0, 1, 3, 1);
+
+        grid.attach (page_title, 0, 2, 1, 1);
+        grid.attach (created_date_label, 1, 2, 1, 1);
+        grid.attach (updated_date_label, 2, 2, 1, 1);
+
+        grid.attach (bottom_separator, 0, 3, 3, 1);
 
         show_all ();
+
         add (grid);
 
         app.state.notify["opened-page"].connect (() => {
@@ -194,6 +203,11 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
 
         current_notebook_button.clicked.connect (() => {
             new NotebookListDialog.to_move_page (this.page);
+        });
+
+        page_title.activated.connect (() => {
+            app.state.opened_page.name = page_title.text;
+            //  app.state.save_opened_page ();
         });
 
         notebook = null;
