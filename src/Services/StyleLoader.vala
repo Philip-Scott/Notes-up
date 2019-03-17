@@ -34,8 +34,10 @@ public class ENotes.StyleLoader {
         }
     }
 
-    public string get_styleshet (string stylesheet, int64 current_page_id, bool trying_global = false) {
+    public string get_styleshet (string? stylesheet, int64 current_page_id, bool trying_global = false) {
         string css;
+
+        if (stylesheet == null) stylesheet = "";
 
         switch (stylesheet) {
             case "elementary":

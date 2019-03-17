@@ -151,19 +151,21 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
         updated_date_label.hexpand = true;
         updated_date_label.get_style_context ().add_class ("h4");
         updated_date_label.margin_start = 8;
+        updated_date_label.margin_end = 8;
 
         var bottom_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         bottom_separator.hexpand = true;
 
         page_title = new ENotes.ButtonEntry.for_page_title ();
 
+        var bottom_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 16);
+        bottom_box.add (page_title);
+        bottom_box.add (created_date_label);
+        bottom_box.add (updated_date_label);
+
         grid.attach (current_notebook_button, 0, 0, 1, 1);
         grid.attach (mid_separator, 0, 1, 3, 1);
-
-        grid.attach (page_title, 0, 2, 1, 1);
-        grid.attach (created_date_label, 1, 2, 1, 1);
-        grid.attach (updated_date_label, 2, 2, 1, 1);
-
+        grid.attach (bottom_box, 0, 2, 3, 1);
         grid.attach (bottom_separator, 0, 3, 3, 1);
 
         show_all ();
@@ -207,7 +209,11 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
 
         page_title.activated.connect (() => {
             app.state.opened_page.name = page_title.text;
-            //  app.state.save_opened_page ();
+            app.state.save_opened_page ();
+        });
+
+        app.state.update_page_title.connect (() => {
+            page = app.state.opened_page;
         });
 
         notebook = null;

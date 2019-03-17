@@ -38,8 +38,6 @@ public class ENotes.ViewEditStack : Gtk.Grid {
     private static ViewEditStack? instance = null;
     private ENotes.Mode? current_mode = null;
 
-    public signal void page_set (ENotes.Page page);
-
     public ENotes.Viewer viewer { get; private set; }
     public ENotes.Editor editor { get; private set; }
     private Gtk.Stack stack;
@@ -77,22 +75,12 @@ public class ENotes.ViewEditStack : Gtk.Grid {
         });
 
         app.state.notify["opened-page"].connect (() => {
-            editor.save_file ();
+            viewer.load_page (app.state.opened_page);
 
-            var current_page = app.state.opened_page;
-
-            app.state.opened_page_notebook = ENotes.NotebookTable.get_instance().load_notebook_data (current_page.notebook_id);
-
-            editor.current_page = current_page;
-            viewer.load_page (current_page);
-
-            page_set (current_page);
-
-            if (current_page.data == "" && app.state.mode == ENotes.Mode.VIEW) {
+            if (app.state.opened_page.data == "" && app.state.mode == ENotes.Mode.VIEW) {
                 app.state.mode = ENotes.Mode.EDIT;
             }
 
-            app.state.opened_page = current_page;
             app.state.update_page_title ();
         });
     }

@@ -47,6 +47,7 @@ public class ENotes.ButtonEntry : Gtk.Grid {
 
     public class ButtonEntry.search_entry () {
         Object (entry: new Gtk.SearchEntry ());
+        orientation = Gtk.Orientation.HORIZONTAL;
         halign = Gtk.Align.END;
 
         (entry as Gtk.SearchEntry).search_changed.connect(() => {
@@ -58,6 +59,11 @@ public class ENotes.ButtonEntry : Gtk.Grid {
 
         button_revealer.add (button);
         button.clicked.connect (show_entry);
+
+        add (entry_revealer);
+        add (button_revealer);
+        entry_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT;
+        button_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT;
     }
 
     public class ButtonEntry.for_tags (string label) {
@@ -78,7 +84,10 @@ public class ENotes.ButtonEntry : Gtk.Grid {
 
     public class ButtonEntry.for_page_title () {
         Object (entry: new Gtk.Entry ());
+        orientation = Gtk.Orientation.VERTICAL;
+        hide_if_contains_text = true;
         halign = Gtk.Align.START;
+        vexpand = false;
 
         button = new Gtk.Button ();
         button.set_tooltip_markup ("Edit Note Title");
@@ -90,22 +99,24 @@ public class ENotes.ButtonEntry : Gtk.Grid {
         button_grid.orientation = Gtk.Orientation.HORIZONTAL;
         button_grid.add (new Gtk.Image.from_icon_name ("folder-documents-symbolic", Gtk.IconSize.MENU));
         button_grid.add (label);
-        button.add (button_grid);
-
-        button_revealer.add (button);
         button.clicked.connect (show_entry);
-
         button.get_style_context ().add_class ("flat");
 
+        entry.halign = Gtk.Align.FILL;
         entry.max_width_chars = 3;
+        entry.width_chars = 1;
         entry.margin = 2;
 
-        hide_if_contains_text = true;
-        vexpand = false;
+        button.add (button_grid);
+        button_revealer.add (button);
+        add (entry_revealer);
+        add (button_revealer);
+
+        entry_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        button_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
     }
 
     construct {
-        orientation = Gtk.Orientation.HORIZONTAL;
         valign = Gtk.Align.CENTER;
 
         entry.editable = true;
@@ -118,14 +129,9 @@ public class ENotes.ButtonEntry : Gtk.Grid {
         entry_revealer.valign = Gtk.Align.CENTER;
         entry_revealer.add (entry);
         entry_revealer.reveal_child = false;
-        entry_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
 
         button_revealer = new Gtk.Revealer ();
         button_revealer.reveal_child = true;
-        button_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
-
-        add (button_revealer);
-        add (entry_revealer);
 
         entry.activate.connect (() => {
             activated ();

@@ -28,12 +28,8 @@ public class ENotes.Editor : Gtk.Box {
 
     private bool edited = false;
 
-    private ENotes.Page? _current_page = null;
-
     public ENotes.Page? current_page {
-        get {
-            return _current_page;
-        } set {
+         set {
             if (value == null) {
                 set_sensitive (false);
                 return;
@@ -42,12 +38,7 @@ public class ENotes.Editor : Gtk.Box {
             }
 
             code_buffer.begin_not_undoable_action ();
-
-            save_file ();
-
-            _current_page = value;
             code_buffer.text = value.data;
-
             edited = false;
             code_buffer.end_not_undoable_action ();
         }
@@ -145,6 +136,10 @@ public class ENotes.Editor : Gtk.Box {
 
         app.state.notify["opened-page"].connect (() => {
             current_page = app.state.opened_page;
+        });
+
+        app.state.request_saving_page_info.connect (() => {
+            save_file ();
         });
     }
 
@@ -246,18 +241,13 @@ public class ENotes.Editor : Gtk.Box {
     public void save_file () {
         if (edited) {
             edited = false;
-            if (current_page != null) {
-                current_page.data = this.get_text ();
-                current_page.html_cache = "";
-                PageTable.get_instance ().save_page (current_page);
-            }
-        }
-    }
 
-    public void restore () {
-        if (current_page != null) {
-            edited = false;
-            current_page = _current_page;
+            if (app.state.opened_page != null) {
+                app.state.opened_page.data = this.get_text ();
+                app.state.opened_page.html_cache = "";
+
+                app.state.save_opened_page ();
+            }
         }
     }
 

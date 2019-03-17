@@ -125,7 +125,7 @@ public class ENotes.Application : Granite.Application {
     public class State : Object {
         public signal void update_page_title ();
 
-        public ENotes.Page? opened_page { get; set; }
+        public ENotes.Page? opened_page { get; private set; }
 
         public ENotes.Notebook? opened_page_notebook { get; set;  }
         public ENotes.Notebook? opened_notebook { get; set; }
@@ -141,6 +141,7 @@ public class ENotes.Application : Granite.Application {
         public signal void bookmark_changed ();
 
         // Page state changed
+        public signal void request_saving_page_info ();
         public signal void page_updated ();
         public signal void page_deleted ();
 
@@ -150,7 +151,7 @@ public class ENotes.Application : Granite.Application {
 
         construct {
             notify.connect ((spec) => {
-                print ("Property changed in state: %s\n", spec.name);
+                debug ("Property changed in state: %s\n", spec.name);
             });
         }
 
@@ -163,8 +164,19 @@ public class ENotes.Application : Granite.Application {
         }
 
         public void open_page (int64 page_id) {
-            print ("Open page %lld\n", page_id);
+            request_saving_page_info ();
             opened_page = PageTable.get_instance ().get_page (page_id);
+
+            if (opened_page_notebook == null || opened_page_notebook.id != opened_page.notebook_id) {
+                opened_page_notebook = NotebookTable.get_instance ().load_notebook_data (opened_page.notebook_id);
+            }
+        }
+
+        public void save_opened_page () {
+            if (opened_page == null) return;
+
+            PageTable.get_instance ().save_page (opened_page);
+            update_page_title ();
         }
     }
 }

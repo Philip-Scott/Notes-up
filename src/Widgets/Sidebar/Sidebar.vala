@@ -175,9 +175,9 @@ public class ENotes.Sidebar : Granite.Widgets.SourceListPatch {
                 // If viewing page == the bookmark, select the notebook. if not just open the page
                 if (app.state.opened_page.equals (((ENotes.BookmarkItem) item).get_page ())) {
                     app.state.open_notebook (((ENotes.BookmarkItem) item).parent_notebook);
-                    app.state.opened_page = ((ENotes.BookmarkItem) item).get_page ();
+                    app.state.open_page (((ENotes.BookmarkItem) item).get_page ().id);
                 } else {
-                    app.state.opened_page = ((ENotes.BookmarkItem) item).get_page ();
+                    app.state.open_page (((ENotes.BookmarkItem) item).get_page ().id);
                     this.selected = previous_selection;
                 }
             } else if (item is ENotes.NotebookItem) {

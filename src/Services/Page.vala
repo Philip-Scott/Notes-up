@@ -255,15 +255,17 @@ public class ENotes.PageTable : DatabaseTable {
         string preview = "";
 
         if (lines.length > 0) {
-            page.name = cleanup(lines[0]);
+            if (page.name == _("New Page")) {
+                page.name = cleanup (lines[0]);
+            }
 
-            for(int i = 1; i < lines.length; i++) {
+            for (int i = 1; i < lines.length; i++) {
                 preview = cleanup (lines[i]);
                 if (preview != "") {
                     break;
                 }
             }
-        } else {
+        } else if (lines.length == 0){
             page.name = _("New Page");
         }
 
