@@ -77,6 +77,7 @@ public abstract class DatabaseTable {
                     ENotes.ImageTable.get_instance ();
                     ENotes.NotebookTable.get_instance ();
                     ENotes.BookmarkTable.get_instance ();
+                    ENotes.TagsTable.get_instance ();
                 }
             } catch (Error e) {
                 error ("Error accessing database file:\n %s\n\n Error was: \n%s", filename, e.message);
@@ -200,7 +201,7 @@ public abstract class DatabaseTable {
 
     private static void assert_test (bool condition, string data) {
         if (!condition) {
-            stderr.printf ("Assertion failed: %s\n", data);
+            error ("Assertion failed: %s\n", data);
         }
 
         assert (condition);

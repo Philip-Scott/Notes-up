@@ -193,34 +193,31 @@ public class ENotes.PagesList : Gtk.Box {
     private void load_pages (ENotes.Notebook? notebook) {
         if (notebook == null) return;
 
-        loading_pages = true;
-        clear_pages ();
-
         var pages = PageTable.get_instance ().get_pages (notebook.id);
 
-        foreach (ENotes.Page page in pages) {
-            new_page (page);
-        }
-
-        toolbar.set_sensitive (true);
-        minus_button.set_sensitive (false);
-
-        var page_label = dngettext ("notes-up", "%i Page", "%i Pages", added_pages.size);
-        page_total.label = page_label.printf (added_pages.size);
+        load_page_list (pages);
 
         this.notebook_name.label = notebook.name.split ("§")[0] + ":";
-        listbox.show_all ();
+    }
 
-        select_page (app.state.opened_page);
-        loading_pages = false;
+    private void load_pages_for_tag (Tag tag) {
+        var pages = TagsTable.get_instance ().get_pages_for_tag (tag);
+
+        load_page_list (pages);
+        this.notebook_name.label = "%s:".printf (tag.name);
     }
 
     public void load_all_pages () {
         loading_pages = true;
-
-        clear_pages ();
-
         var pages = PageTable.get_instance ().get_all_pages ();
+        load_page_list (pages);
+
+        this.notebook_name.label = "Notes:";
+    }
+
+    private void load_page_list (Gee.ArrayList<Page> pages) {
+        loading_pages = true;
+        clear_pages ();
 
         foreach (ENotes.Page page in pages) {
             new_page (page);
@@ -232,9 +229,8 @@ public class ENotes.PagesList : Gtk.Box {
         var page_label = dngettext ("notes-up", "%i Page", "%i Pages", added_pages.size);
         page_total.label = page_label.printf (added_pages.size);
 
-        this.notebook_name.label = "Notes:";
         listbox.show_all ();
-
+        select_page (app.state.opened_page);
         loading_pages = false;
     }
 
@@ -288,9 +284,15 @@ public class ENotes.PagesList : Gtk.Box {
             var notebook = app.state.opened_notebook;
             if (notebook != null) {
                 load_pages (notebook);
-            } else {
-                load_all_pages ();
             }
+        });
+
+        app.state.show_pages_in_tag.connect ((tag) => {
+            load_pages_for_tag (tag);
+        });
+
+        app.state.show_all_pages.connect (() => {
+            load_all_pages ();
         });
 
         app.state.notebook_contents_changed.connect (() => {

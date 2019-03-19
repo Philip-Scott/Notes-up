@@ -111,6 +111,7 @@ vala_precompile(VALA_C
   src/Widgets/Sidebar/NotebookList.vala
   src/Widgets/Sidebar/NotebookItem.vala
   src/Widgets/Sidebar/BookmarkItem.vala
+  src/Widgets/Sidebar/TagItem.vala
   src/Widgets/Sidebar/TrashItem.vala
 
   src/Widgets/Dialogs/NewNotebookDialog.vala
@@ -125,6 +126,7 @@ vala_precompile(VALA_C
   src/Services/Settings.vala
   src/Services/StyleLoader.vala
   src/Services/Trash.vala
+  src/Services/Tags.vala
   src/Services/DatabaseTable.vala
   src/Services/WordWrapper.vala
 

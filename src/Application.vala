@@ -150,6 +150,10 @@ public class ENotes.Application : Granite.Application {
         public signal void load_all_pages ();
         public signal void notebook_contents_changed ();
 
+        // Show pages by:
+        public signal void show_all_pages ();
+        public signal void show_pages_in_tag (Tag tag);
+
         construct {
             notify.connect ((spec) => {
                 debug ("Property changed in state: %s\n", spec.name);

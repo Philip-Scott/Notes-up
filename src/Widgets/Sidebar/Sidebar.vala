@@ -26,6 +26,7 @@ public class ENotes.Sidebar : Granite.Widgets.SourceListPatch {
 
     private Granite.Widgets.SourceListPatch.ExpandableItem bookmarks = new Granite.Widgets.SourceListPatch.ExpandableItem (_("Bookmarks"));
     private Granite.Widgets.SourceListPatch.ExpandableItem trash = new Granite.Widgets.SourceListPatch.ExpandableItem (_("Trash"));
+    private Granite.Widgets.SourceListPatch.ExpandableItem tags = new Granite.Widgets.SourceListPatch.ExpandableItem (_("Tags"));
     private Granite.Widgets.SourceListPatch.Item? previous_selection = null;
     private Granite.Widgets.SourceListPatch.Item all_notes;
 
@@ -46,11 +47,15 @@ public class ENotes.Sidebar : Granite.Widgets.SourceListPatch {
 
         notebooks.icon = new GLib.ThemedIcon ("notebook-symbolic");
         trash.icon = new GLib.ThemedIcon ("edit-delete-symbolic");
-        bookmarks.icon = new GLib.ThemedIcon ("user-bookmarks");
+        tags.icon = new GLib.ThemedIcon ("tag-symbolic");
+        bookmarks.icon = new GLib.ThemedIcon ("user-bookmarks-symbolic");
 
         build_new_ui (_("All Notes"));
+
         load_notebooks ();
         load_bookmarks ();
+        load_tags ();
+
         connect_signals ();
         notebooks.collapse_all (true, true);
         root.expand_all (false, false);
@@ -86,6 +91,7 @@ public class ENotes.Sidebar : Granite.Widgets.SourceListPatch {
 
         root.add (notebooks);
         root.add (bookmarks);
+        root.add (tags);
         root.add (trash);
 
         can_focus = false;
@@ -136,6 +142,19 @@ public class ENotes.Sidebar : Granite.Widgets.SourceListPatch {
         bookmarks.expand_all ();
     }
 
+    public void load_tags () {
+        tags.clear ();
+
+        var tags_list = TagsTable.get_instance ().get_tags ();
+
+        foreach (var tag in tags_list) {
+            var tag_item = new TagItem (tag);
+            tags.add (tag_item);
+        }
+
+        tags.expand_all ();
+    }
+
     private void select_notebook (int64 notebook_id) {
         selectring_notebook = true;
 
@@ -184,8 +203,13 @@ public class ENotes.Sidebar : Granite.Widgets.SourceListPatch {
                 previous_selection = item;
                 ENotes.ViewEditStack.get_instance ().editor.save_file ();
                 app.state.opened_notebook = ((ENotes.NotebookItem) item).notebook;
+            } else if (item is ENotes.TagItem) {
+                var tag_item = item as ENotes.TagItem;
+                app.state.opened_notebook = null;
+                app.state.show_pages_in_tag (tag_item.tag);
             } else if (item == all_notes) {
                 app.state.opened_notebook = null;
+                app.state.show_all_pages ();
             }
         });
 
