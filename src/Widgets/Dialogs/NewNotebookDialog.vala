@@ -202,6 +202,8 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
                         }
 
                         NotebookTable.get_instance ().save_notebook (notebook.id, name_entry.text, {r,g,b}, style_changes.buffer.text, StyleLoader.STYLES[style_box.active]);
+
+                        app.state.opened_notebook_updated ();
                     }
 
                     ENotes.ViewEditStack.get_instance ().viewer.reload ();

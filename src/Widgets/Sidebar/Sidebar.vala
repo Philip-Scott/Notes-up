@@ -197,6 +197,10 @@ public class ENotes.Sidebar : Granite.Widgets.SourceListPatch {
             }
         });
 
+        app.state.opened_notebook_updated.connect (() => {
+            load_notebooks ();
+        });
+
         NotebookTable.get_instance ().notebook_added.connect ((notebook) => {
             var item = new NotebookItem (notebook, true);
 

@@ -134,6 +134,7 @@ vala_precompile(VALA_C
   src/Plugins/Color.vala
   src/Plugins/Youtube.vala
   src/Plugins/Image.vala
+  src/Plugins/PageLink.vala
   src/Plugins/Highlight.vala
   src/config.vala
 PACKAGES

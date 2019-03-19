@@ -48,7 +48,7 @@ public class ENotes.NotebookListDialog : Gtk.Dialog {
                     }
 
                     NotebookTable.get_instance ().move_notebook (notebook, parent_notebook);
-                    Sidebar.get_instance ().load_notebooks ();
+                    app.state.opened_notebook_updated ();
                     break;
             }
 
@@ -92,7 +92,7 @@ public class ENotes.NotebookListDialog : Gtk.Dialog {
                     PageTable.get_instance ().move_to_notebook (page_to_move, notebook_id);
                     app.state.opened_page_notebook = item != null ? item.notebook : null;
                     app.state.open_page (page_to_move.id);
-                    app.state.opened_notebook_updated ();
+                    app.state.notebook_contents_changed ();
                     break;
             }
 

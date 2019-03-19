@@ -44,6 +44,7 @@ public class ENotes.PluginManager : GLib.Object {
         plug_list += new Break ();
         plug_list += new Highlight ();
         plug_list += new ImagePlugin ();
+        plug_list += new PageLink ();
     }
 
     public unowned Plugin[] get_plugs () {

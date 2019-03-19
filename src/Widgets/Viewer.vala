@@ -83,6 +83,12 @@ public class ENotes.Viewer : WebKit.WebView {
                         return false;
                     }
                 break;
+                case WebKit.PolicyDecisionType.NAVIGATION_ACTION:
+                    if (decision is WebKit.NavigationPolicyDecision) {
+                        var policy = (WebKit.NavigationPolicyDecision) decision;
+                        return launch_browser (policy.navigation_action.get_request ().get_uri ());
+                    }
+                break;
             }
 
             return true;
@@ -96,8 +102,18 @@ public class ENotes.Viewer : WebKit.WebView {
         });
     }
 
-    private void launch_browser (string url) {
-        if (!url.contains ("/embed/")) {
+    private bool launch_browser (string url) {
+        if (url.contains ("file:///")) {
+            return true;
+        } if (url.contains ("notes-up:///")) {
+            stop_loading ();
+
+            var page_string = url.split (":///")[1];
+            if (page_string != null) {
+                debug ("Openinng page %s", page_string);
+                app.state.open_page (int64.parse (page_string));
+            }
+        } else if (!url.contains ("/embed/")) {
             try {
                 AppInfo.launch_default_for_uri (url, null);
             } catch (Error e) {
@@ -105,6 +121,8 @@ public class ENotes.Viewer : WebKit.WebView {
             }
             stop_loading ();
         }
+
+        return false;
     }
 
     private string[] process_frontmatter (string raw_mk, out string processed_mk) {

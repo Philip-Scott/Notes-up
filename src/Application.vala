@@ -148,6 +148,7 @@ public class ENotes.Application : Granite.Application {
         // Notebook state changed
         public signal void opened_notebook_updated ();
         public signal void load_all_pages ();
+        public signal void notebook_contents_changed ();
 
         construct {
             notify.connect ((spec) => {
@@ -166,6 +167,8 @@ public class ENotes.Application : Granite.Application {
         public void open_page (int64 page_id) {
             request_saving_page_info ();
             opened_page = PageTable.get_instance ().get_page (page_id);
+
+            debug ("Opening page: %s\n", page_id.to_string ());
 
             if (opened_page == null) {
                 opened_page_notebook = null;

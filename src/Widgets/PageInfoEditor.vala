@@ -151,17 +151,22 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
         updated_date_label.hexpand = true;
         updated_date_label.get_style_context ().add_class ("h4");
         updated_date_label.margin_start = 8;
-        updated_date_label.margin_end = 8;
 
         var bottom_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         bottom_separator.hexpand = true;
 
         page_title = new ENotes.ButtonEntry.for_page_title ();
 
+        var link_to_page_button = new Gtk.Button.from_icon_name ("insert-link-symbolic", Gtk.IconSize.MENU);
+        link_to_page_button.halign = Gtk.Align.END;
+        link_to_page_button.margin_end = 6;
+        link_to_page_button.tooltip_text = _("Copy link to page to clipboard");
+
         var bottom_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 16);
         bottom_box.add (page_title);
         bottom_box.add (created_date_label);
         bottom_box.add (updated_date_label);
+        bottom_box.add (link_to_page_button);
 
         grid.attach (current_notebook_button, 0, 0, 1, 1);
         grid.attach (mid_separator, 0, 1, 3, 1);
@@ -207,6 +212,14 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
             new NotebookListDialog.to_move_page (this.page);
         });
 
+        link_to_page_button.clicked.connect (() => {
+            var clipboard = Gtk.Clipboard.get_default (window.get_window ().get_display ());
+            var p = this.page;
+
+            var link_text = "<page %lld %s %s>".printf (p.id, _("Link to: "), p.name);
+            clipboard.set_text (link_text, -1);
+        });
+
         page_title.activated.connect (() => {
             app.state.opened_page.name = page_title.text;
             app.state.save_opened_page ();
@@ -215,6 +228,11 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
         app.state.update_page_title.connect (() => {
             page = app.state.opened_page;
         });
+
+        app.state.opened_notebook_updated.connect (() => {
+            notebook = app.state.opened_page_notebook;
+        });
+
 
         notebook = null;
     }
