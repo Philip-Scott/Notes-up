@@ -252,6 +252,9 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
         private Gtk.Grid grid;
 
         private Gee.ArrayList<Gtk.Widget> tag_widgets;
+        private Gtk.EntryCompletion completion;
+
+        private ENotes.ButtonEntry new_tag_entry;
 
         construct {
             hexpand = true;
@@ -259,15 +262,24 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
 
             tag_widgets = new Gee.ArrayList<Gtk.Widget>();
 
+            new_tag_entry = new ENotes.ButtonEntry.for_tags (_("Click to add tag…"));
+            new_tag_entry.activated.connect (() => {
+                TagsTable.get_instance ().create_tag (new_tag_entry.text, this.page);
+                app.state.tags_changed ();
+            });
+
+            completion = new Gtk.EntryCompletion ();
+            completion.set_text_column (0);
+
             grid = new Gtk.Grid ();
             grid.orientation = Gtk.Orientation.HORIZONTAL;
             grid.valign = Gtk.Align.CENTER;
             grid.column_spacing = 3;
 
             grid.add (new Gtk.Image.from_icon_name ("tag-symbolic", Gtk.IconSize.MENU));
+            grid.add (new_tag_entry);
 
             add (grid);
-
             show_all ();
 
             app.state.notify["opened-page"].connect (() => {
@@ -277,10 +289,26 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
 
             app.state.tags_changed.connect (() => {
                 update_tags (this.page);
+
+                refresh_completion ();
             });
+
+            refresh_completion ();
+        }
+
+        private void refresh_completion () {
+            Gtk.ListStore list_store = new Gtk.ListStore (1, typeof (string));
+            completion.set_model (list_store);
+
+            Gtk.TreeIter iter;
+            foreach (var tag in TagsTable.get_instance ().get_tags ()) {
+                list_store.append (out iter);
+                list_store.set (iter, 0, tag.name);
+            }
         }
 
         private void update_tags (Page page) {
+            grid.remove (new_tag_entry);
             foreach (var child in tag_widgets) {
                 child.destroy ();
             }
@@ -294,7 +322,7 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
 
                 tag_widgets.add (tag_button);
 
-                tag_button.clicked.connect (() => {
+                tag_button.button_release_event.connect (() => {
                     var menu = new Gtk.Menu ();
                     menu.attach_widget = tag_button;
 
@@ -308,16 +336,15 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
                         TagsTable.get_instance ().remove_tag_from_page (tag.id, this.page.id);
                         app.state.tags_changed ();
                     });
+
+                    return true;
                 });
             }
 
-            var new_tag_entry = new ENotes.ButtonEntry.for_tags (_("Click to add tag…"));
-            new_tag_entry.activated.connect (() => {
-                TagsTable.get_instance ().create_tag (new_tag_entry.text, this.page);
-                app.state.tags_changed ();
-            });
+            new_tag_entry.hide_entry ();
+            new_tag_entry.entry.text = "";
+            new_tag_entry.entry.set_completion (completion);
 
-            tag_widgets.add (new_tag_entry);
             grid.add (new_tag_entry);
             grid.show_all ();
         }

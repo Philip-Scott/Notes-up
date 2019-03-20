@@ -158,7 +158,7 @@ public class ENotes.ButtonEntry : Gtk.Grid {
         });
 
         entry.focus_out_event.connect (() => {
-            if (this.hide_if_contains_text || entry.get_text () == "") {
+            if (!always_shown_when_revealed && (this.hide_if_contains_text || entry.get_text () == "")) {
                 hide_entry ();
             }
 
@@ -177,8 +177,6 @@ public class ENotes.ButtonEntry : Gtk.Grid {
     }
 
     public void hide_entry () {
-        if (always_shown_when_revealed) return;
-
         entry_revealer.reveal_child = false;
         button_revealer.reveal_child = true;
 

@@ -20,7 +20,7 @@
 */
 
 public class ENotes.Sidebar : Granite.Widgets.SourceListPatch {
-    private bool selectring_notebook = false;
+    private bool selecting_sidebar_item = false;
 
     private static Sidebar? instance = null;
 
@@ -33,6 +33,7 @@ public class ENotes.Sidebar : Granite.Widgets.SourceListPatch {
     private NotebookList notebooks = new NotebookList (_("Notebooks"));
 
     private Gee.HashMap<int, NotebookItem> added_notebooks;
+    private Gee.HashMap<int, TagItem> added_tags;
 
     public static Sidebar get_instance () {
         if (instance == null) {
@@ -43,7 +44,7 @@ public class ENotes.Sidebar : Granite.Widgets.SourceListPatch {
     }
 
     public Sidebar () {
-        selectring_notebook = true;
+        selecting_sidebar_item = true;
 
         notebooks.icon = new GLib.ThemedIcon ("notebook-symbolic");
         trash.icon = new GLib.ThemedIcon ("edit-delete-symbolic");
@@ -60,7 +61,7 @@ public class ENotes.Sidebar : Granite.Widgets.SourceListPatch {
         notebooks.collapse_all (true, true);
         root.expand_all (false, false);
 
-        selectring_notebook = false;
+        selecting_sidebar_item = false;
 
         try {
             var provider = new Gtk.CssProvider ();
@@ -143,6 +144,11 @@ public class ENotes.Sidebar : Granite.Widgets.SourceListPatch {
     }
 
     public void load_tags () {
+        selecting_sidebar_item = true;
+
+        var last_tag_selected = selected as TagItem;
+
+        added_tags = new Gee.HashMap<int, TagItem>();
         tags.clear ();
 
         var tags_list = TagsTable.get_instance ().get_tags ();
@@ -150,13 +156,29 @@ public class ENotes.Sidebar : Granite.Widgets.SourceListPatch {
         foreach (var tag in tags_list) {
             var tag_item = new TagItem (tag);
             tags.add (tag_item);
+            added_tags.set ((int) tag.id, tag_item);
         }
 
         tags.expand_all ();
+
+        selecting_sidebar_item = false;
+
+        if (last_tag_selected != null) {
+            select_tag (last_tag_selected.tag.id);
+        }
+    }
+
+    private void select_tag (int64 _tag) {
+        int tag = (int) _tag;
+
+        if (added_tags.has_key (tag)) {
+            var to_select = added_tags.get ((int) tag);
+            selected = to_select;
+        }
     }
 
     private void select_notebook (int64 notebook_id) {
-        selectring_notebook = true;
+        selecting_sidebar_item = true;
 
         if (added_notebooks.has_key ((int) notebook_id)) {
             var last_selected = selected as ENotes.NotebookItem;
@@ -170,7 +192,7 @@ public class ENotes.Sidebar : Granite.Widgets.SourceListPatch {
             }
         }
 
-        selectring_notebook = false;
+        selecting_sidebar_item = false;
     }
 
     public void first_start () {
@@ -188,7 +210,7 @@ public class ENotes.Sidebar : Granite.Widgets.SourceListPatch {
 
     private void connect_signals () {
         item_selected.connect ((item) => {
-            if (selectring_notebook) return;
+            if (selecting_sidebar_item) return;
 
             if (item != null && item is ENotes.BookmarkItem) {
                 // If viewing page == the bookmark, select the notebook. if not just open the page
