@@ -225,6 +225,10 @@ public class ENotes.Sidebar : Granite.Widgets.SourceListPatch {
             load_notebooks ();
         });
 
+        app.state.tags_changed.connect (() => {
+            load_tags ();
+        });
+
         NotebookTable.get_instance ().notebook_added.connect ((notebook) => {
             var item = new NotebookItem (notebook, true);
 

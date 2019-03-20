@@ -29,13 +29,23 @@ public class ENotes.TagItem : ENotes.SidebarItem {
         this.tag = tag;
         this.name = tag.name;
 
-        //  editable = true;
+        editable = true;
 
         setup_menu ();
 
-        //  edited.connect ((new_name) => {
-        //      BookmarkTable.get_instance ().rename (this.tag.page_id, new_name);
-        //  });
+        edited.connect ((new_name) => {
+            var old_name = this.tag.name;
+
+            this.tag.name = new_name;
+
+            var result = TagsTable.get_instance ().save_tag (this.tag);
+
+            if (result) {
+                app.state.tags_changed ();
+            } else {
+                this.name = old_name;
+            }
+        });
     }
 
 
@@ -43,8 +53,8 @@ public class ENotes.TagItem : ENotes.SidebarItem {
         menu = new Gtk.Menu ();
         remove_item = new Gtk.MenuItem.with_label (_("Remove"));
         remove_item.activate.connect (() => {
-            //  BookmarkTable.get_instance ().remove (this.tag.page_id);
-            //  app.state.tag_changed ();
+            TagsTable.get_instance ().delete_tag (this.tag);
+            app.state.tags_changed ();
             visible = false;
         });
 

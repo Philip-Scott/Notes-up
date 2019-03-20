@@ -61,10 +61,10 @@ public class ENotes.TagsTable : DatabaseTable {
     }
 
     public Gee.ArrayList<Tag>? get_tags_for_page (int64 page_id) {
-        var stmt = create_stmt ("SELECT id, name, data"
-                             + "FROM Tags tag"
-                             + "INNER JOIN TagsPage tp"
-                             + "   ON tp.tag_id = tag.id"
+        var stmt = create_stmt ("SELECT id, name, data "
+                             + "FROM Tags tag "
+                             + "INNER JOIN TagsPage tp "
+                             + "   ON tp.tag_id = tag.id "
                              + "WHERE tp.page_id = ?");
 
         bind_int (stmt, 1, page_id);
@@ -92,15 +92,67 @@ public class ENotes.TagsTable : DatabaseTable {
         return tags;
     }
 
-    public void create_tag (string name) {
+    public void create_tag (string name, Page page) {
         var stmt = create_stmt ("INSERT INTO Tags (name) VALUES (?)");
         bind_text (stmt, 1, name);
+        stmt.step ();
 
-        var res = stmt.step ();
+        stmt = create_stmt ("SELECT id, name FROM Tags WHERE name = ?");
+        bind_text (stmt, 1, name);
+
+        stmt.step ();
+        var tag_id = stmt.column_int64 (0);
+
+        foreach (var tag in get_tags_for_page (page.id)) {
+            if (tag.id == tag_id) {
+                return;
+            }
+        }
+
+        stmt = create_stmt ("INSERT INTO TagsPage (tag_id, page_id) VALUES (?, ?)");
+        bind_int (stmt, 1, tag_id);
+        bind_int (stmt, 2, page.id);
+
+        stmt.step ();
     }
 
-    public void save_tag (Tag tag) {
+    public void delete_tag (Tag tag) {
+        var tag_page = create_stmt ("DELETE FROM TagsPage WHERE tag_id = ?");
+        bind_int (tag_page, 1, tag.id);
 
+        tag_page.step ();
+
+        var stmt = create_stmt ("DELETE FROM Tags WHERE id = ?");
+        bind_int (stmt, 1, tag.id);
+
+        stmt.step ();
+    }
+
+    public void remove_tags_from_page (int64 page_id) {
+        var tag_page = create_stmt ("DELETE FROM TagsPage WHERE page_id = ?");
+        bind_int (tag_page, 1, page_id);
+
+        tag_page.step ();
+    }
+
+    public void remove_tag_from_page (int64 tag_id, int64 page_id) {
+        var tag_page = create_stmt ("DELETE FROM TagsPage WHERE page_id = ? AND tag_id = ?");
+        bind_int (tag_page, 1, page_id);
+        bind_int (tag_page, 2, tag_id);
+
+        tag_page.step ();
+    }
+
+    public bool save_tag (Tag tag) {
+        var tag_page = create_stmt ("UPDATE Tags SET name = ?, data = ? WHERE id = ?");
+
+        bind_text (tag_page, 1, tag.name);
+        bind_text (tag_page, 2, tag.data);
+        bind_int (tag_page, 3, tag.id);
+
+        var res = tag_page.step ();
+
+        return res == Sqlite.DONE;
     }
 
     public Gee.ArrayList<Tag> get_tags () {

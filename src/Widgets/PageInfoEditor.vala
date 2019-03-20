@@ -168,7 +168,11 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
         bottom_box.add (updated_date_label);
         bottom_box.add (link_to_page_button);
 
+        var tags_box = new TagsBox ();
+
         grid.attach (current_notebook_button, 0, 0, 1, 1);
+        grid.attach (new Gtk.Separator (Gtk.Orientation.VERTICAL), 1, 0, 1, 1);
+        grid.attach (tags_box, 2, 0, 1, 1);
         grid.attach (mid_separator, 0, 1, 3, 1);
         grid.attach (bottom_box, 0, 2, 3, 1);
         grid.attach (bottom_separator, 0, 3, 3, 1);
@@ -242,4 +246,80 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
     }
 
     private const string NB_STYLE = """* { color: %s}""";
+
+    public class TagsBox : Gtk.ScrolledWindow {
+        private ENotes.Page page;
+        private Gtk.Grid grid;
+
+        private Gee.ArrayList<Gtk.Widget> tag_widgets;
+
+        construct {
+            hexpand = true;
+            valign = Gtk.Align.CENTER;
+
+            tag_widgets = new Gee.ArrayList<Gtk.Widget>();
+
+            grid = new Gtk.Grid ();
+            grid.orientation = Gtk.Orientation.HORIZONTAL;
+            grid.valign = Gtk.Align.CENTER;
+            grid.column_spacing = 3;
+
+            grid.add (new Gtk.Image.from_icon_name ("tag-symbolic", Gtk.IconSize.MENU));
+
+            add (grid);
+
+            show_all ();
+
+            app.state.notify["opened-page"].connect (() => {
+                this.page = app.state.opened_page;
+                update_tags (this.page);
+            });
+
+            app.state.tags_changed.connect (() => {
+                update_tags (this.page);
+            });
+        }
+
+        private void update_tags (Page page) {
+            foreach (var child in tag_widgets) {
+                child.destroy ();
+            }
+
+            var tags = TagsTable.get_instance ().get_tags_for_page (page.id);
+
+            foreach (var tag in tags) {
+                var tag_button = new Gtk.Button.with_label (tag.name);
+                tag_button.get_style_context ().add_class ("flat");
+                grid.add (tag_button);
+
+                tag_widgets.add (tag_button);
+
+                tag_button.clicked.connect (() => {
+                    var menu = new Gtk.Menu ();
+                    menu.attach_widget = tag_button;
+
+                    var remove = new Gtk.MenuItem.with_label (_("Remove tag"));
+                    menu.add (remove);
+                    menu.show_all ();
+
+                    menu.popup_at_widget (tag_button, Gdk.Gravity.SOUTH, Gdk.Gravity.NORTH);
+
+                    remove.activate.connect (() => {
+                        TagsTable.get_instance ().remove_tag_from_page (tag.id, this.page.id);
+                        app.state.tags_changed ();
+                    });
+                });
+            }
+
+            var new_tag_entry = new ENotes.ButtonEntry.for_tags (_("Click to add tag…"));
+            new_tag_entry.activated.connect (() => {
+                TagsTable.get_instance ().create_tag (new_tag_entry.text, this.page);
+                app.state.tags_changed ();
+            });
+
+            tag_widgets.add (new_tag_entry);
+            grid.add (new_tag_entry);
+            grid.show_all ();
+        }
+    }
 }

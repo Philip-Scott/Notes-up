@@ -218,10 +218,12 @@ public class ENotes.NotebookTable : DatabaseTable {
         bind_int (stmt, 1, id);
         stmt.step ();
 
-        stmt = create_stmt ("DELETE FROM Page WHERE notebook_id = ?");
-        bind_int (stmt, 1, id);
+        var page_table = PageTable.get_instance ();
+        var pages = page_table.get_pages (id);
 
-        stmt.step ();
+        foreach (var page in pages) {
+            page_table.delete_page (page.id);
+        }
 
         stmt = create_stmt ("DELETE FROM Notebook WHERE id = ?");
         bind_int (stmt, 1, id);

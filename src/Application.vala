@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2011-2016 Felipe Escoto (https://github.com/Philip-Scott/Notes-up)
+* Copyright (c) 2019 Felipe Escoto (https://github.com/Philip-Scott/Notes-up)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -149,6 +149,9 @@ public class ENotes.Application : Granite.Application {
         public signal void opened_notebook_updated ();
         public signal void load_all_pages ();
         public signal void notebook_contents_changed ();
+
+        // Tags Changed
+        public signal void tags_changed ();
 
         // Show pages by:
         public signal void show_all_pages ();

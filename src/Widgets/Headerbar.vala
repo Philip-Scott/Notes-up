@@ -31,6 +31,7 @@ public class ENotes.ButtonEntry : Gtk.Grid {
     private Gtk.Button button;
     private bool hide_if_contains_text = false;
 
+    private bool always_shown_when_revealed = false;
     private bool setting = false;
     private Gtk.Label label;
 
@@ -64,22 +65,41 @@ public class ENotes.ButtonEntry : Gtk.Grid {
         add (button_revealer);
         entry_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT;
         button_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT;
+
+        entry.icon_release.connect ((p0, p1) => {
+            if (!has_focus) hide_entry ();
+        });
     }
 
-    public class ButtonEntry.for_tags (string label) {
+    public class ButtonEntry.for_tags (string tag_text) {
         Object (entry: new Gtk.Entry ());
+        orientation = Gtk.Orientation.VERTICAL;
+        always_shown_when_revealed = true;
 
-        button = new Gtk.Button.with_label (label);
-        button.set_tooltip_markup ("Edit Tag");
+        halign = Gtk.Align.START;
+        valign = Gtk.Align.CENTER;
+        vexpand = false;
 
-        button_revealer.add (button);
+        button = new Gtk.Button ();
+        button.set_tooltip_markup (_("Add Tag"));
         button.clicked.connect (show_entry);
-
         button.get_style_context ().add_class ("flat");
 
-        entry.max_width_chars = 6;
-        hide_if_contains_text = true;
-        vexpand = false;
+        label = new Gtk.Label (tag_text);
+
+        entry.halign = Gtk.Align.FILL;
+        entry.show_emoji_icon = true;
+        entry.max_width_chars = 3;
+        entry.width_chars = 1;
+        entry.margin = 0;
+
+        button.add (label);
+        button_revealer.add (button);
+        add (entry_revealer);
+        add (button_revealer);
+
+        entry_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        button_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
     }
 
     public class ButtonEntry.for_page_title () {
@@ -90,7 +110,7 @@ public class ENotes.ButtonEntry : Gtk.Grid {
         vexpand = false;
 
         button = new Gtk.Button ();
-        button.set_tooltip_markup ("Edit Note Title");
+        button.set_tooltip_markup (_("Edit Page Title"));
 
         label = new Gtk.Label ("");
         label.ellipsize = Pango.EllipsizeMode.END;
@@ -137,10 +157,6 @@ public class ENotes.ButtonEntry : Gtk.Grid {
             activated ();
         });
 
-        entry.icon_release.connect ((p0, p1) => {
-            if (!has_focus) hide_entry ();
-        });
-
         entry.focus_out_event.connect (() => {
             if (this.hide_if_contains_text || entry.get_text () == "") {
                 hide_entry ();
@@ -161,6 +177,8 @@ public class ENotes.ButtonEntry : Gtk.Grid {
     }
 
     public void hide_entry () {
+        if (always_shown_when_revealed) return;
+
         entry_revealer.reveal_child = false;
         button_revealer.reveal_child = true;
 
@@ -184,8 +202,6 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
     private ENotes.ButtonEntry search_entry;
 
     public Gtk.GestureSwipe gesture;
-
-    private bool search_visible = false;
 
     public Headerbar (ENotes.PageInfoEditor page_info) {
         mode_button = new Granite.Widgets.ModeButton ();
