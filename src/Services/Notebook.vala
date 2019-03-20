@@ -74,10 +74,6 @@ public class ENotes.NotebookTable : DatabaseTable {
             fatal ("create notebook table", res);
         }
 
-        if (!has_column ("Notebook", "data")) {
-            GLib.warning ("Must create data table");
-        }
-
         set_table_name ("Notebook");
     }
 

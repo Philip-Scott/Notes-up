@@ -48,17 +48,17 @@ public class ENotes.PageItem : Gtk.ListBoxRow {
         title_label.get_style_context ().add_class ("h3");
         title_label.ellipsize = Pango.EllipsizeMode.END;
         ((Gtk.Misc) title_label).xalign = 0;
-        title_label.margin_top = 10;
+        title_label.margin_top = 9;
         title_label.margin_start = 10;
         title_label.margin_end = 10;
-        title_label.margin_bottom = 8;
+        title_label.margin_bottom = 9;
 
         preview_label = new Gtk.Label ("");
         preview_label.halign = Gtk.Align.START;
         preview_label.margin_top = 0;
         preview_label.margin_start = 10;
         preview_label.margin_end = 10;
-        preview_label.margin_bottom = 10;
+        preview_label.margin_bottom = 9;
         preview_label.use_markup = true;
         preview_label.set_line_wrap (true);
         preview_label.ellipsize = Pango.EllipsizeMode.END;
