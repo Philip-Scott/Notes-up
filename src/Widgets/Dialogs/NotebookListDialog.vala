@@ -90,7 +90,6 @@ public class ENotes.NotebookListDialog : Gtk.Dialog {
                     }
 
                     PageTable.get_instance ().move_to_notebook (page_to_move, notebook_id);
-                    app.state.opened_page_notebook = item != null ? item.notebook : null;
                     app.state.open_page (page_to_move.id);
                     app.state.notebook_contents_changed ();
                     break;

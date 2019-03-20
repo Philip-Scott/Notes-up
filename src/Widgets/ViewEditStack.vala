@@ -80,8 +80,6 @@ public class ENotes.ViewEditStack : Gtk.Grid {
             if (app.state.opened_page.data == "" && app.state.mode == ENotes.Mode.VIEW) {
                 app.state.mode = ENotes.Mode.EDIT;
             }
-
-            app.state.update_page_title ();
         });
     }
 

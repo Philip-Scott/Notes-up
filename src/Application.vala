@@ -127,7 +127,7 @@ public class ENotes.Application : Granite.Application {
 
         public ENotes.Page? opened_page { get; private set; }
 
-        public ENotes.Notebook? opened_page_notebook { get; set;  }
+        public ENotes.Notebook? opened_page_notebook { get; private set;  }
         public ENotes.Notebook? opened_notebook { get; set; }
 
         public ENotes.Mode mode { get; set; default = ENotes.Mode.NONE; }
@@ -176,11 +176,13 @@ public class ENotes.Application : Granite.Application {
             var page_to_open = PageTable.get_instance ().get_page (page_id);
 
             if (page_to_open == null) return;
-            opened_page = page_to_open;
 
-            if (opened_page_notebook == null || opened_page_notebook.id != opened_page.notebook_id) {
-                opened_page_notebook = NotebookTable.get_instance ().load_notebook_data (opened_page.notebook_id);
+            if (opened_page_notebook == null || opened_page_notebook.id != page_to_open.notebook_id) {
+                opened_page_notebook = NotebookTable.get_instance ().load_notebook_data (page_to_open.notebook_id);
             }
+
+            opened_page = page_to_open;
+            app.state.update_page_title ();
         }
 
         public void save_opened_page () {

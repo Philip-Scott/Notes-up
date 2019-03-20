@@ -215,7 +215,7 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
 
         bookmark_button = new BookmarkButton ();
 
-        set_title (null, null);
+        set_title_from_data (null, null);
         set_show_close_button (true);
 
         pack_start (mode_button);
@@ -259,13 +259,13 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         mode_button.set_active (mode);
     }
 
-    public new void set_title (string? page_title, string? notebook_title) {
+    private void set_title_from_data (string? page_title, string? notebook_title) {
         if (page_title != null && notebook_title != null) {
             this.title = page_title + " - " + notebook_title;
         } else if (page_title != null) {
-            this.title = page_title + " - ";
+            this.title = page_title;
         } else if (notebook_title != null) {
-            this.title = " - " + notebook_title;
+            this.title = notebook_title;
         } else {
             this.title = "";
         }
@@ -316,11 +316,11 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
             var notebook = app.state.opened_page_notebook;
             var page = app.state.opened_page;
 
-            set_title (page != null ? page.name : null, notebook != null ? notebook.name : null);
+            set_title_from_data (page != null ? page.name : null, notebook != null ? notebook.name : null);
         });
 
         app.state.page_deleted.connect (() => {
-            set_title (null, null);
+            set_title_from_data (null, null);
         });
     }
 
