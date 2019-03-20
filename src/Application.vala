@@ -173,13 +173,12 @@ public class ENotes.Application : Granite.Application {
 
         public void open_page (int64 page_id) {
             request_saving_page_info ();
-            opened_page = PageTable.get_instance ().get_page (page_id);
+            var page_to_open = PageTable.get_instance ().get_page (page_id);
 
-            debug ("Opening page: %s\n", page_id.to_string ());
+            if (page_to_open == null) return;
+            opened_page = page_to_open;
 
-            if (opened_page == null) {
-                opened_page_notebook = null;
-            } else if (opened_page_notebook == null || opened_page_notebook.id != opened_page.notebook_id) {
+            if (opened_page_notebook == null || opened_page_notebook.id != opened_page.notebook_id) {
                 opened_page_notebook = NotebookTable.get_instance ().load_notebook_data (opened_page.notebook_id);
             }
         }
