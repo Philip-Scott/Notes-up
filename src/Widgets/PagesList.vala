@@ -64,14 +64,12 @@ public class ENotes.PagesList : Gtk.Box {
         listbox.activate_on_single_click = false;
         listbox.set_size_request (200,250);
         listbox.set_filter_func ((row) => {
-            bool found;
-            if (this.search_for == "") {
-                found = true;
-            } else {
-                found = ((PageItem) row).page.data.down ().contains (this.search_for.down ());
+            if (this.search_for != "") {
+                var page = ((PageItem) row).page;
+                return page.name.down ().contains (this.search_for) || page.data.down ().contains (this.search_for);
             }
 
-            return found;
+            return true;
         });
 
         listbox.set_sort_func ((row1, row2) => {
@@ -276,7 +274,7 @@ public class ENotes.PagesList : Gtk.Box {
         });
 
         app.state.notify["search-field"].connect (() => {
-            this.search_for = app.state.search_field;
+            this.search_for = app.state.search_field.down ();
             listbox.invalidate_filter ();
         });
 
