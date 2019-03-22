@@ -19,16 +19,18 @@
 
 <h2> </h2>
 
-As a computer engineer, I've been writing my school notes using just a text editor, and having to manage all my files and keep everything organized. Well, not anymore! **Notes Up** is a notes manager written for elementary OS. With it, you'll be able to write beautiful notes fast and easy using the markdown format.
+As a Systems Engineer, I was writing my notes using just a text editor, and having to manage all my files and keep everything organized. Well, not anymore! **Notes Up** is a notes manager written for elementary OS. With it, you'll be able to write beautiful notes fast and easy using the markdown format.
 
 ### It's Features Include:
 
 - Multiple notebook support
 - Easy-to-use markdown editor
-- Exporting to PDF
+- Tags, to quickly find and organize your notes
+- Exporting to PDF and Markdown
 - Built-In markdown cheat-sheet
-- Special plugins such as syntax highlight, inserting images, and setting font color!
+- Special plugins such as syntax highlight, links to other pages, inserting images, and setting font color!
 - Spell check
+- Beautiful app themes
 - And more to come!
 
 ## Donations

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright (c) 2017 Felipe Escoto (https://github.com/Philip-Scott/Notes-up) -->
+<!-- Copyright (c) 2019 Felipe Escoto (https://github.com/Philip-Scott/Notes-up) -->
 <component type="desktop">
   <id>com.github.philip-scott.notes-up</id>
   <metadata_license>CC0-1.0</metadata_license>
@@ -12,8 +12,10 @@
      <ul>
        <li>Multiple notebook support</li>
        <li>Easy-to-use markdown editor</li>
-       <li>Exporting to PDF</li>
-       <li>Plugins: such as embedding Youtube videos</li>
+       <li>Tags, to quickly find and organize your notes</li>
+       <li>Export to PDF and Markdown</li>
+       <li>Cross-Note Links to quickly reference other notes</li>
+       <li>Plugins: such as embedding Youtube videos and setting text color</li>
        <li>And much more!</li>
      </ul>
     </description>
@@ -21,6 +23,22 @@
     <binary>com.github.philip-scott.notes-up</binary>
   </provides>
   <releases>
+  <release version="2.0.0" date="2019-03-25">
+      <description>
+        <p>The Future of Notes-Up!</p>
+        <ul>
+          <li>Tags! Tags is the new and hot way to organize your notes! Add them from the new Page Info toolbar! </li>
+          <li>When you add a new tag to a note, Notes-Up will add them to the Sidebar to quickly filter all notes using the tag!</li>
+          <li>Talking about the Sidebar, it has a fresh new look, and a new All Notes button to show all your notes in the pages list!</li>
+          <li>Your note information now appears in the new Page Info Toolbar. It shows where is it and when it was created and updated</li>
+          <li>You can now edit the title of the note without making it the first line of the file from the Page Info Toolbar!</li>
+          <li>You can now move notes from a notebook with a simple button from the Page Info Toolbar</li>
+          <li>You can now link to other pages from within the viewer!</li>
+          <li>Exporting Markdown files is now possible form within Notes-Up!</li>
+          <li>And a lot of work went into making Notes-Up better on the inside! This will speed up the development of future versions!</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.6.3" date="2018-12-21">
       <description>
         <p>Quick Bug Fix</p>
