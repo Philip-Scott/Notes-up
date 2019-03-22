@@ -213,7 +213,7 @@ public class ENotes.Application : Granite.Application {
                     break;
                 default:
                     style_scheme = "high-contrast";
-                    settings.editor_scheme = "clasic";
+                    settings.editor_scheme = "classic";
                     gtk_settings.gtk_application_prefer_dark_theme = false;
                     break;
             }
