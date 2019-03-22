@@ -141,10 +141,15 @@ public class ENotes.Editor : Gtk.Box {
         app.state.request_saving_page_info.connect (() => {
             save_file ();
         });
+
+        app.state.reload_editor_settings.connect (() => {
+            load_settings ();
+        });
     }
 
     private Gtk.Box build_toolbar () {
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        box.get_style_context ().add_class ("inline-toolbar");
 
         bold_button = new ENotes.ToolbarButton (
             "format-text-bold-symbolic",

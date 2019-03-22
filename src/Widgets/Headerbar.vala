@@ -190,12 +190,7 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
     public ENotes.BookmarkButton bookmark_button;
 
     private Granite.Widgets.ModeButton mode_button;
-    private Gtk.MenuButton menu_button;
-    private Gtk.Menu menu;
-    private Gtk.MenuItem item_new;
-    private Gtk.MenuItem item_preff;
-    private Gtk.MenuItem item_pdf_export;
-    private Gtk.MenuItem item_markdown_export;
+    private Gtk.MenuButton app_menu;
 
     private ENotes.ButtonEntry search_entry;
 
@@ -219,7 +214,7 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         set_show_close_button (true);
 
         pack_start (mode_button);
-        pack_end (menu_button);
+        pack_end (app_menu);
         pack_end (page_info.get_toggle_button ());
         pack_end (bookmark_button);
         pack_end (search_entry);
@@ -229,29 +224,116 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
     }
 
     private void create_menu () {
-        menu = new Gtk.Menu ();
-        item_new   = new Gtk.MenuItem.with_label (_("New Notebook"));
-        item_preff = new Gtk.MenuItem.with_label (_("Preferences"));
+        var color_button_white = new Gtk.RadioButton (null);
+        color_button_white.halign = Gtk.Align.CENTER;
+        color_button_white.tooltip_text = _("High Contrast");
 
-        var item_export = new Gtk.MenuItem.with_label (_("Export as…"));
-        var export_submenu = new Gtk.Menu ();
+        var color_button_white_context = color_button_white.get_style_context ();
+        color_button_white_context.add_class ("color-button");
+        color_button_white_context.add_class ("color-white");
 
-        item_pdf_export = new Gtk.MenuItem.with_label (_("Export as PDF"));
-        item_markdown_export = new Gtk.MenuItem.with_label (_("Export as Markdown"));
+        var color_button_light = new Gtk.RadioButton.from_widget (color_button_white);
+        color_button_light.halign = Gtk.Align.CENTER;
+        color_button_light.tooltip_text = _("Solarized Light");
 
-        export_submenu.add (item_pdf_export);
-        export_submenu.add (item_markdown_export);
+        var color_button_light_context = color_button_light.get_style_context ();
+        color_button_light_context.add_class ("color-button");
+        color_button_light_context.add_class ("color-light");
 
-        item_export.submenu = export_submenu;
+        var color_button_dark = new Gtk.RadioButton.from_widget (color_button_white);
+        color_button_dark.halign = Gtk.Align.CENTER;
+        color_button_dark.tooltip_text = _("Solarized Dark");
 
-        menu.add (item_new);
-        menu.add (item_export);
-        menu.add (item_preff);
+        var color_button_dark_context = color_button_dark.get_style_context ();
+        color_button_dark_context.add_class ("color-button");
+        color_button_dark_context.add_class ("color-dark");
 
-        menu_button = new Gtk.MenuButton ();
-        menu_button.set_popup (menu);
-        menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu", Gtk.IconSize.LARGE_TOOLBAR));
-        menu.show_all ();
+        var menu_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        menu_separator.margin_top = 12;
+
+        var menu_separator_2 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+
+        var notebook_new_menu_item = new Gtk.ModelButton ();
+        notebook_new_menu_item.text = _("New Notebook");
+
+        var preferences_menu_item = new Gtk.ModelButton ();
+        preferences_menu_item.text = _("Preferences");
+
+        var export_pdf_menu_item = new Gtk.ModelButton ();
+        export_pdf_menu_item.text = _("Export as PDF");
+
+        var export_markdown_menu_item = new Gtk.ModelButton ();
+        export_markdown_menu_item.text = _("Export as Markdown");
+
+        var menu_grid = new Gtk.Grid ();
+        menu_grid.margin_top = 12;
+        menu_grid.margin_bottom = 3;
+        menu_grid.orientation = Gtk.Orientation.VERTICAL;
+        menu_grid.attach (color_button_white, 0, 1, 1, 1);
+        menu_grid.attach (color_button_light, 1, 1, 1, 1);
+        menu_grid.attach (color_button_dark, 2, 1, 1, 1);
+        menu_grid.attach (menu_separator, 0, 2, 3, 1);
+        menu_grid.attach (notebook_new_menu_item, 0, 3, 3, 1);
+        menu_grid.attach (preferences_menu_item, 0, 4, 3, 1);
+        menu_grid.attach (menu_separator_2, 0, 5, 3, 1);
+        menu_grid.attach (export_pdf_menu_item, 0, 6, 3, 1);
+        menu_grid.attach (export_markdown_menu_item, 0, 7, 3, 1);
+        menu_grid.show_all ();
+        menu_grid.expand = true;
+
+        var menu = new Gtk.Popover (null);
+        menu.add (menu_grid);
+
+        app_menu = new Gtk.MenuButton ();
+        app_menu.image = new Gtk.Image.from_icon_name ("open-menu", Gtk.IconSize.LARGE_TOOLBAR);
+        app_menu.tooltip_text = _("Menu");
+        app_menu.popover = menu;
+
+        app.state.notify["style-scheme"].connect (() => {
+            switch (app.state.style_scheme) {
+                case "high-contrast":
+                    color_button_white.active = true;
+                    break;
+                case "solarized-light":
+                    color_button_light.active = true;
+                    break;
+                case "solarized-dark":
+                    color_button_dark.active = true;
+                    break;
+             }
+        });
+
+        color_button_dark.clicked.connect (() => {
+            app.state.set_style ("solarized-dark");
+
+        });
+
+        color_button_light.clicked.connect (() => {
+            app.state.set_style ("solarized-light");
+
+        });
+
+        color_button_white.clicked.connect (() => {
+            app.state.set_style ("high-contrast");
+        });
+
+        export_pdf_menu_item.clicked.connect (() => {
+            ENotes.FileManager.export_pdf_action ();
+        });
+
+        export_markdown_menu_item.clicked.connect (() => {
+            ENotes.FileManager.export_markdown_action ();
+        });
+
+        notebook_new_menu_item.clicked.connect (() => {
+            var dialog = new NotebookDialog ();
+            dialog.run ();
+        });
+
+        preferences_menu_item.clicked.connect (() => {
+            var dialog = new PreferencesDialog ();
+            dialog.run ();
+        });
     }
 
     public void set_mode (ENotes.Mode mode) {
@@ -274,24 +356,6 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
     }
 
     private void connect_signals () {
-        item_pdf_export.activate.connect (() => {
-            ENotes.FileManager.export_pdf_action ();
-        });
-
-        item_markdown_export.activate.connect (() => {
-            ENotes.FileManager.export_markdown_action ();
-        });
-
-        item_new.activate.connect (() => {
-            var dialog = new NotebookDialog ();
-            dialog.run ();
-        });
-
-        item_preff.activate.connect (() => {
-            var dialog = new PreferencesDialog ();
-            dialog.run ();
-        });
-
         mode_button.mode_changed.connect ((widget) => {
             if (mode_button.selected == 0) {
                 app.state.mode = ENotes.Mode.VIEW;

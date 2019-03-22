@@ -39,7 +39,7 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
         if (notebook != null) {
             load_data ();
             style_box.changed.connect (() => {
-                ENotes.ViewEditStack.get_instance ().viewer.reload ();
+                ENotes.ViewEditStack.get_instance ().viewer.reload_page ();
             });
         }
 
@@ -206,7 +206,7 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
                         app.state.opened_notebook_updated ();
                     }
 
-                    ENotes.ViewEditStack.get_instance ().viewer.reload ();
+                    ENotes.ViewEditStack.get_instance ().viewer.reload_page ();
                     this.close ();
                     break;
                 case 2: // Cancel

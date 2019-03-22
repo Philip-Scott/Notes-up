@@ -31,7 +31,7 @@ public class ENotes.Window : Gtk.ApplicationWindow {
     private Gtk.Paned pane1;
     private Gtk.Paned pane2;
 
-    public Window (Gtk.Application app) {
+    public Window (ENotes.Application app) {
         Object (application: app);
         DatabaseTable.init (ENotes.NOTES_DB);
 
@@ -82,6 +82,19 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         page_info_action.activate.connect (toggle_page_info);
 
         Sidebar.get_instance ().first_start ();
+
+        var provider = new Gtk.CssProvider ();
+        provider.load_from_resource ("/com/github/philip-scott/notes-up/Application.css");
+        Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+        app.state.notify["style-scheme"].connect (() => {
+            get_style_context ().remove_class ("solarized-light");
+            get_style_context ().remove_class ("solarized-dark");
+
+            if (app.state.style_scheme != "high-contrast") {
+                get_style_context ().add_class (app.state.style_scheme);
+            }
+        });
 
         load_settings ();
     }
@@ -153,6 +166,7 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         settings.window_width = width;
         settings.window_height = height;
         settings.mode = app.state.mode;
+        settings.style_scheme = app.state.style_scheme;
         settings.last_notebook = app.state.opened_notebook != null ? (int) app.state.opened_notebook.id : 0;
         settings.last_page = app.state.opened_page != null ? (int) app.state.opened_page.id : 0;
         settings.show_page_info = app.state.show_page_info;
@@ -175,6 +189,7 @@ public class ENotes.Window : Gtk.ApplicationWindow {
             app.state.open_page (settings.last_page);
         }
 
+        app.state.set_style (settings.style_scheme);
         app.state.show_page_info = settings.show_page_info;
     }
 

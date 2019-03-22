@@ -45,6 +45,7 @@ public class ENotes.Services.Settings : Granite.Services.Settings {
     public string editor_scheme { get; set; }
     public string render_stylesheet { get; set; }
     public string stylesheet { get; set; }
+    public string style_scheme { get; set; }
     public string spellcheck_language { get; set; }
 
     public static Settings get_instance () {

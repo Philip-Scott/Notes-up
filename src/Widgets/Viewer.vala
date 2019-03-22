@@ -31,7 +31,10 @@ public class ENotes.Viewer : WebKit.WebView {
 
     public void load_css (ENotes.Page? page, bool overrride = false) {
         if (overrride || previous_page == null || previous_page.id != page.id) {
-            if (page != null) previous_page = page;
+            if (page != null) {
+                GLib.print ("Previous page set\n");
+                previous_page = page;
+            }
 
 
             if (previous_page != null) {
@@ -41,10 +44,10 @@ public class ENotes.Viewer : WebKit.WebView {
         }
     }
 
-    public new void reload () {
-        if (previous_page != null) {
-            load_css (previous_page, true);
-            load_page (previous_page, true);
+    public void reload_page () {
+        if (app.state.opened_page != null) {
+            load_css (app.state.opened_page, true);
+            load_page (app.state.opened_page, true);
         }
     }
 
@@ -59,7 +62,7 @@ public class ENotes.Viewer : WebKit.WebView {
                 PageTable.get_instance ().save_cache (page);
             }
 
-            load_html (page.html_cache, "file:///");
+            load_html (page.html_cache + get_theme_color_css (), "file:///");
         }
     }
 
@@ -99,6 +102,10 @@ public class ENotes.Viewer : WebKit.WebView {
                 var rectangle = get_window_properties ().get_geometry ();
                 set_size_request (rectangle.width, rectangle.height);
             }
+        });
+
+        app.state.notify["style-scheme"].connect (() => {
+            reload_page ();
         });
     }
 
@@ -215,4 +222,25 @@ public class ENotes.Viewer : WebKit.WebView {
 
         return build;
     }
+
+    private string get_theme_color_css () {
+        if (app.state.style_scheme == "solarized-dark") {
+            return DARK_THEME;
+        }
+
+        return "";
+    }
+
+    const string DARK_THEME = """
+<style>
+    body, html {
+        color: #839496;
+        background-color: #002b36;
+    }
+    code {
+        background-color: #1D3848;
+        border: 1px solid #1D3848;
+        color: #33719C;
+    }
+</style>""";
 }

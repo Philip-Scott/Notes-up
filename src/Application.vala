@@ -133,6 +133,8 @@ public class ENotes.Application : Granite.Application {
         public ENotes.Mode mode { get; set; default = ENotes.Mode.NONE; }
         public bool show_page_info { get; set; }
 
+        public string style_scheme { get; private set; }
+
         // Search items
         public signal void search_selected ();
         public string search_field { get; set; default = ""; }
@@ -156,6 +158,9 @@ public class ENotes.Application : Granite.Application {
         // Show pages by:
         public signal void show_all_pages ();
         public signal void show_pages_in_tag (Tag tag);
+
+        // Editor
+        public signal void reload_editor_settings ();
 
         construct {
             notify.connect ((spec) => {
@@ -190,6 +195,30 @@ public class ENotes.Application : Granite.Application {
 
             PageTable.get_instance ().save_page (opened_page);
             update_page_title ();
+        }
+
+        public void set_style (string style) {
+            var gtk_settings = Gtk.Settings.get_default ();
+
+            switch (style) {
+                case "solarized-light":
+                    style_scheme = style;
+                    settings.editor_scheme = style;
+                    gtk_settings.gtk_application_prefer_dark_theme = false;
+                    break;
+                case "solarized-dark":
+                    style_scheme = style;
+                    settings.editor_scheme = style;
+                    gtk_settings.gtk_application_prefer_dark_theme = true;
+                    break;
+                default:
+                    style_scheme = "high-contrast";
+                    settings.editor_scheme = "clasic";
+                    gtk_settings.gtk_application_prefer_dark_theme = false;
+                    break;
+            }
+
+            reload_editor_settings ();
         }
     }
 }

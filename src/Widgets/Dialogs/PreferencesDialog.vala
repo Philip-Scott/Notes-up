@@ -232,7 +232,7 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
 
                 settings.render_stylesheet = style_box.buffer.text;
                 ENotes.ViewEditStack.get_instance ().viewer.load_css (null, true);
-                ENotes.ViewEditStack.get_instance ().viewer.reload ();
+                ENotes.ViewEditStack.get_instance ().viewer.reload_page ();
                 ENotes.ViewEditStack.get_instance ().editor.load_settings ();
                 destroy ();
             break;
@@ -273,6 +273,6 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
         PageTable.get_instance ().clear_cache_on (0);
         settings.stylesheet = StyleLoader.STYLES[selected + 1];
         ENotes.ViewEditStack.get_instance ().viewer.load_css (null, true);
-        ENotes.ViewEditStack.get_instance ().viewer.reload ();
+        ENotes.ViewEditStack.get_instance ().viewer.reload_page ();
     }
 }

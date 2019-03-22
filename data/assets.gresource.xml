@@ -8,4 +8,7 @@
   <gresource prefix="/com/github/philip-scott/notes-up/icons">
     <file alias="notebook-symbolic.svg" compressed="false" preprocess="">icons/symbolic/notebook-symbolic.svg</file>
   </gresource>
+  <gresource prefix="/com/github/philip-scott/notes-up/">
+    <file alias="Application.css" compressed="true">assets/stylesheets/app/Application.css</file>
+  </gresource>
 </gresources>

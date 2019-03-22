@@ -120,6 +120,12 @@
 			<description>This data is the actual CSS the renderer will use</description>
 		</key>
 
+		<key name="style-scheme" type="s">
+			<default>""</default>
+			<summary>Global app stylesheet</summary>
+			<description>Solarized dark/light. Defaults to high contrast</description>
+		</key>
+
 		<key name="stylesheet" type="s">
 			<default>""</default>
 			<summary>Global default stylesheet name for renderer to use</summary>

@@ -1,0 +1,155 @@
+/*
+* Copyright (c) 2019 Felipe Escoto (https://github.com/Philip-Scott/Notes-up)
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License as published by the Free Software Foundation; either
+* version 2 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+*
+* You should have received a copy of the GNU General Public
+* License along with this program; if not, write to the
+* Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+* Boston, MA 02111-1307, USA.
+*
+* Authored by: Felipe Escoto <felescoto95@hotmail.com>
+*/
+
+.color-button radio,
+.color-button radio:checked {
+  border-color: alpha (#000, 0.3);
+  box-shadow: inset 0 1px 0 0 alpha (@inset_dark_color, 0.7),
+    inset 0 0 0 1px alpha (@inset_dark_color, 0.3),
+    0 1px 0 0 alpha (@bg_highlight_color, 0.3);
+  padding: 10px;
+  -gtk-icon-shadow: none;
+}
+
+.color-button radio:focus {
+  border-color: @colorAccent;
+  box-shadow: inset 0 1px 0 0 alpha (@inset_dark_color, 0.7),
+    inset 0 0 0 1px alpha (@inset_dark_color, 0.3),
+    inset 0 0 0 1px alpha (@bg_highlight_color, 0.05),
+    0 1px 0 0 alpha (@bg_highlight_color, 0.3),
+    0 0 0 1px alpha (@colorAccent, 0.25);
+}
+
+.color-dark radio {
+  background: #122b3a;
+  border-color: #151b1c;
+  color: #fff;
+}
+
+.color-light radio {
+  background: #fdf6e3;
+  color: #4d4d4d;
+}
+
+.color-white radio {
+  background: #fff;
+  color: #000;
+}
+
+/* Solarized Light*/
+
+.solarized-light .view {
+  background-color: #eee8d5;
+  color: #586e75;
+}
+
+.solarized-light list {
+  background-color: alpha(#fdf6e3, 0.8);
+  color: #657b83;
+}
+
+.solarized-light list .h3 {
+  color: #586e75;
+}
+
+.solarized-light list row:selected {
+  background-color: alpha (#268bd2, 0.2);
+  color: #3b3339;
+}
+
+.solarized-light list row:selected .h3 {
+  color: #3b3339;
+}
+
+.solarized-light .toolbar,
+.solarized-light .inline-toolbar {
+  background-color: alpha (#fbefce, 0.5);
+}
+
+.solarized-light .titlebar {
+  background-image: linear-gradient(
+    to bottom,
+    shade (#eee8d5, 1.04),
+    shade (#eee8d5, 0.94)
+  );
+  border-color: shade (#eee8d5, 0.68);
+  text-shadow: 0 1px alpha (shade (#eee8d5, 1.4), 0.4);
+  box-shadow: inset 0 0 0 1px alpha (shade (#eee8d5, 1.4), 0.2),
+    inset 0 1px 0 0 alpha (shade (#eee8d5, 1.4), 0.6);
+  padding: 8px 6px 6px;
+  -gtk-icon-shadow: 0 1px alpha (shade (#eee8d5, 1.4), 0.4);
+}
+
+/* Solarized Dark Theme */
+
+.solarized-dark .view {
+  background-color: #0f232f;
+  color: #a1aeb6;
+}
+
+.solarized-dark .view *:selected {
+  background-color: #143243;
+  border: 1px solid #143243;
+  color: #cacaca;
+}
+
+.solarized-dark list {
+  background-color: alpha(#163649, 0.8);
+  color: #a1aeb6;
+}
+
+.solarized-dark list .h3 {
+  color: #a1aeb6;
+}
+
+.solarized-dark list row:selected {
+  background-color: alpha (#122b3a, 1);
+  color: #ddd;
+}
+
+.solarized-dark list row:selected .h3 {
+  color: #fff;
+}
+
+.solarized-dark .toolbar,
+.solarized-dark .inline-toolbar,
+.solarized-dark .inline-toolbar.toolbar {
+  background-color: #25353f;
+  background-image: none;
+}
+
+.solarized-dark .inline-toolbar label {
+  color: #93a0a0;
+}
+
+.solarized-dark .titlebar {
+  background-image: linear-gradient(
+    to bottom,
+    shade (#0f232f, 1.04),
+    shade (#0f232f, 0.94)
+  );
+  border-color: shade (#0f232f, 0.68);
+  text-shadow: 0 1px alpha (shade (#0f232f, 1.4), 0.4);
+  box-shadow: inset 0 0 0 1px alpha (shade (#0f232f, 1.4), 0.2),
+    inset 0 1px 0 0 alpha (shade (#0f232f, 1.4), 0.6);
+  padding: 8px 6px 6px;
+  -gtk-icon-shadow: 0 1px alpha (shade (#0f232f, 1.4), 0.4);
+}
