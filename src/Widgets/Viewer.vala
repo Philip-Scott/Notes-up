@@ -101,12 +101,27 @@ public class ENotes.Viewer : WebKit.WebView {
             if (event == WebKit.LoadEvent.FINISHED) {
                 var rectangle = get_window_properties ().get_geometry ();
                 set_size_request (rectangle.width, rectangle.height);
+                search_from_state ();
             }
         });
 
         app.state.notify["style-scheme"].connect (() => {
             reload_page ();
         });
+
+        app.state.notify["search-field"].connect (() => {
+            search_from_state ();
+        });
+    }
+
+    private void search_from_state () {
+        var search_text = app.state.search_field;
+
+        if (search_text != "") {
+            get_find_controller ().search (app.state.search_field, WebKit.FindOptions.CASE_INSENSITIVE, 100);
+        } else {
+            get_find_controller ().search_finish ();
+        }
     }
 
     private bool launch_browser (string url) {
