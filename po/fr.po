@@ -87,11 +87,11 @@ msgstr "Imprimer dans un fichier"
 
 #: src/Services/FileManager.vala:233
 msgid "Save as PDF"
-msgstr "Enregistrer en PDF"
+msgstr "Enregistrer en tant que fichier PDF"
 
 #: src/Services/FileManager.vala:235
 msgid "PDF File"
-msgstr "Fichier en tant que fichier PDF"
+msgstr "Fichier PDF"
 
 #: src/Services/FileManager.vala:243
 msgid "Save as Markdown"
@@ -168,7 +168,7 @@ msgstr "Modifications de style"
 #: src/Widgets/Dialogs/NewNotebookDialog.vala:135
 #: src/Widgets/Dialogs/PreferencesDialog.vala:161
 msgid "Stylesheet:"
-msgstr "Feuille de Style :"
+msgstr "Feuille de style :"
 
 #: src/Widgets/Dialogs/NotebookListDialog.vala:25
 #: src/Widgets/Sidebar/NotebookItem.vala:56
@@ -222,7 +222,7 @@ msgstr "Garder la barre latérale visible :"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:118
 msgid "Spellcheck:"
-msgstr "Vérification d'orthographe :"
+msgstr "Vérification orthographique :"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:148
 msgid "Global style modifications"
@@ -340,7 +340,7 @@ msgstr "Voir"
 
 #: src/Widgets/Headerbar.vala:205
 msgid "Change mode"
-msgstr "Changer de mode"
+msgstr "Changer de thème"
 
 #: src/Widgets/Headerbar.vala:229
 msgid "High Contrast"
@@ -400,7 +400,7 @@ msgstr "<s>Barré</s>"
 
 #: src/Widgets/HelpBox.vala:47
 msgid "~~strike~~"
-msgstr "~~Barré~~"
+msgstr "~~barré~~"
 
 #: src/Widgets/HelpBox.vala:48
 msgid "|  <i>quote</i>"
@@ -432,7 +432,7 @@ msgstr "Lien"
 
 #: src/Widgets/HelpBox.vala:56
 msgid "[Text](www...) "
-msgstr "[Text](www...) "
+msgstr "[Texte](www...) "
 
 #: src/Widgets/HelpBox.vala:57
 msgid "Citation Anchor"
