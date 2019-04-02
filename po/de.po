@@ -1,15 +1,15 @@
 # German translations for com.github.philip-scott.notes-up package.
 # Copyright (C) 2019 THE com.github.philip-scott.notes-up'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the com.github.philip-scott.notes-up package.
-# Automatically generated, 2019.
+# Benjamin Krala, 2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.philip-scott.notes-up\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-02 18:31+0200\n"
+"POT-Creation-Date: 2019-04-02 19:41+0200\n"
 "PO-Revision-Date: 2019-04-02 18:31+0200\n"
-"Last-Translator: Automatically generated\n"
+"Last-Translator: Benjamin Krala\n"
 "Language-Team: none\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -19,41 +19,43 @@ msgstr ""
 
 #: src/Plugins/Break.vala:28
 msgid "Page break when exporting to PDF: <break>"
-msgstr ""
+msgstr "Seitenumbruch beim Export in eine PDF-Datei: <break>"
 
 #: src/Plugins/Break.vala:32
 msgid "Page break"
-msgstr ""
+msgstr "Seitenumbruch"
 
 #: src/Plugins/Break.vala:47
 msgid "Page break on export: <break>"
-msgstr ""
+msgstr "Seitenumbruch beim Export: <break>"
 
 #: src/Plugins/Color.vala:35
 msgid ""
 "Set font color for the line with <color [#color]> or for some text with "
 "<color [color] [text]>"
 msgstr ""
+"Schriftfarbe in einer Textzeile mit <color [#Farbe]> oder für eine Textfolge "
+"mit <color [#Farbe] [Textfolge]> festlegen"
 
 #: src/Plugins/Color.vala:39 src/Plugins/Color.vala:68
 msgid "Font color"
-msgstr ""
+msgstr "Schriftfarbe"
 
 #: src/Plugins/Highlight.vala:28 src/Widgets/HelpBox.vala:62
 msgid "Enable Syntax Highlighting"
-msgstr ""
+msgstr "Aktiviert Syntaxhervorhebung"
 
 #: src/Plugins/Highlight.vala:32
 msgid "Syntax Highlighing"
-msgstr ""
+msgstr "Syntaxhervorhebung"
 
 #: src/Plugins/Image.vala:28
 msgid "Load an embeded image"
-msgstr ""
+msgstr "Eingebettetes Bild laden "
 
 #: src/Plugins/Image.vala:32
 msgid "Image"
-msgstr ""
+msgstr "Bild"
 
 #: src/Plugins/PageLink.vala:31
 msgid "Open a page in Notes-Up"
@@ -65,23 +67,23 @@ msgstr ""
 
 #: src/Plugins/Youtube.vala:30
 msgid "Embed youtube videos: <youtube [video]>"
-msgstr ""
+msgstr "Youtube Videos einbetten: <youtube [Video]>"
 
 #: src/Plugins/Youtube.vala:34
 msgid "Youtube"
-msgstr ""
+msgstr "Youtube"
 
 #: src/Plugins/Youtube.vala:42
 msgid "Insert Youtube video"
-msgstr ""
+msgstr "Youtube Video einfügen"
 
 #: src/Plugins/Youtube.vala:78 src/Widgets/HelpBox.vala:60
 msgid "Youtube Video"
-msgstr ""
+msgstr "Youtube Video"
 
 #: src/Services/FileManager.vala:158
 msgid "Print to File"
-msgstr ""
+msgstr "In Datei drucken"
 
 #: src/Services/FileManager.vala:233
 msgid "Save as PDF"
@@ -89,7 +91,7 @@ msgstr ""
 
 #: src/Services/FileManager.vala:235
 msgid "PDF File"
-msgstr ""
+msgstr "PDF-Datei"
 
 #: src/Services/FileManager.vala:243
 msgid "Save as Markdown"
@@ -105,68 +107,68 @@ msgstr ""
 
 #: src/Services/FileManager.vala:256
 msgid "Images"
-msgstr ""
+msgstr "Bilder"
 
 #: src/Services/FileManager.vala:266
 msgid "Save"
-msgstr ""
+msgstr "Speichern"
 
 #: src/Services/FileManager.vala:268
 msgid "Open"
-msgstr ""
+msgstr "Öffnen"
 
 #: src/Services/FileManager.vala:272
 msgid "All Files"
-msgstr ""
+msgstr "Alle Dateien"
 
 #: src/Services/FileManager.vala:281
 #: src/Widgets/Dialogs/NewNotebookDialog.vala:72
 #: src/Widgets/Dialogs/NotebookListDialog.vala:34
 #: src/Widgets/Dialogs/NotebookListDialog.vala:75
 msgid "Cancel"
-msgstr ""
+msgstr "Abbrechen"
 
 #: src/Services/Page.vala:177 src/Services/Page.vala:261
 #: src/Services/Page.vala:272 src/Widgets/PagesList.vala:101
 msgid "New Page"
-msgstr ""
+msgstr "Neue Seite"
 
 #: src/Services/StyleLoader.vala:23
 msgid "Default"
-msgstr ""
+msgstr "Standard"
 
 #: src/Widgets/Dialogs/NewNotebookDialog.vala:63
 msgid "Name:"
-msgstr ""
+msgstr "Name:"
 
 #: src/Widgets/Dialogs/NewNotebookDialog.vala:64
 msgid "Color:"
-msgstr ""
+msgstr "Farbe:"
 
 #: src/Widgets/Dialogs/NewNotebookDialog.vala:82 src/Widgets/Headerbar.vala:202
 msgid "Edit"
-msgstr ""
+msgstr "Bearbeiten"
 
 #: src/Widgets/Dialogs/NewNotebookDialog.vala:85
 msgid "Create"
-msgstr ""
+msgstr "Erstellen"
 
 #: src/Widgets/Dialogs/NewNotebookDialog.vala:103
 msgid "Properties"
-msgstr ""
+msgstr "Einstellungen"
 
 #: src/Widgets/Dialogs/NewNotebookDialog.vala:104
 msgid "Style"
-msgstr ""
+msgstr "Stil"
 
 #: src/Widgets/Dialogs/NewNotebookDialog.vala:122
 msgid "Style modifications"
-msgstr ""
+msgstr "Stilabwandlungen"
 
 #: src/Widgets/Dialogs/NewNotebookDialog.vala:135
 #: src/Widgets/Dialogs/PreferencesDialog.vala:161
 msgid "Stylesheet:"
-msgstr ""
+msgstr "Formatvorlage:"
 
 #: src/Widgets/Dialogs/NotebookListDialog.vala:25
 #: src/Widgets/Sidebar/NotebookItem.vala:56
@@ -184,73 +186,73 @@ msgstr ""
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:42 src/Widgets/Headerbar.vala:260
 msgid "Preferences"
-msgstr ""
+msgstr "Einstellungen"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:51
 msgid "Editor"
-msgstr ""
+msgstr "Editor"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:52
 msgid "Viewer"
-msgstr ""
+msgstr "Ansicht"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:65
 msgid "_Close"
-msgstr ""
+msgstr "_Schließen"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:73
 msgid "Font:"
-msgstr ""
+msgstr "Schriftart:"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:83
 msgid "Theme:"
-msgstr ""
+msgstr "Farbstil:"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:94
 msgid "Automatic indentation:"
-msgstr ""
+msgstr "Automatische Einrückung:"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:102
 msgid "Show line Numbers:"
-msgstr ""
+msgstr "Zeilennummern anzeigen:"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:110
 msgid "Keep Sidebar Visible:"
-msgstr ""
+msgstr "Seitenleiste immer anzeigen:"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:118
 msgid "Spellcheck:"
-msgstr ""
+msgstr "Rechtschreibprüfung"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:148
 msgid "Global style modifications"
-msgstr ""
+msgstr "Globale Stil-Änderungen"
 
 #: src/Widgets/Sidebar/BookmarkItem.vala:54 src/Widgets/Sidebar/TagItem.vala:54
 msgid "Remove"
-msgstr ""
+msgstr "Entfernen"
 
 #: src/Widgets/Sidebar/NotebookItem.vala:53
 msgid "Edit Notebook"
-msgstr ""
+msgstr "Notizbuch bearbeiten"
 
 #: src/Widgets/Sidebar/NotebookItem.vala:54
 #: src/Widgets/Sidebar/NotebookList.vala:32 src/Widgets/Headerbar.vala:257
 #: src/Application.vala:108
 msgid "New Notebook"
-msgstr ""
+msgstr "Neues Notizbuch"
 
 #: src/Widgets/Sidebar/NotebookItem.vala:55
 msgid "Delete Notebook"
-msgstr ""
+msgstr "Notizbuch löschen"
 
 #: src/Widgets/Sidebar/Sidebar.vala:27
 msgid "Bookmarks"
-msgstr ""
+msgstr "Lesezeichen"
 
 #: src/Widgets/Sidebar/Sidebar.vala:28
 msgid "Trash"
-msgstr ""
+msgstr "Papierkorb"
 
 #: src/Widgets/Sidebar/Sidebar.vala:29
 msgid "Tags"
@@ -258,7 +260,7 @@ msgstr ""
 
 #: src/Widgets/Sidebar/Sidebar.vala:33
 msgid "Notebooks"
-msgstr ""
+msgstr "Notizbücher"
 
 #: src/Widgets/Sidebar/Sidebar.vala:54
 msgid "All Notes"
@@ -270,59 +272,59 @@ msgstr ""
 
 #: src/Widgets/Sidebar/Sidebar.vala:205
 msgid "My First Notebook"
-msgstr ""
+msgstr "Mein erstes Notizbuch"
 
 #: src/Widgets/Sidebar/TrashItem.vala:28
 msgid "Restore"
-msgstr ""
+msgstr "Wiederherstellen"
 
 #: src/Widgets/BookmarkButton.vala:34
 msgid "Bookmark page"
-msgstr ""
+msgstr "Lesezeichen hinzufügen"
 
 #: src/Widgets/Editor.vala:157
 msgid "Add bold to text"
-msgstr ""
+msgstr "Text fett formatieren"
 
 #: src/Widgets/Editor.vala:164
 msgid "Add italic to text"
-msgstr ""
+msgstr "Text kursiv formatieren"
 
 #: src/Widgets/Editor.vala:171
 msgid "Strikethrough text"
-msgstr ""
+msgstr "Text durchstreichen"
 
 #: src/Widgets/Editor.vala:175
 msgid "Insert a quote"
-msgstr ""
+msgstr "Zitat einfügen"
 
 #: src/Widgets/Editor.vala:176
 msgid "Insert code"
-msgstr ""
+msgstr "Code einfügen"
 
 #: src/Widgets/Editor.vala:177
 msgid "Insert a link"
-msgstr ""
+msgstr "Link einfügen"
 
 #: src/Widgets/Editor.vala:179
 msgid "Add a bulleted list"
-msgstr ""
+msgstr "Aufzählung einfügen"
 
 #: src/Widgets/Editor.vala:180
 msgid "Add a Numbered list"
-msgstr ""
+msgstr "Nummerierte Liste einfügen"
 
 #: src/Widgets/Editor.vala:182
 msgid "Insert an image"
-msgstr ""
+msgstr "Bild einfügen"
 
 #: src/Widgets/Editor.vala:221
 msgid "Formatting"
-msgstr ""
+msgstr "Formatierung"
 
 #: src/Widgets/Headerbar.vala:59
 msgid "Search your current notebook"
-msgstr ""
+msgstr "Aktuelles Notizbuch durchsuchen"
 
 #: src/Widgets/Headerbar.vala:84
 msgid "Add Tag"
@@ -334,11 +336,11 @@ msgstr ""
 
 #: src/Widgets/Headerbar.vala:201
 msgid "View"
-msgstr ""
+msgstr "Ansicht"
 
 #: src/Widgets/Headerbar.vala:205
 msgid "Change mode"
-msgstr ""
+msgstr "Ändere Modus"
 
 #: src/Widgets/Headerbar.vala:229
 msgid "High Contrast"
@@ -354,7 +356,7 @@ msgstr ""
 
 #: src/Widgets/Headerbar.vala:263
 msgid "Export as PDF"
-msgstr ""
+msgstr "PDF exportieren"
 
 #: src/Widgets/Headerbar.vala:266
 msgid "Export as Markdown"
@@ -366,91 +368,91 @@ msgstr ""
 
 #: src/Widgets/HelpBox.vala:41
 msgid "Large Header"
-msgstr ""
+msgstr "Größere Überschrift"
 
 #: src/Widgets/HelpBox.vala:42
 msgid "Medium Header"
-msgstr ""
+msgstr "Mittlere Überschrift"
 
 #: src/Widgets/HelpBox.vala:43
 msgid "Small Header"
-msgstr ""
+msgstr "Kleinere Überschrift"
 
 #: src/Widgets/HelpBox.vala:45
 msgid "<i>Italic</i>"
-msgstr ""
+msgstr "<i>kursiv</i>"
 
 #: src/Widgets/HelpBox.vala:45
 msgid "_italic_"
-msgstr ""
+msgstr "_kursiv_"
 
 #: src/Widgets/HelpBox.vala:46
 msgid "<b>Bold</b>"
-msgstr ""
+msgstr "<b>fett</b>"
 
 #: src/Widgets/HelpBox.vala:46
 msgid "**bold**"
-msgstr ""
+msgstr "**fett**"
 
 #: src/Widgets/HelpBox.vala:47
 msgid "<s>Strike</s>"
-msgstr ""
+msgstr "<s>durchgestrichen</s>"
 
 #: src/Widgets/HelpBox.vala:47
 msgid "~~strike~~"
-msgstr ""
+msgstr "~~durchgestrichen~~"
 
 #: src/Widgets/HelpBox.vala:48
 msgid "|  <i>quote</i>"
-msgstr ""
+msgstr "|  <i>Zitat</i>"
 
 #: src/Widgets/HelpBox.vala:50
 msgid "1. Numbered list"
-msgstr ""
+msgstr "1. Nummerierte Liste"
 
 #: src/Widgets/HelpBox.vala:51
 msgid "⚫ Bulleted list"
-msgstr ""
+msgstr "⚫ Aufzählung"
 
 #: src/Widgets/HelpBox.vala:53
 msgid "Divider"
-msgstr ""
+msgstr "Trennstrich"
 
 #: src/Widgets/HelpBox.vala:54
 msgid "Code"
-msgstr ""
+msgstr "Code"
 
 #: src/Widgets/HelpBox.vala:55
 msgid "Code Block"
-msgstr ""
+msgstr "Codeblock"
 
 #: src/Widgets/HelpBox.vala:56
 msgid "Link"
-msgstr ""
+msgstr "Link"
 
 #: src/Widgets/HelpBox.vala:56
 msgid "[Text](www...) "
-msgstr ""
+msgstr "[Text](www...)"
 
 #: src/Widgets/HelpBox.vala:57
 msgid "Citation Anchor"
-msgstr ""
+msgstr "Anker des Textbeleges"
 
 #: src/Widgets/HelpBox.vala:58
 msgid "Citation Text"
-msgstr ""
+msgstr "Ausführung zum Textbeleg"
 
 #: src/Widgets/HelpBox.vala:60
 msgid "<youtube [link]>"
-msgstr ""
+msgstr "<youtube [Link]>"
 
 #: src/Widgets/HelpBox.vala:61
 msgid "Page Break (when exporting)"
-msgstr ""
+msgstr "Seitenumbruch (Nur beim Export)"
 
 #: src/Widgets/HelpBox.vala:63
 msgid "Set Color"
-msgstr ""
+msgstr "Farbe einstellen"
 
 #: src/Widgets/PageInfoEditor.vala:71
 #, c-format
@@ -498,8 +500,8 @@ msgstr ""
 #, c-format
 msgid "%i Page"
 msgid_plural "%i Pages"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%i Seite"
+msgstr[1] "%i Seiten"
 
 #: src/Application.vala:37
 msgid "<Ctrl>M"
@@ -543,12 +545,12 @@ msgstr ""
 
 #: src/Application.vala:65
 msgid "Notes-Up"
-msgstr ""
+msgstr "Notes-Up"
 
 #: src/Application.vala:66
 msgid "Your Markdown Notebook."
-msgstr ""
+msgstr "Dein Markdown-Notizbuch"
 
 #: src/Application.vala:67
 msgid "About Notes"
-msgstr ""
+msgstr "Über Notes-Up"

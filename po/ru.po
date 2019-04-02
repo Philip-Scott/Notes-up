@@ -1,15 +1,15 @@
 # Russian translations for com.github.philip-scott.notes-up package.
 # Copyright (C) 2019 THE com.github.philip-scott.notes-up'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the com.github.philip-scott.notes-up package.
-# Automatically generated, 2019.
+# Maxim Taranov, 2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.philip-scott.notes-up\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-02 18:31+0200\n"
+"POT-Creation-Date: 2019-04-02 19:41+0200\n"
 "PO-Revision-Date: 2019-04-02 18:31+0200\n"
-"Last-Translator: Automatically generated\n"
+"Last-Translator: Maxim Taranov <png2378@gmail.com>\n"
 "Language-Team: none\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -125,32 +125,32 @@ msgstr ""
 #: src/Widgets/Dialogs/NotebookListDialog.vala:34
 #: src/Widgets/Dialogs/NotebookListDialog.vala:75
 msgid "Cancel"
-msgstr ""
+msgstr "Отмена"
 
 #: src/Services/Page.vala:177 src/Services/Page.vala:261
 #: src/Services/Page.vala:272 src/Widgets/PagesList.vala:101
 msgid "New Page"
-msgstr ""
+msgstr "Новая страница"
 
 #: src/Services/StyleLoader.vala:23
 msgid "Default"
-msgstr ""
+msgstr "По умолчанию"
 
 #: src/Widgets/Dialogs/NewNotebookDialog.vala:63
 msgid "Name:"
-msgstr ""
+msgstr "Имя:"
 
 #: src/Widgets/Dialogs/NewNotebookDialog.vala:64
 msgid "Color:"
-msgstr ""
+msgstr "Цвет:"
 
 #: src/Widgets/Dialogs/NewNotebookDialog.vala:82 src/Widgets/Headerbar.vala:202
 msgid "Edit"
-msgstr ""
+msgstr "Правка"
 
 #: src/Widgets/Dialogs/NewNotebookDialog.vala:85
 msgid "Create"
-msgstr ""
+msgstr "Создать"
 
 #: src/Widgets/Dialogs/NewNotebookDialog.vala:103
 msgid "Properties"
@@ -185,35 +185,35 @@ msgstr ""
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:42 src/Widgets/Headerbar.vala:260
 msgid "Preferences"
-msgstr ""
+msgstr "Параметры"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:51
 msgid "Editor"
-msgstr ""
+msgstr "Редактор"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:52
 msgid "Viewer"
-msgstr ""
+msgstr "Просмотр"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:65
 msgid "_Close"
-msgstr ""
+msgstr "_Закрыть"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:73
 msgid "Font:"
-msgstr ""
+msgstr "Шрифт:"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:83
 msgid "Theme:"
-msgstr ""
+msgstr "Тема:"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:94
 msgid "Automatic indentation:"
-msgstr ""
+msgstr "Автоматический отступ:"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:102
 msgid "Show line Numbers:"
-msgstr ""
+msgstr "Показывать номера строк:"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:110
 msgid "Keep Sidebar Visible:"
@@ -225,29 +225,29 @@ msgstr ""
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:148
 msgid "Global style modifications"
-msgstr ""
+msgstr "Глобальные модификации стиля"
 
 #: src/Widgets/Sidebar/BookmarkItem.vala:54 src/Widgets/Sidebar/TagItem.vala:54
 msgid "Remove"
-msgstr ""
+msgstr "Удалить"
 
 #: src/Widgets/Sidebar/NotebookItem.vala:53
 msgid "Edit Notebook"
-msgstr ""
+msgstr "Изменить блокнот"
 
 #: src/Widgets/Sidebar/NotebookItem.vala:54
 #: src/Widgets/Sidebar/NotebookList.vala:32 src/Widgets/Headerbar.vala:257
 #: src/Application.vala:108
 msgid "New Notebook"
-msgstr ""
+msgstr "Новый блокнот"
 
 #: src/Widgets/Sidebar/NotebookItem.vala:55
 msgid "Delete Notebook"
-msgstr ""
+msgstr "Удалить блокнот"
 
 #: src/Widgets/Sidebar/Sidebar.vala:27
 msgid "Bookmarks"
-msgstr ""
+msgstr "Закладки"
 
 #: src/Widgets/Sidebar/Sidebar.vala:28
 msgid "Trash"
@@ -259,7 +259,7 @@ msgstr ""
 
 #: src/Widgets/Sidebar/Sidebar.vala:33
 msgid "Notebooks"
-msgstr ""
+msgstr "Блокноты"
 
 #: src/Widgets/Sidebar/Sidebar.vala:54
 msgid "All Notes"
@@ -279,43 +279,43 @@ msgstr ""
 
 #: src/Widgets/BookmarkButton.vala:34
 msgid "Bookmark page"
-msgstr ""
+msgstr "Страница закладок"
 
 #: src/Widgets/Editor.vala:157
 msgid "Add bold to text"
-msgstr ""
+msgstr "Добавить жирный шрифт в текст"
 
 #: src/Widgets/Editor.vala:164
 msgid "Add italic to text"
-msgstr ""
+msgstr "Добавить курсив в текст"
 
 #: src/Widgets/Editor.vala:171
 msgid "Strikethrough text"
-msgstr ""
+msgstr "Зачёркнутый текст"
 
 #: src/Widgets/Editor.vala:175
 msgid "Insert a quote"
-msgstr ""
+msgstr "Вставить цитату"
 
 #: src/Widgets/Editor.vala:176
 msgid "Insert code"
-msgstr ""
+msgstr "Вставить код"
 
 #: src/Widgets/Editor.vala:177
 msgid "Insert a link"
-msgstr ""
+msgstr "Вставить ссылку"
 
 #: src/Widgets/Editor.vala:179
 msgid "Add a bulleted list"
-msgstr ""
+msgstr "Добавить маркированный список"
 
 #: src/Widgets/Editor.vala:180
 msgid "Add a Numbered list"
-msgstr ""
+msgstr "Добавить пронумерованный список"
 
 #: src/Widgets/Editor.vala:182
 msgid "Insert an image"
-msgstr ""
+msgstr "Вставить изображение"
 
 #: src/Widgets/Editor.vala:221
 msgid "Formatting"
@@ -323,7 +323,7 @@ msgstr ""
 
 #: src/Widgets/Headerbar.vala:59
 msgid "Search your current notebook"
-msgstr ""
+msgstr "Поиск в вашем текущем блокноте"
 
 #: src/Widgets/Headerbar.vala:84
 msgid "Add Tag"
@@ -335,7 +335,7 @@ msgstr ""
 
 #: src/Widgets/Headerbar.vala:201
 msgid "View"
-msgstr ""
+msgstr "Просмотр"
 
 #: src/Widgets/Headerbar.vala:205
 msgid "Change mode"
@@ -545,12 +545,12 @@ msgstr ""
 
 #: src/Application.vala:65
 msgid "Notes-Up"
-msgstr ""
+msgstr "Notes-Up"
 
 #: src/Application.vala:66
 msgid "Your Markdown Notebook."
-msgstr ""
+msgstr "Ваши markdown-заметки."
 
 #: src/Application.vala:67
 msgid "About Notes"
-msgstr ""
+msgstr "О приложении"

@@ -1,15 +1,15 @@
 # Japanese translations for com.github.philip-scott.notes-up package.
 # Copyright (C) 2019 THE com.github.philip-scott.notes-up'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the com.github.philip-scott.notes-up package.
-# Automatically generated, 2019.
+# Ryo Nakano, 2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.philip-scott.notes-up\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-02 18:31+0200\n"
+"POT-Creation-Date: 2019-04-02 19:41+0200\n"
 "PO-Revision-Date: 2019-04-02 18:31+0200\n"
-"Last-Translator: Automatically generated\n"
+"Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: none\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -19,41 +19,43 @@ msgstr ""
 
 #: src/Plugins/Break.vala:28
 msgid "Page break when exporting to PDF: <break>"
-msgstr ""
+msgstr "PDF へのエクスポート時のページ区切り: <break>"
 
 #: src/Plugins/Break.vala:32
 msgid "Page break"
-msgstr ""
+msgstr "ページ区切り"
 
 #: src/Plugins/Break.vala:47
 msgid "Page break on export: <break>"
-msgstr ""
+msgstr "エクスポート時のページ区切り: <break>"
 
 #: src/Plugins/Color.vala:35
 msgid ""
 "Set font color for the line with <color [#color]> or for some text with "
 "<color [color] [text]>"
 msgstr ""
+"行の色を <color [#色]> で設定するか、テキストの色を <color [color] [text]> で"
+"設定してください"
 
 #: src/Plugins/Color.vala:39 src/Plugins/Color.vala:68
 msgid "Font color"
-msgstr ""
+msgstr "フォントの色"
 
 #: src/Plugins/Highlight.vala:28 src/Widgets/HelpBox.vala:62
 msgid "Enable Syntax Highlighting"
-msgstr ""
+msgstr "シンタックスハイライトを有効化"
 
 #: src/Plugins/Highlight.vala:32
 msgid "Syntax Highlighing"
-msgstr ""
+msgstr "シンタックスハイライト"
 
 #: src/Plugins/Image.vala:28
 msgid "Load an embeded image"
-msgstr ""
+msgstr "埋め込まれた画像を読み込む"
 
 #: src/Plugins/Image.vala:32
 msgid "Image"
-msgstr ""
+msgstr "画像"
 
 #: src/Plugins/PageLink.vala:31
 msgid "Open a page in Notes-Up"
@@ -65,23 +67,23 @@ msgstr ""
 
 #: src/Plugins/Youtube.vala:30
 msgid "Embed youtube videos: <youtube [video]>"
-msgstr ""
+msgstr "Youtube の動画の埋め込み: <Youtube [ビデオ]>"
 
 #: src/Plugins/Youtube.vala:34
 msgid "Youtube"
-msgstr ""
+msgstr "Youtube"
 
 #: src/Plugins/Youtube.vala:42
 msgid "Insert Youtube video"
-msgstr ""
+msgstr "Youtube ビデオを挿入"
 
 #: src/Plugins/Youtube.vala:78 src/Widgets/HelpBox.vala:60
 msgid "Youtube Video"
-msgstr ""
+msgstr "Youtube ビデオ"
 
 #: src/Services/FileManager.vala:158
 msgid "Print to File"
-msgstr ""
+msgstr "ファイルに印刷"
 
 #: src/Services/FileManager.vala:233
 msgid "Save as PDF"
@@ -89,7 +91,7 @@ msgstr ""
 
 #: src/Services/FileManager.vala:235
 msgid "PDF File"
-msgstr ""
+msgstr "PDF ファイル"
 
 #: src/Services/FileManager.vala:243
 msgid "Save as Markdown"
@@ -105,68 +107,68 @@ msgstr ""
 
 #: src/Services/FileManager.vala:256
 msgid "Images"
-msgstr ""
+msgstr "画像"
 
 #: src/Services/FileManager.vala:266
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 #: src/Services/FileManager.vala:268
 msgid "Open"
-msgstr ""
+msgstr "開く"
 
 #: src/Services/FileManager.vala:272
 msgid "All Files"
-msgstr ""
+msgstr "すべてのファイル"
 
 #: src/Services/FileManager.vala:281
 #: src/Widgets/Dialogs/NewNotebookDialog.vala:72
 #: src/Widgets/Dialogs/NotebookListDialog.vala:34
 #: src/Widgets/Dialogs/NotebookListDialog.vala:75
 msgid "Cancel"
-msgstr ""
+msgstr "キャンセル"
 
 #: src/Services/Page.vala:177 src/Services/Page.vala:261
 #: src/Services/Page.vala:272 src/Widgets/PagesList.vala:101
 msgid "New Page"
-msgstr ""
+msgstr "新しいページ"
 
 #: src/Services/StyleLoader.vala:23
 msgid "Default"
-msgstr ""
+msgstr "デフォルト"
 
 #: src/Widgets/Dialogs/NewNotebookDialog.vala:63
 msgid "Name:"
-msgstr ""
+msgstr "名前:"
 
 #: src/Widgets/Dialogs/NewNotebookDialog.vala:64
 msgid "Color:"
-msgstr ""
+msgstr "色:"
 
 #: src/Widgets/Dialogs/NewNotebookDialog.vala:82 src/Widgets/Headerbar.vala:202
 msgid "Edit"
-msgstr ""
+msgstr "編集"
 
 #: src/Widgets/Dialogs/NewNotebookDialog.vala:85
 msgid "Create"
-msgstr ""
+msgstr "作成"
 
 #: src/Widgets/Dialogs/NewNotebookDialog.vala:103
 msgid "Properties"
-msgstr ""
+msgstr "プロパティ"
 
 #: src/Widgets/Dialogs/NewNotebookDialog.vala:104
 msgid "Style"
-msgstr ""
+msgstr "スタイル"
 
 #: src/Widgets/Dialogs/NewNotebookDialog.vala:122
 msgid "Style modifications"
-msgstr ""
+msgstr "スタイルの変更"
 
 #: src/Widgets/Dialogs/NewNotebookDialog.vala:135
 #: src/Widgets/Dialogs/PreferencesDialog.vala:161
 msgid "Stylesheet:"
-msgstr ""
+msgstr "スタイルシート:"
 
 #: src/Widgets/Dialogs/NotebookListDialog.vala:25
 #: src/Widgets/Sidebar/NotebookItem.vala:56
@@ -184,73 +186,73 @@ msgstr ""
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:42 src/Widgets/Headerbar.vala:260
 msgid "Preferences"
-msgstr ""
+msgstr "設定"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:51
 msgid "Editor"
-msgstr ""
+msgstr "エディター"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:52
 msgid "Viewer"
-msgstr ""
+msgstr "ビューアー"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:65
 msgid "_Close"
-msgstr ""
+msgstr "閉じる(_C)"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:73
 msgid "Font:"
-msgstr ""
+msgstr "フォント:"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:83
 msgid "Theme:"
-msgstr ""
+msgstr "テーマ:"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:94
 msgid "Automatic indentation:"
-msgstr ""
+msgstr "自動インデント:"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:102
 msgid "Show line Numbers:"
-msgstr ""
+msgstr "行番号の表示:"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:110
 msgid "Keep Sidebar Visible:"
-msgstr ""
+msgstr "サイドバーを表示:"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:118
 msgid "Spellcheck:"
-msgstr ""
+msgstr "スペルチェック:"
 
 #: src/Widgets/Dialogs/PreferencesDialog.vala:148
 msgid "Global style modifications"
-msgstr ""
+msgstr "グローバルスタイルの変更"
 
 #: src/Widgets/Sidebar/BookmarkItem.vala:54 src/Widgets/Sidebar/TagItem.vala:54
 msgid "Remove"
-msgstr ""
+msgstr "削除"
 
 #: src/Widgets/Sidebar/NotebookItem.vala:53
 msgid "Edit Notebook"
-msgstr ""
+msgstr "ノートを編集"
 
 #: src/Widgets/Sidebar/NotebookItem.vala:54
 #: src/Widgets/Sidebar/NotebookList.vala:32 src/Widgets/Headerbar.vala:257
 #: src/Application.vala:108
 msgid "New Notebook"
-msgstr ""
+msgstr "新しいノート"
 
 #: src/Widgets/Sidebar/NotebookItem.vala:55
 msgid "Delete Notebook"
-msgstr ""
+msgstr "ノートを削除"
 
 #: src/Widgets/Sidebar/Sidebar.vala:27
 msgid "Bookmarks"
-msgstr ""
+msgstr "ブックマーク"
 
 #: src/Widgets/Sidebar/Sidebar.vala:28
 msgid "Trash"
-msgstr ""
+msgstr "ゴミ箱"
 
 #: src/Widgets/Sidebar/Sidebar.vala:29
 msgid "Tags"
@@ -258,7 +260,7 @@ msgstr ""
 
 #: src/Widgets/Sidebar/Sidebar.vala:33
 msgid "Notebooks"
-msgstr ""
+msgstr "ノート"
 
 #: src/Widgets/Sidebar/Sidebar.vala:54
 msgid "All Notes"
@@ -270,59 +272,59 @@ msgstr ""
 
 #: src/Widgets/Sidebar/Sidebar.vala:205
 msgid "My First Notebook"
-msgstr ""
+msgstr "自分の最初のノート"
 
 #: src/Widgets/Sidebar/TrashItem.vala:28
 msgid "Restore"
-msgstr ""
+msgstr "元に戻す"
 
 #: src/Widgets/BookmarkButton.vala:34
 msgid "Bookmark page"
-msgstr ""
+msgstr "ページをブックマーク"
 
 #: src/Widgets/Editor.vala:157
 msgid "Add bold to text"
-msgstr ""
+msgstr "テキストを太字にする"
 
 #: src/Widgets/Editor.vala:164
 msgid "Add italic to text"
-msgstr ""
+msgstr "テキストを斜体にする"
 
 #: src/Widgets/Editor.vala:171
 msgid "Strikethrough text"
-msgstr ""
+msgstr "テキストに打ち消し線を引く"
 
 #: src/Widgets/Editor.vala:175
 msgid "Insert a quote"
-msgstr ""
+msgstr "引用を挿入"
 
 #: src/Widgets/Editor.vala:176
 msgid "Insert code"
-msgstr ""
+msgstr "コードを挿入"
 
 #: src/Widgets/Editor.vala:177
 msgid "Insert a link"
-msgstr ""
+msgstr "リンクを挿入"
 
 #: src/Widgets/Editor.vala:179
 msgid "Add a bulleted list"
-msgstr ""
+msgstr "箇条書きリストを追加"
 
 #: src/Widgets/Editor.vala:180
 msgid "Add a Numbered list"
-msgstr ""
+msgstr "番号付きリストを追加"
 
 #: src/Widgets/Editor.vala:182
 msgid "Insert an image"
-msgstr ""
+msgstr "画像を挿入"
 
 #: src/Widgets/Editor.vala:221
 msgid "Formatting"
-msgstr ""
+msgstr "書式"
 
 #: src/Widgets/Headerbar.vala:59
 msgid "Search your current notebook"
-msgstr ""
+msgstr "現在のノートを検索"
 
 #: src/Widgets/Headerbar.vala:84
 msgid "Add Tag"
@@ -334,11 +336,11 @@ msgstr ""
 
 #: src/Widgets/Headerbar.vala:201
 msgid "View"
-msgstr ""
+msgstr "ビュー"
 
 #: src/Widgets/Headerbar.vala:205
 msgid "Change mode"
-msgstr ""
+msgstr "モードを切り替え"
 
 #: src/Widgets/Headerbar.vala:229
 msgid "High Contrast"
@@ -366,91 +368,91 @@ msgstr ""
 
 #: src/Widgets/HelpBox.vala:41
 msgid "Large Header"
-msgstr ""
+msgstr "大見出し"
 
 #: src/Widgets/HelpBox.vala:42
 msgid "Medium Header"
-msgstr ""
+msgstr "中見出し"
 
 #: src/Widgets/HelpBox.vala:43
 msgid "Small Header"
-msgstr ""
+msgstr "小見出し"
 
 #: src/Widgets/HelpBox.vala:45
 msgid "<i>Italic</i>"
-msgstr ""
+msgstr "<i>斜体</i>"
 
 #: src/Widgets/HelpBox.vala:45
 msgid "_italic_"
-msgstr ""
+msgstr "_斜体_"
 
 #: src/Widgets/HelpBox.vala:46
 msgid "<b>Bold</b>"
-msgstr ""
+msgstr "<b>太字</b>"
 
 #: src/Widgets/HelpBox.vala:46
 msgid "**bold**"
-msgstr ""
+msgstr "**太字**"
 
 #: src/Widgets/HelpBox.vala:47
 msgid "<s>Strike</s>"
-msgstr ""
+msgstr "<s>打ち消し</s>"
 
 #: src/Widgets/HelpBox.vala:47
 msgid "~~strike~~"
-msgstr ""
+msgstr "~~打ち消し~~"
 
 #: src/Widgets/HelpBox.vala:48
 msgid "|  <i>quote</i>"
-msgstr ""
+msgstr "|  <i>引用</i>"
 
 #: src/Widgets/HelpBox.vala:50
 msgid "1. Numbered list"
-msgstr ""
+msgstr "1. 番号付きリスト"
 
 #: src/Widgets/HelpBox.vala:51
 msgid "⚫ Bulleted list"
-msgstr ""
+msgstr "⚫ 箇条書きリスト"
 
 #: src/Widgets/HelpBox.vala:53
 msgid "Divider"
-msgstr ""
+msgstr "水平線"
 
 #: src/Widgets/HelpBox.vala:54
 msgid "Code"
-msgstr ""
+msgstr "コード"
 
 #: src/Widgets/HelpBox.vala:55
 msgid "Code Block"
-msgstr ""
+msgstr "コードブロック"
 
 #: src/Widgets/HelpBox.vala:56
 msgid "Link"
-msgstr ""
+msgstr "リンク"
 
 #: src/Widgets/HelpBox.vala:56
 msgid "[Text](www...) "
-msgstr ""
+msgstr "[テキスト](www...) "
 
 #: src/Widgets/HelpBox.vala:57
 msgid "Citation Anchor"
-msgstr ""
+msgstr "引用アンカー"
 
 #: src/Widgets/HelpBox.vala:58
 msgid "Citation Text"
-msgstr ""
+msgstr "引用テキスト"
 
 #: src/Widgets/HelpBox.vala:60
 msgid "<youtube [link]>"
-msgstr ""
+msgstr "<youtube [リンク]>"
 
 #: src/Widgets/HelpBox.vala:61
 msgid "Page Break (when exporting)"
-msgstr ""
+msgstr "ページ区切り (エクスポート時)"
 
 #: src/Widgets/HelpBox.vala:63
 msgid "Set Color"
-msgstr ""
+msgstr "色を設定"
 
 #: src/Widgets/PageInfoEditor.vala:71
 #, c-format
@@ -498,56 +500,56 @@ msgstr ""
 #, c-format
 msgid "%i Page"
 msgid_plural "%i Pages"
-msgstr[0] ""
+msgstr[0] "%i ページ"
 
 #: src/Application.vala:37
 msgid "<Ctrl>M"
-msgstr ""
+msgstr "<Ctrl>M"
 
 #: src/Application.vala:38
 msgid "<Ctrl>S"
-msgstr ""
+msgstr "<Ctrl>S"
 
 #: src/Application.vala:39
 msgid "<Ctrl>Q"
-msgstr ""
+msgstr "<Ctrl>Q"
 
 #: src/Application.vala:40
 msgid "<Ctrl><Shift>N"
-msgstr ""
+msgstr "<Ctrl><Shift>N"
 
 #: src/Application.vala:41
 msgid "<Ctrl>F"
-msgstr ""
+msgstr "<Ctrl>F"
 
 #: src/Application.vala:42
 msgid "<Ctrl>K"
-msgstr ""
+msgstr "<Ctrl>K"
 
 #: src/Application.vala:43
 msgid "<Ctrl>B"
-msgstr ""
+msgstr "<Ctrl>B"
 
 #: src/Application.vala:44
 msgid "<Ctrl>I"
-msgstr ""
+msgstr "<Ctrl>I"
 
 #: src/Application.vala:45
 msgid "<Ctrl>T"
-msgstr ""
+msgstr "<Ctrl>T"
 
 #: src/Application.vala:46
 msgid "<Ctrl><Shift>I"
-msgstr ""
+msgstr "<Ctrl><Shift>I"
 
 #: src/Application.vala:65
 msgid "Notes-Up"
-msgstr ""
+msgstr "Notes-up"
 
 #: src/Application.vala:66
 msgid "Your Markdown Notebook."
-msgstr ""
+msgstr "自分だけのマークダウン形式のノート。"
 
 #: src/Application.vala:67
 msgid "About Notes"
-msgstr ""
+msgstr "Notes について"
