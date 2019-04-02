@@ -1,0 +1,554 @@
+# Norwegian Nynorsk translations for com.github.philip-scott.notes-up package.
+# Copyright (C) 2019 THE com.github.philip-scott.notes-up'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.philip-scott.notes-up package.
+# Automatically generated, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.philip-scott.notes-up\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-02 18:31+0200\n"
+"PO-Revision-Date: 2019-04-02 18:31+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: nn\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/Plugins/Break.vala:28
+msgid "Page break when exporting to PDF: <break>"
+msgstr ""
+
+#: src/Plugins/Break.vala:32
+msgid "Page break"
+msgstr ""
+
+#: src/Plugins/Break.vala:47
+msgid "Page break on export: <break>"
+msgstr ""
+
+#: src/Plugins/Color.vala:35
+msgid ""
+"Set font color for the line with <color [#color]> or for some text with "
+"<color [color] [text]>"
+msgstr ""
+
+#: src/Plugins/Color.vala:39 src/Plugins/Color.vala:68
+msgid "Font color"
+msgstr ""
+
+#: src/Plugins/Highlight.vala:28 src/Widgets/HelpBox.vala:62
+msgid "Enable Syntax Highlighting"
+msgstr ""
+
+#: src/Plugins/Highlight.vala:32
+msgid "Syntax Highlighing"
+msgstr ""
+
+#: src/Plugins/Image.vala:28
+msgid "Load an embeded image"
+msgstr ""
+
+#: src/Plugins/Image.vala:32
+msgid "Image"
+msgstr ""
+
+#: src/Plugins/PageLink.vala:31
+msgid "Open a page in Notes-Up"
+msgstr ""
+
+#: src/Plugins/PageLink.vala:35
+msgid "Link to Page"
+msgstr ""
+
+#: src/Plugins/Youtube.vala:30
+msgid "Embed youtube videos: <youtube [video]>"
+msgstr ""
+
+#: src/Plugins/Youtube.vala:34
+msgid "Youtube"
+msgstr ""
+
+#: src/Plugins/Youtube.vala:42
+msgid "Insert Youtube video"
+msgstr ""
+
+#: src/Plugins/Youtube.vala:78 src/Widgets/HelpBox.vala:60
+msgid "Youtube Video"
+msgstr ""
+
+#: src/Services/FileManager.vala:158
+msgid "Print to File"
+msgstr ""
+
+#: src/Services/FileManager.vala:233
+msgid "Save as PDF"
+msgstr ""
+
+#: src/Services/FileManager.vala:235
+msgid "PDF File"
+msgstr ""
+
+#: src/Services/FileManager.vala:243
+msgid "Save as Markdown"
+msgstr ""
+
+#: src/Services/FileManager.vala:245
+msgid "Markdown File"
+msgstr ""
+
+#: src/Services/FileManager.vala:253
+msgid "Open Image"
+msgstr ""
+
+#: src/Services/FileManager.vala:256
+msgid "Images"
+msgstr ""
+
+#: src/Services/FileManager.vala:266
+msgid "Save"
+msgstr ""
+
+#: src/Services/FileManager.vala:268
+msgid "Open"
+msgstr ""
+
+#: src/Services/FileManager.vala:272
+msgid "All Files"
+msgstr ""
+
+#: src/Services/FileManager.vala:281
+#: src/Widgets/Dialogs/NewNotebookDialog.vala:72
+#: src/Widgets/Dialogs/NotebookListDialog.vala:34
+#: src/Widgets/Dialogs/NotebookListDialog.vala:75
+msgid "Cancel"
+msgstr ""
+
+#: src/Services/Page.vala:177 src/Services/Page.vala:261
+#: src/Services/Page.vala:272 src/Widgets/PagesList.vala:101
+msgid "New Page"
+msgstr ""
+
+#: src/Services/StyleLoader.vala:23
+msgid "Default"
+msgstr ""
+
+#: src/Widgets/Dialogs/NewNotebookDialog.vala:63
+msgid "Name:"
+msgstr ""
+
+#: src/Widgets/Dialogs/NewNotebookDialog.vala:64
+msgid "Color:"
+msgstr ""
+
+#: src/Widgets/Dialogs/NewNotebookDialog.vala:82 src/Widgets/Headerbar.vala:202
+msgid "Edit"
+msgstr ""
+
+#: src/Widgets/Dialogs/NewNotebookDialog.vala:85
+msgid "Create"
+msgstr ""
+
+#: src/Widgets/Dialogs/NewNotebookDialog.vala:103
+msgid "Properties"
+msgstr ""
+
+#: src/Widgets/Dialogs/NewNotebookDialog.vala:104
+msgid "Style"
+msgstr ""
+
+#: src/Widgets/Dialogs/NewNotebookDialog.vala:122
+msgid "Style modifications"
+msgstr ""
+
+#: src/Widgets/Dialogs/NewNotebookDialog.vala:135
+#: src/Widgets/Dialogs/PreferencesDialog.vala:161
+msgid "Stylesheet:"
+msgstr ""
+
+#: src/Widgets/Dialogs/NotebookListDialog.vala:25
+#: src/Widgets/Sidebar/NotebookItem.vala:56
+msgid "Move Notebook"
+msgstr ""
+
+#: src/Widgets/Dialogs/NotebookListDialog.vala:36
+#: src/Widgets/Dialogs/NotebookListDialog.vala:77
+msgid "Move"
+msgstr ""
+
+#: src/Widgets/Dialogs/NotebookListDialog.vala:65
+msgid "Move Page"
+msgstr ""
+
+#: src/Widgets/Dialogs/PreferencesDialog.vala:42 src/Widgets/Headerbar.vala:260
+msgid "Preferences"
+msgstr ""
+
+#: src/Widgets/Dialogs/PreferencesDialog.vala:51
+msgid "Editor"
+msgstr ""
+
+#: src/Widgets/Dialogs/PreferencesDialog.vala:52
+msgid "Viewer"
+msgstr ""
+
+#: src/Widgets/Dialogs/PreferencesDialog.vala:65
+msgid "_Close"
+msgstr ""
+
+#: src/Widgets/Dialogs/PreferencesDialog.vala:73
+msgid "Font:"
+msgstr ""
+
+#: src/Widgets/Dialogs/PreferencesDialog.vala:83
+msgid "Theme:"
+msgstr ""
+
+#: src/Widgets/Dialogs/PreferencesDialog.vala:94
+msgid "Automatic indentation:"
+msgstr ""
+
+#: src/Widgets/Dialogs/PreferencesDialog.vala:102
+msgid "Show line Numbers:"
+msgstr ""
+
+#: src/Widgets/Dialogs/PreferencesDialog.vala:110
+msgid "Keep Sidebar Visible:"
+msgstr ""
+
+#: src/Widgets/Dialogs/PreferencesDialog.vala:118
+msgid "Spellcheck:"
+msgstr ""
+
+#: src/Widgets/Dialogs/PreferencesDialog.vala:148
+msgid "Global style modifications"
+msgstr ""
+
+#: src/Widgets/Sidebar/BookmarkItem.vala:54 src/Widgets/Sidebar/TagItem.vala:54
+msgid "Remove"
+msgstr ""
+
+#: src/Widgets/Sidebar/NotebookItem.vala:53
+msgid "Edit Notebook"
+msgstr ""
+
+#: src/Widgets/Sidebar/NotebookItem.vala:54
+#: src/Widgets/Sidebar/NotebookList.vala:32 src/Widgets/Headerbar.vala:257
+#: src/Application.vala:108
+msgid "New Notebook"
+msgstr ""
+
+#: src/Widgets/Sidebar/NotebookItem.vala:55
+msgid "Delete Notebook"
+msgstr ""
+
+#: src/Widgets/Sidebar/Sidebar.vala:27
+msgid "Bookmarks"
+msgstr ""
+
+#: src/Widgets/Sidebar/Sidebar.vala:28
+msgid "Trash"
+msgstr ""
+
+#: src/Widgets/Sidebar/Sidebar.vala:29
+msgid "Tags"
+msgstr ""
+
+#: src/Widgets/Sidebar/Sidebar.vala:33
+msgid "Notebooks"
+msgstr ""
+
+#: src/Widgets/Sidebar/Sidebar.vala:54
+msgid "All Notes"
+msgstr ""
+
+#: src/Widgets/Sidebar/Sidebar.vala:79
+msgid "Not in a Notebook"
+msgstr ""
+
+#: src/Widgets/Sidebar/Sidebar.vala:205
+msgid "My First Notebook"
+msgstr ""
+
+#: src/Widgets/Sidebar/TrashItem.vala:28
+msgid "Restore"
+msgstr ""
+
+#: src/Widgets/BookmarkButton.vala:34
+msgid "Bookmark page"
+msgstr ""
+
+#: src/Widgets/Editor.vala:157
+msgid "Add bold to text"
+msgstr ""
+
+#: src/Widgets/Editor.vala:164
+msgid "Add italic to text"
+msgstr ""
+
+#: src/Widgets/Editor.vala:171
+msgid "Strikethrough text"
+msgstr ""
+
+#: src/Widgets/Editor.vala:175
+msgid "Insert a quote"
+msgstr ""
+
+#: src/Widgets/Editor.vala:176
+msgid "Insert code"
+msgstr ""
+
+#: src/Widgets/Editor.vala:177
+msgid "Insert a link"
+msgstr ""
+
+#: src/Widgets/Editor.vala:179
+msgid "Add a bulleted list"
+msgstr ""
+
+#: src/Widgets/Editor.vala:180
+msgid "Add a Numbered list"
+msgstr ""
+
+#: src/Widgets/Editor.vala:182
+msgid "Insert an image"
+msgstr ""
+
+#: src/Widgets/Editor.vala:221
+msgid "Formatting"
+msgstr ""
+
+#: src/Widgets/Headerbar.vala:59
+msgid "Search your current notebook"
+msgstr ""
+
+#: src/Widgets/Headerbar.vala:84
+msgid "Add Tag"
+msgstr ""
+
+#: src/Widgets/Headerbar.vala:113
+msgid "Edit Page Title"
+msgstr ""
+
+#: src/Widgets/Headerbar.vala:201
+msgid "View"
+msgstr ""
+
+#: src/Widgets/Headerbar.vala:205
+msgid "Change mode"
+msgstr ""
+
+#: src/Widgets/Headerbar.vala:229
+msgid "High Contrast"
+msgstr ""
+
+#: src/Widgets/Headerbar.vala:237
+msgid "Solarized Light"
+msgstr ""
+
+#: src/Widgets/Headerbar.vala:245
+msgid "Solarized Dark"
+msgstr ""
+
+#: src/Widgets/Headerbar.vala:263
+msgid "Export as PDF"
+msgstr ""
+
+#: src/Widgets/Headerbar.vala:266
+msgid "Export as Markdown"
+msgstr ""
+
+#: src/Widgets/Headerbar.vala:289
+msgid "Menu"
+msgstr ""
+
+#: src/Widgets/HelpBox.vala:41
+msgid "Large Header"
+msgstr ""
+
+#: src/Widgets/HelpBox.vala:42
+msgid "Medium Header"
+msgstr ""
+
+#: src/Widgets/HelpBox.vala:43
+msgid "Small Header"
+msgstr ""
+
+#: src/Widgets/HelpBox.vala:45
+msgid "<i>Italic</i>"
+msgstr ""
+
+#: src/Widgets/HelpBox.vala:45
+msgid "_italic_"
+msgstr ""
+
+#: src/Widgets/HelpBox.vala:46
+msgid "<b>Bold</b>"
+msgstr ""
+
+#: src/Widgets/HelpBox.vala:46
+msgid "**bold**"
+msgstr ""
+
+#: src/Widgets/HelpBox.vala:47
+msgid "<s>Strike</s>"
+msgstr ""
+
+#: src/Widgets/HelpBox.vala:47
+msgid "~~strike~~"
+msgstr ""
+
+#: src/Widgets/HelpBox.vala:48
+msgid "|  <i>quote</i>"
+msgstr ""
+
+#: src/Widgets/HelpBox.vala:50
+msgid "1. Numbered list"
+msgstr ""
+
+#: src/Widgets/HelpBox.vala:51
+msgid "⚫ Bulleted list"
+msgstr ""
+
+#: src/Widgets/HelpBox.vala:53
+msgid "Divider"
+msgstr ""
+
+#: src/Widgets/HelpBox.vala:54
+msgid "Code"
+msgstr ""
+
+#: src/Widgets/HelpBox.vala:55
+msgid "Code Block"
+msgstr ""
+
+#: src/Widgets/HelpBox.vala:56
+msgid "Link"
+msgstr ""
+
+#: src/Widgets/HelpBox.vala:56
+msgid "[Text](www...) "
+msgstr ""
+
+#: src/Widgets/HelpBox.vala:57
+msgid "Citation Anchor"
+msgstr ""
+
+#: src/Widgets/HelpBox.vala:58
+msgid "Citation Text"
+msgstr ""
+
+#: src/Widgets/HelpBox.vala:60
+msgid "<youtube [link]>"
+msgstr ""
+
+#: src/Widgets/HelpBox.vala:61
+msgid "Page Break (when exporting)"
+msgstr ""
+
+#: src/Widgets/HelpBox.vala:63
+msgid "Set Color"
+msgstr ""
+
+#: src/Widgets/PageInfoEditor.vala:71
+#, c-format
+msgid "Created: %s"
+msgstr ""
+
+#: src/Widgets/PageInfoEditor.vala:78
+#, c-format
+msgid "Updated: %s"
+msgstr ""
+
+#: src/Widgets/PageInfoEditor.vala:100
+msgid "Not in Notebook"
+msgstr ""
+
+#: src/Widgets/PageInfoEditor.vala:127
+msgid "Move page…"
+msgstr ""
+
+#: src/Widgets/PageInfoEditor.vala:163
+msgid "Copy link to page to clipboard"
+msgstr ""
+
+#: src/Widgets/PageInfoEditor.vala:195
+msgid "Toggle page information"
+msgstr ""
+
+#: src/Widgets/PageInfoEditor.vala:223
+msgid "Link to: "
+msgstr ""
+
+#: src/Widgets/PageInfoEditor.vala:265
+msgid "Click to add tag…"
+msgstr ""
+
+#: src/Widgets/PageInfoEditor.vala:329
+msgid "Remove tag"
+msgstr ""
+
+#: src/Widgets/PagesList.vala:106
+msgid "Delete Page"
+msgstr ""
+
+#: src/Widgets/PagesList.vala:227 src/Widgets/PagesList.vala:353
+#, c-format
+msgid "%i Page"
+msgid_plural "%i Pages"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Application.vala:37
+msgid "<Ctrl>M"
+msgstr ""
+
+#: src/Application.vala:38
+msgid "<Ctrl>S"
+msgstr ""
+
+#: src/Application.vala:39
+msgid "<Ctrl>Q"
+msgstr ""
+
+#: src/Application.vala:40
+msgid "<Ctrl><Shift>N"
+msgstr ""
+
+#: src/Application.vala:41
+msgid "<Ctrl>F"
+msgstr ""
+
+#: src/Application.vala:42
+msgid "<Ctrl>K"
+msgstr ""
+
+#: src/Application.vala:43
+msgid "<Ctrl>B"
+msgstr ""
+
+#: src/Application.vala:44
+msgid "<Ctrl>I"
+msgstr ""
+
+#: src/Application.vala:45
+msgid "<Ctrl>T"
+msgstr ""
+
+#: src/Application.vala:46
+msgid "<Ctrl><Shift>I"
+msgstr ""
+
+#: src/Application.vala:65
+msgid "Notes-Up"
+msgstr ""
+
+#: src/Application.vala:66
+msgid "Your Markdown Notebook."
+msgstr ""
+
+#: src/Application.vala:67
+msgid "About Notes"
+msgstr ""

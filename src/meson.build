@@ -1,0 +1,52 @@
+sources = files(
+    'Main.vala',
+    'Application.vala',
+
+    'GranitePatches/SourceList.vala',
+
+    'Widgets/Editor.vala',
+    'Widgets/HelpBox.vala',
+    'Widgets/Headerbar.vala',
+    'Widgets/ViewEditStack.vala',
+    'Widgets/ToolbarButton.vala',
+    'Widgets/BookmarkButton.vala',
+    'Widgets/PageItem.vala',
+    'Widgets/PageInfoEditor.vala',
+    'Widgets/PagesList.vala',
+    'Widgets/Viewer.vala',
+    'Widgets/Window.vala',
+
+    'Widgets/Sidebar/Sidebar.vala',
+    'Widgets/Sidebar/SidebarItem.vala',
+    'Widgets/Sidebar/NotebookList.vala',
+    'Widgets/Sidebar/NotebookItem.vala',
+    'Widgets/Sidebar/BookmarkItem.vala',
+    'Widgets/Sidebar/TagItem.vala',
+    'Widgets/Sidebar/TrashItem.vala',
+
+    'Widgets/Dialogs/NewNotebookDialog.vala',
+    'Widgets/Dialogs/PreferencesDialog.vala',
+    'Widgets/Dialogs/NotebookListDialog.vala',
+
+    'Services/Bookmark.vala',
+    'Services/FileManager.vala',
+    'Services/Notebook.vala',
+    'Services/Image.vala',
+    'Services/Page.vala',
+    'Services/Settings.vala',
+    'Services/StyleLoader.vala',
+    'Services/Trash.vala',
+    'Services/Tags.vala',
+    'Services/DatabaseTable.vala',
+    'Services/WordWrapper.vala',
+
+    'Plugins/Manager.vala',
+    'Plugins/Plugin.vala',
+    'Plugins/Break.vala',
+    'Plugins/Color.vala',
+    'Plugins/Youtube.vala',
+    'Plugins/Image.vala',
+    'Plugins/PageLink.vala',
+    'Plugins/Highlight.vala',
+    'Config.vala'
+)
