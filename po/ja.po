@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.philip-scott.notes-up\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-02 19:41+0200\n"
+"POT-Creation-Date: 2019-04-02 21:55+0200\n"
 "PO-Revision-Date: 2019-04-02 18:31+0200\n"
 "Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: none\n"
@@ -441,6 +441,10 @@ msgstr "引用アンカー"
 #: src/Widgets/HelpBox.vala:58
 msgid "Citation Text"
 msgstr "引用テキスト"
+
+#: src/Widgets/HelpBox.vala:58
+msgid "[^1]: text"
+msgstr ""
 
 #: src/Widgets/HelpBox.vala:60
 msgid "<youtube [link]>"
