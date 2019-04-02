@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-02 18:31+0200\n"
+"POT-Creation-Date: 2019-04-02 21:41+0200\n"
 "PO-Revision-Date: 2019-04-02 18:31+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -26,7 +26,7 @@ msgstr "Notes-Up"
 msgid "Your markdown notebook"
 msgstr "Your markdown notebook"
 
-#: data/com.github.philip-scott.notes-up.desktop.in:9
+#: data/com.github.philip-scott.notes-up.desktop.in:6
 msgid "com.github.philip-scott.notes-up"
 msgstr "com.github.philip-scott.notes-up"
 
