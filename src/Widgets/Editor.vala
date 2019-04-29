@@ -28,6 +28,9 @@ public class ENotes.Editor : Gtk.Box {
 
     private bool edited = false;
 
+    private Gtk.SourceSearchContext search_context;
+    private Gtk.SourceSearchSettings search_settings;
+
     private ENotes.Page? current_page {
          set {
             if (value == null) {
@@ -90,6 +93,12 @@ public class ENotes.Editor : Gtk.Box {
         });
 
         new WordWrapper(); // used to enforce initialization of static members
+
+        search_settings = new Gtk.SourceSearchSettings ();
+        search_settings.set_case_sensitive (false);
+        search_settings.set_regex_enabled (false);
+
+        search_context = new Gtk.SourceSearchContext (code_buffer, search_settings);
     }
 
     private void build_ui () {
@@ -155,6 +164,10 @@ public class ENotes.Editor : Gtk.Box {
 
         app.state.notify["editor-auto-indent"].connect (() => {
             code_view.auto_indent = app.state.editor_auto_indent;
+        });
+
+        app.state.notify["search-field"].connect (() => {
+            search_settings.set_search_text (app.state.search_field);
         });
     }
 
