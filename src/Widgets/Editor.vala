@@ -28,7 +28,7 @@ public class ENotes.Editor : Gtk.Box {
 
     private bool edited = false;
 
-    public ENotes.Page? current_page {
+    private ENotes.Page? current_page {
          set {
             if (value == null) {
                 set_sensitive (false);
@@ -83,7 +83,6 @@ public class ENotes.Editor : Gtk.Box {
     public Editor () {
         build_ui ();
         reset ();
-        load_settings ();
 
         Timeout.add_full (Priority.DEFAULT, 60000, () => {
             save_file ();
@@ -109,7 +108,7 @@ public class ENotes.Editor : Gtk.Box {
 
         code_view.pixels_below_lines = 6;
         code_view.wrap_mode = Gtk.WrapMode.WORD;
-        code_view.show_line_numbers = true;
+        show_line_numbers (false);
 
         var scroll_box = new Gtk.ScrolledWindow (null, null);
         scroll_box.add (code_view);
@@ -142,8 +141,20 @@ public class ENotes.Editor : Gtk.Box {
             save_file ();
         });
 
-        app.state.reload_editor_settings.connect (() => {
-            load_settings ();
+        app.state.notify["editor-font"].connect (() => {
+            set_font (app.state.editor_font);
+        });
+
+        app.state.notify["editor-scheme"].connect (() => {
+            set_scheme (app.state.editor_scheme);
+        });
+
+        app.state.notify["editor-show-line-numbers"].connect (() => {
+            show_line_numbers (app.state.editor_show_line_numbers);
+        });
+
+        app.state.notify["editor-auto-indent"].connect (() => {
+            code_view.auto_indent = app.state.editor_auto_indent;
         });
     }
 
@@ -272,14 +283,7 @@ public class ENotes.Editor : Gtk.Box {
         code_view.grab_focus ();
     }
 
-    public void load_settings () {
-        set_scheme (settings.editor_scheme);
-        set_font (settings.editor_font);
-        show_line_numbers (settings.line_numbers);
-        code_view.auto_indent = settings.auto_indent;
-    }
-
-    public void show_line_numbers (bool show) {
+    private void show_line_numbers (bool show) {
         code_view.set_show_line_numbers (show);
 
         if (show) {
@@ -289,12 +293,12 @@ public class ENotes.Editor : Gtk.Box {
         }
     }
 
-    public void set_font (string name) {
+    private void set_font (string name) {
         var font = Pango.FontDescription.from_string (name);
         code_view.override_font (font);
     }
 
-    public void set_scheme (string id) {
+    private void set_scheme (string id) {
         var style_manager = Gtk.SourceStyleSchemeManager.get_default ();
         var style = style_manager.get_scheme (id);
         code_buffer.set_style_scheme (style);

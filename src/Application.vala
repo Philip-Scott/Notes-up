@@ -161,6 +161,10 @@ public class ENotes.Application : Granite.Application {
 
         // Editor
         public signal void reload_editor_settings ();
+        public string editor_font { get; set; default = ""; }
+        public string editor_scheme { get; set; default = "classic"; }
+        public bool editor_show_line_numbers { get; set; }
+        public bool editor_auto_indent { get; set; }
 
         construct {
             notify.connect ((spec) => {
@@ -203,17 +207,17 @@ public class ENotes.Application : Granite.Application {
             switch (style) {
                 case "solarized-light":
                     style_scheme = style;
-                    settings.editor_scheme = style;
+                    editor_scheme = style;
                     gtk_settings.gtk_application_prefer_dark_theme = false;
                     break;
                 case "solarized-dark":
                     style_scheme = style;
-                    settings.editor_scheme = style;
+                    editor_scheme = style;
                     gtk_settings.gtk_application_prefer_dark_theme = true;
                     break;
                 default:
                     style_scheme = "high-contrast";
-                    settings.editor_scheme = "classic";
+                    editor_scheme = "classic";
                     gtk_settings.gtk_application_prefer_dark_theme = false;
                     break;
             }

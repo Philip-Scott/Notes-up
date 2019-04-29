@@ -171,6 +171,11 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         settings.last_page = app.state.opened_page != null ? (int) app.state.opened_page.id : 0;
         settings.show_page_info = app.state.show_page_info;
 
+        settings.editor_font = app.state.editor_font;
+        settings.editor_scheme = app.state.editor_scheme;
+        settings.line_numbers = app.state.editor_show_line_numbers;
+        settings.auto_indent = app.state.editor_auto_indent;
+
         Trash.get_instance ().clear_files ();
 
         return false;
@@ -190,7 +195,11 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         }
 
         app.state.set_style (settings.style_scheme);
+        app.state.editor_scheme = settings.editor_scheme;
         app.state.show_page_info = settings.show_page_info;
+        app.state.editor_font = settings.editor_font;
+        app.state.editor_show_line_numbers = settings.line_numbers;
+        app.state.editor_auto_indent = settings.auto_indent;
     }
 
     private void new_page () {
