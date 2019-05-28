@@ -40,7 +40,7 @@
 		<key name="mode" type="i">
 			<default>0</default>
 			<summary>The last used mode</summary>
-			<description></description>
+			<description>0 - Read, 1 - Edit, 2 - Both</description>
 		</key>
 
 		<key name="last-notebook" type="i">

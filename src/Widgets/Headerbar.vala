@@ -199,7 +199,9 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
     public Headerbar (ENotes.PageInfoEditor page_info) {
         mode_button = new Granite.Widgets.ModeButton ();
         mode_button.append_text (_("View"));
+        mode_button.append_icon ("view-dual-symbolic", Gtk.IconSize.MENU);
         mode_button.append_text (_("Edit"));
+
         mode_button.valign = Gtk.Align.CENTER;
 
         mode_button.set_tooltip_markup (Granite.markup_accel_tooltip (app.get_accels_for_action ("win.change-mode"), _("Change mode")));
@@ -359,6 +361,8 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         mode_button.mode_changed.connect ((widget) => {
             if (mode_button.selected == 0) {
                 app.state.mode = ENotes.Mode.VIEW;
+            } else if (mode_button.selected == 1){
+                app.state.mode = ENotes.Mode.BOTH;
             } else {
                 app.state.mode = ENotes.Mode.EDIT;
             }
@@ -373,7 +377,11 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         });
 
         app.state.notify["mode"].connect (() => {
-            mode_button.set_active (app.state.mode);
+            switch (app.state.mode) {
+                case ENotes.Mode.VIEW: mode_button.set_active (0); return;
+                case ENotes.Mode.BOTH: mode_button.set_active (1); return;
+                case ENotes.Mode.EDIT: mode_button.set_active (2); return;
+            }
         });
 
         app.state.update_page_title.connect (() => {

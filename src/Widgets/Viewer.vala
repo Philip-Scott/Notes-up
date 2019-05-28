@@ -26,6 +26,8 @@ public class ENotes.Viewer : WebKit.WebView {
 
     public Viewer () {
         style_loader = StyleLoader.instance;
+        width_request = 200;
+
         connect_signals ();
     }
 
@@ -52,8 +54,9 @@ public class ENotes.Viewer : WebKit.WebView {
     }
 
     public void load_page (Page page, bool force_load = false) {
-        if (app.state.mode == Mode.VIEW || force_load) {
+        if (app.state.mode != Mode.EDIT || force_load) {
             if (page.html_cache == "" || force_load) {
+                debug ("Reloading page\n");
                 string markdown;
                 process_frontmatter (page.data, out markdown);
                 load_css (page);
@@ -111,6 +114,12 @@ public class ENotes.Viewer : WebKit.WebView {
 
         app.state.notify["search-field"].connect (() => {
             search_from_state ();
+        });
+
+        app.state.page_updated.connect (() => {
+            if (app.state.mode != ENotes.Mode.BOTH) return;
+
+            reload_page ();
         });
     }
 

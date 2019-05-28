@@ -146,7 +146,7 @@ public class ENotes.Window : Gtk.ApplicationWindow {
     }
 
     private bool editor_open () {
-        return app.state.mode == ENotes.Mode.EDIT && app.state.opened_page != null;
+        return app.state.mode != ENotes.Mode.VIEW && app.state.opened_page != null;
     }
 
     protected override bool delete_event (Gdk.EventAny event) {

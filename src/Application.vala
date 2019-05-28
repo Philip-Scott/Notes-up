@@ -199,6 +199,7 @@ public class ENotes.Application : Granite.Application {
 
             PageTable.get_instance ().save_page (opened_page);
             update_page_title ();
+            page_updated ();
         }
 
         public void set_style (string style) {
