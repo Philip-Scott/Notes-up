@@ -33,6 +33,11 @@ public class ENotes.Editor : Gtk.Box {
 
     private ENotes.Page? current_page {
          set {
+            if (text_change_timeout != 0) {
+                GLib.Source.remove (text_change_timeout);
+                text_change_timeout = 0;
+            }
+
             if (value == null) {
                 set_sensitive (false);
                 return;
@@ -40,10 +45,12 @@ public class ENotes.Editor : Gtk.Box {
                 set_sensitive (!Trash.get_instance ().is_page_trashed (value));
             }
 
+            code_buffer.changed.disconnect (trigger_changed);
             code_buffer.begin_not_undoable_action ();
             code_buffer.text = value.data;
             edited = false;
             code_buffer.end_not_undoable_action ();
+            code_buffer.changed.connect (trigger_changed);
         }
     }
 
@@ -268,16 +275,18 @@ public class ENotes.Editor : Gtk.Box {
     }
 
     public void save_file () {
+        if (app.state.opened_page == null) return;
+
         if (edited) {
-            edited = false;
-
-            if (app.state.opened_page != null) {
-                app.state.opened_page.data = this.get_text ();
-                app.state.opened_page.html_cache = "";
-
-                app.state.save_opened_page ();
-            }
+            app.state.opened_page.data = this.get_text ();
+            app.state.opened_page.html_cache = "";
         }
+
+        if (edited || app.state.opened_page.cache_changed) {
+            app.state.save_opened_page ();
+        }
+
+        edited = false;
     }
 
     public void reset (bool disable_save = false) {
@@ -317,7 +326,24 @@ public class ENotes.Editor : Gtk.Box {
         code_buffer.set_style_scheme (style);
     }
 
+    uint text_change_timeout = 0;
     private void trigger_changed () {
+        if (app.state.opened_page == null) return;
+
+        if (text_change_timeout != 0) {
+            GLib.Source.remove (text_change_timeout);
+            text_change_timeout = 0;
+        }
+
         edited = true;
+
+        text_change_timeout = Timeout.add_full (Priority.DEFAULT, 1000, () => {
+            text_change_timeout = 0;
+
+            app.state.opened_page.data = this.get_text ();
+            app.state.page_text_updated ();
+
+            return Source.REMOVE;
+        });
     }
 }

@@ -30,6 +30,8 @@ public class ENotes.Page : Object {
     public int64 modification_date;
     public bool new_page = false;
 
+    public bool cache_changed = false;
+
     public string full_path = "";
 
     public bool equals (Page page) {
@@ -130,7 +132,7 @@ public class ENotes.PageTable : DatabaseTable {
         bind_text (stmt, 1, page.name);
         bind_text (stmt, 2, page.subtitle);
         bind_text (stmt, 3, page.data);
-        bind_text (stmt, 4, "");
+        bind_text (stmt, 4, page.html_cache);
         bind_int (stmt, 5, page.id);
         stmt.step ();
 
@@ -142,13 +144,6 @@ public class ENotes.PageTable : DatabaseTable {
         load_page_info (page);
 
         bind_int (stmt, 1, notebook);
-        bind_int (stmt, 2, page.id);
-        stmt.step ();
-    }
-
-    public void save_cache (Page page) {
-        var stmt = create_stmt ("UPDATE Page SET html_cache = ? WHERE id = ?");
-        bind_text (stmt, 1, page.html_cache);
         bind_int (stmt, 2, page.id);
         stmt.step ();
     }

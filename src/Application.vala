@@ -144,6 +144,7 @@ public class ENotes.Application : Granite.Application {
 
         // Page state changed
         public signal void request_saving_page_info ();
+        public signal void page_text_updated (); // Used to weakly update the viewer
         public signal void page_updated ();
         public signal void page_deleted ();
 
@@ -198,6 +199,8 @@ public class ENotes.Application : Granite.Application {
             if (opened_page == null) return;
 
             PageTable.get_instance ().save_page (opened_page);
+            opened_page.cache_changed = false;
+
             update_page_title ();
             page_updated ();
         }
