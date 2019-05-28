@@ -276,7 +276,7 @@ public class ENotes.FileManager : Object {
 
         var dialog = new Gtk.FileChooserDialog (
             title,
-            window,
+            app.get_active_window (),
             chooser_action,
             _("Cancel"), Gtk.ResponseType.CANCEL,
             accept_button_label, Gtk.ResponseType.ACCEPT);

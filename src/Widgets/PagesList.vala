@@ -332,7 +332,7 @@ public class ENotes.PagesList : Gtk.Box {
         });
 
         listbox.row_activated.connect ((row) => {
-            window.toggle_edit ();
+            app.state.toggle_app_mode ();
 
             if (app.state.mode == Mode.EDIT) {
                 ENotes.ViewEditStack.get_instance ().editor.give_focus ();

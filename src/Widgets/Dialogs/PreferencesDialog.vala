@@ -32,7 +32,7 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
     private Gtk.Switch spellcheck_switch;
 
     public PreferencesDialog () {
-        set_transient_for (window);
+        set_transient_for (app.get_app_window ());
         build_ui ();
         connect_signals ();
     }

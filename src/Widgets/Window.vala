@@ -70,7 +70,7 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 
         build_ui ();
 
-        change_mode.activate.connect (toggle_edit);
+        change_mode.activate.connect (app.state.toggle_app_mode);
         save_action.activate.connect (save);
         close_action.activate.connect (request_close);
         new_action.activate.connect (new_page);
@@ -216,16 +216,6 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 
     public void set_mode (ENotes.Mode mode) {
         app.state.mode = mode;
-    }
-
-    public void toggle_edit () {
-        ENotes.Mode mode = app.state.mode;
-
-        if (mode == ENotes.Mode.EDIT) {
-            app.state.mode = ENotes.Mode.VIEW;
-        } else {
-            app.state.mode = ENotes.Mode.EDIT;
-        }
     }
 
     public void show_app () {

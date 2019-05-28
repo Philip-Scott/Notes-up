@@ -56,7 +56,6 @@ public enum ENotes.Key {
 namespace ENotes {
     public unowned ENotes.Application app;
     public ENotes.Services.Settings settings;
-    public ENotes.Window window;
     public string NOTES_DB;
     public string NOTES_DIR;
 }
@@ -67,7 +66,6 @@ public class ENotes.Application : Granite.Application {
     public const string ABOUT_STOCK = N_("About Notes");
 
     public bool running = false;
-
     public State state;
 
     construct {
@@ -78,8 +76,6 @@ public class ENotes.Application : Granite.Application {
 
         build_version = Constants.VERSION;
         state = new State ();
-
-
     }
 
     public override void activate () {
@@ -109,7 +105,7 @@ public class ENotes.Application : Granite.Application {
                 }
             }
 
-            window = new ENotes.Window (this);
+            var window = new ENotes.Window (this);
             this.add_window (window);
 
             running = true;
@@ -118,7 +114,11 @@ public class ENotes.Application : Granite.Application {
             default_theme.add_resource_path ("/com/github/philip-scott/notes-up/icons/");
         }
 
-        window.show_app ();
+        get_app_window ().show_app ();
+    }
+
+    public ENotes.Window get_app_window () {
+        return active_window as ENotes.Window;
     }
 
     // Dummy class that holds the current app state so other elements can interact with it
@@ -223,6 +223,14 @@ public class ENotes.Application : Granite.Application {
             }
 
             reload_editor_settings ();
+        }
+
+        public void toggle_app_mode () {
+            if (mode == ENotes.Mode.EDIT) {
+                mode = ENotes.Mode.VIEW;
+            } else {
+                mode = ENotes.Mode.EDIT;
+            }
         }
     }
 }
