@@ -58,6 +58,7 @@ public class ENotes.ImageTable : DatabaseTable {
 
     public static ImageTable get_instance () {
         if (instance == null) {
+            PageTable.get_instance ();
             instance = new ImageTable ();
         }
 
@@ -70,6 +71,7 @@ public class ENotes.ImageTable : DatabaseTable {
                                  + "page_id INTEGER NOT NULL, "
                                  + "format INTEGER, "
                                  + "data BLOB, "
+                                 + "FOREIGN KEY (page_id) REFERENCES Page(id), "
                                  + "PRIMARY KEY (id, page_id))");
         var res = stmt.step ();
 

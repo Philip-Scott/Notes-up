@@ -58,6 +58,7 @@ public class ENotes.PageTable : DatabaseTable {
 
     public static PageTable get_instance () {
         if (instance == null) {
+            NotebookTable.get_instance ();
             instance = new PageTable ();
         }
 
@@ -73,7 +74,8 @@ public class ENotes.PageTable : DatabaseTable {
                                  + "html_cache TEXT NOT NULL DEFAULT '', "
                                  + "creation_date INTEGER,"
                                  + "modification_date INTEGER,"
-                                 + "notebook_id INTEGER)");
+                                 + "notebook_id INTEGER,"
+                                 + "FOREIGN KEY (notebook_id) REFERENCES Notebook(id))");
         var res = stmt.step ();
 
         if (res != Sqlite.DONE)
