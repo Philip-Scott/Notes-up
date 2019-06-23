@@ -30,7 +30,7 @@ public class ENotes.Sidebar : Granite.Widgets.SourceListPatch {
     private Granite.Widgets.SourceListPatch.Item? previous_selection = null;
     private Granite.Widgets.SourceListPatch.Item all_notes;
 
-    private NotebookList notebooks = new NotebookList (_("Notebooks"));
+    private NotebookList notebooks = new NotebookList (_("Sections"));
 
     private Gee.HashMap<int, NotebookItem> added_notebooks;
     private Gee.HashMap<int, TagItem> added_tags;
