@@ -29,12 +29,13 @@ public class ENotes.Services.Settings : Granite.Services.Settings {
     public int panel_size { get; set; }
     public int notebook_panel_size { get; set; }
     public int mode { get; set; }
-    public int last_notebook { get; set; }
-    public int last_page { get; set; }
 
-    public bool auto_indent {get; set;}
-    public bool line_numbers {get; set;}
-    public bool import_files {get; set;}
+    public int last_notebook { get; set; } // Deprecated
+    public int last_page { get; set; } // Deprecated
+
+    public bool auto_indent { get; set; }
+    public bool line_numbers { get; set; }
+    public bool import_files { get; set; }
     public bool keep_sidebar_visible { get; set; }
     public bool spellcheck { get; set; }
     public bool show_page_info { get; set; }
@@ -43,10 +44,11 @@ public class ENotes.Services.Settings : Granite.Services.Settings {
     public string notes_database { get; set; }
     public string editor_font { get; set; }
     public string editor_scheme { get; set; }
-    public string render_stylesheet { get; set; }
-    public string stylesheet { get; set; }
-    public string style_scheme { get; set; }
     public string spellcheck_language { get; set; }
+    public string style_scheme { get; set; }
+
+    public string render_stylesheet { get; set; } // Deprecated
+    public string stylesheet { get; set; } // Deprecated
 
     public static Settings get_instance () {
         if (instance == null) {

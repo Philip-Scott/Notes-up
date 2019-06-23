@@ -167,14 +167,27 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         settings.window_height = height;
         settings.mode = app.state.mode;
         settings.style_scheme = app.state.style_scheme;
-        settings.last_notebook = app.state.opened_notebook != null ? (int) app.state.opened_notebook.id : 0;
-        settings.last_page = app.state.opened_page != null ? (int) app.state.opened_page.id : 0;
         settings.show_page_info = app.state.show_page_info;
-
         settings.editor_font = app.state.editor_font;
         settings.editor_scheme = app.state.editor_scheme;
         settings.line_numbers = app.state.editor_show_line_numbers;
         settings.auto_indent = app.state.editor_auto_indent;
+
+        var file_data = ENotes.FileDataTable.instance;
+
+        var opened_notebook = app.state.opened_notebook;
+        if (opened_notebook != null) {
+            file_data.set_value_silent (FileDataType.LAST_NOTEBOOK, opened_notebook.id.to_string ());
+        } else {
+            file_data.set_value_silent (FileDataType.LAST_NOTEBOOK, "0");
+        }
+
+        var opened_page = app.state.opened_page;
+        if (opened_page != null) {
+            file_data.set_value_silent (FileDataType.LAST_PAGE, opened_page.id.to_string ());
+        } else {
+            file_data.set_value_silent (FileDataType.LAST_PAGE, "0");
+        }
 
         Trash.get_instance ().clear_files ();
 
@@ -188,10 +201,17 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 
         app.state.mode = ENotes.Mode.get_mode (settings.mode);
 
-        app.state.open_notebook (settings.last_notebook);
-
         if (settings.last_page != 0) {
+            // Legacy Boot
+            app.state.open_notebook (settings.last_notebook);
             app.state.open_page (settings.last_page);
+
+            settings.last_notebook = 0;
+            settings.last_page = 0;
+        } else {
+            var file_data = ENotes.FileDataTable.instance;
+            app.state.open_notebook (file_data.get_int64 (FileDataType.LAST_NOTEBOOK));
+            app.state.open_page (file_data.get_int64 (FileDataType.LAST_PAGE));
         }
 
         app.state.set_style (settings.style_scheme);

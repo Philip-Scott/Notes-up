@@ -210,6 +210,7 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
 
         search_entry = new ENotes.ButtonEntry.search_entry ();
 
+        subtitle = ENotes.FileDataTable.instance.get_value (FileDataType.FILE_NAME);
         bookmark_button = new BookmarkButton ();
 
         set_title_from_data (null, null);
@@ -305,6 +306,12 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
              }
         });
 
+        app.state.file_data_changed.connect ((type, value) => {
+            if (type == FileDataType.FILE_NAME) {
+                subtitle = value;
+            }
+        });
+
         color_button_dark.clicked.connect (() => {
             app.state.set_style ("solarized-dark");
 
@@ -312,7 +319,6 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
 
         color_button_light.clicked.connect (() => {
             app.state.set_style ("solarized-light");
-
         });
 
         color_button_white.clicked.connect (() => {

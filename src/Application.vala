@@ -167,6 +167,9 @@ public class ENotes.Application : Granite.Application {
         public bool editor_show_line_numbers { get; set; }
         public bool editor_auto_indent { get; set; }
 
+        // FileData
+        public signal void file_data_changed (FileDataType type, string value);
+
         construct {
             notify.connect ((spec) => {
                 debug ("Property changed in state: %s\n", spec.name);
