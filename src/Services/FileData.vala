@@ -87,4 +87,8 @@ public class ENotes.FileDataTable : DatabaseTable {
         bind_text (stmt, 2, value);
         stmt.step ();
     }
+
+    public static void reset_instance () {
+        _instance = null;
+    }
 }

@@ -34,7 +34,6 @@ public class ENotes.Viewer : WebKit.WebView {
     public void load_css (ENotes.Page? page, bool overrride = false) {
         if (overrride || previous_page == null || previous_page.id != page.id) {
             if (page != null) {
-                GLib.print ("Previous page set\n");
                 previous_page = page;
             }
 

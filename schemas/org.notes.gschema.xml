@@ -63,8 +63,8 @@
 
 		<key name="notes-database" type="s">
 			<default>""</default>
-			<summary>full location of your notes db</summary>
-			<description></description>
+			<summary>full path of the notes db</summary>
+			<description>Contains the last opened db file</description>
 		</key>
 
 		<key name="import-files" type="b">
@@ -136,6 +136,12 @@
 			<default>""</default>
 			<summary>Spell check language used</summary>
 			<description>This must be the name of one of the installed languages</description>
+		</key>
+
+		<key name="recent-files" type="as">
+			<default>[]</default>
+			<summary>The last opened files</summary>
+			<description>Sorted in order from most recent</description>
 		</key>
 	</schema>
 </schemalist>

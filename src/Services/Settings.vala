@@ -35,12 +35,11 @@ public class ENotes.Services.Settings : Granite.Services.Settings {
 
     public bool auto_indent { get; set; }
     public bool line_numbers { get; set; }
-    public bool import_files { get; set; }
+    public bool import_files { get; set; } // Deprecated
     public bool keep_sidebar_visible { get; set; }
     public bool spellcheck { get; set; }
     public bool show_page_info { get; set; }
 
-    public string notes_location { get; set; }
     public string notes_database { get; set; }
     public string editor_font { get; set; }
     public string editor_scheme { get; set; }
@@ -49,6 +48,8 @@ public class ENotes.Services.Settings : Granite.Services.Settings {
 
     public string render_stylesheet { get; set; } // Deprecated
     public string stylesheet { get; set; } // Deprecated
+
+    public string[] recent_files { get; set; }
 
     public static Settings get_instance () {
         if (instance == null) {

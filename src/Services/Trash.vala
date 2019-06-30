@@ -84,5 +84,8 @@ public class ENotes.Trash : Object {
             PageTable.get_instance ().delete_page (id);
         }
     }
-}
 
+    public static void reset_instance () {
+        instance = null;
+    }
+}

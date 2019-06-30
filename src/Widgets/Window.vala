@@ -33,7 +33,6 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 
     public Window (ENotes.Application app) {
         Object (application: app);
-        DatabaseTable.init (ENotes.NOTES_DB);
 
         var change_mode = new SimpleAction ("change-mode", null);
         var save_action = new SimpleAction ("save", null);
@@ -96,6 +95,14 @@ public class ENotes.Window : Gtk.ApplicationWindow {
             }
         });
 
+        app.state.pre_database_change.connect (() => {
+            close_database_file ();
+        });
+
+        app.state.post_database_change.connect (() => {
+            open_database ();
+        });
+
         load_settings ();
     }
 
@@ -155,7 +162,8 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         int x;
         int y;
 
-        editor.save_file ();
+        close_database_file ();
+
         get_size (out width, out height);
         get_position (out x, out y);
 
@@ -172,6 +180,12 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         settings.editor_scheme = app.state.editor_scheme;
         settings.line_numbers = app.state.editor_show_line_numbers;
         settings.auto_indent = app.state.editor_auto_indent;
+
+        return false;
+    }
+
+    private void close_database_file () {
+        editor.save_file ();
 
         var file_data = ENotes.FileDataTable.instance;
 
@@ -190,8 +204,6 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         }
 
         Trash.get_instance ().clear_files ();
-
-        return false;
     }
 
     private void load_settings () {
@@ -201,6 +213,17 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 
         app.state.mode = ENotes.Mode.get_mode (settings.mode);
 
+        open_database ();
+
+        app.state.set_style (settings.style_scheme);
+        app.state.editor_scheme = settings.editor_scheme;
+        app.state.show_page_info = settings.show_page_info;
+        app.state.editor_font = settings.editor_font;
+        app.state.editor_show_line_numbers = settings.line_numbers;
+        app.state.editor_auto_indent = settings.auto_indent;
+    }
+
+    private void open_database () {
         if (settings.last_page != 0) {
             // Legacy Boot
             app.state.open_notebook (settings.last_notebook);
@@ -213,13 +236,6 @@ public class ENotes.Window : Gtk.ApplicationWindow {
             app.state.open_notebook (file_data.get_int64 (FileDataType.LAST_NOTEBOOK));
             app.state.open_page (file_data.get_int64 (FileDataType.LAST_PAGE));
         }
-
-        app.state.set_style (settings.style_scheme);
-        app.state.editor_scheme = settings.editor_scheme;
-        app.state.show_page_info = settings.show_page_info;
-        app.state.editor_font = settings.editor_font;
-        app.state.editor_show_line_numbers = settings.line_numbers;
-        app.state.editor_auto_indent = settings.auto_indent;
     }
 
     private void new_page () {

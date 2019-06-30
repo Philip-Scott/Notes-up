@@ -70,6 +70,55 @@ public class ENotes.Sidebar : Granite.Widgets.SourceListPatch {
         } catch (Error e) {
             warning ("Style error: %s", e.message);
         }
+
+        app.state.post_database_change.connect (() => {
+            load_notebooks ();
+            load_bookmarks ();
+            load_tags ();
+            connect_signals ();
+        });
+
+        item_selected.connect ((item) => {
+            if (selecting_sidebar_item) return;
+
+            if (item != null && item is ENotes.BookmarkItem) {
+                // If viewing page == the bookmark, select the notebook. if not just open the page
+                if (app.state.opened_page.equals (((ENotes.BookmarkItem) item).get_page ())) {
+                    app.state.open_notebook (((ENotes.BookmarkItem) item).parent_notebook);
+                    app.state.open_page (((ENotes.BookmarkItem) item).get_page ().id);
+                } else {
+                    app.state.open_page (((ENotes.BookmarkItem) item).get_page ().id);
+                    this.selected = previous_selection;
+                }
+            } else if (item is ENotes.NotebookItem) {
+                previous_selection = item;
+                ENotes.ViewEditStack.get_instance ().editor.save_file ();
+                app.state.opened_notebook = ((ENotes.NotebookItem) item).notebook;
+            } else if (item is ENotes.TagItem) {
+                var tag_item = item as ENotes.TagItem;
+                app.state.opened_notebook = null;
+                app.state.show_pages_in_tag (tag_item.tag);
+            } else if (item == all_notes) {
+                app.state.opened_notebook = null;
+                app.state.show_all_pages ();
+            }
+        });
+
+        app.state.notify["opened-notebook"].connect (() => {
+            var notebook = app.state.opened_notebook;
+
+            if (notebook != null) {
+                select_notebook (notebook.id);
+            }
+        });
+
+        app.state.opened_notebook_updated.connect (() => {
+            load_notebooks ();
+        });
+
+        app.state.tags_changed.connect (() => {
+            load_tags ();
+        });
     }
 
     public Sidebar.notebook_list (ENotes.Notebook? to_ignore) {
@@ -209,48 +258,6 @@ public class ENotes.Sidebar : Granite.Widgets.SourceListPatch {
     }
 
     private void connect_signals () {
-        item_selected.connect ((item) => {
-            if (selecting_sidebar_item) return;
-
-            if (item != null && item is ENotes.BookmarkItem) {
-                // If viewing page == the bookmark, select the notebook. if not just open the page
-                if (app.state.opened_page.equals (((ENotes.BookmarkItem) item).get_page ())) {
-                    app.state.open_notebook (((ENotes.BookmarkItem) item).parent_notebook);
-                    app.state.open_page (((ENotes.BookmarkItem) item).get_page ().id);
-                } else {
-                    app.state.open_page (((ENotes.BookmarkItem) item).get_page ().id);
-                    this.selected = previous_selection;
-                }
-            } else if (item is ENotes.NotebookItem) {
-                previous_selection = item;
-                ENotes.ViewEditStack.get_instance ().editor.save_file ();
-                app.state.opened_notebook = ((ENotes.NotebookItem) item).notebook;
-            } else if (item is ENotes.TagItem) {
-                var tag_item = item as ENotes.TagItem;
-                app.state.opened_notebook = null;
-                app.state.show_pages_in_tag (tag_item.tag);
-            } else if (item == all_notes) {
-                app.state.opened_notebook = null;
-                app.state.show_all_pages ();
-            }
-        });
-
-        app.state.notify["opened-notebook"].connect (() => {
-            var notebook = app.state.opened_notebook;
-
-            if (notebook != null) {
-                select_notebook (notebook.id);
-            }
-        });
-
-        app.state.opened_notebook_updated.connect (() => {
-            load_notebooks ();
-        });
-
-        app.state.tags_changed.connect (() => {
-            load_tags ();
-        });
-
         NotebookTable.get_instance ().notebook_added.connect ((notebook) => {
             var item = new NotebookItem (notebook, true);
 
