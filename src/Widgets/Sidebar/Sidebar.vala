@@ -72,10 +72,13 @@ public class ENotes.Sidebar : Granite.Widgets.SourceListPatch {
         }
 
         app.state.post_database_change.connect (() => {
+            selecting_sidebar_item = true;
             load_notebooks ();
             load_bookmarks ();
             load_tags ();
             connect_signals ();
+
+            selecting_sidebar_item = false;
         });
 
         item_selected.connect ((item) => {

@@ -28,8 +28,9 @@ public class ENotes.Window : Gtk.ApplicationWindow {
     private ENotes.ViewEditStack view_edit_stack;
     private ENotes.Viewer viewer;
 
-    private Gtk.Paned pane1;
-    private Gtk.Paned pane2;
+    private Gtk.Paned pane_0;
+    private Gtk.Paned pane_1;
+    private Gtk.Paned pane_2;
 
     public Window (ENotes.Application app) {
         Object (application: app);
@@ -115,8 +116,10 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 
         set_events (Gdk.EventMask.BUTTON_PRESS_MASK);
 
-        pane1 = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
-        pane2 = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
+        pane_0 = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
+        pane_1 = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
+        pane_2 = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
+
         sidebar = ENotes.Sidebar.get_instance ();
         pages_list = ENotes.PagesList.get_instance ();
 
@@ -130,13 +133,19 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         main_area_grid.add (page_info);
         main_area_grid.add (view_edit_stack);
 
-        pane1.pack1 (sidebar, false, false);
-        pane1.pack2 (pane2, true, false);
-        pane2.pack1 (pages_list, false, false);
-        pane2.pack2 (main_area_grid, true, false);
+        var notebook_picker = new NotebookPicker ();
+
+        pane_0.pack1 (notebook_picker, false, false);
+        pane_0.pack2 (pane_1, true, false);
+
+        pane_1.pack1 (sidebar, false, false);
+        pane_1.pack2 (pane_2, true, false);
+
+        pane_2.pack1 (pages_list, false, false);
+        pane_2.pack2 (main_area_grid, true, false);
 
         this.move (settings.pos_x, settings.pos_y);
-        this.add (pane1);
+        this.add (pane_0);
         this.show_all ();
     }
 
@@ -169,8 +178,8 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 
         settings.pos_x = x;
         settings.pos_y = y;
-        settings.notebook_panel_size = pane1.position;
-        settings.panel_size = pane2.position;
+        settings.notebook_panel_size = pane_1.position;
+        settings.panel_size = pane_2.position;
         settings.window_width = width;
         settings.window_height = height;
         settings.mode = app.state.mode;
@@ -188,7 +197,6 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         editor.save_file ();
 
         var file_data = ENotes.FileDataTable.instance;
-
         var opened_notebook = app.state.opened_notebook;
         if (opened_notebook != null) {
             file_data.set_value_silent (FileDataType.LAST_NOTEBOOK, opened_notebook.id.to_string ());
@@ -208,8 +216,8 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 
     private void load_settings () {
         resize (settings.window_width, settings.window_height);
-        pane1.position = settings.notebook_panel_size;
-        pane2.position = settings.panel_size;
+        pane_1.position = settings.notebook_panel_size;
+        pane_2.position = settings.panel_size;
 
         app.state.mode = ENotes.Mode.get_mode (settings.mode);
 

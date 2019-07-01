@@ -97,6 +97,7 @@ vala_precompile(VALA_C
   src/Widgets/Editor.vala
   src/Widgets/HelpBox.vala
   src/Widgets/Headerbar.vala
+  src/Widgets/NotebookPicker.vala
   src/Widgets/ViewEditStack.vala
   src/Widgets/ToolbarButton.vala
   src/Widgets/BookmarkButton.vala
