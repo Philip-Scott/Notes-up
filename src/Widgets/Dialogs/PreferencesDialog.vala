@@ -28,7 +28,6 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
     private Gtk.Stack stack;
     private Gtk.Switch indent_switch;
     private Gtk.Switch line_numbers_switch;
-    private Gtk.Switch keep_sidebar_switch;
     private Gtk.Switch spellcheck_switch;
 
     public PreferencesDialog () {
@@ -107,14 +106,6 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
         var switch_box_ln = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         switch_box_ln.add (line_numbers_switch);
 
-        var keep_sidebar_label = new Gtk.Label (_("Keep Sidebar Visible:"));
-        keep_sidebar_label.set_halign (Gtk.Align.END);
-        keep_sidebar_switch = new Gtk.Switch ();
-        keep_sidebar_switch.state = settings.keep_sidebar_visible;
-
-        var switch_box_ksv = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        switch_box_ksv.add (keep_sidebar_switch);
-
         var spellcheck_label = new Gtk.Label (_("Spellcheck:"));
         spellcheck_label.set_halign (Gtk.Align.END);
         spellcheck_switch = new Gtk.Switch ();
@@ -129,12 +120,10 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
         grid.attach (switch_box,        1, 2, 1, 1);
         grid.attach (line_numbers_label,0, 3, 1, 1);
         grid.attach (switch_box_ln,     1, 3, 1, 1);
-        grid.attach (keep_sidebar_label,0, 4, 1, 1);
-        grid.attach (switch_box_ksv,    1, 4, 1, 1);
-        grid.attach (spellcheck_label,  0, 5, 1, 1);
-        grid.attach (switch_box_spl,    1, 5, 1, 1);
-        grid.attach (scheme_label,      0, 6, 1, 1);
-        grid.attach (scheme_box_scroll, 0, 7, 2, 1);
+        grid.attach (spellcheck_label,  0, 4, 1, 1);
+        grid.attach (switch_box_spl,    1, 4, 1, 1);
+        grid.attach (scheme_label,      0, 5, 1, 1);
+        grid.attach (scheme_box_scroll, 0, 6, 2, 1);
 
         grid.set_column_homogeneous (false);
         grid.set_row_homogeneous (false);
@@ -183,14 +172,6 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
 
         line_numbers_switch.state_set.connect ((state) => {
             app.state.editor_show_line_numbers = state;
-            return false;
-        });
-
-        keep_sidebar_switch.state_set.connect ((state) => {
-            settings.keep_sidebar_visible = state;
-            if (app.state.mode == ENotes.Mode.EDIT) {
-                Sidebar.get_instance ().visible = state;
-            }
             return false;
         });
 

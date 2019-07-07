@@ -135,10 +135,6 @@ public class ENotes.ViewEditStack : Gtk.Grid {
 
         stack.set_visible_child_name ("editor");
 
-        if (!settings.keep_sidebar_visible) {
-            Sidebar.get_instance().visible = false;
-        }
-
         editor.give_focus ();
     }
 
@@ -147,7 +143,6 @@ public class ENotes.ViewEditStack : Gtk.Grid {
 
         stack.set_visible_child_name ("viewer");
 
-        Sidebar.get_instance().visible = true;
         PagesList.get_instance ().grab_focus ();
 
         current_mode = ENotes.Mode.VIEW;

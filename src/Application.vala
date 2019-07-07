@@ -148,6 +148,8 @@ public class ENotes.Application : Granite.Application {
         public ENotes.Mode mode { get; set; default = ENotes.Mode.NONE; }
         public bool show_page_info { get; set; }
 
+        public int panes_visible { get; set; default = -1; }
+
         public string style_scheme { get; private set; }
 
         // Search items

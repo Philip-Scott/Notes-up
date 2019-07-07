@@ -29,6 +29,7 @@ public class ENotes.Services.Settings : Granite.Services.Settings {
     public int panel_size { get; set; }
     public int notebook_panel_size { get; set; }
     public int mode { get; set; }
+    public int panes_visible { get; set; }
 
     public int last_notebook { get; set; } // Deprecated
     public int last_page { get; set; } // Deprecated
@@ -36,7 +37,6 @@ public class ENotes.Services.Settings : Granite.Services.Settings {
     public bool auto_indent { get; set; }
     public bool line_numbers { get; set; }
     public bool import_files { get; set; } // Deprecated
-    public bool keep_sidebar_visible { get; set; }
     public bool spellcheck { get; set; }
     public bool show_page_info { get; set; }
 

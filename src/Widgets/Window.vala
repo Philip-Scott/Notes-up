@@ -28,9 +28,7 @@ public class ENotes.Window : Gtk.ApplicationWindow {
     private ENotes.ViewEditStack view_edit_stack;
     private ENotes.Viewer viewer;
 
-    private Gtk.Paned pane_0;
-    private Gtk.Paned pane_1;
-    private Gtk.Paned pane_2;
+    private FourPaneWindow panes;
 
     public Window (ENotes.Application app) {
         Object (application: app);
@@ -104,6 +102,10 @@ public class ENotes.Window : Gtk.ApplicationWindow {
             open_database ();
         });
 
+        app.state.notify["panes-visible"].connect (() => {
+            panes.show_n_panes (app.state.panes_visible);
+        });
+
         load_settings ();
     }
 
@@ -116,9 +118,7 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 
         set_events (Gdk.EventMask.BUTTON_PRESS_MASK);
 
-        pane_0 = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
-        pane_1 = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
-        pane_2 = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
+        panes = new FourPaneWindow ();
 
         sidebar = ENotes.Sidebar.get_instance ();
         pages_list = ENotes.PagesList.get_instance ();
@@ -135,17 +135,13 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 
         var notebook_picker = new NotebookPicker ();
 
-        pane_0.pack1 (notebook_picker, false, false);
-        pane_0.pack2 (pane_1, true, false);
-
-        pane_1.pack1 (sidebar, false, false);
-        pane_1.pack2 (pane_2, true, false);
-
-        pane_2.pack1 (pages_list, false, false);
-        pane_2.pack2 (main_area_grid, true, false);
+        panes.pack1 (notebook_picker);
+        panes.pack2 (sidebar);
+        panes.pack3 (pages_list);
+        panes.pack4 (main_area_grid);
 
         this.move (settings.pos_x, settings.pos_y);
-        this.add (pane_0);
+        this.add (panes);
         this.show_all ();
     }
 
@@ -178,8 +174,8 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 
         settings.pos_x = x;
         settings.pos_y = y;
-        settings.notebook_panel_size = pane_1.position;
-        settings.panel_size = pane_2.position;
+        settings.notebook_panel_size = panes.position_2_3;
+        settings.panel_size = panes.position_3_4;
         settings.window_width = width;
         settings.window_height = height;
         settings.mode = app.state.mode;
@@ -189,6 +185,7 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         settings.editor_scheme = app.state.editor_scheme;
         settings.line_numbers = app.state.editor_show_line_numbers;
         settings.auto_indent = app.state.editor_auto_indent;
+        settings.panes_visible = app.state.panes_visible;
 
         return false;
     }
@@ -216,8 +213,8 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 
     private void load_settings () {
         resize (settings.window_width, settings.window_height);
-        pane_1.position = settings.notebook_panel_size;
-        pane_2.position = settings.panel_size;
+        panes.position_2_3 = settings.notebook_panel_size;
+        panes.position_3_4 = settings.panel_size;
 
         app.state.mode = ENotes.Mode.get_mode (settings.mode);
 
@@ -229,6 +226,7 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         app.state.editor_font = settings.editor_font;
         app.state.editor_show_line_numbers = settings.line_numbers;
         app.state.editor_auto_indent = settings.auto_indent;
+        app.state.panes_visible = settings.panes_visible;
     }
 
     private void open_database () {
@@ -269,5 +267,113 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 
     public void toggle_page_info () {
         app.state.show_page_info = !app.state.show_page_info;
+    }
+
+    private class FourPaneWindow : Gtk.Bin {
+        public int position_1_2 {
+            get {
+                return paned_1_2.position;
+            } set {
+                paned_1_2.position = value;
+            }
+        }
+
+        public int position_2_3 {
+            get {
+                return paned_2_3.position;
+            } set {
+                paned_2_3.position = value;
+            }
+        }
+
+        public int position_3_4 {
+            get {
+                return paned_3_4.position;
+            } set {
+                paned_3_4.position = value;
+            }
+        }
+
+        public bool show_1 {
+            get {
+                return widget_1.visible;
+            } set {
+                widget_1.visible = value;
+                widget_1.no_show_all = !value;
+            }
+        }
+
+        public bool show_2 {
+            get {
+                return widget_2.visible;
+            } set {
+                widget_2.visible = value;
+                widget_2.no_show_all = !value;
+            }
+        }
+
+        public bool show_3 {
+            get {
+                return widget_3.visible;
+            } set {
+                widget_3.visible = value;
+                widget_3.no_show_all = !value;
+            }
+        }
+
+        public bool show_4 {
+            get {
+                return widget_4.visible;
+            } set {
+                widget_4.visible = value;
+                widget_4.no_show_all = !value;
+            }
+        }
+
+        private unowned Gtk.Widget widget_1;
+        private unowned Gtk.Widget widget_2;
+        private unowned Gtk.Widget widget_3;
+        private unowned Gtk.Widget widget_4;
+
+        private Gtk.Paned paned_1_2;
+        private Gtk.Paned paned_2_3;
+        private Gtk.Paned paned_3_4;
+
+        construct {
+            paned_1_2 = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
+            paned_2_3 = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
+            paned_3_4 = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
+
+            paned_1_2.pack2 (paned_2_3, true, false);
+            paned_2_3.pack2 (paned_3_4, true, false);
+
+            add (paned_1_2);
+        }
+
+        public void show_n_panes (int amount) {
+            show_1 = amount >= 3;
+            show_2 = amount >= 2;
+            show_3 = amount >= 1;
+        }
+
+        public void pack1 (Gtk.Widget widget) {
+            widget_1 = widget;
+            paned_1_2.pack1 (widget, false, false);
+        }
+
+        public void pack2 (Gtk.Widget widget) {
+            widget_2 = widget;
+            paned_2_3.pack1 (widget, false, false);
+        }
+
+        public void pack3 (Gtk.Widget widget) {
+            widget_3 = widget;
+            paned_3_4.pack1 (widget, false, false);
+        }
+
+        public void pack4 (Gtk.Widget widget) {
+            widget_4 = widget;
+            paned_3_4.pack2 (widget, true, false);
+        }
     }
 }

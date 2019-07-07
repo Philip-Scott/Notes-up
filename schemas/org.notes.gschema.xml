@@ -55,6 +55,12 @@
 			<description></description>
 		</key>
 
+		<key name="panes-visible" type="i">
+			<default>2</default>
+			<summary>Amount of visible panes</summary>
+			<description>From 0 - 3</description>
+		</key>
+
 		<key name="notes-location" type="s">
 			<default>""</default>
 			<summary>Previous location of your notes folder</summary>
@@ -77,12 +83,6 @@
 			<default>true</default>
 			<summary>Automatic Indentation</summary>
 			<description>toggles the editor's automatic indentation</description>
-		</key>
-
-		<key name="keep-sidebar-visible" type="b">
-			<default>false</default>
-			<summary>Keep Sidebar visible</summary>
-			<description>Toggles the sidebar to keep it visible when switching between VIEW and EDIT modes.</description>
 		</key>
 
 		<key name="show-page-info" type="b">
