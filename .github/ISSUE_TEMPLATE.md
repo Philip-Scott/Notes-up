@@ -1,5 +1,5 @@
-<!--- Thank you for making a bug repport! This allows us to make the app even better. -->
-<!--- Filling out the folowing information will help us reproduce and fix the problem faster. -->
+<!--- Thank you for making a bug report! This allows us to make the app even better. -->
+<!--- Filling out the following information will help us reproduce and fix the problem faster. -->
 
 ## Expected Behavior
 <!--- If you're describing a bug, tell us what should happen -->
@@ -33,7 +33,7 @@
 
 ## Your Environment (for bugs)
 <!--- Include as many relevant details about the environment you experienced the bug in -->
-<!--- If you can also run the folowing command and put the output here, that would be super helpful!  -->
+<!--- If you can also run the following command and put the output here, that would be super helpful!  -->
 <!---                   uname -a && cat /etc/os-release          -->
 
 - Notes-Up Version: <!-- From Release, or Commit if compiled from source -->
