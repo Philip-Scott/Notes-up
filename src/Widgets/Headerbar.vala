@@ -254,9 +254,16 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
 
         panel_picker_menu = new Gtk.MenuButton ();
         panel_picker_menu.image = new Gtk.Image.from_icon_name ("panes-all-symbolic", Gtk.IconSize.MENU);
-        panel_picker_menu.tooltip_text = _("Panel Options");
         panel_picker_menu.popover = menu;
         panel_picker_menu.margin_end = 3;
+
+        panel_picker_menu.set_tooltip_markup (
+            Granite.markup_accel_tooltip (
+                {"<Ctrl>P", "<Ctrl><Shift>P"},
+                _("Panel Options")
+            )
+        );
+
 
         show_all_item.clicked.connect (() => {
             app.state.panes_visible = 3;

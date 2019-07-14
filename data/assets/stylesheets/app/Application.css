@@ -54,6 +54,17 @@
   color: #000;
 }
 
+.notebook-list :selected {
+  background-color: transparent;
+  color: @colorAccent;
+}
+
+.notebook-list :selected image {
+  background-color: transparent;
+  color: alpha (@colorAccent, 0.8);
+}
+
+
 /* Solarized Light*/
 
 .solarized-light .view {

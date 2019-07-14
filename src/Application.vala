@@ -29,7 +29,9 @@ public enum ENotes.Key {
     BOLD,
     ITALICS,
     STRIKE,
-    PAGE_INFO;
+    PAGE_INFO,
+    PANEL_MODE,
+    PANEL_MODE_R;
 
     public string to_key () {
         switch (this) {
@@ -44,6 +46,8 @@ public enum ENotes.Key {
             case ITALICS:       return _("<Ctrl>I");
             case STRIKE:        return _("<Ctrl>T");
             case PAGE_INFO:     return _("<Ctrl><Shift>I");
+            case PANEL_MODE:    return _("<Ctrl>P");
+            case PANEL_MODE_R:  return _("<Ctrl><Shift>P");
             default:            assert_not_reached();
         }
     }

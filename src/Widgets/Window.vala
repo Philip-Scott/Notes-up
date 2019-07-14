@@ -43,6 +43,8 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         var italics_action = new SimpleAction ("italics-action", null);
         var strike_action = new SimpleAction ("strike-action", null);
         var page_info_action = new SimpleAction ("page-info-action", null);
+        var cycle_panel_action = new SimpleAction ("cycle-panel-mode", null);
+        var cycle_panel_r_action = new SimpleAction ("cycle-panel-mode-reverse", null);
 
         add_action (change_mode);
         add_action (save_action);
@@ -54,6 +56,8 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         add_action (italics_action);
         add_action (strike_action);
         add_action (page_info_action);
+        add_action (cycle_panel_action);
+        add_action (cycle_panel_r_action);
 
         app.set_accels_for_action ("win.change-mode", {ENotes.Key.CHANGE_MODE.to_key() });
         app.set_accels_for_action ("win.save", {ENotes.Key.SAVE.to_key()});
@@ -65,6 +69,8 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         app.set_accels_for_action ("win.italics-action", {ENotes.Key.ITALICS.to_key()});
         app.set_accels_for_action ("win.strike-action", {ENotes.Key.STRIKE.to_key()});
         app.set_accels_for_action ("win.page-info-action", {ENotes.Key.PAGE_INFO.to_key()});
+        app.set_accels_for_action ("win.cycle-panel-mode", {ENotes.Key.PANEL_MODE.to_key()});
+        app.set_accels_for_action ("win.cycle-panel-mode-reverse", {ENotes.Key.PANEL_MODE_R.to_key()});
 
         build_ui ();
 
@@ -78,6 +84,8 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         italics_action.activate.connect (italics_act);
         strike_action.activate.connect (strike_act);
         page_info_action.activate.connect (toggle_page_info);
+        cycle_panel_action.activate.connect (cycle_panel_mode);
+        cycle_panel_r_action.activate.connect (cycle_panel_mode_reverse);
 
         Sidebar.get_instance ().first_start ();
 
@@ -267,6 +275,15 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 
     public void toggle_page_info () {
         app.state.show_page_info = !app.state.show_page_info;
+    }
+
+    public void cycle_panel_mode () {
+        var panes_visible = (app.state.panes_visible - 1);
+        app.state.panes_visible = panes_visible >= 0 ? panes_visible : 3;
+    }
+
+    public void cycle_panel_mode_reverse () {
+        app.state.panes_visible = (app.state.panes_visible + 1) % 4;
     }
 
     private class FourPaneWindow : Gtk.Bin {
