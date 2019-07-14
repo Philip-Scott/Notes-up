@@ -61,7 +61,7 @@
 
 .notebook-list :selected image {
   background-color: transparent;
-  color: alpha (@colorAccent, 0.8);
+  color: alpha (@colorAccent, 0.9);
 }
 
 
@@ -86,8 +86,16 @@
   color: #3b3339;
 }
 
+.solarized-light .notebook-list row:selected {
+  background-color: transparent;
+}
+
 .solarized-light list row:selected .h3 {
   color: #3b3339;
+}
+
+.solarized-light .notebook-list row:selected .h3 {
+  color: @colorAccent;
 }
 
 .solarized-light .toolbar,
@@ -136,8 +144,16 @@
   color: #ddd;
 }
 
+.solarized-dark .notebook-list row:selected {
+  background-color: transparent;
+}
+
 .solarized-dark list row:selected .h3 {
   color: #fff;
+}
+
+.solarized-dark .notebook-list row:selected .h3 {
+  color: @colorAccent;
 }
 
 .solarized-dark .toolbar,

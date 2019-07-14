@@ -77,6 +77,9 @@ public class ENotes.Sidebar : Granite.Widgets.SourceListPatch {
             load_bookmarks ();
             load_tags ();
             connect_signals ();
+            first_start ();
+
+            trash.clear ();
 
             selecting_sidebar_item = false;
         });
@@ -254,7 +257,7 @@ public class ENotes.Sidebar : Granite.Widgets.SourceListPatch {
     }
 
     private void first_notebook () {
-        var notebook_id = NotebookTable.get_instance ().new_notebook (0, _("My First Notebook"), {1, 0, 0}, "", "");
+        var notebook_id = NotebookTable.get_instance ().new_notebook (0, _("My Notes"), {1, 0, 0}, "", "");
 
         load_notebooks ();
         select_notebook (notebook_id);

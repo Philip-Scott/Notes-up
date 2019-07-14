@@ -108,7 +108,14 @@ public class ENotes.NotebookPicker : Gtk.Grid {
             get_style_context ().add_class ("flat");
             tooltip_text = file.get_path ();
 
-            var label = new Gtk.Label (file.get_basename ());
+            var file_name = file.get_basename ();
+            var last_index = file_name.last_index_of_char ('.');
+
+            if (last_index != -1) {
+                file_name = file_name[0: last_index];
+            }
+
+            var label = new Gtk.Label (file_name);
             label.get_style_context ().add_class ("h3");
             label.ellipsize = Pango.EllipsizeMode.END;
             label.halign = Gtk.Align.START;

@@ -205,6 +205,9 @@ public class ENotes.Application : Granite.Application {
 
             db = _db;
 
+            opened_page_notebook = null;
+            opened_notebook = null;
+
             var recent_files = new GLib.Array<string>();
             recent_files.append_val (_db);
 

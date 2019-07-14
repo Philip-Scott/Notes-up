@@ -61,5 +61,16 @@ public class ENotes.Services.Settings : Granite.Services.Settings {
 
     private Settings () {
         base ("org.notes");
+
+        var checked_files = new GLib.Array<string>();
+        foreach (var path in recent_files) {
+            var file = File.new_for_path (path);
+
+            if (file.query_exists ()) {
+                checked_files.append_val (path);
+            }
+        }
+
+        recent_files = checked_files.data;
     }
 }

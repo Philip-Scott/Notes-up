@@ -87,8 +87,6 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         cycle_panel_action.activate.connect (cycle_panel_mode);
         cycle_panel_r_action.activate.connect (cycle_panel_mode_reverse);
 
-        Sidebar.get_instance ().first_start ();
-
         var provider = new Gtk.CssProvider ();
         provider.load_from_resource ("/com/github/philip-scott/notes-up/Application.css");
         Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);

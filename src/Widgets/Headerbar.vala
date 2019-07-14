@@ -351,7 +351,7 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
 
         var menu_separator_2 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
 
-        var notebook_new_menu_item = model_button_entry (_("New Notebook"), null);
+        var notebook_new_menu_item = model_button_entry (_("New Section"), null);
         var preferences_menu_item = model_button_entry (_("Preferences"), null);
         var export_pdf_menu_item = model_button_entry (_("Export as PDF"), null);
         var export_markdown_menu_item = model_button_entry (_("Export as Markdown"), null);
