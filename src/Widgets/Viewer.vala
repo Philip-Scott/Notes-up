@@ -52,7 +52,12 @@ public class ENotes.Viewer : WebKit.WebView {
         }
     }
 
-    public void load_page (Page page, bool force_load = false) {
+    public void load_page (Page? page, bool force_load = false) {
+        if (page == null) {
+            load_html ("", "file:///");
+            return;
+        }
+
         if (app.state.mode != Mode.EDIT || force_load) {
             if (page.html_cache == "" || force_load) {
                 debug ("Reloading page\n");

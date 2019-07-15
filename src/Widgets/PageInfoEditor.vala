@@ -307,11 +307,13 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
             }
         }
 
-        private void update_tags (Page page) {
+        private void update_tags (Page? page) {
             grid.remove (new_tag_entry);
             foreach (var child in tag_widgets) {
                 child.destroy ();
             }
+
+            if (page == null) return;
 
             var tags = TagsTable.get_instance ().get_tags_for_page (page.id);
 

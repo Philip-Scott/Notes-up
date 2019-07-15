@@ -200,6 +200,10 @@ public class ENotes.Application : Granite.Application {
         public void set_database (string _db) {
             if (db == _db) return;
 
+            if (!Db.is_file_valid (_db)) {
+                return;
+            }
+
             pre_database_change ();
             DatabaseTable.terminate ();
 
@@ -207,6 +211,9 @@ public class ENotes.Application : Granite.Application {
 
             opened_page_notebook = null;
             opened_notebook = null;
+            opened_page = null;
+
+            DatabaseTable.init (db);
 
             var recent_files = new GLib.Array<string>();
             recent_files.append_val (_db);
@@ -219,7 +226,6 @@ public class ENotes.Application : Granite.Application {
             settings.recent_files = recent_files.data;
             settings.notes_database = _db;
 
-            DatabaseTable.init (db);
             post_database_change ();
         }
 

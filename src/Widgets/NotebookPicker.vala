@@ -80,6 +80,13 @@ public class ENotes.NotebookPicker : Gtk.Grid {
                 app.state.set_database (element.file_path);
             }
         });
+
+        more_button.clicked.connect (() => {
+            var file = ENotes.FileManager.get_file_from_user ("ndb", null);
+            if (file != null) {
+                app.state.set_database (file.get_path ());
+            }
+        });
     }
 
     private void reload () {

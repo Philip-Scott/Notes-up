@@ -131,7 +131,7 @@ public class ENotes.Sidebar : Granite.Widgets.SourceListPatch {
         get_child ().get_style_context ().remove_class ("source-list");
         get_child ().get_style_context ().remove_class ("view");
 
-        build_new_ui (_("Not in a Notebook"));
+        build_new_ui (_("Without a Section"));
         all_notes.use_pango_style = false;
 
         notebooks.expand_all (true, false);

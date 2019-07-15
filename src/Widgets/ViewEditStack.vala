@@ -95,9 +95,10 @@ public class ENotes.ViewEditStack : Gtk.Grid {
         });
 
         app.state.notify["opened-page"].connect (() => {
-            viewer.load_page (app.state.opened_page);
+            var opened_page = app.state.opened_page;
+            viewer.load_page (opened_page);
 
-            if (app.state.mode == ENotes.Mode.VIEW && app.state.opened_page.data == "") {
+            if (app.state.mode == ENotes.Mode.VIEW && opened_page != null && opened_page.data == "") {
                 app.state.mode = ENotes.Mode.EDIT;
             }
         });

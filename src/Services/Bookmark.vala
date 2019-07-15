@@ -111,7 +111,7 @@ public class ENotes.BookmarkTable : DatabaseTable {
         stmt.step ();
     }
 
-    public bool is_bookmarked (Page page) {
+    public bool is_bookmarked (Page? page) {
         var stmt = create_stmt ("SELECT CAST(CASE WHEN COUNT(*) > 0 THEN 1 ELSE 0 END AS INTEGER) FROM Bookmark WHERE Bookmark.id = ?");
         bind_int (stmt, 1, page.id);
         stmt.step ();

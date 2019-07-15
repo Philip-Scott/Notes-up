@@ -40,6 +40,12 @@ public class ENotes.Editor : Gtk.Box {
 
             if (value == null) {
                 set_sensitive (false);
+                code_buffer.changed.disconnect (trigger_changed);
+                code_buffer.begin_not_undoable_action ();
+                code_buffer.text = "";
+                edited = false;
+                code_buffer.end_not_undoable_action ();
+                code_buffer.changed.connect (trigger_changed);
                 return;
             } else {
                 set_sensitive (!Trash.get_instance ().is_page_trashed (value));

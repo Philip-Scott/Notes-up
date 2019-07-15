@@ -29,7 +29,7 @@ public class ENotes.NotebookList : Granite.Widgets.SourceListPatch.ExpandableIte
 
     construct {
         menu = new Gtk.Menu ();
-        new_notebook_item = new Gtk.MenuItem.with_label (_("New Notebook"));
+        new_notebook_item = new Gtk.MenuItem.with_label (_("New Section"));
 
         menu.add (new_notebook_item);
         menu.show_all ();
