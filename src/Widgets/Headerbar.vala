@@ -191,6 +191,7 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
 
     private Granite.Widgets.ModeButton mode_button;
     private Gtk.MenuButton app_menu;
+    private Gtk.MenuButton panel_picker_menu;
 
     private ENotes.ButtonEntry search_entry;
 
@@ -207,14 +208,17 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         mode_button.set_tooltip_markup (Granite.markup_accel_tooltip (app.get_accels_for_action ("win.change-mode"), _("Change mode")));
 
         create_menu ();
+        make_panel_picker_menu ();
 
         search_entry = new ENotes.ButtonEntry.search_entry ();
 
+        subtitle = ENotes.FileDataTable.instance.get_value (FileDataType.FILE_NAME);
         bookmark_button = new BookmarkButton ();
 
         set_title_from_data (null, null);
         set_show_close_button (true);
 
+        pack_start (panel_picker_menu);
         pack_start (mode_button);
         pack_end (app_menu);
         pack_end (page_info.get_toggle_button ());
@@ -223,6 +227,98 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
 
         this.show_all ();
         connect_signals ();
+    }
+
+    private void make_panel_picker_menu () {
+        var show_all_item = model_button_entry (_("Show All"), "panes-all-symbolic");
+        var panes_two_item = model_button_entry (_("Show Sections and Pages"), "panes-two-symbolic");
+        var panes_one_item = model_button_entry (_("Show Only Pages"), "panes-one-symbolic");
+        var show_none_item = model_button_entry (_("Hide All"), "panes-none-symbolic");
+
+        var menu_grid = new Gtk.Grid ();
+        menu_grid.margin_top = 3;
+        menu_grid.margin_bottom = 3;
+        menu_grid.orientation = Gtk.Orientation.VERTICAL;
+
+        menu_grid.add (show_all_item);
+        menu_grid.add (panes_two_item);
+        menu_grid.add (panes_one_item);
+        menu_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        menu_grid.add (show_none_item);
+
+        var menu = new Gtk.Popover (null);
+        menu.add (menu_grid);
+
+        menu_grid.show_all ();
+        menu_grid.expand = true;
+
+        panel_picker_menu = new Gtk.MenuButton ();
+        panel_picker_menu.image = new Gtk.Image.from_icon_name ("panes-all-symbolic", Gtk.IconSize.MENU);
+        panel_picker_menu.popover = menu;
+        panel_picker_menu.margin_end = 3;
+
+        panel_picker_menu.set_tooltip_markup (
+            Granite.markup_accel_tooltip (
+                {"<Ctrl>P", "<Ctrl><Shift>P"},
+                _("Panel Options")
+            )
+        );
+
+
+        show_all_item.clicked.connect (() => {
+            app.state.panes_visible = 3;
+        });
+
+        panes_two_item.clicked.connect (() => {
+            app.state.panes_visible = 2;
+        });
+
+        panes_one_item.clicked.connect (() => {
+            app.state.panes_visible = 1;
+        });
+
+        show_none_item.clicked.connect (() => {
+            app.state.panes_visible = 0;
+        });
+
+        app.state.notify["panes-visible"].connect (() => {
+            switch (app.state.panes_visible) {
+                case 0:
+                    panel_picker_menu.image = new Gtk.Image.from_icon_name ("panes-none-symbolic", Gtk.IconSize.MENU);
+                    break;
+                case 1:
+                    panel_picker_menu.image = new Gtk.Image.from_icon_name ("panes-one-symbolic", Gtk.IconSize.MENU);
+                    break;
+                case 2:
+                    panel_picker_menu.image = new Gtk.Image.from_icon_name ("panes-two-symbolic", Gtk.IconSize.MENU);
+                    break;
+                case 3:
+                    panel_picker_menu.image = new Gtk.Image.from_icon_name ("panes-all-symbolic", Gtk.IconSize.MENU);
+                    break;
+            }
+        });
+    }
+
+    private Gtk.ModelButton model_button_entry (string text, string? icon_name) {
+        var button = new Gtk.ModelButton ();
+
+        if (icon_name != null) {
+            var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            var icon = new Gtk.Image.from_icon_name (icon_name, Gtk.IconSize.MENU);
+
+            var label = new Gtk.Label (text);
+
+            box.add (icon);
+            box.add (label);
+
+            button.get_child ().destroy ();
+            button.add (box);
+            button.show_all ();
+        } else {
+            button.text = text;
+        }
+
+        return button;
     }
 
     private void create_menu () {
@@ -255,17 +351,10 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
 
         var menu_separator_2 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
 
-        var notebook_new_menu_item = new Gtk.ModelButton ();
-        notebook_new_menu_item.text = _("New Notebook");
-
-        var preferences_menu_item = new Gtk.ModelButton ();
-        preferences_menu_item.text = _("Preferences");
-
-        var export_pdf_menu_item = new Gtk.ModelButton ();
-        export_pdf_menu_item.text = _("Export as PDF");
-
-        var export_markdown_menu_item = new Gtk.ModelButton ();
-        export_markdown_menu_item.text = _("Export as Markdown");
+        var notebook_new_menu_item = model_button_entry (_("New Section"), null);
+        var preferences_menu_item = model_button_entry (_("Preferences"), null);
+        var export_pdf_menu_item = model_button_entry (_("Export as PDF"), null);
+        var export_markdown_menu_item = model_button_entry (_("Export as Markdown"), null);
 
         var menu_grid = new Gtk.Grid ();
         menu_grid.margin_top = 12;
@@ -305,6 +394,12 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
              }
         });
 
+        app.state.file_data_changed.connect ((type, value) => {
+            if (type == FileDataType.FILE_NAME) {
+                subtitle = value;
+            }
+        });
+
         color_button_dark.clicked.connect (() => {
             app.state.set_style ("solarized-dark");
 
@@ -312,7 +407,6 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
 
         color_button_light.clicked.connect (() => {
             app.state.set_style ("solarized-light");
-
         });
 
         color_button_white.clicked.connect (() => {

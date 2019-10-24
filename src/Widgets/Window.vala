@@ -28,12 +28,10 @@ public class ENotes.Window : Gtk.ApplicationWindow {
     private ENotes.ViewEditStack view_edit_stack;
     private ENotes.Viewer viewer;
 
-    private Gtk.Paned pane1;
-    private Gtk.Paned pane2;
+    private FourPaneWindow panes;
 
     public Window (ENotes.Application app) {
         Object (application: app);
-        DatabaseTable.init (ENotes.NOTES_DB);
 
         var change_mode = new SimpleAction ("change-mode", null);
         var save_action = new SimpleAction ("save", null);
@@ -45,6 +43,8 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         var italics_action = new SimpleAction ("italics-action", null);
         var strike_action = new SimpleAction ("strike-action", null);
         var page_info_action = new SimpleAction ("page-info-action", null);
+        var cycle_panel_action = new SimpleAction ("cycle-panel-mode", null);
+        var cycle_panel_r_action = new SimpleAction ("cycle-panel-mode-reverse", null);
 
         add_action (change_mode);
         add_action (save_action);
@@ -56,6 +56,8 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         add_action (italics_action);
         add_action (strike_action);
         add_action (page_info_action);
+        add_action (cycle_panel_action);
+        add_action (cycle_panel_r_action);
 
         app.set_accels_for_action ("win.change-mode", {ENotes.Key.CHANGE_MODE.to_key() });
         app.set_accels_for_action ("win.save", {ENotes.Key.SAVE.to_key()});
@@ -67,6 +69,8 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         app.set_accels_for_action ("win.italics-action", {ENotes.Key.ITALICS.to_key()});
         app.set_accels_for_action ("win.strike-action", {ENotes.Key.STRIKE.to_key()});
         app.set_accels_for_action ("win.page-info-action", {ENotes.Key.PAGE_INFO.to_key()});
+        app.set_accels_for_action ("win.cycle-panel-mode", {ENotes.Key.PANEL_MODE.to_key()});
+        app.set_accels_for_action ("win.cycle-panel-mode-reverse", {ENotes.Key.PANEL_MODE_R.to_key()});
 
         build_ui ();
 
@@ -80,8 +84,8 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         italics_action.activate.connect (italics_act);
         strike_action.activate.connect (strike_act);
         page_info_action.activate.connect (toggle_page_info);
-
-        Sidebar.get_instance ().first_start ();
+        cycle_panel_action.activate.connect (cycle_panel_mode);
+        cycle_panel_r_action.activate.connect (cycle_panel_mode_reverse);
 
         var provider = new Gtk.CssProvider ();
         provider.load_from_resource ("/com/github/philip-scott/notes-up/Application.css");
@@ -96,6 +100,18 @@ public class ENotes.Window : Gtk.ApplicationWindow {
             }
         });
 
+        app.state.pre_database_change.connect (() => {
+            close_database_file ();
+        });
+
+        app.state.post_database_change.connect (() => {
+            open_database ();
+        });
+
+        app.state.notify["panes-visible"].connect (() => {
+            panes.show_n_panes (app.state.panes_visible);
+        });
+
         load_settings ();
     }
 
@@ -108,8 +124,8 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 
         set_events (Gdk.EventMask.BUTTON_PRESS_MASK);
 
-        pane1 = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
-        pane2 = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
+        panes = new FourPaneWindow ();
+
         sidebar = ENotes.Sidebar.get_instance ();
         pages_list = ENotes.PagesList.get_instance ();
 
@@ -123,13 +139,15 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         main_area_grid.add (page_info);
         main_area_grid.add (view_edit_stack);
 
-        pane1.pack1 (sidebar, false, false);
-        pane1.pack2 (pane2, true, false);
-        pane2.pack1 (pages_list, false, false);
-        pane2.pack2 (main_area_grid, true, false);
+        var notebook_picker = new NotebookPicker ();
+
+        panes.pack1 (notebook_picker);
+        panes.pack2 (sidebar);
+        panes.pack3 (pages_list);
+        panes.pack4 (main_area_grid);
 
         this.move (settings.pos_x, settings.pos_y);
-        this.add (pane1);
+        this.add (panes);
         this.show_all ();
     }
 
@@ -155,44 +173,58 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         int x;
         int y;
 
-        editor.save_file ();
+        close_database_file ();
+
         get_size (out width, out height);
         get_position (out x, out y);
 
         settings.pos_x = x;
         settings.pos_y = y;
-        settings.notebook_panel_size = pane1.position;
-        settings.panel_size = pane2.position;
+        settings.notebook_panel_size = panes.position_2_3;
+        settings.panel_size = panes.position_3_4;
         settings.window_width = width;
         settings.window_height = height;
         settings.mode = app.state.mode;
         settings.style_scheme = app.state.style_scheme;
-        settings.last_notebook = app.state.opened_notebook != null ? (int) app.state.opened_notebook.id : 0;
-        settings.last_page = app.state.opened_page != null ? (int) app.state.opened_page.id : 0;
         settings.show_page_info = app.state.show_page_info;
-
         settings.editor_font = app.state.editor_font;
         settings.editor_scheme = app.state.editor_scheme;
         settings.line_numbers = app.state.editor_show_line_numbers;
         settings.auto_indent = app.state.editor_auto_indent;
-
-        Trash.get_instance ().clear_files ();
+        settings.panes_visible = app.state.panes_visible;
 
         return false;
     }
 
+    private void close_database_file () {
+        editor.save_file ();
+
+        var file_data = ENotes.FileDataTable.instance;
+        var opened_notebook = app.state.opened_notebook;
+        if (opened_notebook != null) {
+            file_data.set_value_silent (FileDataType.LAST_NOTEBOOK, opened_notebook.id.to_string ());
+        } else {
+            file_data.set_value_silent (FileDataType.LAST_NOTEBOOK, "0");
+        }
+
+        var opened_page = app.state.opened_page;
+        if (opened_page != null) {
+            file_data.set_value_silent (FileDataType.LAST_PAGE, opened_page.id.to_string ());
+        } else {
+            file_data.set_value_silent (FileDataType.LAST_PAGE, "0");
+        }
+
+        Trash.get_instance ().clear_files ();
+    }
+
     private void load_settings () {
         resize (settings.window_width, settings.window_height);
-        pane1.position = settings.notebook_panel_size;
-        pane2.position = settings.panel_size;
+        panes.position_2_3 = settings.notebook_panel_size;
+        panes.position_3_4 = settings.panel_size;
 
         app.state.mode = ENotes.Mode.get_mode (settings.mode);
 
-        app.state.open_notebook (settings.last_notebook);
-
-        if (settings.last_page != 0) {
-            app.state.open_page (settings.last_page);
-        }
+        open_database ();
 
         app.state.set_style (settings.style_scheme);
         app.state.editor_scheme = settings.editor_scheme;
@@ -200,6 +232,22 @@ public class ENotes.Window : Gtk.ApplicationWindow {
         app.state.editor_font = settings.editor_font;
         app.state.editor_show_line_numbers = settings.line_numbers;
         app.state.editor_auto_indent = settings.auto_indent;
+        app.state.panes_visible = settings.panes_visible;
+    }
+
+    private void open_database () {
+        if (settings.last_page != 0) {
+            // Legacy Boot
+            app.state.open_notebook (settings.last_notebook);
+            app.state.open_page (settings.last_page);
+
+            settings.last_notebook = 0;
+            settings.last_page = 0;
+        } else {
+            var file_data = ENotes.FileDataTable.instance;
+            app.state.open_notebook (file_data.get_int64 (FileDataType.LAST_NOTEBOOK));
+            app.state.open_page (file_data.get_int64 (FileDataType.LAST_PAGE));
+        }
     }
 
     private void new_page () {
@@ -225,5 +273,122 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 
     public void toggle_page_info () {
         app.state.show_page_info = !app.state.show_page_info;
+    }
+
+    public void cycle_panel_mode () {
+        var panes_visible = (app.state.panes_visible - 1);
+        app.state.panes_visible = panes_visible >= 0 ? panes_visible : 3;
+    }
+
+    public void cycle_panel_mode_reverse () {
+        app.state.panes_visible = (app.state.panes_visible + 1) % 4;
+    }
+
+    private class FourPaneWindow : Gtk.Bin {
+        public int position_1_2 {
+            get {
+                return paned_1_2.position;
+            } set {
+                paned_1_2.position = value;
+            }
+        }
+
+        public int position_2_3 {
+            get {
+                return paned_2_3.position;
+            } set {
+                paned_2_3.position = value;
+            }
+        }
+
+        public int position_3_4 {
+            get {
+                return paned_3_4.position;
+            } set {
+                paned_3_4.position = value;
+            }
+        }
+
+        public bool show_1 {
+            get {
+                return widget_1.visible;
+            } set {
+                widget_1.visible = value;
+                widget_1.no_show_all = !value;
+            }
+        }
+
+        public bool show_2 {
+            get {
+                return widget_2.visible;
+            } set {
+                widget_2.visible = value;
+                widget_2.no_show_all = !value;
+            }
+        }
+
+        public bool show_3 {
+            get {
+                return widget_3.visible;
+            } set {
+                widget_3.visible = value;
+                widget_3.no_show_all = !value;
+            }
+        }
+
+        public bool show_4 {
+            get {
+                return widget_4.visible;
+            } set {
+                widget_4.visible = value;
+                widget_4.no_show_all = !value;
+            }
+        }
+
+        private unowned Gtk.Widget widget_1;
+        private unowned Gtk.Widget widget_2;
+        private unowned Gtk.Widget widget_3;
+        private unowned Gtk.Widget widget_4;
+
+        private Gtk.Paned paned_1_2;
+        private Gtk.Paned paned_2_3;
+        private Gtk.Paned paned_3_4;
+
+        construct {
+            paned_1_2 = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
+            paned_2_3 = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
+            paned_3_4 = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
+
+            paned_1_2.pack2 (paned_2_3, true, false);
+            paned_2_3.pack2 (paned_3_4, true, false);
+
+            add (paned_1_2);
+        }
+
+        public void show_n_panes (int amount) {
+            show_1 = amount >= 3;
+            show_2 = amount >= 2;
+            show_3 = amount >= 1;
+        }
+
+        public void pack1 (Gtk.Widget widget) {
+            widget_1 = widget;
+            paned_1_2.pack1 (widget, false, false);
+        }
+
+        public void pack2 (Gtk.Widget widget) {
+            widget_2 = widget;
+            paned_2_3.pack1 (widget, false, false);
+        }
+
+        public void pack3 (Gtk.Widget widget) {
+            widget_3 = widget;
+            paned_3_4.pack1 (widget, false, false);
+        }
+
+        public void pack4 (Gtk.Widget widget) {
+            widget_4 = widget;
+            paned_3_4.pack2 (widget, true, false);
+        }
     }
 }

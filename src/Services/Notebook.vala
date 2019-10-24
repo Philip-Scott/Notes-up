@@ -202,4 +202,8 @@ public class ENotes.NotebookTable : DatabaseTable {
 
         stmt.step ();
     }
+
+    public static void reset_instance () {
+        instance = null;
+    }
 }

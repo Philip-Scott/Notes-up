@@ -213,4 +213,7 @@ public class ENotes.TagsTable : DatabaseTable {
         return pages;
     }
 
+    public static void reset_instance () {
+        instance = null;
+    }
 }

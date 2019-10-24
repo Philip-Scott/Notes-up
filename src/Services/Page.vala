@@ -349,4 +349,8 @@ public class ENotes.PageTable : DatabaseTable {
 
         return final.str;
     }
+
+    public static void reset_instance () {
+        instance = null;
+    }
 }
