@@ -49,6 +49,5 @@ sources = files(
     'Plugins/Youtube.vala',
     'Plugins/Image.vala',
     'Plugins/PageLink.vala',
-    'Plugins/Highlight.vala',
-    'Config.vala'
+    'Plugins/Highlight.vala'
 )

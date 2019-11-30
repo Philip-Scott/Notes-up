@@ -25,7 +25,6 @@ public const string TERMINAL_NAME = "notes-up";
 public static int main (string[] args) {
     /* Initiliaze gettext support */
     Intl.setlocale (LocaleCategory.ALL, Intl.get_language_names ()[0]);
-    //Intl.textdomain (Config.GETTEXT_PACKAGE);
 
     Environment.set_application_name (APP_NAME);
     Environment.set_prgname (APP_NAME);
