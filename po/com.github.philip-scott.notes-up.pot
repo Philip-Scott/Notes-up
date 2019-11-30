@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.philip-scott.notes-up\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-02 21:55+0200\n"
+"POT-Creation-Date: 2019-11-30 15:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -80,55 +80,55 @@ msgstr ""
 msgid "Youtube Video"
 msgstr ""
 
-#: src/Services/FileManager.vala:158
+#: src/Services/FileManager.vala:51
 msgid "Print to File"
 msgstr ""
 
-#: src/Services/FileManager.vala:233
+#: src/Services/FileManager.vala:126
 msgid "Save as PDF"
 msgstr ""
 
-#: src/Services/FileManager.vala:235
+#: src/Services/FileManager.vala:128
 msgid "PDF File"
 msgstr ""
 
-#: src/Services/FileManager.vala:243
+#: src/Services/FileManager.vala:136
 msgid "Save as Markdown"
 msgstr ""
 
-#: src/Services/FileManager.vala:245
+#: src/Services/FileManager.vala:138
 msgid "Markdown File"
 msgstr ""
 
-#: src/Services/FileManager.vala:253
+#: src/Services/FileManager.vala:146
 msgid "Open Image"
 msgstr ""
 
-#: src/Services/FileManager.vala:256
+#: src/Services/FileManager.vala:149
 msgid "Images"
 msgstr ""
 
-#: src/Services/FileManager.vala:266
+#: src/Services/FileManager.vala:159
 msgid "Save"
 msgstr ""
 
-#: src/Services/FileManager.vala:268
+#: src/Services/FileManager.vala:161
 msgid "Open"
 msgstr ""
 
-#: src/Services/FileManager.vala:272
+#: src/Services/FileManager.vala:165
 msgid "All Files"
 msgstr ""
 
-#: src/Services/FileManager.vala:281
+#: src/Services/FileManager.vala:174
 #: src/Widgets/Dialogs/NewNotebookDialog.vala:72
 #: src/Widgets/Dialogs/NotebookListDialog.vala:34
-#: src/Widgets/Dialogs/NotebookListDialog.vala:75
+#: src/Widgets/Dialogs/NotebookListDialog.vala:76
 msgid "Cancel"
 msgstr ""
 
-#: src/Services/Page.vala:177 src/Services/Page.vala:261
-#: src/Services/Page.vala:272 src/Widgets/PagesList.vala:101
+#: src/Services/Page.vala:172 src/Services/Page.vala:256
+#: src/Services/Page.vala:267 src/Widgets/PagesList.vala:101
 msgid "New Page"
 msgstr ""
 
@@ -144,7 +144,7 @@ msgstr ""
 msgid "Color:"
 msgstr ""
 
-#: src/Widgets/Dialogs/NewNotebookDialog.vala:82 src/Widgets/Headerbar.vala:202
+#: src/Widgets/Dialogs/NewNotebookDialog.vala:82 src/Widgets/Headerbar.vala:204
 msgid "Edit"
 msgstr ""
 
@@ -165,65 +165,60 @@ msgid "Style modifications"
 msgstr ""
 
 #: src/Widgets/Dialogs/NewNotebookDialog.vala:135
-#: src/Widgets/Dialogs/PreferencesDialog.vala:161
+#: src/Widgets/Dialogs/PreferencesDialog.vala:150
 msgid "Stylesheet:"
 msgstr ""
 
 #: src/Widgets/Dialogs/NotebookListDialog.vala:25
-#: src/Widgets/Sidebar/NotebookItem.vala:56
 msgid "Move Notebook"
 msgstr ""
 
 #: src/Widgets/Dialogs/NotebookListDialog.vala:36
-#: src/Widgets/Dialogs/NotebookListDialog.vala:77
+#: src/Widgets/Dialogs/NotebookListDialog.vala:78
 msgid "Move"
 msgstr ""
 
-#: src/Widgets/Dialogs/NotebookListDialog.vala:65
+#: src/Widgets/Dialogs/NotebookListDialog.vala:66
 msgid "Move Page"
 msgstr ""
 
-#: src/Widgets/Dialogs/PreferencesDialog.vala:42 src/Widgets/Headerbar.vala:260
+#: src/Widgets/Dialogs/PreferencesDialog.vala:41 src/Widgets/Headerbar.vala:355
 msgid "Preferences"
 msgstr ""
 
-#: src/Widgets/Dialogs/PreferencesDialog.vala:51
+#: src/Widgets/Dialogs/PreferencesDialog.vala:50
 msgid "Editor"
 msgstr ""
 
-#: src/Widgets/Dialogs/PreferencesDialog.vala:52
+#: src/Widgets/Dialogs/PreferencesDialog.vala:51
 msgid "Viewer"
 msgstr ""
 
-#: src/Widgets/Dialogs/PreferencesDialog.vala:65
+#: src/Widgets/Dialogs/PreferencesDialog.vala:64
 msgid "_Close"
 msgstr ""
 
-#: src/Widgets/Dialogs/PreferencesDialog.vala:73
+#: src/Widgets/Dialogs/PreferencesDialog.vala:72
 msgid "Font:"
 msgstr ""
 
-#: src/Widgets/Dialogs/PreferencesDialog.vala:83
+#: src/Widgets/Dialogs/PreferencesDialog.vala:82
 msgid "Theme:"
 msgstr ""
 
-#: src/Widgets/Dialogs/PreferencesDialog.vala:94
+#: src/Widgets/Dialogs/PreferencesDialog.vala:93
 msgid "Automatic indentation:"
 msgstr ""
 
-#: src/Widgets/Dialogs/PreferencesDialog.vala:102
+#: src/Widgets/Dialogs/PreferencesDialog.vala:101
 msgid "Show line Numbers:"
 msgstr ""
 
-#: src/Widgets/Dialogs/PreferencesDialog.vala:110
-msgid "Keep Sidebar Visible:"
-msgstr ""
-
-#: src/Widgets/Dialogs/PreferencesDialog.vala:118
+#: src/Widgets/Dialogs/PreferencesDialog.vala:109
 msgid "Spellcheck:"
 msgstr ""
 
-#: src/Widgets/Dialogs/PreferencesDialog.vala:148
+#: src/Widgets/Dialogs/PreferencesDialog.vala:137
 msgid "Global style modifications"
 msgstr ""
 
@@ -232,17 +227,23 @@ msgid "Remove"
 msgstr ""
 
 #: src/Widgets/Sidebar/NotebookItem.vala:53
-msgid "Edit Notebook"
+msgid "Edit Section"
 msgstr ""
 
-#: src/Widgets/Sidebar/NotebookItem.vala:54
-#: src/Widgets/Sidebar/NotebookList.vala:32 src/Widgets/Headerbar.vala:257
-#: src/Application.vala:108
-msgid "New Notebook"
+#: src/Widgets/Sidebar/NotebookItem.vala:54 src/Widgets/Headerbar.vala:354
+msgid "New Section"
 msgstr ""
 
 #: src/Widgets/Sidebar/NotebookItem.vala:55
-msgid "Delete Notebook"
+msgid "Delete Section"
+msgstr ""
+
+#: src/Widgets/Sidebar/NotebookItem.vala:56
+msgid "Move Section"
+msgstr ""
+
+#: src/Widgets/Sidebar/NotebookList.vala:32
+msgid "New Notebook"
 msgstr ""
 
 #: src/Widgets/Sidebar/Sidebar.vala:27
@@ -258,19 +259,19 @@ msgid "Tags"
 msgstr ""
 
 #: src/Widgets/Sidebar/Sidebar.vala:33
-msgid "Notebooks"
+msgid "Sections"
 msgstr ""
 
 #: src/Widgets/Sidebar/Sidebar.vala:54
 msgid "All Notes"
 msgstr ""
 
-#: src/Widgets/Sidebar/Sidebar.vala:79
+#: src/Widgets/Sidebar/Sidebar.vala:134
 msgid "Not in a Notebook"
 msgstr ""
 
-#: src/Widgets/Sidebar/Sidebar.vala:205
-msgid "My First Notebook"
+#: src/Widgets/Sidebar/Sidebar.vala:260
+msgid "My Notes"
 msgstr ""
 
 #: src/Widgets/Sidebar/TrashItem.vala:28
@@ -281,43 +282,43 @@ msgstr ""
 msgid "Bookmark page"
 msgstr ""
 
-#: src/Widgets/Editor.vala:157
+#: src/Widgets/Editor.vala:188
 msgid "Add bold to text"
 msgstr ""
 
-#: src/Widgets/Editor.vala:164
+#: src/Widgets/Editor.vala:195
 msgid "Add italic to text"
 msgstr ""
 
-#: src/Widgets/Editor.vala:171
+#: src/Widgets/Editor.vala:202
 msgid "Strikethrough text"
 msgstr ""
 
-#: src/Widgets/Editor.vala:175
+#: src/Widgets/Editor.vala:206
 msgid "Insert a quote"
 msgstr ""
 
-#: src/Widgets/Editor.vala:176
+#: src/Widgets/Editor.vala:207
 msgid "Insert code"
 msgstr ""
 
-#: src/Widgets/Editor.vala:177
+#: src/Widgets/Editor.vala:208
 msgid "Insert a link"
 msgstr ""
 
-#: src/Widgets/Editor.vala:179
+#: src/Widgets/Editor.vala:210
 msgid "Add a bulleted list"
 msgstr ""
 
-#: src/Widgets/Editor.vala:180
+#: src/Widgets/Editor.vala:211
 msgid "Add a Numbered list"
 msgstr ""
 
-#: src/Widgets/Editor.vala:182
+#: src/Widgets/Editor.vala:213
 msgid "Insert an image"
 msgstr ""
 
-#: src/Widgets/Editor.vala:221
+#: src/Widgets/Editor.vala:252
 msgid "Formatting"
 msgstr ""
 
@@ -333,35 +334,55 @@ msgstr ""
 msgid "Edit Page Title"
 msgstr ""
 
-#: src/Widgets/Headerbar.vala:201
+#: src/Widgets/Headerbar.vala:202
 msgid "View"
 msgstr ""
 
-#: src/Widgets/Headerbar.vala:205
+#: src/Widgets/Headerbar.vala:208
 msgid "Change mode"
 msgstr ""
 
-#: src/Widgets/Headerbar.vala:229
-msgid "High Contrast"
+#: src/Widgets/Headerbar.vala:233
+msgid "Show All"
 msgstr ""
 
-#: src/Widgets/Headerbar.vala:237
-msgid "Solarized Light"
+#: src/Widgets/Headerbar.vala:234
+msgid "Show Sections and Pages"
 msgstr ""
 
-#: src/Widgets/Headerbar.vala:245
-msgid "Solarized Dark"
+#: src/Widgets/Headerbar.vala:235
+msgid "Show Only Pages"
+msgstr ""
+
+#: src/Widgets/Headerbar.vala:236
+msgid "Hide All"
 msgstr ""
 
 #: src/Widgets/Headerbar.vala:263
+msgid "Panel Options"
+msgstr ""
+
+#: src/Widgets/Headerbar.vala:327
+msgid "High Contrast"
+msgstr ""
+
+#: src/Widgets/Headerbar.vala:335
+msgid "Solarized Light"
+msgstr ""
+
+#: src/Widgets/Headerbar.vala:343
+msgid "Solarized Dark"
+msgstr ""
+
+#: src/Widgets/Headerbar.vala:356
 msgid "Export as PDF"
 msgstr ""
 
-#: src/Widgets/Headerbar.vala:266
+#: src/Widgets/Headerbar.vala:357
 msgid "Export as Markdown"
 msgstr ""
 
-#: src/Widgets/Headerbar.vala:289
+#: src/Widgets/Headerbar.vala:380
 msgid "Menu"
 msgstr ""
 
@@ -506,54 +527,62 @@ msgid_plural "%i Pages"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Application.vala:37
+#: src/Application.vala:39
 msgid "<Ctrl>M"
 msgstr ""
 
-#: src/Application.vala:38
+#: src/Application.vala:40
 msgid "<Ctrl>S"
 msgstr ""
 
-#: src/Application.vala:39
+#: src/Application.vala:41
 msgid "<Ctrl>Q"
 msgstr ""
 
-#: src/Application.vala:40
+#: src/Application.vala:42
 msgid "<Ctrl><Shift>N"
 msgstr ""
 
-#: src/Application.vala:41
+#: src/Application.vala:43
 msgid "<Ctrl>F"
 msgstr ""
 
-#: src/Application.vala:42
+#: src/Application.vala:44
 msgid "<Ctrl>K"
 msgstr ""
 
-#: src/Application.vala:43
+#: src/Application.vala:45
 msgid "<Ctrl>B"
 msgstr ""
 
-#: src/Application.vala:44
+#: src/Application.vala:46
 msgid "<Ctrl>I"
 msgstr ""
 
-#: src/Application.vala:45
+#: src/Application.vala:47
 msgid "<Ctrl>T"
 msgstr ""
 
-#: src/Application.vala:46
+#: src/Application.vala:48
 msgid "<Ctrl><Shift>I"
 msgstr ""
 
-#: src/Application.vala:65
-msgid "Notes-Up"
+#: src/Application.vala:49
+msgid "<Ctrl>P"
+msgstr ""
+
+#: src/Application.vala:50
+msgid "<Ctrl><Shift>P"
 msgstr ""
 
 #: src/Application.vala:66
-msgid "Your Markdown Notebook."
+msgid "Notes-Up"
 msgstr ""
 
 #: src/Application.vala:67
+msgid "Your Markdown Notebook."
+msgstr ""
+
+#: src/Application.vala:68
 msgid "About Notes"
 msgstr ""

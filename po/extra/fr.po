@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-02 21:41+0200\n"
+"POT-Creation-Date: 2019-11-30 15:37+0100\n"
 "PO-Revision-Date: 2019-04-02 18:31+0200\n"
 "Last-Translator: NathanBnm\n"
 "Language-Team: Français\n"
@@ -87,10 +87,29 @@ msgid "And much more!"
 msgstr "Et plus encore !"
 
 #: data/com.github.philip-scott.notes-up.appdata.xml.in:29
-msgid "The Future of Notes-Up!"
+#, fuzzy
+msgid "The Future of Notes-Up, now with fixes!"
 msgstr "Le futur de Notes-Up"
 
 #: data/com.github.philip-scott.notes-up.appdata.xml.in:31
+msgid "Searching now highlights text in the viewer and editor"
+msgstr ""
+
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:32
+msgid "Fixed: App theme overwrote the editor theme"
+msgstr ""
+
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:33
+msgid ""
+"Russian translation added by Tim77. Thank you and all the other translators "
+"for your work!"
+msgstr ""
+
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:39
+msgid "The Future of Notes-Up!"
+msgstr "Le futur de Notes-Up"
+
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:41
 msgid ""
 "Tags! Tags is the new and hot way to organize your notes! Add them from the "
 "new Page Info toolbar!"
@@ -98,7 +117,7 @@ msgstr ""
 "Étiquettes ! Les étiquettes sont la nouvelle façon d'organiser vos notes ! "
 "Ajoutez-les depuis la nouvelle barre d'informations sur la page !"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:32
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:42
 msgid ""
 "When you add a new tag to a note, Notes-Up will add them to the Sidebar to "
 "quickly filter all notes using the tag!"
@@ -107,7 +126,7 @@ msgstr ""
 "dans la barre latérale pour pouvoir filtrer rapidement toutes les notes en "
 "utilisant cette étiquette !"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:33
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:43
 msgid ""
 "Talking about the Sidebar, it has a fresh new look, and a new All Notes "
 "button to show all your notes in the pages list!"
@@ -116,7 +135,7 @@ msgstr ""
 "nouveau bouton Toutes les notes pour afficher toutes les notes dans la liste "
 "des pages !"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:34
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:44
 msgid ""
 "Your note information now appears in the new Page Info Toolbar. It shows "
 "where is it and when it was created and updated"
@@ -125,7 +144,7 @@ msgstr ""
 "d'outil d'informations sur la page. Elle montre où se trouvent les notes, "
 "quand elles ont été créées et mises à jour"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:35
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:45
 msgid ""
 "You can now edit the title of the note without making it the first line of "
 "the file from the Page Info Toolbar!"
@@ -134,7 +153,7 @@ msgstr ""
 "ligne du fichier directement depuis la barre d'outils d'informations sur la "
 "page !"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:36
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:46
 msgid ""
 "Move pages to another notebook with a simple button from the Page Info "
 "Toolbar"
@@ -142,23 +161,23 @@ msgstr ""
 "Déplacez des pages d'un carnet de notes à un autre à l'aide d'un simple "
 "bouton depuis la barre d'outils des informations sur la page"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:37
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:47
 msgid "You can now link to other pages from within the viewer!"
 msgstr ""
 "Vous pouvez désormais des pages entre elles directement depuis la vue !"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:38
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:48
 msgid "Write in a paper-like theme as well as a new dark mode."
 msgstr ""
 "Écrivez comme sur du papier avec des thèmes spécifiques et découvrez le "
 "nouveau thème sombre."
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:39
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:49
 msgid "Exporting Markdown files is now possible form within Notes-Up!"
 msgstr ""
 "Exporter des fichiers Markdown est désormais possible depuis Notes-Up !"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:40
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:50
 msgid ""
 "And a lot of work went into making Notes-Up better on the inside! This will "
 "speed up the development of future versions!"
@@ -166,11 +185,11 @@ msgstr ""
 "Et beaucoup de travail a été mené pour améliorer Notes-Up en interne ! Cela "
 "va accélérer le développement des versions futures !"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:46
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:56
 msgid "Quick Bug Fix"
 msgstr "Correction de bug rapide"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:48
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:58
 msgid ""
 "Fixed problem where the notes folder would not be re-created if it was "
 "deleted, preventing the app from opening again..."
@@ -178,27 +197,27 @@ msgstr ""
 "Correction d'un problème où le dossier des notes ne voulait pas se recréer "
 "s'il avait été supprimé, empêchant l'application de s'ouvrir à nouveau…"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:54
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:64
 msgid "Juno Papercuts"
 msgstr "Papiers de Juno"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:56
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:66
 msgid "Tooltips with shortcuts now use the new style"
 msgstr ""
 "Les indications avec les raccourcis utilisent maintenant le nouveau style"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:57
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:67
 msgid "Fixed a problem where Notes-Up would forget the sidebar size."
 msgstr ""
 "Correction d'un problème où Notes-Up ne mémorisait pas la taille de la barre "
 "latérale."
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:58
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:68
 msgid "The styles on the HelpBox have been updated for Juno"
 msgstr ""
 "Les styles sur la boîte de dialogue d'aide ont été mis à jour pour Juno"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:59
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:69
 msgid ""
 "If you delete the empty page created when you make a notebook, it will not "
 "re-appear"
@@ -206,47 +225,47 @@ msgstr ""
 "Si vous supprimez la page vierge lorsque vous créez un carnet de notes, elle "
 "ne réapparaîtra pas"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:60
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:70
 msgid "And other small bug fixes"
 msgstr "Autres petites corrections de bugs"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:66
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:76
 msgid "A Very Juno Update"
 msgstr "Une mise à jour très spécifique pour Juno"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:68
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:78
 msgid "Notes-Up is now available in elementary OS Juno!"
 msgstr "Notes-Up est maintenant disponible pour elementary OS Juno !"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:69
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:79
 msgid "Icon updated to use the new elementary color palette"
 msgstr ""
 "Mise à jour de l'icône afin d'utiliser la nouvelle palette de couleur "
 "d'elementary"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:70
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:80
 msgid "Trashed pages show up in the pages list grayed out"
 msgstr ""
 "Les pages supprimées s'affichent désormais grisées dans la liste des pages"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:71
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:81
 msgid "Added translations for Italian and Japanese"
 msgstr "Ajout des traductions en italien et japonais"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:72
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:82
 msgid "Code cleanups and more!"
 msgstr "Amélioration du code et plus encore !"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:78
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:88
 msgid "The Community Update"
 msgstr "La mise à jour de la communauté"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:80
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:90
 msgid "Pages are better summarized when they have markdown symbols"
 msgstr ""
 "Les pages sont mieux résumées lorsqu'elles possèdent des symboles Markdown"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:81
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:91
 msgid ""
 "When applying styles to the text, it will automatically wrap around it "
 "properly"
@@ -254,32 +273,32 @@ msgstr ""
 "Lors qu'un style est appliqué au texte, il va automatiquement l'encadrer "
 "correctement"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:82
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:92
 msgid "You can now move Notebooks"
 msgstr "Vous pouvez désormais déplacer les carnets de notes"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:83
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:93
 msgid "Fixed some errors from exporting, and some other bugs"
 msgstr "Correction de quelques erreurs d'exportation, et quelques autres bugs"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:84
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:94
 msgid "Notes-Up is now translated to Lithuanian, French, Portuguese and Czech!"
 msgstr ""
 "Notes-Up est maintenant traduit en lituanien, français, portugais et "
 "tchèque !"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:85
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:95
 msgid ""
 "A huge thanks to the translators, and the new contributors! You guys rock!"
 msgstr ""
 "Un grand merci à tous les traducteuts, et aux nouveaux contributeurs ! Vous "
 "êtes les meilleurs !"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:91
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:101
 msgid "Spell Checking"
 msgstr "Correction orthographique"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:93
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:103
 msgid ""
 "Notes-up now checks your spelling while you type! No more excuses for "
 "misspelled words in your homework ;)"
@@ -287,26 +306,26 @@ msgstr ""
 "Notes-Up vérifie maintenant l'orthographe lorsque vous tapez ! Vous n'avez "
 "plus d'excuses pour les fautes d'orthographe dans vos devoirs ;)"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:94
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:104
 msgid "The title of the app now displays your current note and notebook"
 msgstr ""
 "Le titre de l'application affiche désormais votre note et carnet de notes "
 "courants"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:100
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:110
 msgid "Quick fix"
 msgstr "Correction rapide"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:102
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:112
 msgid "Prevent crash when closing the preferences dialog"
 msgstr ""
 "Empêche l'application de planter à la fermeture de la boîte de dialogue des "
 "préférences"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:103
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:113
 msgid "Make sure to load all plugins"
 msgstr "L'application s'assure que toutes les extensions sont chargées"
 
-#: data/com.github.philip-scott.notes-up.appdata.xml.in:115
+#: data/com.github.philip-scott.notes-up.appdata.xml.in:129
 msgid "Felipe Escoto"
 msgstr "Felipe Escoto"
