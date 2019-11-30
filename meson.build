@@ -24,7 +24,6 @@ executable(
         dependency('granite', version : '>=5.2.0'),
         dependency('gee-0.8'),
         dependency('gtksourceview-3.0', version : '>=3.10'),
-        dependency('gthread-2.0'),
         dependency('gtk+-3.0', version : '>=3.9.10'),
         dependency('webkit2gtk-4.0'),
         dependency('sqlite3', version : '>=3.5.9'),
