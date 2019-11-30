@@ -28,11 +28,10 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
     private Gtk.Stack stack;
     private Gtk.Switch indent_switch;
     private Gtk.Switch line_numbers_switch;
-    private Gtk.Switch keep_sidebar_switch;
     private Gtk.Switch spellcheck_switch;
 
     public PreferencesDialog () {
-        set_transient_for (window);
+        set_transient_for (app.get_app_window ());
         build_ui ();
         connect_signals ();
     }
@@ -76,8 +75,8 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
         font_button.use_font = true;
         font_button.use_size = false;
 
-        if (settings.editor_font != "") {
-            font_button.set_font (settings.editor_font);
+        if (app.state.editor_font != "") {
+            font_button.set_font (app.state.editor_font);
         }
 
         var scheme_label = new Gtk.Label ("<b>%s</b>".printf (_("Theme:")));
@@ -94,7 +93,7 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
         var indent_label = new Gtk.Label (_("Automatic indentation:"));
         indent_label.set_halign (Gtk.Align.END);
         indent_switch = new Gtk.Switch ();
-        indent_switch.state = settings.auto_indent;
+        indent_switch.state = app.state.editor_auto_indent;
 
         var switch_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         switch_box.add (indent_switch);
@@ -102,18 +101,10 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
         var line_numbers_label = new Gtk.Label (_("Show line Numbers:"));
         line_numbers_label.set_halign (Gtk.Align.END);
         line_numbers_switch = new Gtk.Switch ();
-        line_numbers_switch.state = settings.line_numbers;
+        line_numbers_switch.state = app.state.editor_show_line_numbers;
 
         var switch_box_ln = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         switch_box_ln.add (line_numbers_switch);
-
-        var keep_sidebar_label = new Gtk.Label (_("Keep Sidebar Visible:"));
-        keep_sidebar_label.set_halign (Gtk.Align.END);
-        keep_sidebar_switch = new Gtk.Switch ();
-        keep_sidebar_switch.state = settings.keep_sidebar_visible;
-
-        var switch_box_ksv = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        switch_box_ksv.add (keep_sidebar_switch);
 
         var spellcheck_label = new Gtk.Label (_("Spellcheck:"));
         spellcheck_label.set_halign (Gtk.Align.END);
@@ -129,12 +120,10 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
         grid.attach (switch_box,        1, 2, 1, 1);
         grid.attach (line_numbers_label,0, 3, 1, 1);
         grid.attach (switch_box_ln,     1, 3, 1, 1);
-        grid.attach (keep_sidebar_label,0, 4, 1, 1);
-        grid.attach (switch_box_ksv,    1, 4, 1, 1);
-        grid.attach (spellcheck_label,  0, 5, 1, 1);
-        grid.attach (switch_box_spl,    1, 5, 1, 1);
-        grid.attach (scheme_label,      0, 6, 1, 1);
-        grid.attach (scheme_box_scroll, 0, 7, 2, 1);
+        grid.attach (spellcheck_label,  0, 4, 1, 1);
+        grid.attach (switch_box_spl,    1, 4, 1, 1);
+        grid.attach (scheme_label,      0, 5, 1, 1);
+        grid.attach (scheme_box_scroll, 0, 6, 2, 1);
 
         grid.set_column_homogeneous (false);
         grid.set_row_homogeneous (false);
@@ -177,22 +166,12 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
 
     private void connect_signals () {
         indent_switch.state_set.connect ((state) => {
-            settings.auto_indent = state;
+            app.state.editor_auto_indent = state;
             return false;
         });
 
         line_numbers_switch.state_set.connect ((state) => {
-            settings.line_numbers = state;
-
-            ENotes.ViewEditStack.get_instance ().editor.show_line_numbers (state);
-            return false;
-        });
-
-        keep_sidebar_switch.state_set.connect ((state) => {
-            settings.keep_sidebar_visible = state;
-            if (app.state.mode == ENotes.Mode.EDIT) {
-                Sidebar.get_instance ().visible = state;
-            }
+            app.state.editor_show_line_numbers = state;
             return false;
         });
 
@@ -203,17 +182,12 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
         });
 
         font_button.font_set.connect (() => {
-            settings.editor_font = font_button.font;
-            ENotes.ViewEditStack.get_instance ().editor.set_font (font_button.font);
+            app.state.editor_font = font_button.font;
         });
 
         scheme_box.notify["style-scheme"].connect (() => {
             var scheme = scheme_box.get_style_scheme ();
-
-            var scheme_id = scheme.get_id ();
-            settings.editor_scheme = scheme_id;
-
-            ENotes.ViewEditStack.get_instance ().editor.set_scheme (scheme_id);
+            app.state.editor_scheme = scheme.get_id ();
         });
 
         stylesheet_box.changed.connect (() => {
@@ -233,7 +207,6 @@ public class ENotes.PreferencesDialog : Gtk.Dialog {
                 settings.render_stylesheet = style_box.buffer.text;
                 ENotes.ViewEditStack.get_instance ().viewer.load_css (null, true);
                 ENotes.ViewEditStack.get_instance ().viewer.reload_page ();
-                ENotes.ViewEditStack.get_instance ().editor.load_settings ();
                 destroy ();
             break;
         }

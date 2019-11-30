@@ -26,13 +26,14 @@ public class ENotes.Viewer : WebKit.WebView {
 
     public Viewer () {
         style_loader = StyleLoader.instance;
+        width_request = 200;
+
         connect_signals ();
     }
 
     public void load_css (ENotes.Page? page, bool overrride = false) {
         if (overrride || previous_page == null || previous_page.id != page.id) {
             if (page != null) {
-                GLib.print ("Previous page set\n");
                 previous_page = page;
             }
 
@@ -52,18 +53,31 @@ public class ENotes.Viewer : WebKit.WebView {
     }
 
     public void load_page (Page page, bool force_load = false) {
-        if (app.state.mode == Mode.VIEW || force_load) {
+        if (app.state.mode != Mode.EDIT || force_load) {
             if (page.html_cache == "" || force_load) {
+                debug ("Reloading page\n");
+
                 string markdown;
                 process_frontmatter (page.data, out markdown);
-                load_css (page);
-                page.html_cache = process (markdown);
 
-                PageTable.get_instance ().save_cache (page);
+                load_css (page);
+
+                page.html_cache = process (markdown);
+                page.cache_changed = true;
+            } else {
+                debug ("Loading content from cache");
             }
 
             load_html (page.html_cache + get_theme_color_css (), "file:///");
         }
+    }
+
+    public void quick_reload (Page page) {
+        debug ("Quick Reloading page\n");
+
+        string markdown;
+        process_frontmatter (page.data, out markdown);
+        load_html (process (markdown) + get_theme_color_css (), "file:///");
     }
 
     private void connect_signals () {
@@ -101,12 +115,33 @@ public class ENotes.Viewer : WebKit.WebView {
             if (event == WebKit.LoadEvent.FINISHED) {
                 var rectangle = get_window_properties ().get_geometry ();
                 set_size_request (rectangle.width, rectangle.height);
+                search_from_state ();
             }
         });
 
         app.state.notify["style-scheme"].connect (() => {
             reload_page ();
         });
+
+        app.state.notify["search-field"].connect (() => {
+            search_from_state ();
+        });
+
+        app.state.page_text_updated.connect (() => {
+            if (app.state.mode != ENotes.Mode.BOTH) return;
+
+            quick_reload (app.state.opened_page);
+        });
+    }
+
+    private void search_from_state () {
+        var search_text = app.state.search_field;
+
+        if (search_text != "") {
+            get_find_controller ().search (app.state.search_field, WebKit.FindOptions.CASE_INSENSITIVE, 100);
+        } else {
+            get_find_controller ().search_finish ();
+        }
     }
 
     private bool launch_browser (string url) {

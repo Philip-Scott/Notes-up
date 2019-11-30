@@ -118,4 +118,8 @@ public class ENotes.BookmarkTable : DatabaseTable {
 
         return stmt.column_int64 (0) == 1;
     }
+
+    public static void reset_instance () {
+        instance = null;
+    }
 }

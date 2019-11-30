@@ -29,7 +29,9 @@ public enum ENotes.Key {
     BOLD,
     ITALICS,
     STRIKE,
-    PAGE_INFO;
+    PAGE_INFO,
+    PANEL_MODE,
+    PANEL_MODE_R;
 
     public string to_key () {
         switch (this) {
@@ -44,6 +46,8 @@ public enum ENotes.Key {
             case ITALICS:       return _("<Ctrl>I");
             case STRIKE:        return _("<Ctrl>T");
             case PAGE_INFO:     return _("<Ctrl><Shift>I");
+            case PANEL_MODE:    return _("<Ctrl>P");
+            case PANEL_MODE_R:  return _("<Ctrl><Shift>P");
             default:            assert_not_reached();
         }
     }
@@ -56,9 +60,6 @@ public enum ENotes.Key {
 namespace ENotes {
     public unowned ENotes.Application app;
     public ENotes.Services.Settings settings;
-    public ENotes.Window window;
-    public string NOTES_DB;
-    public string NOTES_DIR;
 }
 
 public class ENotes.Application : Granite.Application {
@@ -67,10 +68,11 @@ public class ENotes.Application : Granite.Application {
     public const string ABOUT_STOCK = N_("About Notes");
 
     public bool running = false;
-
     public State state;
 
     construct {
+        flags |= ApplicationFlags.HANDLES_OPEN;
+
         application_id = "com.github.philip-scott.notes-up";
         program_name = PROGRAM_NAME;
         exec_name = TERMINAL_NAME;
@@ -78,51 +80,68 @@ public class ENotes.Application : Granite.Application {
 
         build_version = Constants.VERSION;
         state = new State ();
-
-
     }
 
-    public override void activate () {
+    private void init () {
         if (!running) {
             ENotes.app = this;
             settings = ENotes.Services.Settings.get_instance ();
 
-            var notes_path = Path.build_filename (GLib.Environment.get_home_dir (), "/.local/share/notes-up/");
-            var notes_dir = File.new_for_path (notes_path);
+            // If app has never being used, open default DB.
+            if (settings.notes_database == "") {
+                var notes_path = Path.build_filename (GLib.Environment.get_home_dir (), "/.local/share/notes-up/");
 
-            if (!notes_dir.query_exists ()) {
-                DirUtils.create_with_parents (notes_path, 0766);
-            }
-
-            if (settings.notes_database == "") { // Init databases
                 settings.notes_database = Path.build_filename (notes_path, "NotesUp.db");
             }
-
-            ENotes.NOTES_DIR = settings.notes_location;
-            ENotes.NOTES_DB = settings.notes_database;
-
-            if (settings.import_files) {
-                FileManager.import_files ();
-
-                if (NotebookTable.get_instance ().get_notebooks ().size == 0) {
-                    NotebookTable.get_instance ().new_notebook (0, _("New Notebook"), {0.7, 0, 0}, "", "");
-                }
-            }
-
-            window = new ENotes.Window (this);
-            this.add_window (window);
-
-            running = true;
 
             weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
             default_theme.add_resource_path ("/com/github/philip-scott/notes-up/icons/");
         }
+    }
 
-        window.show_app ();
+    public override void activate () {
+        init ();
+        state.set_database (ENotes.Services.Settings.get_instance ().notes_database);
+        start_window ();
+    }
+
+    public override void open (File[] files, string hint) {
+        if (files.length > 1) {
+            warning ("Only the first file will be opened");
+        }
+
+        // Close current file if running.
+        if (!running) {
+            init ();
+        }
+
+        state.set_database (files[0].get_path ());
+
+        start_window ();
+    }
+
+    private void start_window () {
+        if (!running) {
+            var window = new ENotes.Window (this);
+            this.add_window (window);
+
+            running = true;
+        }
+
+        get_app_window ().show_app ();
+    }
+
+    public ENotes.Window get_app_window () {
+        return active_window as ENotes.Window;
     }
 
     // Dummy class that holds the current app state so other elements can interact with it
     public class State : Object {
+        // Database
+        public string? db { get; private set; }
+        public signal void pre_database_change (); // Called before the database closes
+        public signal void post_database_change (); // Called after a new database has initiated
+
         public signal void update_page_title ();
 
         public ENotes.Page? opened_page { get; private set; }
@@ -132,6 +151,8 @@ public class ENotes.Application : Granite.Application {
 
         public ENotes.Mode mode { get; set; default = ENotes.Mode.NONE; }
         public bool show_page_info { get; set; }
+
+        public int panes_visible { get; set; default = -1; }
 
         public string style_scheme { get; private set; }
 
@@ -144,6 +165,7 @@ public class ENotes.Application : Granite.Application {
 
         // Page state changed
         public signal void request_saving_page_info ();
+        public signal void page_text_updated (); // Used to weakly update the viewer
         public signal void page_updated ();
         public signal void page_deleted ();
 
@@ -161,11 +183,44 @@ public class ENotes.Application : Granite.Application {
 
         // Editor
         public signal void reload_editor_settings ();
+        public string editor_font { get; set; default = ""; }
+        public string editor_scheme { get; set; default = "classic"; }
+        public bool editor_show_line_numbers { get; set; }
+        public bool editor_auto_indent { get; set; }
+
+        // FileData
+        public signal void file_data_changed (FileDataType type, string value);
 
         construct {
             notify.connect ((spec) => {
                 debug ("Property changed in state: %s\n", spec.name);
             });
+        }
+
+        public void set_database (string _db) {
+            if (db == _db) return;
+
+            pre_database_change ();
+            DatabaseTable.terminate ();
+
+            db = _db;
+
+            opened_page_notebook = null;
+            opened_notebook = null;
+
+            var recent_files = new GLib.Array<string>();
+            recent_files.append_val (_db);
+
+            foreach (var file in settings.recent_files) {
+                if (file == _db) continue;
+                recent_files.append_val (file);
+            }
+
+            settings.recent_files = recent_files.data;
+            settings.notes_database = _db;
+
+            DatabaseTable.init (db);
+            post_database_change ();
         }
 
         public void open_notebook (int64 notebook_id) {
@@ -194,7 +249,10 @@ public class ENotes.Application : Granite.Application {
             if (opened_page == null) return;
 
             PageTable.get_instance ().save_page (opened_page);
+            opened_page.cache_changed = false;
+
             update_page_title ();
+            page_updated ();
         }
 
         public void set_style (string style) {
@@ -203,22 +261,30 @@ public class ENotes.Application : Granite.Application {
             switch (style) {
                 case "solarized-light":
                     style_scheme = style;
-                    settings.editor_scheme = style;
+                    editor_scheme = style;
                     gtk_settings.gtk_application_prefer_dark_theme = false;
                     break;
                 case "solarized-dark":
                     style_scheme = style;
-                    settings.editor_scheme = style;
+                    editor_scheme = style;
                     gtk_settings.gtk_application_prefer_dark_theme = true;
                     break;
                 default:
                     style_scheme = "high-contrast";
-                    settings.editor_scheme = "classic";
+                    editor_scheme = "classic";
                     gtk_settings.gtk_application_prefer_dark_theme = false;
                     break;
             }
 
             reload_editor_settings ();
+        }
+
+        public void toggle_app_mode () {
+            if (mode == ENotes.Mode.EDIT) {
+                mode = ENotes.Mode.VIEW;
+            } else {
+                mode = ENotes.Mode.EDIT;
+            }
         }
     }
 }

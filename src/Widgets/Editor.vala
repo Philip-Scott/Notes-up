@@ -28,8 +28,16 @@ public class ENotes.Editor : Gtk.Box {
 
     private bool edited = false;
 
-    public ENotes.Page? current_page {
+    private Gtk.SourceSearchContext search_context;
+    private Gtk.SourceSearchSettings search_settings;
+
+    private ENotes.Page? current_page {
          set {
+            if (text_change_timeout != 0) {
+                GLib.Source.remove (text_change_timeout);
+                text_change_timeout = 0;
+            }
+
             if (value == null) {
                 set_sensitive (false);
                 return;
@@ -37,10 +45,12 @@ public class ENotes.Editor : Gtk.Box {
                 set_sensitive (!Trash.get_instance ().is_page_trashed (value));
             }
 
+            code_buffer.changed.disconnect (trigger_changed);
             code_buffer.begin_not_undoable_action ();
             code_buffer.text = value.data;
             edited = false;
             code_buffer.end_not_undoable_action ();
+            code_buffer.changed.connect (trigger_changed);
         }
     }
 
@@ -83,7 +93,6 @@ public class ENotes.Editor : Gtk.Box {
     public Editor () {
         build_ui ();
         reset ();
-        load_settings ();
 
         Timeout.add_full (Priority.DEFAULT, 60000, () => {
             save_file ();
@@ -91,6 +100,12 @@ public class ENotes.Editor : Gtk.Box {
         });
 
         new WordWrapper(); // used to enforce initialization of static members
+
+        search_settings = new Gtk.SourceSearchSettings ();
+        search_settings.set_case_sensitive (false);
+        search_settings.set_regex_enabled (false);
+
+        search_context = new Gtk.SourceSearchContext (code_buffer, search_settings);
     }
 
     private void build_ui () {
@@ -109,7 +124,7 @@ public class ENotes.Editor : Gtk.Box {
 
         code_view.pixels_below_lines = 6;
         code_view.wrap_mode = Gtk.WrapMode.WORD;
-        code_view.show_line_numbers = true;
+        show_line_numbers (false);
 
         var scroll_box = new Gtk.ScrolledWindow (null, null);
         scroll_box.add (code_view);
@@ -142,8 +157,24 @@ public class ENotes.Editor : Gtk.Box {
             save_file ();
         });
 
-        app.state.reload_editor_settings.connect (() => {
-            load_settings ();
+        app.state.notify["editor-font"].connect (() => {
+            set_font (app.state.editor_font);
+        });
+
+        app.state.notify["editor-scheme"].connect (() => {
+            set_scheme (app.state.editor_scheme);
+        });
+
+        app.state.notify["editor-show-line-numbers"].connect (() => {
+            show_line_numbers (app.state.editor_show_line_numbers);
+        });
+
+        app.state.notify["editor-auto-indent"].connect (() => {
+            code_view.auto_indent = app.state.editor_auto_indent;
+        });
+
+        app.state.notify["search-field"].connect (() => {
+            search_settings.set_search_text (app.state.search_field);
         });
     }
 
@@ -244,16 +275,18 @@ public class ENotes.Editor : Gtk.Box {
     }
 
     public void save_file () {
+        if (app.state.opened_page == null) return;
+
         if (edited) {
-            edited = false;
-
-            if (app.state.opened_page != null) {
-                app.state.opened_page.data = this.get_text ();
-                app.state.opened_page.html_cache = "";
-
-                app.state.save_opened_page ();
-            }
+            app.state.opened_page.data = this.get_text ();
+            app.state.opened_page.html_cache = "";
         }
+
+        if (edited || app.state.opened_page.cache_changed) {
+            app.state.save_opened_page ();
+        }
+
+        edited = false;
     }
 
     public void reset (bool disable_save = false) {
@@ -272,14 +305,7 @@ public class ENotes.Editor : Gtk.Box {
         code_view.grab_focus ();
     }
 
-    public void load_settings () {
-        set_scheme (settings.editor_scheme);
-        set_font (settings.editor_font);
-        show_line_numbers (settings.line_numbers);
-        code_view.auto_indent = settings.auto_indent;
-    }
-
-    public void show_line_numbers (bool show) {
+    private void show_line_numbers (bool show) {
         code_view.set_show_line_numbers (show);
 
         if (show) {
@@ -289,18 +315,35 @@ public class ENotes.Editor : Gtk.Box {
         }
     }
 
-    public void set_font (string name) {
+    private void set_font (string name) {
         var font = Pango.FontDescription.from_string (name);
         code_view.override_font (font);
     }
 
-    public void set_scheme (string id) {
+    private void set_scheme (string id) {
         var style_manager = Gtk.SourceStyleSchemeManager.get_default ();
         var style = style_manager.get_scheme (id);
         code_buffer.set_style_scheme (style);
     }
 
+    uint text_change_timeout = 0;
     private void trigger_changed () {
+        if (app.state.opened_page == null) return;
+
+        if (text_change_timeout != 0) {
+            GLib.Source.remove (text_change_timeout);
+            text_change_timeout = 0;
+        }
+
         edited = true;
+
+        text_change_timeout = Timeout.add_full (Priority.DEFAULT, 1000, () => {
+            text_change_timeout = 0;
+
+            app.state.opened_page.data = this.get_text ();
+            app.state.page_text_updated ();
+
+            return Source.REMOVE;
+        });
     }
 }

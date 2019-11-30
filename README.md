@@ -33,9 +33,6 @@ As a Systems Engineer, I was writing my notes using just a text editor, and havi
 - Beautiful app themes
 - And more to come!
 
-## Donations
-If you liked _Notes-up_, and would like to support it's development of this app and more, consider [buying me a coffee](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WYD9ZJK6ZFUDQ) :)
-
 ## Installation:
 [![Get it on AppCenter](https://appcenter.elementary.io/badge.svg)](https://appcenter.elementary.io/com.github.philip-scott.notes-up)
 

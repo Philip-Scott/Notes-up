@@ -60,6 +60,11 @@ public abstract class DatabaseTable {
 
     private static void prepare_db (string filename) {
         File file_db = File.new_for_path (filename);
+        var db_dir = file_db.get_parent ();
+
+        if (!db_dir.query_exists ()) {
+            DirUtils.create_with_parents (db_dir.get_path (), 0766);
+        }
 
         var existed = file_db.query_exists ();
 
@@ -112,7 +117,16 @@ public abstract class DatabaseTable {
 
     public static void terminate () {
         // freeing the database closes it
+        ENotes.PageTable.reset_instance ();
+        ENotes.ImageTable.reset_instance ();
+        ENotes.NotebookTable.reset_instance ();
+        ENotes.BookmarkTable.reset_instance ();
+        ENotes.TagsTable.reset_instance ();
+        ENotes.FileDataTable.reset_instance ();
+        ENotes.Trash.reset_instance ();
+
         db = null;
+        _init = false;
     }
 
     // XXX: errmsg () is global, and so this will not be accurate in a threaded situation

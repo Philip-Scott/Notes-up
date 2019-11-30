@@ -29,30 +29,6 @@ public class ENotes.Notebook : Object {
     public string name;
     public string css;
     public string stylesheet;
-
-    public double r {
-        get {
-            return rgb.red;
-        } set {
-            rgb.red = value;
-        }
-    }
-
-    public double g {
-        get {
-            return rgb.green;
-        } set {
-            rgb.green = value;
-        }
-    }
-
-    public double b {
-        get {
-            return rgb.blue;
-        } set {
-            rgb.blue = value;
-        }
-    }
 }
 
 public class ENotes.NotebookTable : DatabaseTable {
@@ -225,5 +201,9 @@ public class ENotes.NotebookTable : DatabaseTable {
         bind_int (stmt, 1, id);
 
         stmt.step ();
+    }
+
+    public static void reset_instance () {
+        instance = null;
     }
 }

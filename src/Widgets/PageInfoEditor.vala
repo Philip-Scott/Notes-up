@@ -217,7 +217,7 @@ public class ENotes.PageInfoEditor : Gtk.Revealer {
         });
 
         link_to_page_button.clicked.connect (() => {
-            var clipboard = Gtk.Clipboard.get_default (window.get_window ().get_display ());
+            var clipboard = Gtk.Clipboard.get_default (app.get_app_window ().get_display ());
             var p = this.page;
 
             var link_text = "<page %lld %s %s>".printf (p.id, _("Link to: "), p.name);

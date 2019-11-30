@@ -7,6 +7,10 @@
   </gresource>
   <gresource prefix="/com/github/philip-scott/notes-up/icons">
     <file alias="notebook-symbolic.svg" compressed="false" preprocess="">icons/symbolic/notebook-symbolic.svg</file>
+    <file alias="panes-all-symbolic.svg" compressed="false" preprocess="">icons/symbolic/panes-all-symbolic.svg</file>
+    <file alias="panes-two-symbolic.svg" compressed="false" preprocess="">icons/symbolic/panes-two-symbolic.svg</file>
+    <file alias="panes-one-symbolic.svg" compressed="false" preprocess="">icons/symbolic/panes-one-symbolic.svg</file>
+    <file alias="panes-none-symbolic.svg" compressed="false" preprocess="">icons/symbolic/panes-none-symbolic.svg</file>
   </gresource>
   <gresource prefix="/com/github/philip-scott/notes-up/">
     <file alias="Application.css" compressed="true">assets/stylesheets/app/Application.css</file>

@@ -24,7 +24,17 @@
     <binary>com.github.philip-scott.notes-up</binary>
   </provides>
   <releases>
-  <release version="2.0.0" date="2019-03-25">
+    <release version="2.0.2" date="2019-05-05">
+      <description>
+        <p>The Future of Notes-Up, now with fixes!</p>
+        <ul>
+          <li>Searching now highlights text in the viewer and editor</li>
+          <li>Fixed: App theme overwrote the editor theme</li>
+          <li>Russian translation added by Tim77. Thank you and all the other translators for your work!</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.0.0" date="2019-03-25">
       <description>
         <p>The Future of Notes-Up!</p>
         <ul>
@@ -107,8 +117,12 @@
   </releases>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/Philip-Scott/Notes-up/master/Screenshot.png</image>
+      <image>https://raw.githubusercontent.com/Philip-Scott/Notes-up/master/Screenshot1.png</image>
+    </screenshot>
+    <screenshot>
       <image>https://raw.githubusercontent.com/Philip-Scott/Notes-up/master/Screenshot2.png</image>
+    </screenshot>
+    <screenshot>
       <image>https://raw.githubusercontent.com/Philip-Scott/Notes-up/master/Screenshot3.png</image>
     </screenshot>
   </screenshots>

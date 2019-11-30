@@ -50,10 +50,10 @@ public class ENotes.NotebookItem : ENotes.SidebarItem {
 
     private void setup_menu () {
         menu = new Gtk.Menu ();
-        edit_item = new Gtk.MenuItem.with_label (_("Edit Notebook"));
-        new_item = new Gtk.MenuItem.with_label (_("New Notebook"));
-        remove_item = new Gtk.MenuItem.with_label (_("Delete Notebook"));
-        move_item = new Gtk.MenuItem.with_label (_("Move Notebook"));
+        edit_item = new Gtk.MenuItem.with_label (_("Edit Section"));
+        new_item = new Gtk.MenuItem.with_label (_("New Section"));
+        remove_item = new Gtk.MenuItem.with_label (_("Delete Section"));
+        move_item = new Gtk.MenuItem.with_label (_("Move Section"));
 
         menu.add (edit_item);
         menu.add (new_item);

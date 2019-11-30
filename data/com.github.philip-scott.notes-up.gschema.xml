@@ -40,7 +40,7 @@
 		<key name="mode" type="i">
 			<default>0</default>
 			<summary>The last used mode</summary>
-			<description></description>
+			<description>0 - Read, 1 - Edit, 2 - Both</description>
 		</key>
 
 		<key name="last-notebook" type="i">
@@ -55,6 +55,12 @@
 			<description></description>
 		</key>
 
+		<key name="panes-visible" type="i">
+			<default>2</default>
+			<summary>Amount of visible panes</summary>
+			<description>From 0 - 3</description>
+		</key>
+
 		<key name="notes-location" type="s">
 			<default>""</default>
 			<summary>Previous location of your notes folder</summary>
@@ -63,8 +69,8 @@
 
 		<key name="notes-database" type="s">
 			<default>""</default>
-			<summary>full location of your notes db</summary>
-			<description></description>
+			<summary>full path of the notes db</summary>
+			<description>Contains the last opened db file</description>
 		</key>
 
 		<key name="import-files" type="b">
@@ -77,12 +83,6 @@
 			<default>true</default>
 			<summary>Automatic Indentation</summary>
 			<description>toggles the editor's automatic indentation</description>
-		</key>
-
-		<key name="keep-sidebar-visible" type="b">
-			<default>false</default>
-			<summary>Keep Sidebar visible</summary>
-			<description>Toggles the sidebar to keep it visible when switching between VIEW and EDIT modes.</description>
 		</key>
 
 		<key name="show-page-info" type="b">
@@ -136,6 +136,12 @@
 			<default>""</default>
 			<summary>Spell check language used</summary>
 			<description>This must be the name of one of the installed languages</description>
+		</key>
+
+		<key name="recent-files" type="as">
+			<default>[]</default>
+			<summary>The last opened files</summary>
+			<description>Sorted in order from most recent</description>
 		</key>
 	</schema>
 </schemalist>

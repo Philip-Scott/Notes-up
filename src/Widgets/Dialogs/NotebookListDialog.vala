@@ -58,7 +58,8 @@ public class ENotes.NotebookListDialog : Gtk.Dialog {
 
     construct {
         set_size_request (450, 600);
-        set_transient_for (window);
+        set_transient_for (app.get_app_window ());
+        modal = true;
     }
 
     public NotebookListDialog.to_move_page (ENotes.Page page_to_move) {

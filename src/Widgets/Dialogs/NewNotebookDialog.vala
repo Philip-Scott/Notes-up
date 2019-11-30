@@ -32,7 +32,7 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
 
     public NotebookDialog (Notebook? notebook = null) {
         this.notebook = notebook;
-        set_transient_for (window);
+        set_transient_for (app.get_app_window ());
         build_ui ();
         connect_signals ();
 
@@ -73,9 +73,9 @@ public class ENotes.NotebookDialog : Gtk.Dialog {
 
         if (notebook != null) {
             Gdk.RGBA color = Gdk.RGBA ();
-            color.red = notebook.r;
-            color.green = notebook.g;
-            color.blue = notebook.b;
+            color.red = notebook.rgb.red;
+            color.green = notebook.rgb.green;
+            color.blue = notebook.rgb.blue;
             color.alpha = 1;
 
             color_button = new Gtk.ColorButton.with_rgba (color);
