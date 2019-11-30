@@ -7,6 +7,7 @@ sources = files(
     'Widgets/Editor.vala',
     'Widgets/HelpBox.vala',
     'Widgets/Headerbar.vala',
+    'Widgets/NotebookPicker.vala',
     'Widgets/ViewEditStack.vala',
     'Widgets/ToolbarButton.vala',
     'Widgets/BookmarkButton.vala',
@@ -29,6 +30,7 @@ sources = files(
     'Widgets/Dialogs/NotebookListDialog.vala',
 
     'Services/Bookmark.vala',
+    'Services/FileData.vala',
     'Services/FileManager.vala',
     'Services/Notebook.vala',
     'Services/Image.vala',
