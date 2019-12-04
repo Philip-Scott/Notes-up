@@ -45,6 +45,7 @@ public class ENotes.PluginManager : GLib.Object {
         plug_list += new Highlight ();
         plug_list += new ImagePlugin ();
         plug_list += new PageLink ();
+        plug_list += new Mathjax ();
     }
 
     public unowned Plugin[] get_plugs () {

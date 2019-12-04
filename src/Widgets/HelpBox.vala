@@ -58,6 +58,7 @@ public class ENotes.HelpBox : Gtk.Revealer {
         add_item (_("Citation Text"), "", "\n[^1]: text");
 
         add_item (_("Youtube Video"), "", _("<youtube [link]>"));
+        add_item (_("LateX Math"), "", _("<mathjax>"));
         add_item (_("Page Break (when exporting)"), "", "<break>");
         add_item (_("Enable Syntax Highlighting"), "", "<highlight>");
         add_item (_("Set Color"), "", "<color #0099FF>");
