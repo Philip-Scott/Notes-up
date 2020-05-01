@@ -55,7 +55,7 @@ public class ENotes.HelpBox : Gtk.Revealer {
         add_item (_("Code Block"), "", "\n\n```\n code \n```");
         add_item (_("Link"), "", _("[Text](www...) "));
         add_item (_("Citation Anchor"), "", "[^1]");
-        add_item (_("Citation Text"), "", "\n[^1]: text");
+        add_item (_("Citation Text"), "", "\n" + _("[^1]: text"));
 
         add_item (_("Youtube Video"), "", _("<youtube [link]>"));
         add_item (_("Page Break (when exporting)"), "", "<break>");
