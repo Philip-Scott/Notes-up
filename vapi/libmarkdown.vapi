@@ -41,7 +41,7 @@ namespace Markdown
 	public void initialize ();
 	public void with_html5_tags ();
 	public void shlib_destructor ();
-	public char markdown_version[];
+	public char markdown_version[512];
 
 	[Compact]
 	[CCode (cname = "MMIOT", cprefix = "mkd_", free_function = "mkd_cleanup")]
