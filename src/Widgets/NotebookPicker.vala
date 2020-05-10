@@ -47,6 +47,7 @@ public class ENotes.NotebookPicker : Gtk.Grid {
 
         var more_button_label = new Gtk.Label (_("More Notebooks…"));
         more_button_label.halign = Gtk.Align.START;
+        more_button_label.margin_start = 18;
 
         more_button.add (more_button_label);
 
@@ -125,7 +126,6 @@ public class ENotes.NotebookPicker : Gtk.Grid {
             }
 
             var label = new Gtk.Label (file_name);
-
             label.get_style_context ().add_class ("h3");
             label.ellipsize = Pango.EllipsizeMode.END;
             label.halign = Gtk.Align.START;
