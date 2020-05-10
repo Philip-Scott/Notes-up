@@ -46,7 +46,6 @@ public class ENotes.NotebookPicker : Gtk.Grid {
         more_button.get_style_context ().add_class ("h4");
 
         var more_button_label = new Gtk.Label (_("More Notebooks…"));
-        more_button_label.margin_start = 18;
         more_button_label.halign = Gtk.Align.START;
 
         more_button.add (more_button_label);
@@ -111,6 +110,9 @@ public class ENotes.NotebookPicker : Gtk.Grid {
         }
 
         construct {
+            var event_box = new Gtk.EventBox ();
+            event_box.events = Gdk.EventMask.BUTTON3_MOTION_MASK;
+
             get_style_context ().add_class ("button");
             get_style_context ().add_class ("flat");
             tooltip_text = file.get_path ();
@@ -123,6 +125,7 @@ public class ENotes.NotebookPicker : Gtk.Grid {
             }
 
             var label = new Gtk.Label (file_name);
+
             label.get_style_context ().add_class ("h3");
             label.ellipsize = Pango.EllipsizeMode.END;
             label.halign = Gtk.Align.START;
@@ -134,7 +137,13 @@ public class ENotes.NotebookPicker : Gtk.Grid {
             box.add (icon);
             box.add (label);
 
-            add (box);
+            event_box.add (box);
+            add (event_box);
+
+            event_box.button_press_event.connect ((event) => {
+                if (event.button == 3 && event.type == Gdk.EventType.BUTTON_PRESS)
+                stdout.printf (@"Test $(event.button)\n");
+            });
         }
     }
 }
