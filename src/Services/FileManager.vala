@@ -157,6 +157,7 @@ public class ENotes.FileManager : Object {
                 var filter = new Gtk.FileFilter ();
                 filter.set_filter_name (_("Notes-Up Notebook"));
                 filter.add_mime_type ("application/x-notesup");
+                filter.add_pattern ("*.ndb");
 
                 filters.append (filter);
                 break;

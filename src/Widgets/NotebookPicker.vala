@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2019 Felipe Escoto (https://github.com/Philip-Scott/Notes-up)
+* Copyright (c) 2020 Felipe Escoto (https://github.com/Philip-Scott/Notes-up)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -83,6 +83,14 @@ public class ENotes.NotebookPicker : Gtk.Grid {
 
         more_button.clicked.connect (() => {
             var file = ENotes.FileManager.get_file_from_user ("ndb", null);
+
+            var basename = file.get_basename ().down ();
+
+            // Ensures file extension, with support for the old filenames
+            if (!(basename.has_suffix (".ndb") || basename.has_suffix (".db"))) {
+                file = File.new_for_path (file.get_path () + ".ndb");
+            }
+
             if (file != null) {
                 app.state.set_database (file.get_path ());
             }
@@ -111,9 +119,6 @@ public class ENotes.NotebookPicker : Gtk.Grid {
         }
 
         construct {
-            var event_box = new Gtk.EventBox ();
-            event_box.events = Gdk.EventMask.BUTTON3_MOTION_MASK;
-
             get_style_context ().add_class ("button");
             get_style_context ().add_class ("flat");
             tooltip_text = file.get_path ();
@@ -137,13 +142,7 @@ public class ENotes.NotebookPicker : Gtk.Grid {
             box.add (icon);
             box.add (label);
 
-            event_box.add (box);
-            add (event_box);
-
-            event_box.button_press_event.connect ((event) => {
-                if (event.button == 3 && event.type == Gdk.EventType.BUTTON_PRESS)
-                stdout.printf (@"Test $(event.button)\n");
-            });
+            add (box);
         }
     }
 }
