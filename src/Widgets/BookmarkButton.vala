@@ -23,34 +23,46 @@ public class ENotes.BookmarkButton : Gtk.Button {
     private ENotes.Page current_page;
     private Gtk.Image pic;
 
+    private bool starred {
+        set {
+            pic.set_from_icon_name (value ? "starred" : "non-starred", Gtk.IconSize.LARGE_TOOLBAR);
+        }
+    }
+
     public BookmarkButton () {
         pic = new Gtk.Image.from_icon_name ("non-starred",  Gtk.IconSize.LARGE_TOOLBAR);
 
         this.image = pic;
 
         expand = false;
+        sensitive = false;
         can_focus = false;
         has_tooltip = true;
         set_tooltip_markup (Granite.markup_accel_tooltip (app.get_accels_for_action ("win.bookmark-action"), _("Bookmark page")));
 
         app.state.notify["opened-page"].connect (() => {
-            current_page = app.state.opened_page;
-            setup ();
+            var page = app.state.opened_page;
+
+            if (page == null) {
+                sensitive = false;
+                starred = false;
+                return;
+            }
+
+            sensitive = true;
+            current_page = page;
+            set_starred_from_current_page ();
         });
 
-        app.state.bookmark_changed.connect (setup);
+        app.state.bookmark_changed.connect (set_starred_from_current_page);
 
         clicked.connect (() => {
             main_action ();
         });
     }
 
-    private void setup () {
-        if (BookmarkTable.get_instance ().is_bookmarked (this.current_page)) {
-            pic.set_from_icon_name ("starred", Gtk.IconSize.LARGE_TOOLBAR);
-        } else {
-            pic.set_from_icon_name ("non-starred", Gtk.IconSize.LARGE_TOOLBAR);
-        }
+    private void set_starred_from_current_page () {
+        starred = BookmarkTable.get_instance ().is_bookmarked (this.current_page);
     }
 
     public void main_action () {
@@ -61,6 +73,6 @@ public class ENotes.BookmarkButton : Gtk.Button {
         }
 
         ENotes.Sidebar.get_instance ().load_bookmarks ();
-        setup ();
+        set_starred_from_current_page ();
     }
 }

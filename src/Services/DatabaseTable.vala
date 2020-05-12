@@ -24,10 +24,32 @@ namespace Db {
         filename = (db_file != null) ? db_file.get_path () : IN_MEMORY_NAME;
     }
 
-    public void init () throws Error {
+    public bool init () throws Error {
         assert (filename != null);
 
-        DatabaseTable.init (filename);
+        return DatabaseTable.init (filename);
+    }
+
+    public bool is_file_valid (string path) {
+        File file_db = File.new_for_path (path);
+
+        // New empty files are concidered valid
+        if (!file_db.query_exists ()) {
+            return true;
+        }
+
+        Sqlite.Database test_db;
+        Sqlite.Database.open_v2 (path, out test_db, Sqlite.OPEN_READONLY, null);
+
+        Sqlite.Statement stmt;
+        int res = test_db.prepare_v2 ("SELECT id from notebook", -1, out stmt);
+
+        if (res != Sqlite.OK) {
+            GLib.critical (@"File was corrupted, or not a database $res");
+            return false;
+        }
+
+        return true;
     }
 
     public void terminate () {
@@ -92,8 +114,8 @@ public abstract class DatabaseTable {
 
     private static bool _init = false;
 
-    public static void init (string filename) {
-        if (_init) return;
+    public static bool init (string filename) {
+        if (_init) return true;
         _init = true;
 
         // Open DB.
@@ -108,11 +130,15 @@ public abstract class DatabaseTable {
                                  + "user_data TEXT NULL"
                                  + ")", -1, out stmt);
 
+
         // disable synchronized commits for performance reasons ... this is not vital, hence we
         // don't error out if this fails
         res = db.exec ("PRAGMA synchronous=OFF");
-        if (res != Sqlite.OK)
+        if (res != Sqlite.OK) {
             warning ("Unable to disable synchronous mode", res);
+        }
+
+        return true;
     }
 
     public static void terminate () {
@@ -131,7 +157,7 @@ public abstract class DatabaseTable {
 
     // XXX: errmsg () is global, and so this will not be accurate in a threaded situation
     protected static void fatal (string op, int res) {
-        error ("%s: [%d] %s", op, res, db.errmsg ());
+        GLib.warning ("%s: [%d] %s", op, res, db.errmsg ());
     }
 
     // XXX: errmsg () is global, and so this will not be accurate in a threaded situation
@@ -215,10 +241,8 @@ public abstract class DatabaseTable {
 
     private static void assert_test (bool condition, string data) {
         if (!condition) {
-            error ("Assertion failed: %s\n", data);
+            GLib.critical ("Assertion failed: %s\n", data);
         }
-
-        assert (condition);
     }
 
     protected bool exists_by_id (int64 id) {

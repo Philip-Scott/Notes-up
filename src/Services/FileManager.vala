@@ -114,7 +114,7 @@ public class ENotes.FileManager : Object {
         }
     }
 
-    public static File? get_file_from_user (string filetype, Gtk.FileChooserAction chooser_action) {
+    public static File? get_file_from_user (string filetype, Gtk.FileChooserAction? chooser_action) {
         File? result = null;
 
         string title = "";
@@ -151,14 +151,27 @@ public class ENotes.FileManager : Object {
 
                 filters.append (filter);
                 break;
+            case "ndb":
+                title =  _("Create or Open a Notes-Up File");
+
+                var filter = new Gtk.FileFilter ();
+                filter.set_filter_name (_("Notes-Up Notebook"));
+                filter.add_mime_type ("application/x-notesup");
+                filter.add_pattern ("*.ndb");
+
+                filters.append (filter);
+                break;
             default:
                 assert_not_reached ();
         }
 
         if (chooser_action == Gtk.FileChooserAction.SAVE) {
             accept_button_label = _("Save");
-        } else {
+        } else if (chooser_action == Gtk.FileChooserAction.OPEN) {
             accept_button_label = _("Open");
+        } else {
+            accept_button_label = _("Open or Create");
+            chooser_action = Gtk.FileChooserAction.SAVE;
         }
 
         var all_filter = new Gtk.FileFilter ();

@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2019 Felipe Escoto (https://github.com/Philip-Scott/Notes-up)
+* Copyright (c) 2020 Felipe Escoto (https://github.com/Philip-Scott/Notes-up)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -46,8 +46,8 @@ public class ENotes.NotebookPicker : Gtk.Grid {
         more_button.get_style_context ().add_class ("h4");
 
         var more_button_label = new Gtk.Label (_("More Notebooks…"));
-        more_button_label.margin_start = 18;
         more_button_label.halign = Gtk.Align.START;
+        more_button_label.margin_start = 18;
 
         more_button.add (more_button_label);
 
@@ -78,6 +78,21 @@ public class ENotes.NotebookPicker : Gtk.Grid {
             var element = row as NotebookElement;
             if (element != null) {
                 app.state.set_database (element.file_path);
+            }
+        });
+
+        more_button.clicked.connect (() => {
+            var file = ENotes.FileManager.get_file_from_user ("ndb", null);
+
+            var basename = file.get_basename ().down ();
+
+            // Ensures file extension, with support for the old filenames
+            if (!(basename.has_suffix (".ndb") || basename.has_suffix (".db"))) {
+                file = File.new_for_path (file.get_path () + ".ndb");
+            }
+
+            if (file != null) {
+                app.state.set_database (file.get_path ());
             }
         });
     }
