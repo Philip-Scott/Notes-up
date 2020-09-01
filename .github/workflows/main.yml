@@ -18,6 +18,6 @@ jobs:
         apt install -y cmake pkg-config libmarkdown2-dev libgtkspell3-3-dev libsqlite3-dev libgtksourceview-3.0-dev libwebkit2gtk-4.0-dev elementary-sdk
     - name: Build
       run: |
-        meson build
-        ninja -C build
-        ninja -C build install
+        cmake
+        make
+
