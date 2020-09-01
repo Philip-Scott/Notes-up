@@ -1,0 +1,23 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    container:
+      image: elementary/docker:unstable
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install Dependencies
+      run: |
+        apt update
+        apt install -y cmake pkg-config libmarkdown2-dev libgtkspell3-3-dev libsqlite3-dev libgtksourceview-3.0-dev libwebkit2gtk-4.0-dev elementary-sdk
+    - name: Build
+      run: |
+        cmake .
+        make
+
