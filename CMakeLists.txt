@@ -140,6 +140,7 @@ vala_precompile(VALA_C
   src/Plugins/Image.vala
   src/Plugins/PageLink.vala
   src/Plugins/Highlight.vala
+  src/Plugins/Mathjax.vala
   src/config.vala
 PACKAGES
   ${VALA_DEPS}
