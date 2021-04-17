@@ -30,6 +30,7 @@ public class ENotes.TagsTable : DatabaseTable {
 
     public static TagsTable get_instance () {
         if (instance == null) {
+            PageTable.get_instance ();
             instance = new TagsTable ();
         }
 
@@ -49,7 +50,9 @@ public class ENotes.TagsTable : DatabaseTable {
 
         stmt = create_stmt ("CREATE TABLE IF NOT EXISTS TagsPage ("
             + "page_id INTEGER, "
-            + "tag_id INTEGER)");
+            + "tag_id INTEGER, "    
+            + "FOREIGN KEY(page_id) REFERENCES Page(id), "
+            + "FOREIGN KEY(tag_id) REFERENCES Tags(id))");
 
         res = stmt.step ();
 
