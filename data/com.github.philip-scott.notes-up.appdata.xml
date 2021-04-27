@@ -130,6 +130,7 @@
   <url type="homepage">https://github.com/Philip-Scott</url>
   <url type="bugtracker">https://github.com/Philip-Scott/Notes-up/issues</url>
   <url type="help">https://github.com/Philip-Scott/Notes-up/issues</url>
+  <content_rating type="oars-1.1" />
   <update_contact>felescoto95@hotmail.com</update_contact>
   <custom>
     <value key="x-appcenter-color-primary">#BEDAFF</value>
