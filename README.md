@@ -63,3 +63,16 @@ For advanced users!
 	sudo make install
 
 If you are building on a distribution which is not elementary, you need to add `-Dnoele=1` when running cmake.
+
+### How to Build on Ubuntu
+You need a couple of additional packages to be installed before you can build from source on Ubuntu 18.04
+
+	sudo apt-get install cmake pkg-config libgtk-3-dev libgranite-dev libmarkdown2-dev libgtkspell3-3-dev libsqlite3-dev libgtksourceview-3.0-dev libwebkit2gtk-4.0-dev valac
+	git clone https://github.com/Philip-Scott/Notes-up
+	cd Notes-up
+	mkdir build && cd build
+	cmake -DCMAKE_INSTALL_PREFIX=/usr ../ -Dnoele=1
+	make
+	sudo make install
+
+
