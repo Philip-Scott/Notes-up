@@ -1,0 +1,64 @@
+# This is the same ID that you've used in meson.build and other files
+app-id: com.github.philip_scott.notes-up
+
+# Instead of manually specifying a long list of build and runtime dependencies,
+# we can use a convenient pre-made runtime and SDK. For this example, we'll be
+# using the runtime and SDK provided by elementary.
+runtime: io.elementary.Platform
+runtime-version: '6'
+sdk: io.elementary.Sdk
+
+# This should match the exec line in your .desktop file and usually is the same
+# as your app ID
+command: com.github.philip-scott.notes-up
+
+# Here we can specify the kinds of permissions our app needs to run. Since we're
+# not using hardware like webcams, making sound, or reading external files, we
+# only need permission to draw our app on screen using either X11 or Wayland.
+finish-args:
+  - '--share=ipc'
+  - '--socket=fallback-x11'
+  - '--socket=wayland'
+  - '--own-name=com.github.philip-scott.notes-up'
+  - '--filesystem=home'
+
+# This section is where you list all the source code required to build your app.
+# If we had external dependencies that weren't included in our SDK, we would list
+# them here.
+modules:
+  # Markdown to HTML library
+  - name: discount
+    buildsystem: simple
+    build-commands: 
+      - ./configure.sh --prefix=/app --enable-all-features --with-fenced-code --shared
+      - sed -e 's|/sbin/ldconfig|/sbin/ldconfig -n|' -i librarian.sh
+      - make install
+    sources: 
+      - type: archive
+        url: http://www.pell.portland.or.us/~orc/Code/discount/discount-2.2.4.tar.bz2
+        sha256: 74fd1e3cc2b4eacf7325d3fd89df38b589db60d5dd0f4f14a0115f7da5e230a5
+
+  # Required for GtkSpell
+  - name: intltool
+    cleanup:
+      - '*'
+    sources:
+      - type: archive
+        url: https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz
+        md5: 12e517cac2b57a0121cda351570f1e63
+
+  - name: gtkspell
+    config-opts:
+      - '--disable-gtk-doc-html'
+    cleanup:
+      - '/share/gtk-doc'
+    sources:
+      - type: archive
+        url: https://downloads.sourceforge.net/gtkspell/gtkspell3-3.0.10.tar.xz
+        sha256: b040f63836b347eb344f5542443dc254621805072f7141d49c067ecb5a375732
+    
+  - name: notes-up
+    buildsystem: meson
+    sources:
+      - type: dir
+        path: .

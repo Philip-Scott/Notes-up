@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 2\n"
-"Report-Msgid-Bugs-To: https://github.com/Philip-Scott/Notes-up/issues\n"
-"POT-Creation-Date: 2019-03-22 01:01-0600\n"
-"PO-Revision-Date: 2019-10-15 21:43+0200\n"
-"Last-Translator: Yannicka\n"
+"Project-Id-Version: com.github.philip-scott.notes-up\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-11-30 15:38+0100\n"
+"PO-Revision-Date: 2019-04-02 18:31+0200\n"
+"Last-Translator: NathanBnm\n"
 "Language-Team: Français\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -17,79 +17,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#. / These keys must be valid since they will be used across the app
-#: /home/felipe/Code/Notes-up/po/../src/Application.vala:37
-msgid "<Ctrl>M"
-msgstr "<Ctrl>M"
-
-#: /home/felipe/Code/Notes-up/po/../src/Application.vala:38
-msgid "<Ctrl>S"
-msgstr "<Ctrl>S"
-
-#: /home/felipe/Code/Notes-up/po/../src/Application.vala:39
-msgid "<Ctrl>Q"
-msgstr "<Ctrl>Q"
-
-#: /home/felipe/Code/Notes-up/po/../src/Application.vala:40
-msgid "<Ctrl><Shift>N"
-msgstr "<Ctrl><Shift>N"
-
-#: /home/felipe/Code/Notes-up/po/../src/Application.vala:41
-msgid "<Ctrl>F"
-msgstr "<Ctrl>F"
-
-#: /home/felipe/Code/Notes-up/po/../src/Application.vala:42
-msgid "<Ctrl>K"
-msgstr "<Ctrl>K"
-
-#: /home/felipe/Code/Notes-up/po/../src/Application.vala:43
-msgid "<Ctrl>B"
-msgstr "<Ctrl>B"
-
-#: /home/felipe/Code/Notes-up/po/../src/Application.vala:44
-msgid "<Ctrl>I"
-msgstr "<Ctrl>I"
-
-#: /home/felipe/Code/Notes-up/po/../src/Application.vala:45
-msgid "<Ctrl>T"
-msgstr "<Ctrl>T"
-
-#: /home/felipe/Code/Notes-up/po/../src/Application.vala:46
-msgid "<Ctrl><Shift>I"
-msgstr "<Ctrl><Shift>I"
-
-#: /home/felipe/Code/Notes-up/po/../src/Application.vala:65
-msgid "Notes-Up"
-msgstr "Notes-Up"
-
-#: /home/felipe/Code/Notes-up/po/../src/Application.vala:66
-msgid "Your Markdown Notebook."
-msgstr "Votre carnet de notes en Markdown."
-
-#: /home/felipe/Code/Notes-up/po/../src/Application.vala:67
-msgid "About Notes"
-msgstr "À propos"
-
-#: /home/felipe/Code/Notes-up/po/../src/Application.vala:108
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:257
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar/NotebookItem.vala:54
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar/NotebookList.vala:32
-msgid "New Notebook"
-msgstr "Nouveau carnet de notes"
-
-#: /home/felipe/Code/Notes-up/po/../src/Plugins/Break.vala:28
+#: src/Plugins/Break.vala:28
 msgid "Page break when exporting to PDF: <break>"
-msgstr "Saut de page pour export en PDF : <break>"
+msgstr "Saut de page pour export en PDF : <break>"
 
-#: /home/felipe/Code/Notes-up/po/../src/Plugins/Break.vala:32
+#: src/Plugins/Break.vala:32
 msgid "Page break"
 msgstr "Saut de page"
 
-#: /home/felipe/Code/Notes-up/po/../src/Plugins/Break.vala:47
+#: src/Plugins/Break.vala:47
 msgid "Page break on export: <break>"
-msgstr "Saut de page en export : <break>"
+msgstr "Saut de page en export : <break>"
 
-#: /home/felipe/Code/Notes-up/po/../src/Plugins/Color.vala:35
+#: src/Plugins/Color.vala:35
 msgid ""
 "Set font color for the line with <color [#color]> or for some text with "
 "<color [color] [text]>"
@@ -97,500 +37,572 @@ msgstr ""
 "Définissez la couleur de la police pour la ligne avec <color [#couleur]> ou "
 "pour un texte avec <color [couleur] [text]>"
 
-#: /home/felipe/Code/Notes-up/po/../src/Plugins/Color.vala:39
-#: /home/felipe/Code/Notes-up/po/../src/Plugins/Color.vala:68
+#: src/Plugins/Color.vala:39 src/Plugins/Color.vala:68
 msgid "Font color"
 msgstr "Couleur de police"
 
-#: /home/felipe/Code/Notes-up/po/../src/Plugins/Highlight.vala:28
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:62
+#: src/Plugins/Highlight.vala:28 src/Widgets/HelpBox.vala:62
 msgid "Enable Syntax Highlighting"
 msgstr "Mise en surbrillance"
 
-#: /home/felipe/Code/Notes-up/po/../src/Plugins/Highlight.vala:32
+#: src/Plugins/Highlight.vala:32
 msgid "Syntax Highlighing"
 msgstr "Surbrillance"
 
-#: /home/felipe/Code/Notes-up/po/../src/Plugins/Image.vala:28
+#: src/Plugins/Image.vala:28
 msgid "Load an embeded image"
 msgstr "Charger une image integrée"
 
-#: /home/felipe/Code/Notes-up/po/../src/Plugins/Image.vala:32
+#: src/Plugins/Image.vala:32
 msgid "Image"
 msgstr "Image"
 
-#: /home/felipe/Code/Notes-up/po/../src/Plugins/PageLink.vala:31
+#: src/Plugins/PageLink.vala:31
 msgid "Open a page in Notes-Up"
 msgstr "Ouvrir une page dans Notes-Up"
 
-#: /home/felipe/Code/Notes-up/po/../src/Plugins/PageLink.vala:35
+#: src/Plugins/PageLink.vala:35
 msgid "Link to Page"
 msgstr "Lien vers la page"
 
-#: /home/felipe/Code/Notes-up/po/../src/Plugins/Youtube.vala:30
+#: src/Plugins/Youtube.vala:30
 msgid "Embed youtube videos: <youtube [video]>"
 msgstr "Intégrer une vidéo YouTube : <youtube [vidéo]>"
 
-#: /home/felipe/Code/Notes-up/po/../src/Plugins/Youtube.vala:34
+#: src/Plugins/Youtube.vala:34
 msgid "Youtube"
 msgstr "YouTube"
 
-#: /home/felipe/Code/Notes-up/po/../src/Plugins/Youtube.vala:42
+#: src/Plugins/Youtube.vala:42
 msgid "Insert Youtube video"
 msgstr "Insérer une vidéo YouTube"
 
-#. /:\=\+&\-'"]* is very greedy way for stating website but closer solutions need more space
-#: /home/felipe/Code/Notes-up/po/../src/Plugins/Youtube.vala:78
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:60
+#: src/Plugins/Youtube.vala:78 src/Widgets/HelpBox.vala:60
 msgid "Youtube Video"
 msgstr "Vidéo YouTube"
 
-#: /home/felipe/Code/Notes-up/po/../src/Services/FileManager.vala:158
+#: src/Services/FileManager.vala:51
 msgid "Print to File"
 msgstr "Imprimer dans un fichier"
 
-#: /home/felipe/Code/Notes-up/po/../src/Services/FileManager.vala:233
+#: src/Services/FileManager.vala:126
 msgid "Save as PDF"
-msgstr "Enregistrer en tant que PDF"
+msgstr "Enregistrer en tant que fichier PDF"
 
-#: /home/felipe/Code/Notes-up/po/../src/Services/FileManager.vala:235
+#: src/Services/FileManager.vala:128
 msgid "PDF File"
 msgstr "Fichier PDF"
 
-#: /home/felipe/Code/Notes-up/po/../src/Services/FileManager.vala:243
+#: src/Services/FileManager.vala:136
 msgid "Save as Markdown"
-msgstr "Enregistrer en tant que Markdown"
+msgstr "Enregistrer en tant que fichier Markdown"
 
-#: /home/felipe/Code/Notes-up/po/../src/Services/FileManager.vala:245
+#: src/Services/FileManager.vala:138
 msgid "Markdown File"
 msgstr "Fichier Markdown"
 
-#: /home/felipe/Code/Notes-up/po/../src/Services/FileManager.vala:253
+#: src/Services/FileManager.vala:146
 msgid "Open Image"
-msgstr "Ouvrir une image"
+msgstr "Ouvrir l'image"
 
-#: /home/felipe/Code/Notes-up/po/../src/Services/FileManager.vala:256
+#: src/Services/FileManager.vala:149
 msgid "Images"
 msgstr "Images"
 
-#: /home/felipe/Code/Notes-up/po/../src/Services/FileManager.vala:266
+#: src/Services/FileManager.vala:159
 msgid "Save"
 msgstr "Enregistrer"
 
-#: /home/felipe/Code/Notes-up/po/../src/Services/FileManager.vala:268
+#: src/Services/FileManager.vala:161
 msgid "Open"
 msgstr "Ouvrir"
 
-#: /home/felipe/Code/Notes-up/po/../src/Services/FileManager.vala:272
+#: src/Services/FileManager.vala:165
 msgid "All Files"
 msgstr "Tous les fichiers"
 
-#: /home/felipe/Code/Notes-up/po/../src/Services/FileManager.vala:281
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Dialogs/NewNotebookDialog.vala:72
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Dialogs/NotebookListDialog.vala:34
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Dialogs/NotebookListDialog.vala:75
+#: src/Services/FileManager.vala:174
+#: src/Widgets/Dialogs/NewNotebookDialog.vala:72
+#: src/Widgets/Dialogs/NotebookListDialog.vala:34
+#: src/Widgets/Dialogs/NotebookListDialog.vala:76
 msgid "Cancel"
 msgstr "Annuler"
 
-#: /home/felipe/Code/Notes-up/po/../src/Services/Page.vala:177
-#: /home/felipe/Code/Notes-up/po/../src/Services/Page.vala:261
-#: /home/felipe/Code/Notes-up/po/../src/Services/Page.vala:272
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/PagesList.vala:101
+#: src/Services/Page.vala:172 src/Services/Page.vala:256
+#: src/Services/Page.vala:267 src/Widgets/PagesList.vala:101
 msgid "New Page"
-msgstr "Nouvelle page"
+msgstr "Nouvelle Page"
 
-#: /home/felipe/Code/Notes-up/po/../src/Services/StyleLoader.vala:23
+#: src/Services/StyleLoader.vala:23
 msgid "Default"
 msgstr "Défaut"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/BookmarkButton.vala:34
-msgid "Bookmark page"
-msgstr "Mettre la page en favoris"
-
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Dialogs/NewNotebookDialog.vala:63
+#: src/Widgets/Dialogs/NewNotebookDialog.vala:63
 msgid "Name:"
 msgstr "Nom :"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Dialogs/NewNotebookDialog.vala:64
+#: src/Widgets/Dialogs/NewNotebookDialog.vala:64
 msgid "Color:"
 msgstr "Couleur :"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Dialogs/NewNotebookDialog.vala:82
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:202
+#: src/Widgets/Dialogs/NewNotebookDialog.vala:82 src/Widgets/Headerbar.vala:204
 msgid "Edit"
 msgstr "Modifier"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Dialogs/NewNotebookDialog.vala:85
+#: src/Widgets/Dialogs/NewNotebookDialog.vala:85
 msgid "Create"
 msgstr "Créer"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Dialogs/NewNotebookDialog.vala:103
+#: src/Widgets/Dialogs/NewNotebookDialog.vala:103
 msgid "Properties"
 msgstr "Propriétés"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Dialogs/NewNotebookDialog.vala:104
+#: src/Widgets/Dialogs/NewNotebookDialog.vala:104
 msgid "Style"
 msgstr "Style"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Dialogs/NewNotebookDialog.vala:122
+#: src/Widgets/Dialogs/NewNotebookDialog.vala:122
 msgid "Style modifications"
 msgstr "Modifications de style"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Dialogs/NewNotebookDialog.vala:135
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Dialogs/PreferencesDialog.vala:161
+#: src/Widgets/Dialogs/NewNotebookDialog.vala:135
+#: src/Widgets/Dialogs/PreferencesDialog.vala:150
 msgid "Stylesheet:"
-msgstr "Feuille de style :"
+msgstr "Feuille de style :"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Dialogs/NotebookListDialog.vala:25
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar/NotebookItem.vala:56
+#: src/Widgets/Dialogs/NotebookListDialog.vala:25
 msgid "Move Notebook"
-msgstr "Déplacer le carnet de notes"
+msgstr "Déplacer le Carnet de Notes"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Dialogs/NotebookListDialog.vala:36
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Dialogs/NotebookListDialog.vala:77
+#: src/Widgets/Dialogs/NotebookListDialog.vala:36
+#: src/Widgets/Dialogs/NotebookListDialog.vala:78
 msgid "Move"
 msgstr "Déplacer"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Dialogs/NotebookListDialog.vala:65
+#: src/Widgets/Dialogs/NotebookListDialog.vala:66
 msgid "Move Page"
-msgstr "Déplacer la page"
+msgstr "Déplacer la Page"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Dialogs/PreferencesDialog.vala:42
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:260
+#: src/Widgets/Dialogs/PreferencesDialog.vala:41 src/Widgets/Headerbar.vala:355
 msgid "Preferences"
 msgstr "Préférences"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Dialogs/PreferencesDialog.vala:51
+#: src/Widgets/Dialogs/PreferencesDialog.vala:50
 msgid "Editor"
 msgstr "Éditeur"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Dialogs/PreferencesDialog.vala:52
+#: src/Widgets/Dialogs/PreferencesDialog.vala:51
 msgid "Viewer"
 msgstr "Affichage"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Dialogs/PreferencesDialog.vala:65
+#: src/Widgets/Dialogs/PreferencesDialog.vala:64
 msgid "_Close"
 msgstr "_Fermer"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Dialogs/PreferencesDialog.vala:73
+#: src/Widgets/Dialogs/PreferencesDialog.vala:72
 msgid "Font:"
 msgstr "Police :"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Dialogs/PreferencesDialog.vala:83
+#: src/Widgets/Dialogs/PreferencesDialog.vala:82
 msgid "Theme:"
 msgstr "Thème :"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Dialogs/PreferencesDialog.vala:94
+#: src/Widgets/Dialogs/PreferencesDialog.vala:93
 msgid "Automatic indentation:"
 msgstr "Indentation automatique :"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Dialogs/PreferencesDialog.vala:102
+#: src/Widgets/Dialogs/PreferencesDialog.vala:101
 msgid "Show line Numbers:"
 msgstr "Afficher les numéros de ligne :"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Dialogs/PreferencesDialog.vala:110
-msgid "Keep Sidebar Visible:"
-msgstr "Garder la barre latérale visible :"
-
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Dialogs/PreferencesDialog.vala:118
+#: src/Widgets/Dialogs/PreferencesDialog.vala:109
 msgid "Spellcheck:"
-msgstr "Vérification d'orthographe :"
+msgstr "Vérification orthographique :"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Dialogs/PreferencesDialog.vala:148
+#: src/Widgets/Dialogs/PreferencesDialog.vala:137
 msgid "Global style modifications"
 msgstr "Personnalisation du style"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:157
+#: src/Widgets/Sidebar/BookmarkItem.vala:54 src/Widgets/Sidebar/TagItem.vala:54
+msgid "Remove"
+msgstr "Supprimer"
+
+#: src/Widgets/Sidebar/NotebookItem.vala:53
+msgid "Edit Section"
+msgstr ""
+
+#: src/Widgets/Sidebar/NotebookItem.vala:54 src/Widgets/Headerbar.vala:354
+msgid "New Section"
+msgstr ""
+
+#: src/Widgets/Sidebar/NotebookItem.vala:55
+#, fuzzy
+msgid "Delete Section"
+msgstr "Supprimer la Page"
+
+#: src/Widgets/Sidebar/NotebookItem.vala:56
+msgid "Move Section"
+msgstr ""
+
+#: src/Widgets/Sidebar/NotebookList.vala:32
+msgid "New Notebook"
+msgstr "Nouveau Carnet de Notes"
+
+#: src/Widgets/Sidebar/Sidebar.vala:27
+msgid "Bookmarks"
+msgstr "Favoris"
+
+#: src/Widgets/Sidebar/Sidebar.vala:28
+msgid "Trash"
+msgstr "Corbeille"
+
+#: src/Widgets/Sidebar/Sidebar.vala:29
+msgid "Tags"
+msgstr "Étiquettes"
+
+#: src/Widgets/Sidebar/Sidebar.vala:33
+msgid "Sections"
+msgstr ""
+
+#: src/Widgets/Sidebar/Sidebar.vala:54
+msgid "All Notes"
+msgstr "Toutes les Notes"
+
+#: src/Widgets/Sidebar/Sidebar.vala:134
+msgid "Not in a Notebook"
+msgstr "Pas dans un Carnet de Notes"
+
+#: src/Widgets/Sidebar/Sidebar.vala:260
+#, fuzzy
+msgid "My Notes"
+msgstr "Toutes les Notes"
+
+#: src/Widgets/Sidebar/TrashItem.vala:28
+msgid "Restore"
+msgstr "Restaurer"
+
+#: src/Widgets/BookmarkButton.vala:34
+msgid "Bookmark page"
+msgstr "Mettre la page en favoris"
+
+#: src/Widgets/Editor.vala:188
 msgid "Add bold to text"
 msgstr "Mettre le texte en gras"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:164
+#: src/Widgets/Editor.vala:195
 msgid "Add italic to text"
 msgstr "Mettre le texte en italique"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:171
+#: src/Widgets/Editor.vala:202
 msgid "Strikethrough text"
 msgstr "Barrer le texte"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:175
+#: src/Widgets/Editor.vala:206
 msgid "Insert a quote"
 msgstr "Insérer une citation"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:176
+#: src/Widgets/Editor.vala:207
 msgid "Insert code"
 msgstr "Insérer du code"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:177
+#: src/Widgets/Editor.vala:208
 msgid "Insert a link"
 msgstr "Insérer un lien"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:179
+#: src/Widgets/Editor.vala:210
 msgid "Add a bulleted list"
 msgstr "Ajouter une liste à puces"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:180
+#: src/Widgets/Editor.vala:211
 msgid "Add a Numbered list"
 msgstr "Ajouter une liste numérotée"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:182
+#: src/Widgets/Editor.vala:213
 msgid "Insert an image"
 msgstr "Insérer une image"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Editor.vala:221
+#: src/Widgets/Editor.vala:252
 msgid "Formatting"
-msgstr "Formatter"
+msgstr "Formatage"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:59
+#: src/Widgets/Headerbar.vala:59
 msgid "Search your current notebook"
-msgstr "Chercher dans le carnet de notes courant"
+msgstr "Chercher dans le carnet courant"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:84
+#: src/Widgets/Headerbar.vala:84
 msgid "Add Tag"
 msgstr "Ajouter une étiquette"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:113
+#: src/Widgets/Headerbar.vala:113
 msgid "Edit Page Title"
-msgstr "Modifier le titre de la page"
+msgstr "Éditer le titre de la page"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:201
+#: src/Widgets/Headerbar.vala:202
 msgid "View"
 msgstr "Voir"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:205
+#: src/Widgets/Headerbar.vala:208
 msgid "Change mode"
-msgstr "Changer de mode"
+msgstr "Changer de thème"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:229
+#: src/Widgets/Headerbar.vala:233
+msgid "Show All"
+msgstr ""
+
+#: src/Widgets/Headerbar.vala:234
+msgid "Show Sections and Pages"
+msgstr ""
+
+#: src/Widgets/Headerbar.vala:235
+msgid "Show Only Pages"
+msgstr ""
+
+#: src/Widgets/Headerbar.vala:236
+msgid "Hide All"
+msgstr ""
+
+#: src/Widgets/Headerbar.vala:263
+msgid "Panel Options"
+msgstr ""
+
+#: src/Widgets/Headerbar.vala:327
 msgid "High Contrast"
-msgstr "Haut contraste"
+msgstr "Contraste élevé"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:237
+#: src/Widgets/Headerbar.vala:335
 msgid "Solarized Light"
 msgstr "Solarized Light"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:245
+#: src/Widgets/Headerbar.vala:343
 msgid "Solarized Dark"
 msgstr "Solarized Dark"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:263
+#: src/Widgets/Headerbar.vala:356
 msgid "Export as PDF"
-msgstr "Exporter en tant que PDF"
+msgstr "Exporter en PDF"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:266
+#: src/Widgets/Headerbar.vala:357
 msgid "Export as Markdown"
-msgstr "Exporter en tant que Markdown"
+msgstr "Exporter en Markdown"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Headerbar.vala:289
+#: src/Widgets/Headerbar.vala:380
 msgid "Menu"
 msgstr "Menu"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:41
+#: src/Widgets/HelpBox.vala:41
 msgid "Large Header"
 msgstr "En-tête large"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:42
+#: src/Widgets/HelpBox.vala:42
 msgid "Medium Header"
 msgstr "En-tête moyenne"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:43
+#: src/Widgets/HelpBox.vala:43
 msgid "Small Header"
 msgstr "En-tête petite"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:45
+#: src/Widgets/HelpBox.vala:45
 msgid "<i>Italic</i>"
 msgstr "<i>Italique</i>"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:45
+#: src/Widgets/HelpBox.vala:45
 msgid "_italic_"
 msgstr "_italique_"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:46
+#: src/Widgets/HelpBox.vala:46
 msgid "<b>Bold</b>"
 msgstr "<b>Gras</b>"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:46
+#: src/Widgets/HelpBox.vala:46
 msgid "**bold**"
 msgstr "**gras**"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:47
+#: src/Widgets/HelpBox.vala:47
 msgid "<s>Strike</s>"
 msgstr "<s>Barré</s>"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:47
+#: src/Widgets/HelpBox.vala:47
 msgid "~~strike~~"
-msgstr "~~Barré~~"
+msgstr "~~barré~~"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:48
+#: src/Widgets/HelpBox.vala:48
 msgid "|  <i>quote</i>"
 msgstr "| <i>citation</i>"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:50
+#: src/Widgets/HelpBox.vala:50
 msgid "1. Numbered list"
 msgstr "1. Liste numérotée"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:51
+#: src/Widgets/HelpBox.vala:51
 msgid "⚫ Bulleted list"
 msgstr "⚫ Liste à puces"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:53
+#: src/Widgets/HelpBox.vala:53
 msgid "Divider"
 msgstr "Séparateur"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:54
+#: src/Widgets/HelpBox.vala:54
 msgid "Code"
 msgstr "Code"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:55
+#: src/Widgets/HelpBox.vala:55
 msgid "Code Block"
 msgstr "Bloc de Code"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:56
+#: src/Widgets/HelpBox.vala:56
 msgid "Link"
 msgstr "Lien"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:56
+#: src/Widgets/HelpBox.vala:56
 msgid "[Text](www...) "
-msgstr "[Text](www...) "
+msgstr "[Texte](www...) "
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:57
+#: src/Widgets/HelpBox.vala:57
 msgid "Citation Anchor"
 msgstr "Renvoi"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:58
+#: src/Widgets/HelpBox.vala:58
 msgid "Citation Text"
 msgstr "Note de bas de page"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:60
+#: src/Widgets/HelpBox.vala:58
+msgid "[^1]: text"
+msgstr "[^1]: texte"
+
+#: src/Widgets/HelpBox.vala:60
 msgid "<youtube [link]>"
 msgstr "<youtube [lien]>"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:61
+#: src/Widgets/HelpBox.vala:61
 msgid "Page Break (when exporting)"
 msgstr "Saut de Page (en export)"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/HelpBox.vala:63
+#: src/Widgets/HelpBox.vala:63
 msgid "Set Color"
 msgstr "Couleur"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/PageInfoEditor.vala:71
+#: src/Widgets/PageInfoEditor.vala:71
 #, c-format
 msgid "Created: %s"
-msgstr "Créé : %s"
+msgstr "Créé : %s"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/PageInfoEditor.vala:78
+#: src/Widgets/PageInfoEditor.vala:78
 #, c-format
 msgid "Updated: %s"
-msgstr "Modifié : %s"
+msgstr "Mis à jour : %s"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/PageInfoEditor.vala:100
+#: src/Widgets/PageInfoEditor.vala:100
 msgid "Not in Notebook"
-msgstr "Pas dans un carnet de notes"
+msgstr "Pas dans le Carnet"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/PageInfoEditor.vala:127
+#: src/Widgets/PageInfoEditor.vala:127
 msgid "Move page…"
 msgstr "Déplacer la page…"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/PageInfoEditor.vala:163
+#: src/Widgets/PageInfoEditor.vala:163
 msgid "Copy link to page to clipboard"
-msgstr "Copier le lien de la page vers le presse-papier"
+msgstr "Copier le lien vers la page dans le presse-papiers"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/PageInfoEditor.vala:195
+#: src/Widgets/PageInfoEditor.vala:195
 msgid "Toggle page information"
-msgstr "Basculer les informations de la page"
+msgstr "Afficher/Masquer les informations sur la page"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/PageInfoEditor.vala:223
+#: src/Widgets/PageInfoEditor.vala:223
 msgid "Link to: "
-msgstr "Lien vers :"
+msgstr "Lien vers :"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/PageInfoEditor.vala:265
+#: src/Widgets/PageInfoEditor.vala:265
 msgid "Click to add tag…"
-msgstr "Cliquer pour ajouter une étiquette…"
+msgstr "Cliquez pour ajouter une étiquette…"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/PageInfoEditor.vala:329
+#: src/Widgets/PageInfoEditor.vala:329
 msgid "Remove tag"
 msgstr "Supprimer l'étiquette"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/PagesList.vala:106
+#: src/Widgets/PagesList.vala:106
 msgid "Delete Page"
-msgstr "Supprimer la page"
+msgstr "Supprimer la Page"
 
-#. //bugzilla.gnome.org/show_bug.cgi?id=758000 is fixed.
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/PagesList.vala:227
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/PagesList.vala:353
+#: src/Widgets/PagesList.vala:227 src/Widgets/PagesList.vala:353
 #, c-format
 msgid "%i Page"
 msgid_plural "%i Pages"
 msgstr[0] "%i Page"
 msgstr[1] "%i Pages"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar/BookmarkItem.vala:54
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar/TagItem.vala:54
-msgid "Remove"
-msgstr "Supprimer"
+#: src/Application.vala:39
+msgid "<Ctrl>M"
+msgstr "<Ctrl>M"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar/NotebookItem.vala:53
-msgid "Edit Notebook"
-msgstr "Modifier le carnet de notes"
+#: src/Application.vala:40
+msgid "<Ctrl>S"
+msgstr "<Ctrl>S"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar/NotebookItem.vala:55
-msgid "Delete Notebook"
-msgstr "Supprimer le carnet de notes"
+#: src/Application.vala:41
+msgid "<Ctrl>Q"
+msgstr "<Ctrl>Q"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar/Sidebar.vala:27
-msgid "Bookmarks"
-msgstr "Favoris"
+#: src/Application.vala:42
+msgid "<Ctrl><Shift>N"
+msgstr "<Ctrl><Maj>N"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar/Sidebar.vala:28
-msgid "Trash"
-msgstr "Corbeille"
+#: src/Application.vala:43
+msgid "<Ctrl>F"
+msgstr "<Ctrl>F"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar/Sidebar.vala:29
-msgid "Tags"
-msgstr "Étiquettes"
+#: src/Application.vala:44
+msgid "<Ctrl>K"
+msgstr "<Ctrl>K"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar/Sidebar.vala:33
-msgid "Notebooks"
-msgstr "Carnets de notes"
+#: src/Application.vala:45
+msgid "<Ctrl>B"
+msgstr "<Ctrl>B"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar/Sidebar.vala:54
-msgid "All Notes"
-msgstr "Toutes les notes"
+#: src/Application.vala:46
+msgid "<Ctrl>I"
+msgstr "<Ctrl>I"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar/Sidebar.vala:79
-msgid "Not in a Notebook"
-msgstr "Pas dans un carnet de notes"
+#: src/Application.vala:47
+msgid "<Ctrl>T"
+msgstr "<Ctrl>T"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar/Sidebar.vala:205
-msgid "My First Notebook"
-msgstr "Mon premier carnet de notes"
+#: src/Application.vala:48
+msgid "<Ctrl><Shift>I"
+msgstr "<Ctrl><Maj>I"
 
-#: /home/felipe/Code/Notes-up/po/../src/Widgets/Sidebar/TrashItem.vala:28
-msgid "Restore"
-msgstr "Restaurer"
+#: src/Application.vala:49
+#, fuzzy
+msgid "<Ctrl>P"
+msgstr "<Ctrl>M"
 
-#~ msgid "Export to PDF"
-#~ msgstr "Exporter en PDF"
+#: src/Application.vala:50
+#, fuzzy
+msgid "<Ctrl><Shift>P"
+msgstr "<Ctrl><Maj>N"
 
-#~ msgid "New Section"
-#~ msgstr "Nouvelle Section"
+#: src/Application.vala:66
+msgid "Notes-Up"
+msgstr "Notes-Up"
 
-#~ msgid "Air"
-#~ msgstr "Air"
+#: src/Application.vala:67
+msgid "Your Markdown Notebook."
+msgstr "Votre Carnet de Notes en Markdown."
 
-#~ msgid "Modest"
-#~ msgstr "Modeste"
+#: src/Application.vala:68
+msgid "About Notes"
+msgstr "À Propos"
 
-#~ msgid "Notes-up"
-#~ msgstr "Notes-up"
+#~ msgid "Keep Sidebar Visible:"
+#~ msgstr "Garder la barre latérale visible :"
 
-#~ msgid "translator-credits"
-#~ msgstr "Damien Bouthier / Corrections : NathanBnm"
+#~ msgid "Edit Notebook"
+#~ msgstr "Éditer le Carnet de Notes"
 
-#~ msgid "Enable Syntax Highlighing"
-#~ msgstr "Mise en Surbrillance"
+#~ msgid "Delete Notebook"
+#~ msgstr "Supprimer le Carnet"
 
-#~ msgid "Select destination PDF file"
-#~ msgstr "Sélectionner le fichier PDF de destination"
+#~ msgid "Notebooks"
+#~ msgstr "Carnets de Notes"
 
-#~ msgid "Open file"
-#~ msgstr "Ouvrir le fichier"
+#~ msgid "My First Notebook"
+#~ msgstr "Mon premier Carnet de Notes"

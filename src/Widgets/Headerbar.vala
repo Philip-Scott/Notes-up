@@ -230,7 +230,6 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
     }
 
     private void make_panel_picker_menu () {
-        var show_all_item = model_button_entry (_("Show All"), "panes-all-symbolic");
         var panes_two_item = model_button_entry (_("Show Sections and Pages"), "panes-two-symbolic");
         var panes_one_item = model_button_entry (_("Show Only Pages"), "panes-one-symbolic");
         var show_none_item = model_button_entry (_("Hide All"), "panes-none-symbolic");
@@ -240,7 +239,6 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         menu_grid.margin_bottom = 3;
         menu_grid.orientation = Gtk.Orientation.VERTICAL;
 
-        menu_grid.add (show_all_item);
         menu_grid.add (panes_two_item);
         menu_grid.add (panes_one_item);
         menu_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
@@ -264,10 +262,14 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
             )
         );
 
+        if (ENotes.FeatureFlags.SHOW_NOTEBOOK_PANE) {
+            var show_all_item = model_button_entry (_("Show All"), "panes-all-symbolic");
+            menu_grid.add (show_all_item);
 
-        show_all_item.clicked.connect (() => {
-            app.state.panes_visible = 3;
-        });
+            show_all_item.clicked.connect (() => {
+                app.state.panes_visible = 3;
+            });
+        }
 
         panes_two_item.clicked.connect (() => {
             app.state.panes_visible = 2;

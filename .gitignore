@@ -1,8 +1,5 @@
 build/
 
-# Ignore config.vala as it is generated with cmake
-src/config.vala
-
 # Ignore generated files of discount
 deps/discount/*.o
 deps/discount/Makefile
@@ -18,3 +15,5 @@ deps/discount/tmp/
 deps/discount/version.c
 
 *~
+
+.flatpak-builder

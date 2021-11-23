@@ -277,11 +277,11 @@ public class ENotes.Window : Gtk.ApplicationWindow {
 
     public void cycle_panel_mode () {
         var panes_visible = (app.state.panes_visible - 1);
-        app.state.panes_visible = panes_visible >= 0 ? panes_visible : 3;
+        app.state.panes_visible = panes_visible >= 0 ? panes_visible : (ENotes.FeatureFlags.SHOW_NOTEBOOK_PANE ? 3 : 2);
     }
 
     public void cycle_panel_mode_reverse () {
-        app.state.panes_visible = (app.state.panes_visible + 1) % 4;
+        app.state.panes_visible = (app.state.panes_visible + 1) % (ENotes.FeatureFlags.SHOW_NOTEBOOK_PANE ? 4 : 3) ;
     }
 
     private class FourPaneWindow : Gtk.Bin {
