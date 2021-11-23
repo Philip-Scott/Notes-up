@@ -27,7 +27,7 @@ executable(
         dependency('gtk+-3.0'),
         dependency('webkit2gtk-4.0'),
         dependency('sqlite3', version : '>=3.5.9'),
-        # dependency('gtkspell3-3.0'),
+        dependency('gtkspell3-3.0'),
         dependency('libmarkdown')
     ],
     vala_args: [

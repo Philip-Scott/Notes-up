@@ -26,6 +26,7 @@ finish-args:
 # If we had external dependencies that weren't included in our SDK, we would list
 # them here.
 modules:
+  # Markdown to HTML library
   - name: discount
     buildsystem: simple
     build-commands: 
@@ -37,6 +38,25 @@ modules:
         url: http://www.pell.portland.or.us/~orc/Code/discount/discount-2.2.4.tar.bz2
         sha256: 74fd1e3cc2b4eacf7325d3fd89df38b589db60d5dd0f4f14a0115f7da5e230a5
 
+  # Required for GtkSpell
+  - name: intltool
+    cleanup:
+      - '*'
+    sources:
+      - type: archive
+        url: https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz
+        md5: 12e517cac2b57a0121cda351570f1e63
+
+  - name: gtkspell
+    config-opts:
+      - '--disable-gtk-doc-html'
+    cleanup:
+      - '/share/gtk-doc'
+    sources:
+      - type: archive
+        url: https://downloads.sourceforge.net/gtkspell/gtkspell3-3.0.10.tar.xz
+        sha256: b040f63836b347eb344f5542443dc254621805072f7141d49c067ecb5a375732
+    
   - name: notes-up
     buildsystem: meson
     sources:
