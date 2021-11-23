@@ -78,7 +78,6 @@ public class ENotes.Application : Granite.Application {
         exec_name = TERMINAL_NAME;
         app_launcher = "com.github.philip-scott.notes-up";
 
-        build_version = Constants.VERSION;
         state = new State ();
     }
 

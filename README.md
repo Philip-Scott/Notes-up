@@ -47,19 +47,19 @@ You can also install Notes-Up from a PPA. But be aware that your results may var
 
 PPA: _ppa:philip.scott/notes-up_
 
-	sudo add-apt-repository ppa:philip.scott/notes-up
-	# sudo add-apt-repository ppa:elementary-os/stable
-	sudo apt-get update
-	sudo apt-get install com.github.philip-scott.notes-up
+```bash
+sudo add-apt-repository ppa:philip.scott/notes-up
+# sudo add-apt-repository ppa:elementary-os/stable
+sudo apt-get update
+sudo apt-get install com.github.philip-scott.notes-up
+```
 
 ## How To Build
 For advanced users!
 
-	git clone https://github.com/Philip-Scott/Notes-up
-	cd Notes-up
-	mkdir build && cd build
-	cmake -DCMAKE_INSTALL_PREFIX=/usr ../
-	make
-	sudo make install
-
-If you are building on a distribution which is not elementary, you need to add `-Dnoele=1` when running cmake.
+```bash
+git clone https://github.com/Philip-Scott/Notes-up
+cd Notes-up
+meson build --prefix=/usr && cd build
+ninja install
+```
