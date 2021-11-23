@@ -15,3 +15,5 @@ deps/discount/tmp/
 deps/discount/version.c
 
 *~
+
+.flatpak-builder

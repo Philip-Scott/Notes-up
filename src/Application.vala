@@ -62,6 +62,10 @@ namespace ENotes {
     public ENotes.Services.Settings settings;
 }
 
+namespace ENotes.FeatureFlags {
+    public const bool SHOW_NOTEBOOK_PANE = false;
+}
+
 public class ENotes.Application : Granite.Application {
     public const string PROGRAM_NAME = N_("Notes-Up");
     public const string COMMENT = N_("Your Markdown Notebook.");
