@@ -239,6 +239,15 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
         menu_grid.margin_bottom = 3;
         menu_grid.orientation = Gtk.Orientation.VERTICAL;
 
+        if (ENotes.FeatureFlags.SHOW_NOTEBOOK_PANE) {
+            var show_all_item = model_button_entry (_("Show All"), "panes-all-symbolic");
+            menu_grid.add (show_all_item);
+
+            show_all_item.clicked.connect (() => {
+                app.state.panes_visible = 3;
+            });
+        }
+
         menu_grid.add (panes_two_item);
         menu_grid.add (panes_one_item);
         menu_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
@@ -261,15 +270,6 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
                 _("Panel Options")
             )
         );
-
-        if (ENotes.FeatureFlags.SHOW_NOTEBOOK_PANE) {
-            var show_all_item = model_button_entry (_("Show All"), "panes-all-symbolic");
-            menu_grid.add (show_all_item);
-
-            show_all_item.clicked.connect (() => {
-                app.state.panes_visible = 3;
-            });
-        }
 
         panes_two_item.clicked.connect (() => {
             app.state.panes_visible = 2;
