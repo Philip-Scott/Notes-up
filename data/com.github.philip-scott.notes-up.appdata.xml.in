@@ -24,6 +24,15 @@
     <binary>com.github.philip-scott.notes-up</binary>
   </provides>
   <releases>
+    <release version="2.0.4" date="2021-11-23">
+      <description>
+        <p>Now on elementary 6.0</p>
+        <ul>
+          <li>Updated and packed Notes-Up for elementary 6.0</li>
+          <li>Add side-by-side mode</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.0.2" date="2019-05-05">
       <description>
         <p>The Future of Notes-Up, now with fixes!</p>
