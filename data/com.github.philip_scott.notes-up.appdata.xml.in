@@ -24,7 +24,7 @@
     <binary>com.github.philip_scott.notes-up</binary>
   </provides>
   <releases>
-    <release version="2.0.4" date="2021-11-23">
+    <release version="2.0.5" date="2021-11-24">
       <description>
         <p>Now on elementary 6.0</p>
         <ul>
