@@ -60,6 +60,7 @@ For advanced users!
 ```bash
 git clone https://github.com/Philip-Scott/Notes-up
 cd Notes-up
-meson build --prefix=/usr && cd build
-ninja install
+
+flatpak-builder build com.github.philip-scott.notes-up.yml --user --install --force-clean
+flatpak run com.github.philip_scott.notes-up
 ```
