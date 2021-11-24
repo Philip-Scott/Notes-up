@@ -1,9 +1,6 @@
 [Desktop Entry]
 Name=Notes-Up
 Comment=Your markdown notebook
-Comment[lt]=Jūsų markdown užrašinė
-Comment[fr]=Votre carnet de notes markdown
-Comment[pt_BR]=O seu caderno em Markdown
 Exec=com.github.philip_scott.notes-up %u
 Icon=com.github.philip_scott.notes-up
 Terminal=false
