@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright (c) 2019 Felipe Escoto (https://github.com/Philip-Scott/Notes-up) -->
 <component type="desktop">
-  <id>com.github.philip-scott.notes-up</id>
+  <id>com.github.philip_scott.notes-up</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0+</project_license>
   <name>Notes-Up</name>
@@ -21,7 +21,7 @@
      </ul>
     </description>
   <provides>
-    <binary>com.github.philip-scott.notes-up</binary>
+    <binary>com.github.philip_scott.notes-up</binary>
   </provides>
   <releases>
     <release version="2.0.4" date="2021-11-23">
