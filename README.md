@@ -6,7 +6,7 @@
 <br/>
 
 <p align="center">
-  <a href="https://appcenter.elementary.io/com.github.philip-scott.notes-up">
+  <a href="https://appcenter.elementary.io/com.github.philip_scott.notes-up">
     <img src="https://appcenter.elementary.io/badge.svg" alt="Get it on AppCenter">
   </a>
 </p>
@@ -34,7 +34,7 @@ As a Systems Engineer, I was writing my notes using just a text editor, and havi
 - And more to come!
 
 ## Installation:
-[![Get it on AppCenter](https://appcenter.elementary.io/badge.svg)](https://appcenter.elementary.io/com.github.philip-scott.notes-up)
+[![Get it on AppCenter](https://appcenter.elementary.io/badge.svg)](https://appcenter.elementary.io/com.github.philip_scott.notes-up)
 
 On elementary OS? Hit the button to get Notes-Up!
 
@@ -61,6 +61,6 @@ For advanced users!
 git clone https://github.com/Philip-Scott/Notes-up
 cd Notes-up
 
-flatpak-builder build com.github.philip-scott.notes-up.yml --user --install --force-clean
+flatpak-builder build com.github.philip_scott.notes-up.yml --user --install --force-clean
 flatpak run com.github.philip_scott.notes-up
 ```

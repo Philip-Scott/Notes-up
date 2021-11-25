@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Notes-Up
+Comment=Your markdown notebook
+Exec=com.github.philip_scott.notes-up %u
+Icon=com.github.philip_scott.notes-up
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=Office;WordProcessor;
+MimeType=application/x-notesup;

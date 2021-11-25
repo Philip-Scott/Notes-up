@@ -1,4 +1,4 @@
-project('com.github.philip-scott.notes-up','vala', 'c', version: '2.7.0')
+project('com.github.philip_scott.notes-up','vala', 'c', version: '2.7.0')
 
 gnome = import('gnome')
 i18n = import('i18n')
