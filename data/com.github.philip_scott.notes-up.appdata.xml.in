@@ -22,6 +22,8 @@
     </description>
   <provides>
     <binary>com.github.philip_scott.notes-up</binary>
+    <!-- legacy RDNN -->
+    <id>com.github.philip-scott.notes-up</id>
   </provides>
   <releases>
     <release version="2.0.6" date="2021-11-29">
