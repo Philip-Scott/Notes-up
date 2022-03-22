@@ -1,3 +1,19 @@
+
+conf = configuration_data()
+conf.set_quoted('PROJECT_NAME', meson.project_name())
+conf.set_quoted('APP_ID', APP_ID)
+conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
+conf.set_quoted('VERSION', meson.project_version())
+conf.set_quoted('PREFIX', get_option('prefix'))
+conf.set_quoted('DATADIR', join_paths (get_option('prefix'), get_option('datadir')))
+conf.set_quoted('LOCALEDIR', join_paths (get_option('prefix'), get_option('localedir')))
+config = configure_file(
+    input : 'Constants.vala.in',
+    output : 'Constants.vala',
+    configuration : conf
+)
+
+
 sources = files(
     'Main.vala',
     'Application.vala',

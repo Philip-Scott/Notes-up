@@ -19,19 +19,19 @@
 * Authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
 
-public const string APP_NAME = "Notes-Up";
-public const string TERMINAL_NAME = "notes-up";
 
 public static int main (string[] args) {
-    /* Initiliaze gettext support */
-    Intl.setlocale (LocaleCategory.ALL, Intl.get_language_names ()[0]);
+    /* Initialize gettext support */
+    GLib.Intl.setlocale (LocaleCategory.ALL, "");
+    GLib.Intl.bindtextdomain (Constants.GETTEXT_PACKAGE, Constants.LOCALEDIR);
+    GLib.Intl.bind_textdomain_codeset (Constants.GETTEXT_PACKAGE, "UTF-8");
+    GLib.Intl.textdomain (Constants.GETTEXT_PACKAGE);
 
-    Environment.set_application_name (APP_NAME);
-    Environment.set_prgname (APP_NAME);
+    // Environment.set_application_name (Constants.PROJECT_NAME);
+    // Environment.set_prgname (Constants.PROJECT_NAME);
 
     var application = new ENotes.Application ();
 
     return application.run (args);
 }
-
 
