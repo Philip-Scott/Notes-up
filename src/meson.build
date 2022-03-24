@@ -1,7 +1,6 @@
 
 conf = configuration_data()
 conf.set_quoted('PROJECT_NAME', meson.project_name())
-conf.set_quoted('APP_ID', APP_ID)
 conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
 conf.set_quoted('VERSION', meson.project_version())
 conf.set_quoted('PREFIX', get_option('prefix'))

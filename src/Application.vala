@@ -77,10 +77,10 @@ public class ENotes.Application : Granite.Application {
     construct {
         flags |= ApplicationFlags.HANDLES_OPEN;
 
-        application_id = Constants.APP_ID;
+        application_id = Constants.PROJECT_NAME;
         program_name = PROGRAM_NAME;
         exec_name = Constants.PROJECT_NAME;
-        app_launcher = Constants.APP_ID;
+        app_launcher = Constants.PROJECT_NAME;
 
         state = new State ();
     }

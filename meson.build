@@ -1,6 +1,4 @@
-project('notes-up','vala', 'c', version: '2.7.0')
-
-APP_ID = 'com.github.philip_scott.@0@'.format (meson.project_name())
+project('com.github.philip_scott.notes-up','vala', 'c', version: '2.7.0')
 
 gnome = import('gnome')
 i18n = import('i18n')
@@ -11,7 +9,7 @@ add_global_arguments(
 )
 
 asresources = gnome.compile_resources(
-    'as-resources', join_paths('data', APP_ID + '.gresource.xml'),
+    'as-resources', join_paths('data', meson.project_name() + '.gresource.xml'),
     source_dir: 'data',
     c_name: 'as'
 )
