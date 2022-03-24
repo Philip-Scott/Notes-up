@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Notes-Up
 Comment=Your markdown notebook
-Exec=com.github.philip_scott.notes-up %u
+Exec=notes-up %u
 Icon=com.github.philip_scott.notes-up
 Terminal=false
 Type=Application

@@ -10,7 +10,7 @@ sdk: io.elementary.Sdk
 
 # This should match the exec line in your .desktop file and usually is the same
 # as your app ID
-command: com.github.philip_scott.notes-up
+command: notes-up
 
 # Here we can specify the kinds of permissions our app needs to run. Since we're
 # not using hardware like webcams, making sound, or reading external files, we
