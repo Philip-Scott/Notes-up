@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.philip_scott.notes-up\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-30 15:38+0100\n"
-"PO-Revision-Date: 2019-04-02 18:31+0200\n"
+"PO-Revision-Date: 2022-03-23 10:56+0100\n"
 "Last-Translator: NathanBnm\n"
 "Language-Team: Français\n"
 "Language: fr\n"
@@ -16,6 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 2.3\n"
 
 #: src/Plugins/Break.vala:28
 msgid "Page break when exporting to PDF: <break>"
@@ -27,7 +28,7 @@ msgstr "Saut de page"
 
 #: src/Plugins/Break.vala:47
 msgid "Page break on export: <break>"
-msgstr "Saut de page en export : <break>"
+msgstr "Saut de page à l'export : <break>"
 
 #: src/Plugins/Color.vala:35
 msgid ""
@@ -43,11 +44,11 @@ msgstr "Couleur de police"
 
 #: src/Plugins/Highlight.vala:28 src/Widgets/HelpBox.vala:62
 msgid "Enable Syntax Highlighting"
-msgstr "Mise en surbrillance"
+msgstr "Activer la coloration syntaxtique"
 
 #: src/Plugins/Highlight.vala:32
 msgid "Syntax Highlighing"
-msgstr "Surbrillance"
+msgstr "Coloration syntaxtique"
 
 #: src/Plugins/Image.vala:28
 msgid "Load an embeded image"
@@ -229,20 +230,19 @@ msgstr "Supprimer"
 
 #: src/Widgets/Sidebar/NotebookItem.vala:53
 msgid "Edit Section"
-msgstr ""
+msgstr "Modifier la section"
 
 #: src/Widgets/Sidebar/NotebookItem.vala:54 src/Widgets/Headerbar.vala:354
 msgid "New Section"
-msgstr ""
+msgstr "Nouvelle section"
 
 #: src/Widgets/Sidebar/NotebookItem.vala:55
-#, fuzzy
 msgid "Delete Section"
-msgstr "Supprimer la Page"
+msgstr "Supprimer la section"
 
 #: src/Widgets/Sidebar/NotebookItem.vala:56
 msgid "Move Section"
-msgstr ""
+msgstr "Déplacer la section"
 
 #: src/Widgets/Sidebar/NotebookList.vala:32
 msgid "New Notebook"
@@ -262,7 +262,7 @@ msgstr "Étiquettes"
 
 #: src/Widgets/Sidebar/Sidebar.vala:33
 msgid "Sections"
-msgstr ""
+msgstr "Sections"
 
 #: src/Widgets/Sidebar/Sidebar.vala:54
 msgid "All Notes"
@@ -273,9 +273,8 @@ msgid "Not in a Notebook"
 msgstr "Pas dans un Carnet de Notes"
 
 #: src/Widgets/Sidebar/Sidebar.vala:260
-#, fuzzy
 msgid "My Notes"
-msgstr "Toutes les Notes"
+msgstr "Mes notes"
 
 #: src/Widgets/Sidebar/TrashItem.vala:28
 msgid "Restore"
@@ -347,23 +346,23 @@ msgstr "Changer de thème"
 
 #: src/Widgets/Headerbar.vala:233
 msgid "Show All"
-msgstr ""
+msgstr "Afficher tout"
 
 #: src/Widgets/Headerbar.vala:234
 msgid "Show Sections and Pages"
-msgstr ""
+msgstr "Afficher les sections et les pages"
 
 #: src/Widgets/Headerbar.vala:235
 msgid "Show Only Pages"
-msgstr ""
+msgstr "Afficher seulement les pages"
 
 #: src/Widgets/Headerbar.vala:236
 msgid "Hide All"
-msgstr ""
+msgstr "Masquer tout"
 
 #: src/Widgets/Headerbar.vala:263
 msgid "Panel Options"
-msgstr ""
+msgstr "Options des panneaux"
 
 #: src/Widgets/Headerbar.vala:327
 msgid "High Contrast"
@@ -484,12 +483,12 @@ msgstr "Couleur"
 #: src/Widgets/PageInfoEditor.vala:71
 #, c-format
 msgid "Created: %s"
-msgstr "Créé : %s"
+msgstr "Créé le : %s"
 
 #: src/Widgets/PageInfoEditor.vala:78
 #, c-format
 msgid "Updated: %s"
-msgstr "Mis à jour : %s"
+msgstr "Mis à jour le : %s"
 
 #: src/Widgets/PageInfoEditor.vala:100
 msgid "Not in Notebook"
@@ -544,7 +543,7 @@ msgstr "<Ctrl>Q"
 
 #: src/Application.vala:42
 msgid "<Ctrl><Shift>N"
-msgstr "<Ctrl><Maj>N"
+msgstr "<Ctrl><Shift>N"
 
 #: src/Application.vala:43
 msgid "<Ctrl>F"
@@ -568,17 +567,15 @@ msgstr "<Ctrl>T"
 
 #: src/Application.vala:48
 msgid "<Ctrl><Shift>I"
-msgstr "<Ctrl><Maj>I"
+msgstr "<Ctrl><Shift>I"
 
 #: src/Application.vala:49
-#, fuzzy
 msgid "<Ctrl>P"
-msgstr "<Ctrl>M"
+msgstr "<Ctrl>P"
 
 #: src/Application.vala:50
-#, fuzzy
 msgid "<Ctrl><Shift>P"
-msgstr "<Ctrl><Maj>N"
+msgstr "<Ctrl><Shift>N"
 
 #: src/Application.vala:66
 msgid "Notes-Up"
@@ -591,18 +588,3 @@ msgstr "Votre Carnet de Notes en Markdown."
 #: src/Application.vala:68
 msgid "About Notes"
 msgstr "À Propos"
-
-#~ msgid "Keep Sidebar Visible:"
-#~ msgstr "Garder la barre latérale visible :"
-
-#~ msgid "Edit Notebook"
-#~ msgstr "Éditer le Carnet de Notes"
-
-#~ msgid "Delete Notebook"
-#~ msgstr "Supprimer le Carnet"
-
-#~ msgid "Notebooks"
-#~ msgstr "Carnets de Notes"
-
-#~ msgid "My First Notebook"
-#~ msgstr "Mon premier Carnet de Notes"

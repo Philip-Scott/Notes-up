@@ -19,6 +19,7 @@ subdir('src')
 executable(
     meson.project_name(),
     sources,
+    config,
     asresources,
     dependencies: [
         dependency('granite'),
