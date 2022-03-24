@@ -27,8 +27,8 @@ public static int main (string[] args) {
     GLib.Intl.bind_textdomain_codeset (Constants.GETTEXT_PACKAGE, "UTF-8");
     GLib.Intl.textdomain (Constants.GETTEXT_PACKAGE);
 
-    // Environment.set_application_name (Constants.PROJECT_NAME);
-    // Environment.set_prgname (Constants.PROJECT_NAME);
+    Environment.set_application_name (N_("Notes-Up"));
+    Environment.set_prgname (Constants.PROJECT_NAME);
 
     var application = new ENotes.Application ();
 
